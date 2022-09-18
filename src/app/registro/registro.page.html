@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+   
+    <ion-title>Sing in</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="app-logo"></div>
+  <form [formGroup]="form_registro" (ngSubmit)="submit()" novalidate>
+    <!--<ion-list>-->
+    <ion-item lines="full" class="lleno">
+      <ion-label  position="floating" class="etiqueta">Full name</ion-label>
+      <ion-icon name="person" color="light" slot="end"></ion-icon>
+      <ion-input color="light" placeholder="Full name" formControlName="name" type="text" required></ion-input>
+     
+    </ion-item>
+    <ion-item lines="full" class="lleno">
+      <ion-label  position="floating" class="etiqueta">Email</ion-label>
+      <ion-icon name="mail" color="light" slot="end"></ion-icon>
+      <ion-input color="light"  placeholder="Email" formControlName="email" type="email" required></ion-input>
+     
+    </ion-item>
+    <ion-item lines="full" class="lleno">
+      <ion-label position="floating" class="etiqueta">Password</ion-label>
+      <ion-icon name="lock-closed" color="light" slot="end"></ion-icon>
+     
+      <ion-input color="light" placeholder="Password" formControlName="password" type="password" required></ion-input>
+    </ion-item>
+
+ 
+    <!--</ion-list>-->
+        <ion-button *ngIf ='verboton' type="submit" color="primary" expand="block" >Sign in</ion-button>
+   
+  </form>
+ <div style="text-align: center; padding:5px; color: white" >Do you accept the <a href="https://www.washtt.com/terms-and-conditions" target="_Blank">Terms and Conditions?</a></div>
+
+  <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="respuesta" value="NOT" >
+    <ion-segment-button style="color: #9ad21e " value="NOT"  >
+      <ion-label>NOT</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="YES" style="color: #9ad21e;">
+      <ion-label>YES</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+ 
+   
+<ion-grid>
+
+
+  <ion-row>
+    <ion-col>
+      <div class="separador">I already have an account</div>    
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-button   color="primary" expand="block" (click) = "login()" >LOGIN</ion-button>
+    </ion-col>
+  </ion-row> 
+ 
+</ion-grid>
+
+
+
+
+
+</ion-content>

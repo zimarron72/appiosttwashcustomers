@@ -1,0 +1,131 @@
+<ion-header >  
+  <ion-toolbar  color="primary">   
+     <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>    
+    <ion-title>Account</ion-title>   
+  </ion-toolbar>
+  <ion-toolbar *ngIf = "aviso"> 
+    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-title size="small" style="color: #ffffff;">refresh view to see changes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+<ion-card color="light">
+  <div class="img-wrapper">
+    <img [src]="rostro" />
+  </div>
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" (click) = "fromCamara()">
+          <ion-icon slot="start" name="camera-outline" color="medium">
+         
+          </ion-icon>
+          Camare
+        </ion-button>
+      </ion-col>
+  
+      <ion-col>
+        <ion-button color="primary" (click) = "fromGallery()">
+          <ion-icon slot="end" name="albums-outline" color="medium"></ion-icon>
+         
+     Gallery
+        </ion-button>
+      </ion-col>
+ 
+    </ion-row>
+    </ion-grid>
+
+
+  <ion-card-content class="ion-text-center">
+    <h2>{{fullname}}</h2>
+    <ion-text color="medium">
+      <div style="display: flex;" class="ion-justify-content-center">
+        <ion-icon name="location-outline" color="medium">
+        </ion-icon>
+        <p>{{address}}</p>
+      </div>
+    </ion-text>
+    
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <ion-text color="primary">
+            <h3>Email</h3>
+          </ion-text>       
+          <ion-text color="secondary">
+            <p>{{email}}</p>
+          </ion-text>
+        </ion-label>        
+      </ion-item>
+
+    <div *ngIf = "xusername">
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <ion-text color="primary">
+            <h3>Username</h3>
+          </ion-text>       
+          <ion-text color="secondary">
+            <p>{{username}}</p>
+          </ion-text>
+        </ion-label>
+        <!--<ion-button slot="end" (click) = "edit_username()">       
+          <ion-icon slot="icon-only" name="pencil" class="pen"></ion-icon>
+        </ion-button>-->
+      </ion-item>
+  </div>
+  <!--<div *ngIf = "xfusername">
+      <form [formGroup]="form_username" (ngSubmit)="submit_username()" novalidate>
+        <ion-item lines="full">
+          <ion-label  position="floating" class="etiqueta">Enter the new username</ion-label>
+          <ion-input placeholder="Enter the new username" color="tertiary"  formControlName="username" type="text" required ></ion-input>       
+        </ion-item>
+        <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
+        </form>
+        <ion-button   class="cancel" expand="block" (click) = "cancel_username()" >Cancel</ion-button>
+  </div>--> 
+
+  <div *ngIf = "xpassword">
+ 
+
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        <ion-text color="primary">
+          <h3>Change password</h3>
+        </ion-text>       
+        <ion-text color="secondary">
+          <p>................</p>
+        </ion-text>
+      </ion-label>
+    <ion-button slot="end" (click) = "edit_password()">       
+        <ion-icon slot="icon-only" name="pencil" class="pen"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+
+</div>
+<div *ngIf = "xfpassword">
+  <p>Password: 8 characters minimum that includes at least one number, one capital letter and one symbol</p>
+    <form [formGroup]="form_password" (ngSubmit)="submit_password()" novalidate>
+      <ion-item lines="full">
+        <ion-label  position="floating" class="etiqueta">Enter the new password</ion-label>
+        <ion-input placeholder="Enter the new password" color="tertiary"  formControlName="password"  required ></ion-input>       
+      </ion-item> 
+      <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
+      </form>
+      <ion-button   class="cancel" expand="block" (click) = "cancel_password()" >Cancel</ion-button>
+</div> 
+
+  </ion-card-content>
+</ion-card>
+</ion-content>
+

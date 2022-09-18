@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{mensaje}}</h1>
+<div mat-dialog-content>
+    <p>Do not forget to take a look at our offers of the week:</p>
+    <button mat-flat-button class= "deals" (click)="view()" style="color:#cb033c" >Deals of de week</button>
+</div><br>
+<p class="precio">{{precio_yarda}}</p>
+<div mat-dialog-actions1>    
+  
+<button mat-flat-button class= "tobook" (click)="yarda()">Booking in our site</button>
+   
+</div><br>
+<p class="precio">{{precio_mobil}}</p>
+<div mat-dialog-actions2>
+ 
+  <button mat-flat-button class= "tobook" (click)="mobil()" cdkFocusInitial>Mobil's bookings</button>
+</div>
+<br>
+<div mat-dialog-actions3>
+ 
+  <button mat-flat-button class= "tobook" (click)="cancel()" >Cancel</button>
+</div>

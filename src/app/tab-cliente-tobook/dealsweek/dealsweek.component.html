@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>To Book</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-title size="small" style="color:#ffffff">It applies to the base prices of our operations on the indicated day of the week. <strong>Warning:</strong> values may change without notice.</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+<div style="background-color:#cb033c; color: #fff">
+  <ion-button>     
+  Deals of the week
+  </ion-button>
+</div> 
+  <ion-grid class="ion-margin">
+    <ion-row>
+      <ion-col>Weekday</ion-col>
+      <ion-col>Appointment type</ion-col>
+      <ion-col>Discount %</ion-col>      
+    </ion-row>
+    <ion-row *ngFor="let deal of deals; index as i">
+      <ion-col>{{ deal.dia }}</ion-col>
+      <ion-col>{{ deal.tipocita }}</ion-col>
+      <ion-col>{{ deal.descuento }}</ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item lines="none">
+    <ion-button color="primary" size="small" slot="end" routerLink="/tabs-cliente/tobook/tipovehiculos">
+      To book now
+    </ion-button>
+  </ion-item>
+</ion-content>

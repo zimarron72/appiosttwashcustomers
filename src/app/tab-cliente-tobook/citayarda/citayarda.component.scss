@@ -1,0 +1,32 @@
+::ng-deep .mat-datepicker-content .mat-calendar {
+    width: 200px !important;
+    height: 280px !important;
+}
+
+
+.yarda {
+    background-color: #cea907 !important; 
+    border-radius: unset !important;
+    box-shadow: none;
+   }
+
+   ion-content{
+    --ion-background-color:#cea907;
+}
+
+.yarda-cancel {
+  background-color: #142f5f;
+width: 100%
+}
+
+.yarda-continuar {
+  background-color: #cb033c;
+width: 100%
+}
+
+::ng-deep .mat-select-panel {
+
+  background-color: #142f5f !important;
+
+  margin-left: 40px;
+}

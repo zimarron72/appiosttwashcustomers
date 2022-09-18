@@ -1,0 +1,95 @@
+table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: #142f5f;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-diagram {
+    box-sizing: border-box; 
+    background: #f2eae1;
+    color: #142f5f;
+    padding: 10px;  
+
+border-radius: 4px;
+font-size: 14px;
+-webkit-box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    text-align: justify;
+    margin-bottom:10px;
+    width: 100%;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+
+  th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+
+    text-align: center;
+  }
+
+  #cancel {
+    width: 90%;
+}
+#add {
+    width: 90%;
+}
+#checkout {
+  width: 90%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+#totalvacio {
+
+  color: #fff
+}
+::ng-deep  .mat-table tbody {
+
+  background: #cb033c !important;
+}
+
+.ticket {
+
+  text-align: center;
+  margin: unset;
+}
+
+.tickets {
+
+  text-align: left;
+  margin: unset;
+  color: #cb033c;
+
+}

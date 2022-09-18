@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Appointments</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+
+    <ion-item   color="primary" routerLink="/tabs-cliente/tobook/mybooks/1">
+
+      <ion-label floating ion-left>
+        <ion-icon name="warning" item-start class="text-primary" color="danger"></ion-icon> 
+       IN HOLD              
+      </ion-label>
+      <IonBadge  >({{inhold}})</IonBadge>
+      
+    </ion-item>
+    
+    <ion-item color ="warning" routerLink="/tabs-cliente/tobook/mybooks/2">
+
+      <ion-label floating ion-left>
+        <ion-icon name="checkmark-circle" item-start class="text-primary" color="primary"></ion-icon> 
+        COMFIRMED     
+      </ion-label >
+      <IonBadge  >({{confirmed}})</IonBadge>
+  
+    </ion-item>
+
+    <ion-item color ="success"  routerLink="/tabs-cliente/tobook/mybooks/7">
+     
+      <ion-label floating ion-left>
+        <ion-icon name="checkmark-done-circle" item-start class="text-primary" color="primary"></ion-icon> 
+      COMPLETED     
+      </ion-label>
+      <IonBadge  >({{completed}})</IonBadge>
+    </ion-item>
+
+    <ion-item  routerLink="/tabs-cliente/tobook/mybooks/9">
+   
+      <ion-label floating ion-left>
+        <ion-icon name="close-circle" item-start class="text-primary" color="primary"></ion-icon> 
+      CANCELLED      
+      </ion-label>
+      <IonBadge  >({{cancelled}})</IonBadge>
+    </ion-item>
+  
+   
+  
+  </ion-list> 
+
+
+</ion-content>

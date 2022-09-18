@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>To Book</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<mat-card class="mobil">
+  <mat-card-header>
+    <mat-card-title>Appointment mobil</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form  [formGroup]="form_tobooksite" (ngSubmit)="submit()">
+    
+     <mat-form-field>
+       <mat-select placeholder="Your location" [(ngModel)]="selectedOption1"  formControlName="location" (selectionChange)="cambiar1($event.value)" >
+        
+          <mat-option   [value]="0" >
+            Select
+             </mat-option>
+             <mat-option   [value]="valor1" >
+              {{etiqueta1}}
+              </mat-option>
+            <mat-option *ngFor="let site of sitioscliente"  [value]="site.id" >
+              {{site.address}} {{site.city}} {{site.zip}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="(form_tobooksite.get('location').hasError('required') && form_tobooksite.get('location').touched)">Location is required</mat-error>      
+      </mat-form-field>
+    <br>
+
+   <mat-form-field>
+    <mat-select placeholder="Your vehicle" [(ngModel)]="selectedOption2" formControlName="vehicle" (selectionChange)="cambiar2($event.value)" >
+      
+        
+        <mat-option   [value]="0" >
+          Select
+           </mat-option>
+           <mat-option   [value]="valor2" >
+            {{etiqueta2}}
+            </mat-option>
+          <mat-option *ngFor="let vehiculo of vehiculoscliente"  [value]="vehiculo.id" >
+            Unit number: {{vehiculo.unit_number}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)">vehicle is required</mat-error>      
+    </mat-form-field>
+    <br>
+
+<!--power begin-->
+
+<mat-form-field>
+    <mat-select placeholder="There is power supply in the location?" formControlName="power" > 
+      <mat-option   [value]="" >
+        Select
+         </mat-option>    
+        <mat-option *ngFor="let power of powers"  [value]="power.valor" >
+         {{power.etiqueta}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="(form_tobooksite.get('power').hasError('required') && form_tobooksite.get('power').touched)">your answer is necessary </mat-error>      
+  </mat-form-field>
+  <br>
+
+
+<!--power end-->
+
+<!--water begin-->
+
+<mat-form-field>
+  <mat-select placeholder="There is water supply in the location?" formControlName="water" >   
+    <mat-option   [value]="" >
+      Select
+       </mat-option>   
+      <mat-option *ngFor="let water of waters"  [value]="water.valor" >
+       {{water.etiqueta}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="(form_tobooksite.get('water').hasError('required') && form_tobooksite.get('water').touched)">your answer is necessary </mat-error>      
+</mat-form-field>
+<br>
+
+
+<!--water end-->
+
+<!--ensitio begin-->
+
+<mat-form-field>
+  <mat-select placeholder="Will you be present on the day and place of the service?" formControlName="ensitio" > 
+    <mat-option   [value]="" >
+      Select
+       </mat-option>     
+      <mat-option *ngFor="let ensitio of ensitios"  [value]="ensitio.valor" >
+       {{ensitio.etiqueta}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="(form_tobooksite.get('ensitio').hasError('required') && form_tobooksite.get('ensitio').touched)">your answer is necessary </mat-error>      
+</mat-form-field>
+<br>
+
+
+<!--ensitio end-->
+
+
+    <mat-form-field >
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" [min]="minDate"  formControlName="diacita">
+      <mat-error *ngIf="(form_tobooksite.get('diacita').hasError('required') && form_tobooksite.get('diacita').touched)">Date is required</mat-error> 
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <br>
+    
+    <mat-form-field>
+             <mat-select placeholder="Hour"  formControlName="horacita"  >
+        <mat-option *ngFor="let hora of horario"  [value]="hora.valor" >
+          {{hora.etiqueta}}
+        </mat-option>
+      </mat-select>
+      <small>Business hours are 9:00 am to 6:00 pm</small>
+      <mat-error *ngIf="(form_tobooksite.get('horacita').hasError('required') && form_tobooksite.get('horacita').touched)">Hour is required</mat-error>      
+  </mat-form-field>
+  <br>  
+  <button id="btnSubmit" mat-flat-button type="submit" class="mobil-continuar">Continue</button>
+    </form>
+    <br>
+    <button  mat-flat-button  class="mobil-cancel" (click)='cancel()'>Cancel</button>
+ </mat-card-content>
+
+</mat-card>
+</ion-content>
+

@@ -1,0 +1,58 @@
+
+<h1 mat-dialog-title>{{mensaje}}</h1>
+<mat-dialog-content [formGroup]="form_site" class="add-sitio">
+    
+    <mat-form-field>
+      <input matInput placeholder="Suite" class="form-control" type="text"   formControlName="suite">
+      <mat-error *ngIf="(form_site.get('suite').hasError('required') && form_site.get('suite').touched)">Suite is required</mat-error>
+       
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Street No." class="form-control" type="text"  formControlName="street">
+      <mat-error *ngIf="(form_site.get('street').hasError('required') && form_site.get('street').touched)">Street No. is required</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <textarea matInput placeholder="Address" class="form-control" type="text" formControlName="address"></textarea>
+      <mat-error *ngIf="(form_site.get('address').hasError('required') && form_site.get('address').touched)">Address  is required</mat-error>
+    </mat-form-field>
+    <br> <mat-form-field>
+      <input matInput placeholder="Postal Code" class="form-control" type="text" formControlName="zip">
+      <mat-error *ngIf="(form_site.get('zip').hasError('required') && form_site.get('zip').touched)">Postal code is required</mat-error>
+    </mat-form-field>
+    <br> 
+   <mat-form-field>
+      <mat-select placeholder="State"  formControlName="state"  >
+        <mat-option   [value]="" >
+          Select
+        </mat-option>
+          <mat-option *ngFor="let estado of estados"  [value]="estado.estado" >
+            {{estado.estado}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="(form_site.get('state').hasError('required') && form_site.get('state').touched)">State telephone is required</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select placeholder="City"  formControlName="city"  >
+        <mat-option   [value]="" >
+          Select
+        </mat-option>
+          <mat-option *ngFor="let city of cities"  [value]="city.city" >
+            {{city.city}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="(form_site.get('city').hasError('required') && form_site.get('city').touched)">City is required</mat-error>
+    </mat-form-field>
+    
+    <div mat-dialog-actions1>
+      <button  mat-flat-button  class="sitio-continuar" (click) = "enviar()">Add</button>
+    </div><br>
+    <div mat-dialog-actions2>
+      <button  mat-flat-button  class="sitio-cancel" (click) = "cancel()" cdkFocusInitial>Cancel</button> 
+    </div> 
+
+  </mat-dialog-content>
+
+

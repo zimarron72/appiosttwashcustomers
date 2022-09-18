@@ -1,0 +1,26 @@
+.site {
+  background-color: orange !important; 
+  border-radius:  unset !important;
+  box-shadow: none;
+ }
+
+ ion-content{
+  --ion-background-color: orange;
+}
+
+.site-continuar {
+background-color: #cb033c;
+width: 100%
+}
+
+.site-cancel {
+background-color: #142f5f;
+width: 100%
+}
+
+::ng-deep .mat-select-panel {
+
+  background-color: #142f5f !important;
+
+  margin-left: 10px;
+}

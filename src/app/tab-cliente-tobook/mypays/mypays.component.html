@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Payments: {{p}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-button (click) = "goBack()">
+    <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+    back    
+  </ion-button> 
+
+  <!--Tabla  principal-->
+<table mat-table [dataSource]="itemPagosTabla" multiTemplateDataRows
+       class="mat-elevation-z8">
+         
+ <!--<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}}  </td>
+
+  </ng-container>-->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="service">
+    <th mat-header-cell *matHeaderCellDef> Service </th>
+    <td mat-cell *matCellDef="let element"> {{element.service}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="order_number">
+    <th mat-header-cell *matHeaderCellDef> Order</th>
+    <td mat-cell *matCellDef="let element"> {{element.order_number}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+ <!--<ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>-->
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Expand">
+    <th mat-header-cell *matHeaderCellDef> Expand </th>
+    <td mat-cell *matCellDef="let element"><mat-icon>unfold_more</mat-icon></td>
+  </ng-container>
+
+  
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+    <div class="example-element-diagram">
+      <p class="tickets">Payment date:</p>
+      <p class="ticket">{{element.fechapago}}</p>
+      <p class="tickets">Price:</p>
+      <p class="ticket">{{element.Price_item_string}}</p>
+      <p class="tickets">Discount:</p>
+        <p class="ticket">{{element.Descuento_item_string}}</p>      
+          <p class="tickets">Tip:</p>
+            <p class="ticket">{{element.Propina_string}}</p>
+         
+           
+                <div style="text-align: center;" *ngIf="element.vercharge_item">Servicio charge</div>
+          <p *ngIf="element.vercharge_item" class="tickets">Monto:</p>
+          <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_monto_item_string}}</p>
+            <p *ngIf="element.vercharge_item" class="tickets">Concepto:</p>
+            <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_concepto_item}}</p>
+            <!--<p *ngIf="element.vercharge_item" class="tickets">Status:</p>
+            <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_aprobacion_item}}</p>-->
+
+            <p class="tickets">Total:</p>
+            <p class="ticket">{{element.Amount_string}}</p>       
+            <p class="tickets">Payment reference:</p>
+              <p class="ticket">{{element.txn_id}}</p>   
+
+
+      </div>
+      </div>
+    </td>
+    
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  
+
+</table>
+
+
+
+</ion-content>

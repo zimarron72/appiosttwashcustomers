@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Appointments</ion-title>
+  </ion-toolbar>
+  <ion-toolbar *ngIf=" 2 >= n" style ="color:#ffffff;"> 
+    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-title size="small">Appointments can be canceled with at least 24 hours notice</ion-title>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="n == 7" style ="color:#ffffff;"> 
+    <ion-icon name="warning" slot='start' color="danger"></ion-icon>
+    <ion-title size="small">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="n >= 9" style ="color:#ffffff;"> 
+    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-title size="small">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-button (click) = "goBack()">
+    <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+    back    
+  </ion-button>
+
+
+
+  <div  *ngIf = 'vermensaje' style="text-align: center;"> <img src="./assets/imgs/icono_exclamacion.png" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  
+  <diV  *ngIf = 'vertabla'>
+  <!--Tabla de cart principal-->
+<table mat-table [dataSource]="itemOrderTabla" multiTemplateDataRows
+       class="mat-elevation-z8">
+         
+ <!--<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}}  </td>
+
+  </ng-container>-->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="Service">
+    <th mat-header-cell *matHeaderCellDef> Service </th>
+    <td mat-cell *matCellDef="let element"> {{element.Service}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Appointment">
+    <th mat-header-cell *matHeaderCellDef> Appointment</th>
+    <td mat-cell *matCellDef="let element"> {{element.Appointment}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Location">
+    <th mat-header-cell *matHeaderCellDef> Type </th>
+    <td mat-cell *matCellDef="let element"> {{element.Location}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Expand">
+    <th mat-header-cell *matHeaderCellDef> Expand </th>
+    <td mat-cell *matCellDef="let element"><mat-icon>unfold_more</mat-icon></td>
+  </ng-container>
+
+  
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+    <div class="example-element-diagram">
+      <p class="tickets"> Type:</p>
+      <p class="ticket">{{element.Location}}</p>
+      <p class="tickets"> Nº Order:</p>
+      <p class="ticket">{{element.Order}}</p>
+      <p class="tickets"> Hour:</p>
+      <p class="ticket">{{element.citahora}}</p>       
+      <p class="tickets">Price:</p>
+      <p class="ticket">{{element.Price_item_string}}</p>
+        <p class="tickets">Discount:</p>
+        <p class="ticket">{{element.Descuento_item_string}}</p>
+          <p class="tickets">Total:</p>
+          <p class="ticket">{{element.Total_item_string}}</p>
+
+
+        
+         
+         <div *ngIf="n == 7">
+<div style="text-align: center;" *ngIf="element.vercharge_item">Servicio charge</div>
+          <p *ngIf="element.vercharge_item" class="tickets">Monto:</p>
+          <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_monto_item}}</p>
+            <p *ngIf="element.vercharge_item" class="tickets">Concepto:</p>
+            <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_concepto_item}}</p>
+            <p *ngIf="element.vercharge_item" class="tickets">Status:</p>
+            <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_aprobacion_item}}</p>
+
+            <div style="text-align: center; padding:5px; color: rgb(240, 69, 69)" >Do you accept the Service charge</div>
+
+            <ion-segment *ngIf="element.vercharge_item" (ionChange)="segmentChanged($event)" [(ngModel)]="respuesta" value="NOT" >
+              <ion-segment-button style="color: #9ad21e " value="NOT"  >
+                <ion-label>NOT</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="YES" style="color: #9ad21e;">
+                <ion-label>YES</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+          
+
+
+
+
+         </div>
+         
+         <div *ngIf="n == 7">
+<div *ngIf="element.vercharge_item">
+          <a *ngIf="verenlace1" mat-button  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2"><mat-icon>payment</mat-icon> TO PAY NOW</a> 
+          <a *ngIf="verenlace2" mat-button  routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0"><mat-icon>payment</mat-icon> TO PAY NOW</a> 
+        </div>
+
+          <a mat-button *ngIf="element.verenlace3_item" routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1"><mat-icon>payment</mat-icon> TO PAY NOW</a> 
+        
+        
+        
+        
+        
+        </div>
+
+
+        <div *ngIf=" 2 >= n" >
+          <button mat-mini-fab aria-label="cancelar icon" (click)="Cancelar(element.order_item_id)">
+            <mat-icon>event_busy</mat-icon>
+          </button>
+        </div>        
+        <div *ngIf="n >= 9">
+          <button mat-mini-fab aria-label="borrar icon" (click)="Borrar(element.order_item_id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+              
+              
+      </div>
+      </div>
+    </td>
+    
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  
+
+</table>
+
+</diV>
+
+</ion-content>

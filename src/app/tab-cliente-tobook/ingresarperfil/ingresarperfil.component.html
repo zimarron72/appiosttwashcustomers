@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>To Book</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-title size="small" style="color:#ffffff">Before starting we require basic information for your bill</ion-title>
+  </ion-toolbar>
+</ion-header>
+  <ion-content>
+
+
+<mat-card class="perfil">
+  <mat-card-header>
+    <mat-card-title>Basic information</mat-card-title>
+  </mat-card-header>
+    <mat-card-content>
+      <form  [formGroup]="form_perfil"  novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Firstname"  formControlName="firstname" >
+        <mat-error *ngIf="(form_perfil.get('firstname').hasError('required') && form_perfil.get('firstname').touched)">Firstname is required</mat-error>      
+         </mat-form-field>
+               <mat-form-field>
+        <input matInput placeholder="Lastname"  formControlName="lastname" >
+        <mat-error *ngIf="(form_perfil.get('lastname').hasError('required') && form_perfil.get('lastname').touched)">Lastname is required</mat-error>       
+      </mat-form-field>      
+   <mat-form-field>
+        <mat-select placeholder="Customer type"  formControlName="customertypes"  (selectionChange)="cambiar($event.value)" >
+            <mat-option *ngFor="let customertype of customertypes"  [value]="customertype.valor" >
+              {{customertype.etiqueta}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="(form_perfil.get('customertypes').hasError('required') && form_perfil.get('customertypes').touched)">Customer type is required</mat-error>      
+      </mat-form-field>
+      <div *ngIf="show1">
+      <mat-form-field >
+        <input matInput placeholder="Company name"   formControlName="companyname">
+        <mat-error *ngIf="(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)">Company name is required</mat-error>
+      </mat-form-field>    
+      <mat-form-field >
+        <input matInput placeholder="Company codigo"  formControlName="companycodigo">
+        <mat-error *ngIf="(form_perfil.get('companycodigo').hasError('required') && form_perfil.get('companycodigo').touched)">Company codigo is required</mat-error>     
+      </mat-form-field></div>
+      <mat-form-field>
+        <input matInput type="tel" placeholder="Telephone number"  formControlName="telephone" >
+   
+        <mat-error *ngIf="(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)">Telephone is required</mat-error>
+      </mat-form-field> 
+      <mat-form-field>
+        <input matInput type="tel" placeholder="Mobilphone number"  formControlName="mobilphone">
+        
+        <mat-error *ngIf="(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)">Mobil telephone is required</mat-error>
+      </mat-form-field><br>     
+    
+      </form>
+      <br>
+      <button mat-flat-button (click) = "submit_perfil()" class="perfil-continuar">Continue</button>
+</mat-card-content>
+  </mat-card>
+</ion-content>
+

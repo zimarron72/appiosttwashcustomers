@@ -1,0 +1,32 @@
+
+
+.perfil {
+  background-color: orange !important; 
+  border-radius:  unset !important;
+  box-shadow: none;
+ }
+
+ ion-content{
+  --ion-background-color:orange;
+}
+
+.perfil-continuar {
+background-color: #cb033c;
+width: 100%
+}
+
+.perfil-cancel {
+background-color: #142f5f;
+width: 100%
+}
+
+::ng-deep .mat-select-panel {
+
+  background-color: #142f5f !important;
+
+  margin-left: 10px;
+}
+
+
+
+ 

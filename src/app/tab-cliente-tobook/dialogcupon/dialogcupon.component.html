@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{mensaje}}</h1>
+<div mat-dialog-content>
+  <form  [formGroup]="form_cupon" >
+    <mat-form-field >
+    
+      <input matInput placeholder="Cupon" formControlName="cuponcode">
+      <mat-error *ngIf="(form_cupon.get('cuponcode').hasError('required') && form_cupon.get('cuponcode').touched)">Cupon is required</mat-error>
+     
+      
+    </mat-form-field>  
+  </form>
+</div>
+
+<div mat-dialog-actions1>
+    <button mat-raised-button class= "cupons" (click)="enviar()" >Send</button>
+   
+</div><br>
+<div mat-dialog-actions2>
+ 
+  <button mat-raised-button class= "cupons" (click)="cancel()" cdkFocusInitial>Cancel</button>
+</div>

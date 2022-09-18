@@ -1,0 +1,167 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Payout</ion-title>
+  </ion-toolbar>
+  <ion-toolbar> 
+    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-title size="small" style="color:#ffffff">All payments are subject to a review stage before their appropriate approval.</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<form id="payment-form">
+  <div id="billing">
+
+    <div class="label">Service</div> 
+    <input type="text" id="concept" name="concept" class="form-control" value ='{{servicio}}' readonly="" > 
+
+    
+
+    <div class="label" >Price</div> 
+    <input type="text" id="sub-total" name="sub-total" class="form-control" value ='{{precio_string}}' readonly=""> 
+ 
+    
+
+    <div class="label">Discount</div> 
+    <input type="text" id="descuento" name="descuento" class="form-control" value ='{{descuento_string}}' readonly=""> 
+
+    
+
+    <div class="label">Total</div> 
+    <input type="text" id="total" name="total" class="form-control" value ='{{total_string}}' readonly=""> 
+
+    
+    
+
+    <div class="tip">Tip</div> 
+    <input type="tel" id="tip" name="tip" class="form-control" value=""> 
+
+
+   
+      <!--<input type="hidden" id="uid" name="uid"  value='{{uid}}'> 
+      <input type="hidden" id="uemail" name="uemail"  value='{{uemail}}'> 
+      <input type="hidden" id="n" name="n" value="0">-->
+  </div>
+
+
+
+  <div id="card-container">
+  
+  </div>
+  
+<!--<ion-button id="card-button" (click) = "eventHandler()">
+    <ion-icon slot="start" name="star"></ion-icon>
+   To pay
+  </ion-button>-->
+  <ion-row>
+    <ion-col>
+      <ion-button   color="primary" expand="block" (click) = "eventHandler()" >To pay</ion-button>
+    </ion-col>
+  </ion-row>
+</form>
+<div id="payment-status-container"></div>
+<ion-row>
+  <ion-col>
+    <ion-button   color="primary" expand="block" (click) = "cancelar()" >Cancel</ion-button>
+  </ion-col>
+</ion-row>
+
+</ion-content>
+
+
+
+<!--<form id="payment-form">
+    
+    
+          
+  <div class="campo"> 
+<label for="concept">Service</label> 
+<input type="text" id="concept" name="concept" class="form-control" value ='{{servicio}}' readonly="" > 
+</div>
+
+<div class="campo"> 
+<label for="sub-total">Price</label> 
+<input type="text" id="sub-total" name="sub-total" class="form-control" value ='{{subtotal}}' readonly=""> 
+</div>
+
+<div class="campo"> 
+<label for="descuento">Discount</label> 
+<input type="text" id="descuento" name="descuento" class="form-control" value ='{{descuento}}' readonly=""> 
+</div>
+
+<div class="campo"> 
+<label for="total">Total</label> 
+<input type="text" id="total" name="total" class="form-control" value ='{{total}}' readonly=""> 
+</div>
+
+
+<div class="campo"> 
+<label for="tip">Tip</label> 
+<input type="text" id="tip" name="tip" class="form-control" value=""> 
+</div>
+
+
+</div>
+<div class="campo"> 
+<img src="https://www.washtt.com/images/square-logo.png" alt="logo square">
+ </div>     
+
+
+<div id="card-container"></div>
+<button id="card-button" type="button">Pay</button>
+</form>-->
+
+
+
+
+
+   
+
+   <!--<form id="nonce-form" novalidate action="" method="post">
+ <div class="" id="billing">
+        <label for="concept">Service</label>
+        <input type="text" name="concept" id="concept" size="35" value ='{{servicio}}' readonly="" ><br>
+        <label for="sub-total">Subtotal</label>
+        <input type="text" name="sub-total" id="sub-total"  size="35" value ='{{subtotal}}' readonly=""><br>
+        <label for="descuento">Discount</label>
+        <input type="text" name="descuento" id="descuento"  size="35" value ='{{descuento}}' readonly=""><br>
+        <label for="total">Total</label>
+        <input type="text" name="total" id="total"  size="35" value ='{{total}}' readonly=""><br>
+        <label for="tip">Tip</label>
+        <input type="text" name="tip" id="tip"  size="35" value ='{{tip}}' readonly="" ><br>
+ </div>
+
+
+      <label for="sq-card-number">Card Number:</label>
+      <div id="sq-card-number"></div>
+      <div id="error-card-number"></div>
+      <label for="sq-cvv">CVV:</label>
+      <div id="sq-cvv"></div>
+      <div id="error-sq-cvv"></div>
+      <label for="sq-expiration-date">Expiration Date:</label>     
+      <div id="sq-expiration-date"></div>
+      <div id="error-expiration-date"></div>
+     <label for="sq-postal-code">Postal Code:</label>
+      <div id="sq-postal-code"></div>
+      <div id="error-postal-code"></div>
+
+     
+
+      <button id="sq-creditcard" class="btn-main button-credit-card" (click)="this.requestCardNonce($event)">To pay</button>
+    
+      <input type="hidden" id="sq-id" name="sq-id">
+      <input type="hidden" id="card-nonce" name="nonce">
+
+      <ion-button (click)="this.requestCardNonce($event)">
+        <ion-icon slot="start" name="star"></ion-icon>
+       To pay
+      </ion-button>
+
+
+    </form>-->
+ 
+
+
+

@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar  color="primary">
+    <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+    </ion-buttons>
+  
+    <ion-title>Add new vehicle</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+  <mat-card class="addcar">
+    <mat-card-content >
+      <form  [formGroup]="form_truck" (ngSubmit)="submit()">
+  
+        <mat-form-field>
+          <mat-select placeholder="Vehicle type"  formControlName="vehicletypes"  >
+              <mat-option *ngFor="let vehicletype of vehicletypes"  [value]="vehicletype.vehiculo" >
+                {{vehicletype.vehiculo}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="(form_truck.get('vehicletypes').hasError('required') && form_truck.get('vehicletypes').touched)">Vehicle type is required</mat-error>      
+        </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput placeholder="Model" class="form-control" type="text"   formControlName="model">
+        <mat-error *ngIf="(form_truck.get('model').hasError('required') && form_truck.get('model').touched)">Model is required</mat-error>         
+      </mat-form-field>
+      <br>
+  
+      <mat-form-field>
+        <input matInput placeholder="Mark" class="form-control" type="text"  formControlName="mark">
+        <mat-error *ngIf="(form_truck.get('mark').hasError('required') && form_truck.get('mark').touched)">Mark is required</mat-error> 
+      </mat-form-field>
+      <br>
+  
+      <mat-form-field>
+        <input matInput placeholder="Color" class="form-control" type="text" formControlName="color">
+        <mat-error *ngIf="(form_truck.get('color').hasError('required') && form_truck.get('color').touched)">Color is required</mat-error> 
+      </mat-form-field>
+      <br>
+  
+       <mat-form-field>
+        <input matInput placeholder="Vehicle license plate" class="form-control" type="text" formControlName="licenseplate">
+        <mat-error *ngIf="(form_truck.get('licenseplate').hasError('required') && form_truck.get('licenseplate').touched)">Vehicle license plate is required</mat-error> 
+      </mat-form-field>
+      <br> 
+  
+      <mat-form-field>
+        <input matInput placeholder="Unit number" class="form-control" type="text" formControlName="unitnumber">
+        <mat-error *ngIf="(form_truck.get('unitnumber').hasError('required') && form_truck.get('unitnumber').touched)">Unit number is required</mat-error> 
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-select placeholder="Vehicle appearance"  formControlName="detail"  >
+          
+          <mat-option *ngFor="let tipodetalle of tipodetalles"  [value]="tipodetalle.valor" >
+            {{tipodetalle.etiqueta}}
+          </mat-option>
+            
+          </mat-select>
+          <mat-error *ngIf="(form_truck.get('detail').hasError('required') && form_truck.get('detail').touched)">Vehicle appearance is required</mat-error> 
+      </mat-form-field>     
+      <br>  
+            <button id="btnSubmit" mat-flat-button type="submit" class="addcar-continuar">Send</button>
+      </form><br>
+      <button  mat-flat-button  class="addcar-cancel" (click)='cancel()'>Cancel</button>  
+   
+  </mat-card-content >
+</mat-card >
+  
+  </ion-content>

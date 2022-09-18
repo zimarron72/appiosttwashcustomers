@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar  color="primary"><ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+  
+    <ion-title>Fleet</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-title size="small" style="color: #ffffff;">With a fleet you acquire benefits and discounts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+ 
+  <!--Tabla de cart principal-->
+<table mat-table [dataSource]="itemTabla" multiTemplateDataRows
+       class="mat-elevation-z8">
+         
+ <!--<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}}  </td>
+
+  </ng-container>-->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="unit_number">
+    <th mat-header-cell *matHeaderCellDef> No Vehiculo </th>
+    <td mat-cell *matCellDef="let element"> {{element.unit_number}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="type_vehicle">
+    <th mat-header-cell *matHeaderCellDef> Type</th>
+    <td mat-cell *matCellDef="let element"> {{element.type_vehicle}} </td>
+  </ng-container>
+
+ 
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Expand">
+    <th mat-header-cell *matHeaderCellDef> Expand </th>
+    <td mat-cell *matCellDef="let element"><mat-icon>unfold_more</mat-icon></td>
+  </ng-container>
+
+  
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+    <div class="example-element-diagram">
+          <p class="tickets">License:</p>
+          <p class="ticket">{{element.license}}</p>
+          <p class="tickets"> Modelo:</p>
+          <p class="ticket">{{element.model}}</p>
+          <p class="tickets">Mark:</p>
+          <p class="ticket">{{element.mark}}</p>
+          <p class="tickets">Color:</p>
+          <p class="ticket">{{element.color}}</p>
+          <p class="tickets">Appearance:</p>
+          <p class="ticket">{{element.appearance}}</p>
+         <br>
+      
+   <div >
+
+    <button mat-flat-button class="delete" (click) = "add()">Add a new vehicle</button>
+    <button mat-flat-button class="delete" (click) = "Borrar(element.id)">Delete</button> 
+
+         
+        </div>
+        <br>
+       
+       
+
+        
+          
+         
+         
+        
+              
+      </div>
+      </div>
+    </td>
+    
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  
+
+</table>
+
+</ion-content>
+
+

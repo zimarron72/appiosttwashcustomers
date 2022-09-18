@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>To Book</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <div *ngIf ='vermensaje' style="text-align: center;"> <img src="./assets/imgs/icono_exclamacion.png" /><h4>There are no bookings in your shopping cart</h4></div>
+ <diV *ngIf ='vercart' > <!--Tabla de cart principal-->
+
+<table mat-table [dataSource]="itemOrderCart" multiTemplateDataRows
+       class="mat-elevation-z8">
+         
+
+
+  <ng-container matColumnDef="Unit">
+    <th mat-header-cell *matHeaderCellDef>Vehicle number</th>
+    <td mat-cell *matCellDef="let element">{{element.Unit}}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Date">
+    <th mat-header-cell *matHeaderCellDef>Appointment</th>
+    <td mat-cell *matCellDef="let element">{{element.Date}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Price">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let element"> {{element.Cost}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Expand">
+    <th mat-header-cell *matHeaderCellDef>Expand</th>
+    <td mat-cell *matCellDef="let element"><mat-icon>unfold_more</mat-icon></td>
+  </ng-container>
+
+
+  
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+    <div class="example-element-diagram">
+          <p class="tickets">Vehicle:</p>
+          <p class="ticket">{{element.Vehicle}}</p>
+          <p class="tickets">Service:</p>
+          <p class="ticket">{{element.Service}}</p>
+          <p class="tickets">Type:</p>
+          <p class="ticket">{{element.type}}</p>
+          <p class="tickets">Hour's Appointment:</p>
+          <p class="ticket">{{element.Hour}}</p>
+         
+        </div>
+
+        <button mat-flat-button class="delete" (click) = "add()">Add</button>
+        <button mat-flat-button class="delete" (click) = "delete(element.index)">Delete</button>
+        
+    
+              
+      </div>
+      
+    </td>
+    
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element" >
+
+</tr>
+
+
+<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  
+
+</table>
+<!--Tabla de totales-->
+<div class="barra"></div>
+<table mat-table [dataSource]="transactions" class="mat-elevation-z9">
+    <!-- Vacio Column -->
+    <ng-container matColumnDef="vacio">
+     <th mat-header-cell *matHeaderCellDef> Vacio </th>
+      <td mat-cell *matCellDef="let transaction"> {{transaction.vacio}} </td>
+      <td mat-footer-cell id="totalvacio" *matFooterCellDef>xxxx</td>
+    </ng-container>
+  <!-- Concepto Column -->
+  <ng-container matColumnDef="concepto">
+    <th mat-header-cell *matHeaderCellDef> Concepto </th>
+    <td mat-cell *matCellDef="let transaction"> {{transaction.concepto}} </td>
+    <td mat-footer-cell *matFooterCellDef> Total </td>
+  </ng-container>
+
+  <!-- Cost Column -->
+  <ng-container matColumnDef="cost">
+    <th mat-header-cell *matHeaderCellDef> Cost </th>
+    <td mat-cell *matCellDef="let transaction"> {{transaction.cost | currency}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
+  </ng-container>
+
+  <!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+</table>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      
+      <ion-fab-button (click) = "Cupon()"  *ngIf = "ocultarcupon">Cupon</ion-fab-button>
+
+    </ion-col>
+    <ion-col>
+   
+      <ion-fab-button (click) = "checkout()">Ready</ion-fab-button>
+
+    </ion-col>
+    <ion-col>
+
+      <ion-fab-button (click) = "cancelar()">Cancel</ion-fab-button>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+ </diV>
+ 
+ 
+</ion-content>
