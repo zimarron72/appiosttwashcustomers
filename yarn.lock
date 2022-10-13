@@ -2091,8 +2091,6 @@
   "version" "0.4.1"
 
 "@types/cordova@latest":
-  "integrity" "sha1-6nrd907Ow9dimCegw54smt3HPQQ="
-  "resolved" "https://registry.npmjs.org/@types/cordova/-/cordova-0.0.34.tgz"
   "version" "0.0.34"
 
 "@types/cors@^2.8.12":
@@ -2634,9 +2632,9 @@
     "uri-js" "^4.2.2"
 
 "android-versions@^1.7.0":
-  "integrity" "sha512-TCy4b8Dk8YS6A23ZPfhSKqK66JHFq0D8avGYiwvYpjno6HrrcI0DRgHx9+jtkvWYmrsE2vQWgbHJhvGGhhOb0g=="
-  "resolved" "https://registry.npmjs.org/android-versions/-/android-versions-1.7.0.tgz"
-  "version" "1.7.0"
+  "integrity" "sha512-2diLBcg3J4sGesUCl/3wkcHhTUOPDXptlXjj/m48yEC0TuVNaEfzgrXQYpqnqj1b5bId9HsAXvR9HaO/mHDcCw=="
+  "resolved" "https://registry.npmjs.org/android-versions/-/android-versions-1.8.0.tgz"
+  "version" "1.8.0"
   dependencies:
     "semver" "^5.7.1"
 
@@ -3826,10 +3824,10 @@
   "resolved" "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-5.0.0.tgz"
   "version" "5.0.0"
 
-"cordova-plugin-ionic@^5.5.1":
-  "integrity" "sha512-yDwfUTJZB2f9cvHJN1KRkW58EZwstjKkL9tFQjoiiO7V/XYRI8rHAufz0J2mM/NvCpFBZH3Oo6CEmAut4WkrwA=="
-  "resolved" "https://registry.npmjs.org/cordova-plugin-ionic/-/cordova-plugin-ionic-5.5.2.tgz"
-  "version" "5.5.2"
+"cordova-plugin-ionic@^5.5.3":
+  "integrity" "sha512-b7gycwVk9/TX5NabZCjUg27J2pik/zF2jd3rEhTQUyn3KOx10tT9M0PXoORlnOw4wviQVQ2MvgxM9zlHK+96ow=="
+  "resolved" "https://registry.npmjs.org/cordova-plugin-ionic/-/cordova-plugin-ionic-5.5.3.tgz"
+  "version" "5.5.3"
   dependencies:
     "typescript" "3.8.3"
 
@@ -5356,16 +5354,7 @@
     "jsonfile" "^6.0.1"
     "universalify" "^2.0.0"
 
-"fs-extra@^8.0.0":
-  "integrity" "sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g=="
-  "resolved" "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz"
-  "version" "8.1.0"
-  dependencies:
-    "graceful-fs" "^4.2.0"
-    "jsonfile" "^4.0.0"
-    "universalify" "^0.1.0"
-
-"fs-extra@^8.1.0":
+"fs-extra@^8.0.0", "fs-extra@^8.1.0":
   "integrity" "sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g=="
   "resolved" "https://registry.npmjs.org/fs-extra/-/fs-extra-8.1.0.tgz"
   "version" "8.1.0"
@@ -8756,7 +8745,7 @@
     "retry" "^0.12.0"
 
 "properties-parser@^0.3.1":
-  "integrity" "sha1-ExbpU5/7/ZOEXjabIRAiq9R4dxo="
+  "integrity" "sha512-AkSQxQAviJ89x4FIxOyHGfO3uund0gvYo7lfD0E+Gp7gFQKrTNgtoYQklu8EhrfHVZUzTwKGZx2r/KDSfnljcA=="
   "resolved" "https://registry.npmjs.org/properties-parser/-/properties-parser-0.3.1.tgz"
   "version" "0.3.1"
   dependencies:

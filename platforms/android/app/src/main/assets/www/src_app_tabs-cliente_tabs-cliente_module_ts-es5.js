@@ -289,7 +289,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-tabs>\n\n <ion-tab-bar color = \"primary\" slot=\"bottom\">\n    <!--<ion-tab-button tab=\"map\">\n      <ion-icon name=\"map-outline\"></ion-icon>\n      <ion-label>Map</ion-label>\n    </ion-tab-button>-->\n\n    <ion-tab-button tab=\"tobook\">\n      <ion-icon name=\"calendar-outline\"></ion-icon>\n      <ion-label>Booking</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"profile\">\n      <ion-icon name=\"person-circle-outline\"></ion-icon>\n      <ion-label>Profile</ion-label>\n    </ion-tab-button>\n\n    <!--<ion-tab-button tab=\"payments\">\n      <ion-icon name=\"cash-outline\"></ion-icon>\n      <ion-label>Payments</ion-label>\n    </ion-tab-button>-->\n  </ion-tab-bar>\n\n</ion-tabs>\n";
+      __webpack_exports__["default"] = "<ion-tabs>\n\n <ion-tab-bar color = \"primary\" slot=\"bottom\">\n   \n\n    <ion-tab-button tab=\"tobook\">\n      <ion-icon name=\"calendar-outline\"></ion-icon>\n      <ion-label>Booking</ion-label>\n    </ion-tab-button>\n\n    <ion-tab-button tab=\"profile\">\n      <ion-icon name=\"person-circle-outline\"></ion-icon>\n      <ion-label>Profile</ion-label>\n    </ion-tab-button>\n\n  \n  </ion-tab-bar>\n\n</ion-tabs>\n";
       /***/
     }
   }]);

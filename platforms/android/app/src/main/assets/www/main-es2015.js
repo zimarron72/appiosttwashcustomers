@@ -39,7 +39,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//import {AuthGuard} from './shared/auth.guard'
 const routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     {

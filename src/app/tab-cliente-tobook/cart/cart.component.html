@@ -58,8 +58,8 @@
          
         </div>
 
-        <button mat-flat-button class="delete" (click) = "add()">Add</button>
-        <button mat-flat-button class="delete" (click) = "delete(element.index)">Delete</button>
+        <button mat-flat-button class="delete" (click) = "add()">Add new booking</button>
+        <button mat-flat-button class="delete" (click) = "delete(element.index)">Delete booking</button>
         
     
               
@@ -113,18 +113,38 @@
 <ion-grid>
   <ion-row>
     <ion-col>
-      
-      <ion-fab-button (click) = "Cupon()"  *ngIf = "ocultarcupon">Cupon</ion-fab-button>
+
+     
+      <ion-button expand="full" color="primary"  (click) = "add()">Add new booking
+        <ion-icon name="add-circle" slot="end"></ion-icon>
+      </ion-button>
 
     </ion-col>
+  </ion-row> 
+  <ion-row>
     <ion-col>
-   
-      <ion-fab-button (click) = "checkout()">Ready</ion-fab-button>
+    
+      <ion-button expand="full" color="primary"  (click) = "checkout()">Ready
+        <ion-icon name="checkbox" slot="end"></ion-icon>
+      </ion-button>
 
     </ion-col>
+  </ion-row>  
+  <ion-row>
     <ion-col>
-
-      <ion-fab-button (click) = "cancelar()">Cancel</ion-fab-button>
+     
+      <ion-button expand="full" color="primary"  (click) = "cancelar()">Cancel
+        <ion-icon name="close-circle" slot="end"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>  
+  <ion-row>
+    <ion-col>
+     
+      <ion-button expand="full" color="primary" *ngIf = "ocultarcupon" (click) = "Cupon()">      
+        Cupon
+        <ion-icon name="gift" slot="end"></ion-icon>
+      </ion-button>
 
     </ion-col>
   </ion-row>

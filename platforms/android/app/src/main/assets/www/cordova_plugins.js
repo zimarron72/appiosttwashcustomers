@@ -333,7 +333,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-googleplus": "8.5.2",
     "cordova-plugin-ionic-webview": "5.0.0",
-    "cordova-plugin-ionic": "5.5.2",
+    "cordova-plugin-ionic": "5.5.3",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-splashscreen": "5.0.4",
     "cordova-plugin-statusbar": "2.4.3",

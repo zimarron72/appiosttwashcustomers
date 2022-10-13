@@ -44,7 +44,7 @@
   "cordova-plugin-ionic": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-ionic@^5.5.1"
+      "id": "cordova-plugin-ionic@^5.5.3"
     },
     "is_top_level": true,
     "variables": {
@@ -118,7 +118,10 @@
     "is_top_level": true,
     "variables": {
       "CLIENT_ID": "213c8ea4ecb545a6aa4238c09a3289b760f47d69",
-      "CLIENT_SECRET": "324db2b9b38519ba4431324b78768785df86b74edd2750dc693346acfb0596bf"
+      "CLIENT_SECRET": "324db2b9b38519ba4431324b78768785df86b74edd2750dc693346acfb0596bf",
+      "LOGGING": "false",
+      "AUTO_INIT": "true",
+      "REQUIRES_USER_CONSENT": "false"
     }
   },
   "cordova-plugin-camera": {
@@ -127,7 +130,9 @@
       "id": "cordova-plugin-camera@^6.0.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "ANDROIDX_CORE_VERSION": "1.6.+"
+    }
   },
   "cordova-plugin-file": {
     "source": {
@@ -135,7 +140,9 @@
       "id": "cordova-plugin-file@7.0.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+    }
   },
   "cordova-plugin-chooser": {
     "source": {

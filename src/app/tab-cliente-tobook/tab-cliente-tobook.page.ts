@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-//import firebase from "firebase/app";
+
 import "firebase/auth";
 import { AngularFireAuth } from  "@angular/fire/auth";
 import { Router } from '@angular/router';
 import { ServicioAutenticacion } from '../shared/servicio.autenticacion';
 import { StorageService } from '../shared/storage.service';
-//import { MenuController } from '@ionic/angular';
-
-
-
-
 
 @Component({
   selector: 'app-tab-cliente-tobook',

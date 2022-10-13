@@ -82,8 +82,7 @@
 
       var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/router */
-      39895); //import {AuthGuard} from './shared/auth.guard'
-
+      39895);
 
       var routes = [{
         path: '',
