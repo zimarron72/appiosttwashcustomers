@@ -33,14 +33,14 @@
         <ion-button *ngIf ='verboton' type="submit" color="primary" expand="block" >Sign in</ion-button>
    
   </form>
- <div style="text-align: center; padding:5px; color: white" >Do you accept the <a href="https://www.washtt.com/terms-and-conditions" target="_Blank">Terms and Conditions?</a></div>
+ <div style="text-align: center; padding:5px; color: #d50042" >Do you accept the <a href="https://www.washtt.com/terms-and-conditions" target="_Blank">Terms and Conditions?</a></div>
 <br>
 <br>
   <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="respuesta" value="NOT" >
-    <ion-segment-button style="color: #9ad21e " value="NOT"  >
+    <ion-segment-button style="color: #004594; background-color:#fff; " value="NOT"  >
       <ion-label>NOT</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="YES" style="color: #9ad21e;">
+    <ion-segment-button value="YES" style="color: #f2f2f2; background-color:#004594; ">
       <ion-label>YES</ion-label>
     </ion-segment-button>
   </ion-segment>

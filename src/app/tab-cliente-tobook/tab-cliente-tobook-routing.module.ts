@@ -36,7 +36,7 @@ const routes: Routes = [
       { path: 'tipovehiculos', component: TipovehiculosComponent },
       { path: 'tipolavados/:vehiculo/:vehiculoid', component: TipolavadosComponent },
       { path: 'tiposervicios/:vehiculo/:lavado/:lavadoid', component: TiposerviciosComponent },
-      { path: 'washs/:washname/:washlavado/:washvehiculo/:washdescripcion/:washid/:washprecio', component: WashsComponent },
+      { path: 'washs/:washname/:washlavado/:washvehiculo/:washdescripcion/:washid/:washprecio/:washpreciomobil', component: WashsComponent },
       { path: 'ingresarsitio', component: IngresarsitioComponent },
       { path: 'ingresarperfil', component: IngresarperfilComponent},
       { path: 'ingresarcamion', component: IngresarcamionComponent },

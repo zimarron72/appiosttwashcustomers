@@ -6,17 +6,17 @@
   //border-radius: 320px;
   background-position: center;
   background-size: contain;
-  //background-color: #e3f8ff;
+
   margin: 20px auto;
 }
 
 .data-perfil {
-  background-color: #cb033c;
+  background-color: #CA083F;
 padding: 10px;
 }
 .perfilnombre {
   margin: unset;
-  color:#fff;
+  color:#f2f2f2;
   font-size: 22px;
 font-weight: 700;
 
@@ -27,3 +27,12 @@ font-weight: 700;
   color:#fff;
 
 }
+
+
+
+::ng-deep ion-content{
+  --ion-background-color:#fff;
+}
+
+
+

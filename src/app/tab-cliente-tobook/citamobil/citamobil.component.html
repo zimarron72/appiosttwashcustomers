@@ -124,10 +124,10 @@
       <mat-error *ngIf="(form_tobooksite.get('horacita').hasError('required') && form_tobooksite.get('horacita').touched)">Hour is required</mat-error>      
   </mat-form-field>
   <br>  
-  <button id="btnSubmit" mat-flat-button type="submit" class="mobil-continuar">Continue</button>
+  <button id="btnSubmit" mat-flat-button type="submit" color ="primary" class="mobil-continuar">Continue</button>
     </form>
     <br>
-    <button  mat-flat-button  class="mobil-cancel" (click)='cancel()'>Cancel</button>
+    <button  mat-flat-button  class="mobil-cancel" color= "primary" (click)='cancel()'>Cancel</button>
  </mat-card-content>
 
 </mat-card>

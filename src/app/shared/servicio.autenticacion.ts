@@ -7,7 +7,7 @@ import { Platform } from '@ionic/angular';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { StorageService } from './storage.service';
 import { LoadingService } from '../shared/loading.services';
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
 
 
@@ -33,6 +33,7 @@ import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
       private wonderPush: WonderPush,
       private localstorage: StorageService,
       private loading : LoadingService,
+     
 
  
       )  {
@@ -48,6 +49,10 @@ import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
 
 
     async login(email: string, password: string) {
+      this.loading.simpleLoader();
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => {
+         
      
  this.angularAuth.signInWithEmailAndPassword(email, password).then(async (_userCredential) => {
 
@@ -59,7 +64,7 @@ var email = data.email
 
 console.log(idtoken)
 
-this.loading.simpleLoader()
+
 this.http.post<any>('https://washtt.com/v1_api_clientes_login.php',  {idtoken : idtoken , email : email}   ).subscribe({
 
  
@@ -127,6 +132,22 @@ break;
   }
   );
 })
+
+}).catch((error) => {
+  // Handle Errors here.
+  this.loading.dismissLoader()  
+
+  var errorMessage = error.message;        
+  console.error('There was an error!' + errorMessage);
+
+  this.router.navigate(['/login']);
+  this.snackBar.open(errorMessage, "Close",
+  {       
+    horizontalPosition: "start",
+    verticalPosition: "top",
+  }
+  );
+});
 
  
   
@@ -299,7 +320,71 @@ break;
 
 register(email: string, password: string, name: string) {
   this.loading.simpleLoader()
-  this.angularAuth.createUserWithEmailAndPassword(email, password).then(async (result : firebase.auth.UserCredential) => {
+// Primero verificamos existen credenciales firebase para este usuario
+this.angularAuth.signInWithEmailAndPassword(email, password).then(async (_userCredential) => {
+ if(firebase.auth().currentUser.uid) { // esta en firebase
+  var data = firebase.auth().currentUser
+  await this.localstorage.setObject('usuario',data)
+  var idtoken = await firebase.auth().currentUser.getIdToken(true)
+  await this.localstorage.setData('idtoken',idtoken)
+  await this.localstorage.setData('autenticacion_tipo','correo_pass')
+  // cumplo con el registro en washtt servidor
+  this.http.post<any>('https://washtt.com/v1_api_clientes_registro.php', {  
+    name: name , email: email , password: password  }).subscribe({
+    next: async data => {
+      this.loading.dismissLoader()   
+       switch(data.respuesta) 
+       {
+         case 'ERROR':
+          this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close",
+          {       
+            horizontalPosition: "start",
+            verticalPosition: "top",
+          }
+          );   
+          console.log(data.mensaje)
+         break;
+         case 'DUPLICADO_USUARIO':
+          this.snackBar.open('There is already an account with this email', "Close",
+          {  
+            duration : 3000,     
+            horizontalPosition: "start",
+            verticalPosition: "top",
+          }
+          );
+          console.log(data.mensaje)   
+         break;
+         case 'OK':
+          this.wonderPush.setUserId(data.userid)
+          this.wonderPush.addTag('clientes')
+          await this.localstorage.setData('autenticacion_tipo','correo_pass')
+          this.router.navigate(['/tabs-cliente/tobook']);
+         break;  
+  
+       }
+  
+    },
+    error: error => {
+      this.loading.dismissLoader()   
+        var errorMessage = error.message;
+        this.snackBar.open(errorMessage, "Close",
+      {       
+        horizontalPosition: "start",
+        verticalPosition: "top",
+      }
+      );
+  
+        console.error('There was an error!'+ errorMessage);
+    
+    }
+  })
+ }
+
+ else { //no esta en firebase
+
+  this.angularAuth.createUserWithEmailAndPassword(email, password).then(async (_result : firebase.auth.UserCredential) => {
+
+   
 
     var data = firebase.auth().currentUser
   await this.localstorage.setObject('usuario',data)
@@ -307,55 +392,95 @@ register(email: string, password: string, name: string) {
   await this.localstorage.setData('idtoken',idtoken)
   await this.localstorage.setData('autenticacion_tipo','correo_pass')
 
-    this.http.post<any>('https://washtt.com/v1_api_clientes_registro.php', {  
-      name: name , email: email , password: password , idtoken : idtoken }).subscribe({
-      next: async data => {
-        this.loading.dismissLoader()   
-         switch(data.respuesta) 
-         {
-           case 'ERROR':
-            this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close",
-            {       
-              horizontalPosition: "start",
-              verticalPosition: "top",
-            }
-            );   
-            console.log(data.mensaje)
-           break;
-           case 'DUPLICADO_USUARIO':
-            this.snackBar.open('There is already an account with this email', "Close",
-            {  
-              duration : 3000,     
-              horizontalPosition: "start",
-              verticalPosition: "top",
-            }
-            );
-            console.log(data.mensaje)   
-           break;
-           case 'OK':
-            this.wonderPush.setUserId(data.userid)
-            this.wonderPush.addTag('clientes')
-            await this.localstorage.setData('autenticacion_tipo','correo_pass')
-            this.router.navigate(['/tabs-cliente/tobook']);
-           break;  
-
-         }
-
-      },
-      error: error => {
-        this.loading.dismissLoader()   
-          var errorMessage = error.message;
-          this.snackBar.open(errorMessage, "Close",
+// cumplo con el registro en washtt servidor
+this.http.post<any>('https://washtt.com/v1_api_clientes_registro.php', {  
+  name: name , email: email , password: password  }).subscribe({
+  next: async data => {
+    this.loading.dismissLoader()   
+     switch(data.respuesta) 
+     {
+       case 'ERROR':
+        this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close",
         {       
           horizontalPosition: "start",
           verticalPosition: "top",
         }
+        );   
+        console.log(data.mensaje)
+       break;
+       case 'DUPLICADO_USUARIO':
+        this.snackBar.open('There is already an account with this email', "Close",
+        {  
+          duration : 3000,     
+          horizontalPosition: "start",
+          verticalPosition: "top",
+        }
         );
+        console.log(data.mensaje)   
+       break;
+       case 'OK':
+        this.wonderPush.setUserId(data.userid)
+        this.wonderPush.addTag('clientes')
+        await this.localstorage.setData('autenticacion_tipo','correo_pass')
+        this.router.navigate(['/tabs-cliente/tobook']);
+       break;  
 
-          console.error('There was an error!'+ errorMessage);
-      
-      }
-  })
+     }
+
+  },
+  error: error => {
+    this.loading.dismissLoader()   
+      var errorMessage = error.message;
+      this.snackBar.open(errorMessage, "Close",
+    {       
+      horizontalPosition: "start",
+      verticalPosition: "top",
+    }
+    );
+
+      console.error('There was an error!'+ errorMessage);
+  
+  }
+})
+
+  
+  }).catch((error) => {
+    // Handle Errors here.
+    this.loading.dismissLoader()   
+    var errorMessage = error.message;
+    this.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message , "Close",
+    {  
+      duration : 3000,  
+      horizontalPosition: "start",
+      verticalPosition: "top",
+    });
+    console.error('There was an error!'+ errorMessage);
+  });
+
+ }
+
+
+
+})
+
+
+
+
+
+
+  
+  
+  this.angularAuth.createUserWithEmailAndPassword(email, password).then(async (_result : firebase.auth.UserCredential) => {
+
+   
+
+    var data = firebase.auth().currentUser
+  await this.localstorage.setObject('usuario',data)
+  var idtoken = await firebase.auth().currentUser.getIdToken(true)
+  await this.localstorage.setData('idtoken',idtoken)
+  await this.localstorage.setData('autenticacion_tipo','correo_pass')
+
+
 
   
   }).catch((error) => {

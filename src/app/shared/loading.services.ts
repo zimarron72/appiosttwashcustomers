@@ -14,7 +14,8 @@ export class LoadingService {
   simpleLoader() {
     this.loadingController.create({
       message: 'One moment, please...',
-      cssClass:'custom-loader-class'
+      cssClass:'custom-loader-class',
+      backdropDismiss: true
     }).then((response) => {
       response.present();
     });

@@ -1377,7 +1377,8 @@
           value: function simpleLoader() {
             this.loadingController.create({
               message: 'One moment, please...',
-              cssClass: 'custom-loader-class'
+              cssClass: 'custom-loader-class',
+              backdropDismiss: true
             }).then(function (response) {
               response.present();
             });
@@ -1717,102 +1718,117 @@
                 while (1) {
                   switch (_context15.prev = _context15.next) {
                     case 0:
-                      this.angularAuth.signInWithEmailAndPassword(email, password).then(function (_userCredential) {
-                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-                          var _this7 = this;
+                      this.loading.simpleLoader();
+                      firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().setPersistence(firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth.Auth.Persistence.LOCAL).then(function () {
+                        _this6.angularAuth.signInWithEmailAndPassword(email, password).then(function (_userCredential) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+                            var _this7 = this;
 
-                          var data, idtoken, email;
-                          return regeneratorRuntime.wrap(function _callee14$(_context14) {
-                            while (1) {
-                              switch (_context14.prev = _context14.next) {
-                                case 0:
-                                  data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                                  _context14.next = 3;
-                                  return this.localstorage.setObject('usuario', data);
+                            var data, idtoken, email;
+                            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+                              while (1) {
+                                switch (_context14.prev = _context14.next) {
+                                  case 0:
+                                    data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
+                                    _context14.next = 3;
+                                    return this.localstorage.setObject('usuario', data);
 
-                                case 3:
-                                  _context14.next = 5;
-                                  return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
+                                  case 3:
+                                    _context14.next = 5;
+                                    return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
 
-                                case 5:
-                                  idtoken = _context14.sent;
-                                  _context14.next = 8;
-                                  return this.localstorage.setData('idtoken', idtoken);
+                                  case 5:
+                                    idtoken = _context14.sent;
+                                    _context14.next = 8;
+                                    return this.localstorage.setData('idtoken', idtoken);
 
-                                case 8:
-                                  email = data.email;
-                                  console.log(idtoken);
-                                  this.loading.simpleLoader();
-                                  this.http.post('https://washtt.com/v1_api_clientes_login.php', {
-                                    idtoken: idtoken,
-                                    email: email
-                                  }).subscribe({
-                                    next: function next(data) {
-                                      return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this7, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-                                        return regeneratorRuntime.wrap(function _callee13$(_context13) {
-                                          while (1) {
-                                            switch (_context13.prev = _context13.next) {
-                                              case 0:
-                                                this.loading.dismissLoader();
-                                                _context13.t0 = data.respuesta;
-                                                _context13.next = _context13.t0 === 'ERROR' ? 4 : _context13.t0 === 'TODO_OK' ? 7 : _context13.t0 === 'TOKEN ERROR' ? 13 : 16;
-                                                break;
+                                  case 8:
+                                    email = data.email;
+                                    console.log(idtoken);
+                                    this.http.post('https://washtt.com/v1_api_clientes_login.php', {
+                                      idtoken: idtoken,
+                                      email: email
+                                    }).subscribe({
+                                      next: function next(data) {
+                                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this7, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+                                          return regeneratorRuntime.wrap(function _callee13$(_context13) {
+                                            while (1) {
+                                              switch (_context13.prev = _context13.next) {
+                                                case 0:
+                                                  this.loading.dismissLoader();
+                                                  _context13.t0 = data.respuesta;
+                                                  _context13.next = _context13.t0 === 'ERROR' ? 4 : _context13.t0 === 'TODO_OK' ? 7 : _context13.t0 === 'TOKEN ERROR' ? 13 : 16;
+                                                  break;
 
-                                              case 4:
-                                                this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                                                  horizontalPosition: "start",
-                                                  verticalPosition: "top"
-                                                });
-                                                console.log(data.mensaje);
-                                                return _context13.abrupt("break", 16);
+                                                case 4:
+                                                  this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                                                    horizontalPosition: "start",
+                                                    verticalPosition: "top"
+                                                  });
+                                                  console.log(data.mensaje);
+                                                  return _context13.abrupt("break", 16);
 
-                                              case 7:
-                                                this.wonderPush.setUserId(data.userid);
-                                                this.wonderPush.addTag('clientes');
-                                                _context13.next = 11;
-                                                return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
+                                                case 7:
+                                                  this.wonderPush.setUserId(data.userid);
+                                                  this.wonderPush.addTag('clientes');
+                                                  _context13.next = 11;
+                                                  return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
-                                              case 11:
-                                                this.router.navigate(['/tabs-cliente/tobook']);
-                                                return _context13.abrupt("break", 16);
+                                                case 11:
+                                                  this.router.navigate(['/tabs-cliente/tobook']);
+                                                  return _context13.abrupt("break", 16);
 
-                                              case 13:
-                                                this.snackBar.open("Invalid or expired token,please login again", "Close", {
-                                                  horizontalPosition: "start",
-                                                  verticalPosition: "top"
-                                                });
-                                                console.log(data.mensaje);
-                                                return _context13.abrupt("break", 16);
+                                                case 13:
+                                                  this.snackBar.open("Invalid or expired token,please login again", "Close", {
+                                                    horizontalPosition: "start",
+                                                    verticalPosition: "top"
+                                                  });
+                                                  console.log(data.mensaje);
+                                                  return _context13.abrupt("break", 16);
 
-                                              case 16:
-                                              case "end":
-                                                return _context13.stop();
+                                                case 16:
+                                                case "end":
+                                                  return _context13.stop();
+                                              }
                                             }
-                                          }
-                                        }, _callee13, this);
-                                      }));
-                                    },
-                                    error: function error(_error2) {
-                                      _this7.loading.dismissLoader();
+                                          }, _callee13, this);
+                                        }));
+                                      },
+                                      error: function error(_error2) {
+                                        _this7.loading.dismissLoader();
 
-                                      var errorMessage = _error2.message;
-                                      console.error('There was an error!');
+                                        var errorMessage = _error2.message;
+                                        console.error('There was an error!');
 
-                                      _this7.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top"
-                                      });
-                                    }
-                                  });
+                                        _this7.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                                          horizontalPosition: "start",
+                                          verticalPosition: "top"
+                                        });
+                                      }
+                                    });
 
-                                case 12:
-                                case "end":
-                                  return _context14.stop();
+                                  case 11:
+                                  case "end":
+                                    return _context14.stop();
+                                }
                               }
-                            }
-                          }, _callee14, this);
-                        }));
+                            }, _callee14, this);
+                          }));
+                        })["catch"](function (error) {
+                          _this6.loading.dismissLoader();
+
+                          var errorMessage = error.message;
+                          console.error('There was an error!' + errorMessage);
+
+                          _this6.router.navigate(['/login']);
+
+                          _this6.snackBar.open(errorMessage, "Close", {
+                            horizontalPosition: "start",
+                            verticalPosition: "top"
+                          });
+                        });
                       })["catch"](function (error) {
+                        // Handle Errors here.
                         _this6.loading.dismissLoader();
 
                         var errorMessage = error.message;
@@ -1826,7 +1842,7 @@
                         });
                       });
 
-                    case 1:
+                    case 2:
                     case "end":
                       return _context15.stop();
                   }
@@ -2100,39 +2116,46 @@
           value: function register(email, password, name) {
             var _this14 = this;
 
-            this.loading.simpleLoader();
-            this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (result) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this14, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+            this.loading.simpleLoader(); // Primero verificamos existen credenciales firebase para este usuario
+
+            this.angularAuth.signInWithEmailAndPassword(email, password).then(function (_userCredential) {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this14, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
                 var _this15 = this;
 
                 var data, idtoken;
-                return regeneratorRuntime.wrap(function _callee24$(_context24) {
+                return regeneratorRuntime.wrap(function _callee26$(_context26) {
                   while (1) {
-                    switch (_context24.prev = _context24.next) {
+                    switch (_context26.prev = _context26.next) {
                       case 0:
+                        if (!firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.uid) {
+                          _context26.next = 14;
+                          break;
+                        }
+
+                        // esta en firebase
                         data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                        _context24.next = 3;
+                        _context26.next = 4;
                         return this.localstorage.setObject('usuario', data);
 
-                      case 3:
-                        _context24.next = 5;
+                      case 4:
+                        _context26.next = 6;
                         return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
 
-                      case 5:
-                        idtoken = _context24.sent;
-                        _context24.next = 8;
+                      case 6:
+                        idtoken = _context26.sent;
+                        _context26.next = 9;
                         return this.localstorage.setData('idtoken', idtoken);
 
-                      case 8:
-                        _context24.next = 10;
+                      case 9:
+                        _context26.next = 11;
                         return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
-                      case 10:
+                      case 11:
+                        // cumplo con el registro en washtt servidor
                         this.http.post('https://washtt.com/v1_api_clientes_registro.php', {
                           name: name,
                           email: email,
-                          password: password,
-                          idtoken: idtoken
+                          password: password
                         }).subscribe({
                           next: function next(data) {
                             return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this15, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
@@ -2193,13 +2216,164 @@
                             console.error('There was an error!' + errorMessage);
                           }
                         });
+                        _context26.next = 15;
+                        break;
 
-                      case 11:
+                      case 14:
+                        //no esta en firebase
+                        this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (_result) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this15, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
+                            var _this16 = this;
+
+                            var data, idtoken;
+                            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+                              while (1) {
+                                switch (_context25.prev = _context25.next) {
+                                  case 0:
+                                    data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
+                                    _context25.next = 3;
+                                    return this.localstorage.setObject('usuario', data);
+
+                                  case 3:
+                                    _context25.next = 5;
+                                    return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
+
+                                  case 5:
+                                    idtoken = _context25.sent;
+                                    _context25.next = 8;
+                                    return this.localstorage.setData('idtoken', idtoken);
+
+                                  case 8:
+                                    _context25.next = 10;
+                                    return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
+
+                                  case 10:
+                                    // cumplo con el registro en washtt servidor
+                                    this.http.post('https://washtt.com/v1_api_clientes_registro.php', {
+                                      name: name,
+                                      email: email,
+                                      password: password
+                                    }).subscribe({
+                                      next: function next(data) {
+                                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this16, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+                                          return regeneratorRuntime.wrap(function _callee24$(_context24) {
+                                            while (1) {
+                                              switch (_context24.prev = _context24.next) {
+                                                case 0:
+                                                  this.loading.dismissLoader();
+                                                  _context24.t0 = data.respuesta;
+                                                  _context24.next = _context24.t0 === 'ERROR' ? 4 : _context24.t0 === 'DUPLICADO_USUARIO' ? 7 : _context24.t0 === 'OK' ? 10 : 16;
+                                                  break;
+
+                                                case 4:
+                                                  this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close", {
+                                                    horizontalPosition: "start",
+                                                    verticalPosition: "top"
+                                                  });
+                                                  console.log(data.mensaje);
+                                                  return _context24.abrupt("break", 16);
+
+                                                case 7:
+                                                  this.snackBar.open('There is already an account with this email', "Close", {
+                                                    duration: 3000,
+                                                    horizontalPosition: "start",
+                                                    verticalPosition: "top"
+                                                  });
+                                                  console.log(data.mensaje);
+                                                  return _context24.abrupt("break", 16);
+
+                                                case 10:
+                                                  this.wonderPush.setUserId(data.userid);
+                                                  this.wonderPush.addTag('clientes');
+                                                  _context24.next = 14;
+                                                  return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
+
+                                                case 14:
+                                                  this.router.navigate(['/tabs-cliente/tobook']);
+                                                  return _context24.abrupt("break", 16);
+
+                                                case 16:
+                                                case "end":
+                                                  return _context24.stop();
+                                              }
+                                            }
+                                          }, _callee24, this);
+                                        }));
+                                      },
+                                      error: function error(_error5) {
+                                        _this16.loading.dismissLoader();
+
+                                        var errorMessage = _error5.message;
+
+                                        _this16.snackBar.open(errorMessage, "Close", {
+                                          horizontalPosition: "start",
+                                          verticalPosition: "top"
+                                        });
+
+                                        console.error('There was an error!' + errorMessage);
+                                      }
+                                    });
+
+                                  case 11:
+                                  case "end":
+                                    return _context25.stop();
+                                }
+                              }
+                            }, _callee25, this);
+                          }));
+                        })["catch"](function (error) {
+                          // Handle Errors here.
+                          _this15.loading.dismissLoader();
+
+                          var errorMessage = error.message;
+
+                          _this15.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message, "Close", {
+                            duration: 3000,
+                            horizontalPosition: "start",
+                            verticalPosition: "top"
+                          });
+
+                          console.error('There was an error!' + errorMessage);
+                        });
+
+                      case 15:
                       case "end":
-                        return _context24.stop();
+                        return _context26.stop();
                     }
                   }
-                }, _callee24, this);
+                }, _callee26, this);
+              }));
+            });
+            this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (_result) {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this14, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+                var data, idtoken;
+                return regeneratorRuntime.wrap(function _callee27$(_context27) {
+                  while (1) {
+                    switch (_context27.prev = _context27.next) {
+                      case 0:
+                        data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
+                        _context27.next = 3;
+                        return this.localstorage.setObject('usuario', data);
+
+                      case 3:
+                        _context27.next = 5;
+                        return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
+
+                      case 5:
+                        idtoken = _context27.sent;
+                        _context27.next = 8;
+                        return this.localstorage.setData('idtoken', idtoken);
+
+                      case 8:
+                        _context27.next = 10;
+                        return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
+
+                      case 10:
+                      case "end":
+                        return _context27.stop();
+                    }
+                  }
+                }, _callee27, this);
               }));
             })["catch"](function (error) {
               // Handle Errors here.
@@ -2219,27 +2393,27 @@
         }, {
           key: "resetpassword",
           value: function resetpassword(email) {
-            var _this16 = this;
+            var _this17 = this;
 
             this.loading.simpleLoader();
             firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().sendPasswordResetEmail(email).then(function () {
               // Password reset email sent!
               // ..
-              _this16.loading.dismissLoader();
+              _this17.loading.dismissLoader();
 
-              _this16.snackBar.open("An email has been sent to your account to recover your password", "Close", {
+              _this17.snackBar.open("An email has been sent to your account to recover your password", "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
 
-              _this16.router.navigate(['login']);
+              _this17.router.navigate(['login']);
             })["catch"](function (error) {
-              _this16.loading.dismissLoader(); //var errorCode = error.code;
+              _this17.loading.dismissLoader(); //var errorCode = error.code;
 
 
               var errorMessage = error.message;
 
-              _this16.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
+              _this17.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               }); // ..
@@ -2249,15 +2423,15 @@
         }, {
           key: "cambiarpassword",
           value: function cambiarpassword(newPassword) {
-            var _this17 = this;
+            var _this18 = this;
 
             this.loading.simpleLoader();
             var user = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
             user.updatePassword(newPassword).then(function () {
               // Update successful.
-              _this17.loading.dismissLoader();
+              _this18.loading.dismissLoader();
 
-              _this17.snackBar.open("The password was updated successfully", "Close", {
+              _this18.snackBar.open("The password was updated successfully", "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
@@ -2266,7 +2440,7 @@
               // ...
               var errorMessage = error.message;
 
-              _this17.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
+              _this18.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
@@ -2362,14 +2536,14 @@
 
       var _SquareServicio = /*#__PURE__*/function () {
         function SquareServicio() {
-          var _this18 = this;
+          var _this19 = this;
 
           _classCallCheck(this, SquareServicio);
 
           this.scripts = {};
 
           _ScriptStore.forEach(function (script) {
-            _this18.scripts[script.name] = {
+            _this19.scripts[script.name] = {
               loaded: false,
               src: script.src
             };
@@ -2379,7 +2553,7 @@
         _createClass(SquareServicio, [{
           key: "loadScripts",
           value: function loadScripts() {
-            var _this19 = this;
+            var _this20 = this;
 
             var promises = [];
 
@@ -2388,21 +2562,21 @@
             }
 
             scripts.forEach(function (script) {
-              return promises.push(_this19.loadScript(script));
+              return promises.push(_this20.loadScript(script));
             });
             return Promise.all(promises);
           }
         }, {
           key: "loadScript",
           value: function loadScript(name) {
-            var _this20 = this;
+            var _this21 = this;
 
             return new Promise(function (resolve, reject) {
-              if (!_this20.scripts[name].loaded) {
+              if (!_this21.scripts[name].loaded) {
                 // load script
                 var script = document.createElement('script');
                 script.type = 'text/javascript';
-                script.src = _this20.scripts[name].src; // @ts-ignore
+                script.src = _this21.scripts[name].src; // @ts-ignore
 
                 if (script.readyState) {
                   // IE
@@ -2412,7 +2586,7 @@
                     if (script.readyState === 'loaded' || script.readyState === 'complete') {
                       // @ts-ignore
                       script.onreadystatechange = null;
-                      _this20.scripts[name].loaded = true;
+                      _this21.scripts[name].loaded = true;
                       resolve({
                         script: name,
                         loaded: true,
@@ -2423,7 +2597,7 @@
                 } else {
                   // Others
                   script.onload = function () {
-                    _this20.scripts[name].loaded = true;
+                    _this21.scripts[name].loaded = true;
                     resolve({
                       script: name,
                       loaded: true,
@@ -2528,20 +2702,20 @@
         _createClass(StorageService, [{
           key: "init",
           value: function init() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
-              return regeneratorRuntime.wrap(function _callee25$(_context25) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
+              return regeneratorRuntime.wrap(function _callee28$(_context28) {
                 while (1) {
-                  switch (_context25.prev = _context25.next) {
+                  switch (_context28.prev = _context28.next) {
                     case 0:
-                      _context25.next = 2;
+                      _context28.next = 2;
                       return this.storage.create();
 
                     case 2:
                     case "end":
-                      return _context25.stop();
+                      return _context28.stop();
                   }
                 }
-              }, _callee25, this);
+              }, _callee28, this);
             }));
           } // Create and expose methods that users of this service can
           // call, for example:
@@ -2549,39 +2723,39 @@
         }, {
           key: "setData",
           value: function setData(key, value) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
-              return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+              return regeneratorRuntime.wrap(function _callee29$(_context29) {
                 while (1) {
-                  switch (_context26.prev = _context26.next) {
+                  switch (_context29.prev = _context29.next) {
                     case 0:
-                      _context26.next = 2;
+                      _context29.next = 2;
                       return this.storage.set(key, value);
 
                     case 2:
                     case "end":
-                      return _context26.stop();
+                      return _context29.stop();
                   }
                 }
-              }, _callee26, this);
+              }, _callee29, this);
             }));
           }
         }, {
           key: "setObject",
           value: function setObject(key, object) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-              return regeneratorRuntime.wrap(function _callee27$(_context27) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
+              return regeneratorRuntime.wrap(function _callee30$(_context30) {
                 while (1) {
-                  switch (_context27.prev = _context27.next) {
+                  switch (_context30.prev = _context30.next) {
                     case 0:
-                      _context27.next = 2;
+                      _context30.next = 2;
                       return this.storage.set(key, JSON.stringify(object));
 
                     case 2:
                     case "end":
-                      return _context27.stop();
+                      return _context30.stop();
                   }
                 }
-              }, _callee27, this);
+              }, _callee30, this);
             }));
           }
           /* public getObject(key: string) {
@@ -2592,42 +2766,42 @@
         }, {
           key: "getData",
           value: function getData(key) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-              return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+              return regeneratorRuntime.wrap(function _callee31$(_context31) {
                 while (1) {
-                  switch (_context28.prev = _context28.next) {
+                  switch (_context31.prev = _context31.next) {
                     case 0:
-                      _context28.next = 2;
+                      _context31.next = 2;
                       return this.storage.get(key);
 
                     case 2:
-                      return _context28.abrupt("return", _context28.sent);
+                      return _context31.abrupt("return", _context31.sent);
 
                     case 3:
                     case "end":
-                      return _context28.stop();
+                      return _context31.stop();
                   }
                 }
-              }, _callee28, this);
+              }, _callee31, this);
             }));
           }
         }, {
           key: "removeData",
           value: function removeData(key) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
-              return regeneratorRuntime.wrap(function _callee29$(_context29) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
+              return regeneratorRuntime.wrap(function _callee32$(_context32) {
                 while (1) {
-                  switch (_context29.prev = _context29.next) {
+                  switch (_context32.prev = _context32.next) {
                     case 0:
-                      _context29.next = 2;
+                      _context32.next = 2;
                       return this.storage.remove(key);
 
                     case 2:
                     case "end":
-                      return _context29.stop();
+                      return _context32.stop();
                   }
                 }
-              }, _callee29, this);
+              }, _callee32, this);
             }));
           }
         }, {

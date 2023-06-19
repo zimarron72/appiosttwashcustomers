@@ -1,18 +1,12 @@
 
 
-.etiqueta {
 
-    color: #fff;
-}
 
-ion-content{
-    --ion-background-color:#cb033c;
-}
 
 
 .separador {
     text-align: center;
-    color: #fff;
+    color: #f2f2f2;
 }
 
 .app-logo{
@@ -27,10 +21,13 @@ ion-content{
     margin: 20px auto;
   }
 
-  .lleno {
-  --ion-item-background: #cb033c;
-  --ion-text-color: #ffffff;
-  --ion-text-color-rgb: 255,255,255;
-
-  --ion-border-color: #ffffff;
+  ion-content {
+    --ion-background-color: #2E4F9C;
+    --ion-background-color-rgb: 46, 79, 156;
   }
+
+  ::ng-deep ion-item {
+    --ion-item-background: #2E4F9C;
+  }
+
+  

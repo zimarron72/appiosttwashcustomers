@@ -19,13 +19,13 @@
   </ion-button>
 </div>
 
-  <ion-list>
+  <ion-list >
 
-    <ion-item  *ngFor="let servicio of servicios" routerLink="/tabs-cliente/tobook/washs/{{servicio.name}}/{{lavado}}/{{vehiculo}}/{{servicio.description}}/{{servicio.product_id}}/{{servicio.product_price}}">
+    <ion-item  *ngFor="let servicio of servicios" routerLink="/tabs-cliente/tobook/washs/{{servicio.name}}/{{lavado}}/{{vehiculo}}/{{servicio.description}}/{{servicio.product_id}}/{{servicio.product_price}}/{{servicio.price_mobil}}" >
       <ion-thumbnail slot="end">
         <img src="https://www.washtt.com/components/com_jshopping/files/img_products/{{servicio.image}}" />
       </ion-thumbnail> 
-      <ion-label>
+      <ion-label >
         {{servicio.name}}
       </ion-label>
       

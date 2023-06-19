@@ -6,7 +6,7 @@
     <ion-title>To Book</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-icon name="information-circle" slot='start' color="secondary"></ion-icon>
     <ion-title size="small" style="color:#ffffff">It applies to the base prices of our operations on the indicated day of the week. <strong>Warning:</strong> values may change without notice.</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +15,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-<div style="background-color:#cb033c; color: #fff">
+<div style="background-color:#2E4F9C; color: #fff; ">
   <ion-button>     
   Deals of the week
   </ion-button>
@@ -23,7 +23,7 @@
   <ion-grid class="ion-margin">
     <ion-row>
       <ion-col>Weekday</ion-col>
-      <ion-col>Appointment type</ion-col>
+      <ion-col>type</ion-col>
       <ion-col>Discount %</ion-col>      
     </ion-row>
     <ion-row *ngFor="let deal of deals; index as i">

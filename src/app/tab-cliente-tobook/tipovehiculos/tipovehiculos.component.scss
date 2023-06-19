@@ -13,3 +13,17 @@
 
 .icon-inner, .ionicon, svg { display:none !important}
 
+::ng-deep ion-item {
+    --ion-item-background: #2E4F9C;
+    --color: #f2f2f2;
+
+  
+   
+  }
+
+  ion-content{
+    --ion-background-color:#2E4F9C;
+}
+
+
+

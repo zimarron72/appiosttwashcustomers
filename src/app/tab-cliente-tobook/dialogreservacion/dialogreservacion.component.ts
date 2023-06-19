@@ -71,6 +71,7 @@ export class DialogreservacionComponent implements OnInit {
       var idtoken = await this.localstorage.getData('idtoken')
       var autenticacion_tipo = await this.localstorage.getData('autenticacion_tipo') 
       var precio = parseInt(await this.localstorage.getData('washprecio'))
+      var preciomobil = parseInt(await this.localstorage.getData('washpreciomobil'))
       
       this.serviciostobook.getDescuentoRecargos(idtoken , autenticacion_tipo).subscribe({
       
@@ -90,8 +91,8 @@ export class DialogreservacionComponent implements OnInit {
          for (let descuentorecargo of this.descuentos_recargos) 
          {
          if(descuentorecargo.tipocita == 'citamobil' && descuentorecargo.dia == this.diasemana) {
-          var preciomobil = precio + precio * descuentorecargo.recargo /100 - precio * descuentorecargo.descuento /100 
-          this.precio_mobil = formatter$.format(preciomobil)
+          var preciomobilx = preciomobil + preciomobil * descuentorecargo.recargo /100 - preciomobil * descuentorecargo.descuento /100 
+          this.precio_mobil = formatter$.format(preciomobilx)
          }
          }
         

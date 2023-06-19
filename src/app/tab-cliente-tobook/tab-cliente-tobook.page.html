@@ -1,8 +1,8 @@
 <ion-split-pane contentId="main-content">
 
-  <ion-menu contentId="main-content" type="overlay">
+  <ion-menu contentId="main-content" type="overlay" >
 
-    <ion-content>
+    <ion-content >
 <div class="app-logo"></div>
       <ion-list id="inbox-list">
         <div class="data-perfil">
@@ -11,7 +11,7 @@
       </div>
 
         <ion-menu-toggle auto-hide="false" *ngFor="let pages of Pages; let i = index">
-          <ion-item color="primary" (click)="activeIndex = i" routerDirection="root" [routerLink]="[pages.url]" lines="none"
+          <ion-item color="secondary" (click)="activeIndex = i" routerDirection="root" [routerLink]="[pages.url]" lines="none"
             detail="false" [class.selected]="activeIndex == i">
             <ion-icon slot="start" [ios]="pages.icon + '-outline'" [md]="pages.icon + '-sharp'"></ion-icon>
             <ion-label>{{ pages.title }}</ion-label>
@@ -19,7 +19,7 @@
         </ion-menu-toggle>
   
         <ion-menu-toggle >
-          <ion-item color="primary"   lines="none"  href="https://washtt.com/common-questions" target ="_Blank">
+          <ion-item color="secondary"   lines="none"  href="https://washtt.com/common-questions" target ="_Blank">
             <ion-icon slot="start" [name]="'help-buoy'"></ion-icon>
             <ion-label>
              Help
@@ -28,7 +28,7 @@
         </ion-menu-toggle> 
 
         <ion-menu-toggle >
-          <ion-item color="primary"   lines="none"  href="https://www.washtt.com/contactus" target ="_Blank">
+          <ion-item color="secondary"   lines="none"  href="https://www.washtt.com/contactus" target ="_Blank">
             <ion-icon slot="start" [name]="'mail-outline'"></ion-icon>
             <ion-label>
               Contact us
@@ -40,7 +40,7 @@
 
 
     <ion-menu-toggle *ngIf="autenticacion_tipo === 'correo_pass'">
-        <ion-item color="primary" (click) ="salida_regular()"  lines="none"  >
+        <ion-item color="secondary" (click) ="salida_regular()"  lines="none"  >
           <ion-icon slot="start" [name]="'power'"></ion-icon>
           <ion-label>
            Sign out
@@ -48,7 +48,7 @@
         </ion-item>
       </ion-menu-toggle> 
       <ion-menu-toggle *ngIf="autenticacion_tipo === 'google'">
-        <ion-item color="primary" (click) =" salida_google()"  lines="none"  >
+        <ion-item color="secondary" (click) =" salida_google()"  lines="none"  >
           <ion-icon slot="start" [name]="'power'"></ion-icon>
           <ion-label>
            Sign out

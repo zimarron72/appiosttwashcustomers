@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar >
    
     <ion-title>Login</ion-title>
   </ion-toolbar>
@@ -9,14 +9,14 @@
   <div class="app-logo"></div>
 
   <form [formGroup]="form_login" (ngSubmit)="submit()" novalidate>
-    <ion-item lines="full" class="lleno">
-      <ion-label  position="floating" class="etiqueta">Email</ion-label>
+    <ion-item lines="full" >
+      <ion-label  position="floating" >Email</ion-label>
       <ion-icon name="mail" color="light" slot="end"></ion-icon>
       <ion-input color="light" placeholder="Email" formControlName="email" type="email" required></ion-input>
      
     </ion-item>
-    <ion-item lines="full" class="lleno">
-      <ion-label position="floating" class="etiqueta">Password</ion-label>
+    <ion-item lines="full" >
+      <ion-label position="floating" >Password</ion-label>
       <ion-icon name="lock-closed" color="light" slot="end"></ion-icon>
      
       <ion-input color="light" placeholder="Password" formControlName="password" type="password" required></ion-input>

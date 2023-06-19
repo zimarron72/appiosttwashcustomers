@@ -21,7 +21,7 @@ export class WashsComponent implements OnInit {
  washdescripcion : string
  washid : number;
  washprecio : string
-  
+ washpreciomobil : string
 
   constructor(
     private router: Router,
@@ -49,6 +49,7 @@ export class WashsComponent implements OnInit {
    this.washdescripcion = this.rutaActiva.snapshot.params.washdescripcion;
  this.washid = this.rutaActiva.snapshot.params.washid
  this.washprecio = this.rutaActiva.snapshot.params.washprecio
+ this.washpreciomobil = this.rutaActiva.snapshot.params.washpreciomobil
    this.rutaActiva.params.subscribe(
      async (params: Params) => {
        this.washname = params.washname;
@@ -57,6 +58,8 @@ export class WashsComponent implements OnInit {
        this.washdescripcion = params.washdescripcion;
        this.washid = params.washid
        this.washprecio = params.washprecio
+       this.washpreciomobil = params.washpreciomobil
+       await this.localstorage.setData('washpreciomobil', this.washpreciomobil)
        await this.localstorage.setData('washprecio', this.washprecio)
        await this.localstorage.setData('tipolavado', this.washlavado) 
      }
