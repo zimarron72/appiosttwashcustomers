@@ -6,7 +6,7 @@
     <ion-title>Bill information</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-icon name="information-circle" slot='start' style="color:#f2f2f2"></ion-icon>
     <ion-title size="small" style="color: #ffffff;">This information is used to prepare billing</ion-title>
   </ion-toolbar>
 
@@ -22,10 +22,10 @@
 <div *ngIf = "xnombre">
     <ion-item>
       <ion-label class="ion-text-wrap">
-        <ion-text color="primary">
+        <ion-text style="color:#f2f2f2; font-weight: bold;">
           <h3>Firstname</h3>
         </ion-text>       
-        <ion-text color="secondary">
+        <ion-text style="color:#f2f2f2">
           <p>{{nombre}}</p>
         </ion-text>
       </ion-label>
@@ -38,7 +38,7 @@
     <form [formGroup]="form_firtname" (ngSubmit)="submit_firstname()" novalidate>
       <ion-item lines="full">
         <ion-label  position="floating" class="etiqueta">New firstname</ion-label>
-        <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="firstname" type="text" required ></ion-input>       
+        <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="firstname" type="text" required ></ion-input>       
       </ion-item>
       <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
       </form>
@@ -48,10 +48,10 @@
 <div *ngIf = "xapellido">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Lastname</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{apellido}}</p>
       </ion-text>
     </ion-label>
@@ -64,7 +64,7 @@
   <form [formGroup]="form_lastname" (ngSubmit)="submit_lastname()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New lastname</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="lastname" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="lastname" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -74,10 +74,10 @@
 <div *ngIf = "xfullname">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Fullname</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{fullname}}</p>
       </ion-text>
     </ion-label>
@@ -90,7 +90,7 @@
   <form [formGroup]="form_fullname" (ngSubmit)="submit_fullname()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New fullname</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="fullname" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="fullname" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -100,10 +100,10 @@
 <div *ngIf = "xcustomer">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Customer</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{tipocliente}}</p>
       </ion-text>
     </ion-label>
@@ -131,10 +131,10 @@
 <div *ngIf = "xempresa">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Company</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{empresa}}</p>
       </ion-text>
     </ion-label>
@@ -147,7 +147,7 @@
   <form [formGroup]="form_empresa" (ngSubmit)="submit_empresa()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New Company</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="empresa" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="empresa" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -157,10 +157,10 @@
 <div *ngIf = "xrif">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Tax ID</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{rif}}</p>
       </ion-text>
     </ion-label>
@@ -173,7 +173,7 @@
   <form [formGroup]="form_rif" (ngSubmit)="submit_rif()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New Tax ID</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="rif" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="rif" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -185,10 +185,10 @@
 <div *ngIf = "xcasa">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Suite</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{casa}}</p>
       </ion-text>
     </ion-label>
@@ -201,7 +201,7 @@
   <form [formGroup]="form_suite" (ngSubmit)="submit_casa()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New suite</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="casa" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="casa" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -211,10 +211,10 @@
 <div *ngIf = "xcalle">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Street No.</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{calle}}</p>
       </ion-text>
     </ion-label>
@@ -227,7 +227,7 @@
   <form [formGroup]="form_calle" (ngSubmit)="submit_calle()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New street No.</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="calle" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="calle" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -237,10 +237,10 @@
 <div *ngIf = "xdireccion">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Address</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{direccion}}</p>
       </ion-text>
     </ion-label>
@@ -253,7 +253,7 @@
   <form [formGroup]="form_direccion" (ngSubmit)="submit_direccion()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New address</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="direccion" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="direccion" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -263,10 +263,10 @@
 <div *ngIf = "xzip">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Postal Code</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{codigopostal}}</p>
       </ion-text>
     </ion-label>
@@ -279,7 +279,7 @@
   <form [formGroup]="form_zip" (ngSubmit)="submit_zip()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New postal Code</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="zip" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="zip" type="text" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -289,10 +289,10 @@
 <div *ngIf = "xestado">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>State</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{estado}}</p>
       </ion-text>
     </ion-label>
@@ -319,10 +319,10 @@
 <div *ngIf = "xciudad">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>City</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{ciudad}}</p>
       </ion-text>
     </ion-label>
@@ -349,10 +349,10 @@
 <div *ngIf = "xtelefono">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Phone</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{telefono}}</p>
       </ion-text>
     </ion-label>
@@ -365,7 +365,7 @@
   <form [formGroup]="form_phone" (ngSubmit)="submit_telefono()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New phone</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="phone" type="tel" maxlength = "10" minlength = "10" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="phone" type="tel" maxlength = "10" minlength = "10" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -375,10 +375,10 @@
 <div *ngIf = "xcelular">
   <ion-item>
     <ion-label class="ion-text-wrap">
-      <ion-text color="primary">
+      <ion-text style="color:#f2f2f2; font-weight: bold;">
         <h3>Mobil</h3>
       </ion-text>       
-      <ion-text color="secondary">
+      <ion-text style="color:#f2f2f2">
         <p>{{celular}}</p>
       </ion-text>
     </ion-label>
@@ -391,7 +391,7 @@
   <form [formGroup]="form_mobilphone" (ngSubmit)="submit_celular()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New mobil</ion-label>
-      <ion-input placeholder="Enter the new data" color="tertiary"  formControlName="mobil" type="tel" maxlength = "10" minlength = "10" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="mobil" type="tel" maxlength = "10" minlength = "10" required ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>

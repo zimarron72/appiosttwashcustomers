@@ -205,7 +205,7 @@ alert('SUCCESS!' + result.message)
 uploadImage(formData : FormData) {
 
     
-  return new Promise((resolve, reject) => {
+  return new Promise((_resolve, _reject) => {
    /* this.post('v1_api_admin_rostro_upload.php',  formData
     )*/
     

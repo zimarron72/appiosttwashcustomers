@@ -6,7 +6,7 @@
     <ion-title>Account</ion-title>   
   </ion-toolbar>
   <ion-toolbar *ngIf = "aviso"> 
-    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+    <ion-icon name="information-circle" slot='start' style="color:#f2f2f2"></ion-icon>
     <ion-title size="small" style="color: #ffffff;">refresh view to see changes</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,7 +18,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-<ion-card color="light">
+<ion-card color="secondary">
   <div class="img-wrapper">
     <img [src]="rostro" />
   </div>
@@ -59,10 +59,10 @@
     
       <ion-item>
         <ion-label class="ion-text-wrap">
-          <ion-text color="primary">
+          <ion-text style="color:#f2f2f2; font-weight: bold;">
             <h3>Email</h3>
           </ion-text>       
-          <ion-text color="secondary">
+          <ion-text style="color:#f2f2f2">
             <p>{{email}}</p>
           </ion-text>
         </ion-label>        
@@ -71,10 +71,10 @@
     <div *ngIf = "xusername">
       <ion-item>
         <ion-label class="ion-text-wrap">
-          <ion-text color="primary">
+          <ion-text style="color:#f2f2f2; font-weight: bold;">
             <h3>Username</h3>
           </ion-text>       
-          <ion-text color="secondary">
+          <ion-text style="color:#f2f2f2">
             <p>{{username}}</p>
           </ion-text>
         </ion-label>
@@ -99,10 +99,10 @@
 
     <ion-item>
       <ion-label class="ion-text-wrap">
-        <ion-text color="primary">
+        <ion-text style="color:#f2f2f2; font-weight: bold;">
           <h3>Change password</h3>
         </ion-text>       
-        <ion-text color="secondary">
+        <ion-text style="color:#f2f2f2">
           <p>................</p>
         </ion-text>
       </ion-label>

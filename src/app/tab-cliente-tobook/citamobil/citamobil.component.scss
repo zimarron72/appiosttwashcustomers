@@ -7,6 +7,7 @@
    
     border-radius:  unset !important;
     box-shadow: none;
+    background-color:#2E4F9C !important;
    }
 
 
@@ -26,5 +27,9 @@ width: 100%
   background-color: #2E4F9C !important;
 
   margin-left: 40px;
+}
+
+::ng-deep ion-content{
+  --ion-background-color:#2E4F9C;
 }
 

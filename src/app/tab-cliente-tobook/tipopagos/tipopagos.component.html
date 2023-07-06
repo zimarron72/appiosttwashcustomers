@@ -18,23 +18,25 @@
     <ion-item  color="secondary"  routerLink="/tabs-cliente/tobook/mypays/Verifying">
       <ion-label floating ion-left>
        
-        <ion-icon name="checkmark" item-start class="text-primary" color="primary"></ion-icon> 
+        <ion-icon name="checkmark" item-start class="text-primary" class="figura"></ion-icon> 
         IN REVIEW      
       </ion-label>
       <IonBadge  >({{inview}})</IonBadge>
   
     </ion-item>
+
     <ion-item color="success" routerLink="/tabs-cliente/tobook/mypays/Processed">
       <ion-label floating ion-left>
-        <ion-icon name="checkmark-done" item-start class="text-primary" color="primary"></ion-icon> 
+        <ion-icon name="checkmark-done" item-start class="text-primary" class="figura"></ion-icon> 
         ADMITTED
       </ion-label>
       <IonBadge  >({{admitted}})</IonBadge>
   
     </ion-item>
+    
     <ion-item color="danger" routerLink="/tabs-cliente/tobook/mypays/Denied">
       <ion-label floating ion-left>
-        <ion-icon name="warning" item-start class="text-primary" color="primary"></ion-icon> 
+        <ion-icon name="warning" item-start class="text-primary" class="figura"></ion-icon> 
       REJECT   
       </ion-label>
       <IonBadge  >({{reject}})</IonBadge>
