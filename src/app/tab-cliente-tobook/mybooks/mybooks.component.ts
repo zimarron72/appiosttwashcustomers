@@ -55,7 +55,7 @@ export class MybooksComponent implements OnInit {
     this.doRefresh(null)
   }
 
-  segmentChanged(ev: any) {
+  segmentChanged(_event: any) {
  
     if(this.respuesta == 'YES') {
 

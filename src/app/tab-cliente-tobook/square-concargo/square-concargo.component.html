@@ -6,11 +6,11 @@
     <ion-title>Payout</ion-title>
   </ion-toolbar>
   <ion-toolbar> 
-    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
-    <ion-title size="small" style="color:#ffffff">All payments are subject to a review stage before their appropriate approval.</ion-title>
+    <ion-icon name="information-circle" slot='start' style="color:#f2f2f2"></ion-icon>
+    <ion-title size="small" style="color:#f2f2f2">All payments are subject to a review stage before their appropriate approval.</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content style="background-color: #f2f2f2;">
 <form id="payment-form">
   <div id="billing">
 
@@ -27,7 +27,7 @@
     <div class="label">Discount</div> 
     <input type="text" id="descuento" name="descuento" class="form-control" value ='{{descuento_string}}' readonly=""> 
 
-<div style="text-align: center">Service charge</div>
+<div style="text-align: center; color:#f2f2f2">Service charge</div>
 
     <div class="label">Monto</div> 
     <input type="text" id="charge" name="charge" class="form-control" value ='{{charge_string}}' readonly=""> 
@@ -36,15 +36,15 @@
     <input type="text" id="concepto" name="concepto" class="form-control" value ='{{concepto}}' readonly=""> 
 
     <div class="label">Total</div> 
-    <input type="text" id="total" name="total" class="form-control" value ='{{total_string}}' readonly=""> 
+    <input type="text" id="total" name="total" class="form-control" value ='{{total_string}}' readonly=""><br> 
 
     
     
-
+    <div style="text-align: center; color:#f2f2f2"> Would you like to add a tip?</div>
     <div class="tip">Tip</div> 
-    <input type="tel" id="tip" name="tip" class="form-control" value=""> 
-
-
+    <input type="tel" id="tip" name="tip" class="form-control" value="" placeholder="Tip?"><br> 
+    <div style="text-align: center; color:#f2f2f2">Please fill in the payment information</div>
+   
    
       <!--<input type="hidden" id="uid" name="uid"  value='{{uid}}'> 
       <input type="hidden" id="uemail" name="uemail"  value='{{uemail}}'> 

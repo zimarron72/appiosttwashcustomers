@@ -6,11 +6,11 @@
     <ion-title>Payout</ion-title>
   </ion-toolbar>
   <ion-toolbar> 
-    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
-    <ion-title size="small" style="color:#ffffff">All payments are subject to a review stage before their appropriate approval.</ion-title>
+    <ion-icon name="information-circle" slot='start' style="color:#f2f2f2"></ion-icon>
+    <ion-title size="small" style="color:#f2f2f2">All payments are subject to a review stage before their appropriate approval.</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content >
 <form id="payment-form">
   <div id="billing">
 
@@ -30,13 +30,15 @@
     
 
     <div class="label">Total</div> 
-    <input type="text" id="total" name="total" class="form-control" value ='{{total_string}}' readonly=""> 
+    <input type="text" id="total" name="total" class="form-control" value ='{{total_string}}' readonly=""><br> 
 
     
     
-
+    <div style="text-align: center; color:#f2f2f2"> Would you like to add a tip?</div>
     <div class="tip">Tip</div> 
-    <input type="tel" id="tip" name="tip" class="form-control" value=""> 
+    <input type="tel" id="tip" name="tip" class="form-control" value="" placeholder="tip?"><br> 
+    <div style="text-align: center; color:#f2f2f2">Please fill in the payment information</div>
+
 
 
    

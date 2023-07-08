@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.appandroid.ttwash" version="1.8.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>TTwash express</name>
+<widget id="com.appandroid.ttwash" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>TTwash Express</name>
     <description>An awesome TTwash app Android</description>
     <author email="ttwash.app@gmail.com" href="http://washtt.com/">TTwash Team</author>
     <content src="index.html" />

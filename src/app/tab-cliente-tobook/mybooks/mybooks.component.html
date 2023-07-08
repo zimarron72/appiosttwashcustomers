@@ -5,16 +5,16 @@
     </ion-buttons>
     <ion-title>Appointments</ion-title>
   </ion-toolbar>
-  <ion-toolbar *ngIf=" 2 >= n" style ="color:#ffffff;"> 
-    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+  <ion-toolbar *ngIf=" 2 >= n" style ="color:#f2f2f2;"> 
+    <ion-icon name="information-circle" slot='start' style ="color:#f2f2f2;"></ion-icon>
     <ion-title size="small">Appointments can be canceled with at least 24 hours notice</ion-title>
   </ion-toolbar>
-  <ion-toolbar *ngIf="n == 7" style ="color:#ffffff;"> 
-    <ion-icon name="warning" slot='start' color="danger"></ion-icon>
+  <ion-toolbar *ngIf="n == 7" style ="color:#f2f2f2;"> 
+    <ion-icon name="warning" slot='start' style ="color:#f2f2f2;"></ion-icon>
     <ion-title size="small">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>
   </ion-toolbar>
-  <ion-toolbar *ngIf="n >= 9" style ="color:#ffffff;"> 
-    <ion-icon name="information-circle" slot='start' color="danger"></ion-icon>
+  <ion-toolbar *ngIf="n >= 9" style ="color:#f2f2f2;"> 
+    <ion-icon name="information-circle" slot='start' style ="color:#f2f2f2;"></ion-icon>
     <ion-title size="small">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -91,24 +91,25 @@
         
          
          <div *ngIf="n == 7">
+          <hr>
 <div style="text-align: center;" *ngIf="element.vercharge_item">Servicio charge</div>
           <p *ngIf="element.vercharge_item" class="tickets">Monto:</p>
           <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_monto_item}}</p>
             <p *ngIf="element.vercharge_item" class="tickets">Concepto:</p>
             <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_concepto_item}}</p>
-            <p *ngIf="element.vercharge_item" class="tickets">Status:</p>
-            <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_aprobacion_item}}</p>
+            <!--<p *ngIf="element.vercharge_item" class="tickets">Status:</p>
+            <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_aprobacion_item}}</p>-->
 
-            <div style="text-align: center; padding:5px; color: rgb(240, 69, 69)" >Do you accept the Service charge</div>
+            <!--<div *ngIf="element.vercharge_item" style="text-align: center; padding:5px; color: rgb(240, 69, 69)" >Do you accept the Service charge?</div>
 
             <ion-segment *ngIf="element.vercharge_item" (ionChange)="segmentChanged($event)" [(ngModel)]="respuesta" value="NOT" >
-              <ion-segment-button style="color: #9ad21e " value="NOT"  >
+              <ion-segment-button style="color: #142f5f " value="NOT"  >
                 <ion-label>NOT</ion-label>
               </ion-segment-button>
-              <ion-segment-button value="YES" style="color: #9ad21e;">
+              <ion-segment-button  style="color: #9ad21e;" value="YES">
                 <ion-label>YES</ion-label>
               </ion-segment-button>
-            </ion-segment>
+            </ion-segment>-->
           
 
 
@@ -117,12 +118,14 @@
          </div>
          
          <div *ngIf="n == 7">
+          <hr>
 <div *ngIf="element.vercharge_item">
-          <a *ngIf="verenlace1" mat-button  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2"><mat-icon>payment</mat-icon> TO PAY NOW</a> 
-          <a *ngIf="verenlace2" mat-button  routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0"><mat-icon>payment</mat-icon> TO PAY NOW</a> 
+          <!--<a *ngIf="verenlace1" mat-button  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2"><mat-icon>payment</mat-icon> TO PAY NOW </a> 
+          <a *ngIf="verenlace2" mat-button  routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> 
+          <a  mat-button  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2">TO PAY NOW<mat-icon>payment</mat-icon> </a>
         </div>
 
-          <a mat-button *ngIf="element.verenlace3_item" routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1"><mat-icon>payment</mat-icon> TO PAY NOW</a> 
+          <a mat-button *ngIf="element.verenlace3_item" routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1">TO PAY NOW<mat-icon>payment</mat-icon></a> 
         
         
         
@@ -132,14 +135,21 @@
 
 
         <div *ngIf=" 2 >= n" >
-          <button mat-mini-fab aria-label="cancelar icon" (click)="Cancelar(element.order_item_id)">
+          <!--<button mat-mini-fab aria-label="cancelar icon" (click)="Cancelar(element.order_item_id)">
             <mat-icon>event_busy</mat-icon>
-          </button>
+          </button>-->
+
+          <ion-button expand="full" color="primary"  (click)="Cancelar(element.order_item_id)">Cancel
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-button>
         </div>        
         <div *ngIf="n >= 9">
-          <button mat-mini-fab aria-label="borrar icon" (click)="Borrar(element.order_item_id)">
+          <!--<button mat-mini-fab aria-label="borrar icon" (click)="Borrar(element.order_item_id)">
             <mat-icon>delete</mat-icon>
-          </button>
+          </button>-->
+          <ion-button expand="full" color="primary"  (click)="Borrar(element.order_item_id)">Delete
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
         </div>
               
               

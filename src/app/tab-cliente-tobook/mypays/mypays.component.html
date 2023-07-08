@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Payments: {{p}}</ion-title>
+    <ion-title>Payments:<br>{{p}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -28,7 +28,7 @@
   <!-- Position Column -->
   <ng-container matColumnDef="service">
     <th mat-header-cell *matHeaderCellDef> Service </th>
-    <td mat-cell *matCellDef="let element"> {{element.service}} </td>
+    <td mat-cell *matCellDef="let element" style="font-size: 14px;"> {{element.service}} </td>
   </ng-container>
 
   <!-- Name Column -->
@@ -76,8 +76,8 @@
 
             <p class="tickets">Total:</p>
             <p class="ticket">{{element.Amount_string}}</p>       
-            <p class="tickets">Payment reference:</p>
-              <p class="ticket">{{element.txn_id}}</p>   
+            <!--<p class="tickets">Payment reference:</p>
+              <p class="ticket">{{element.txn_id}}</p>-->  
 
 
       </div>
