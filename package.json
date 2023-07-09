@@ -62,7 +62,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
-    "cordova-android": "^10.1.2",
+    "cordova-android": "^11.0.0",
     "cordova-androidx-build": "^1.0.4",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-camera": "^6.0.0",
@@ -74,7 +74,6 @@
     "cordova-plugin-ionic": "^5.5.3",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
-    "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.3",
     "cordova-plugin-unique-device-id2": "^2.0.0",
     "cordova-sqlite-storage": "^6.0.0",
@@ -101,7 +100,6 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-splashscreen": {},
       "cordova-plugin-device": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-sqlite-storage": {},

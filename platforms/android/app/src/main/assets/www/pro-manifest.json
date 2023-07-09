@@ -11,13 +11,13 @@
   },
   {
     "href": "cordova.js",
-    "size": 63165,
-    "integrity": "sha256-fyY9rfv7dTNHi1e+WZawNztIMWE4gW/+A50GEjShmEg= sha384-7KqYEcTBtJpMpASa6QP5m1e1GXetE1AMNpjxjwJUdIs3nB3Fs755uneP56DJrgQf sha512-qGEC3VfGQ1sS9SEJUFlTnZKgS+nDiBzC5i2DEBKgvU2hO+7AX9F18ly/HnW6R31ZBOUCKkuz6TMrjaFWH6xALQ=="
+    "size": 63747,
+    "integrity": "sha256-u9nc/+DaD84T8c+yhUtbNa5leERHHha7kdlJC4K7Suw= sha384-j8fQ1gGwBc8LAnkJ5bpIqUwkUZlGeEbdY6R66VjQLnTe66/d8a8HekC6Ot1B+Uzl sha512-p4Uz71JLS69L65u3EroxpPI9YWD2SGg8VAwKEblSEMiTBHExuPfjRUDsnQmV3BE6TZrCX2reZ+CVVOuezhMACw=="
   },
   {
     "href": "cordova_plugins.js",
-    "size": 10049,
-    "integrity": "sha256-Gq1Eh/6YeeKc25foYBCzqfiVTJliF7kXAjvAMN+wbHw= sha384-oNkRRNbB7iXemIW3ZciMFCm5UILMXRIpczrJteOF3ayb1NnQlZIwWUDs4i0vPdAc sha512-Z/nimh9u/9PWcyG7QRXdyylJB9tmf5LfC2mToEeZhjQq/fpm4o+ljJ8bnvvWEgwa9gV4x5R4E25ftwRukscIgw=="
+    "size": 9753,
+    "integrity": "sha256-EzqbjH/DovyChHaEUf+4R0klsxQG++0SfgdCNF3TghI= sha384-fQXWL30vg48c9HUcipDTUM4YCVDqb85OCXtI1hH4746DbX0NHmNV/vMpuB4fkpqz sha512-ZV20n43igNldvExtn7Z27Pmgm1I3fch6e/g0ygeNhqQQMXb2rQocmqoF8GKNZWVoiMD2OeQL0CfT8MYw9zJAuw=="
   },
   {
     "href": "default-node_modules_angular_material___ivy_ngcc___fesm2015_card_js-node_modules_angular_mate-93e209-es2015.js",
@@ -657,22 +657,22 @@
   {
     "href": "src_app_tab-cliente-profile_tab-cliente-profile_module_ts-es2015.js",
     "size": 405898,
-    "integrity": "sha256-qjk8jfUloRccgSqJR0PrKviIW5Rwcdl6pAeSzUePeWc= sha384-X5wrhchqvHeAFWjanY+RYGOgh3YoXjPaRZxTFqD7f0JLq1eBG3xzlVgvMY7ONvS1 sha512-5VVTieeryztDGcHX1ZekQR1V88sM8RCCQCAYiLKv9jLSXqIACy38mROB/Wj33ZOpgAlqlEvHzrToz+MTxJVRyw=="
+    "integrity": "sha256-hAvAPBf6kCk1TuEv/U2FbCmZL7AS5jR97nYqb5i+jq4= sha384-hXqqLg7Kb1TgQOGi8Prk/W2J3ZL0oMHpJqyJAAmUe3IuJIKKLJonSdAE7ZOqTWrm sha512-cf5ptmuvA8O+ENvNI/fIm/MAaOuX21cQHq2srWGTmj0Ph9cj7wPeuyGTbX9oqCwrenT4+n3d17Ot/wTp/usQNQ=="
   },
   {
     "href": "src_app_tab-cliente-profile_tab-cliente-profile_module_ts-es5.js",
     "size": 488499,
-    "integrity": "sha256-iZOReMijgbAnHwFRunzdFvcJoxoUEymP1QW4zW825KU= sha384-fSgFQbqkvZ4f81xPDX0ixH8pxUmcbvf3WKqpIw6MrZxPYomT1GSMemcp5tWxi580 sha512-scQf57zRZniqLVeNnHygQa9n30RDE8EcVaf9uGurAmaRuvxsJHR9ez9exaSXwAFI8yNL7+CS7OwY5u6Ab7JimA=="
+    "integrity": "sha256-CG8eiAluDC4626CLhnnCNLXT5lZxQmRqV5oU5lHPPkk= sha384-KPdDAHXT7EMiketM9IaQRDjv31rfJXVa+Y8mRTUcIKiSm9reOx4K0g0MGVWSaldv sha512-24XBzXxtds1STqRNT8LVbLtqUPYReesQyw1arK+/WSIWYw/BDGhBl0Q5ddQZCj4b88ojysI+qFzfu4bXKYqxvA=="
   },
   {
     "href": "src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts-es2015.js",
-    "size": 2176154,
-    "integrity": "sha256-sKjU3Kbx/c9Xk++dTZvforppwee10lyvoD9XiyhAkSc= sha384-cl7myCjcqaUOfFIVXUeJusWnNN2K7QT7uFfaFIykIxZsaosLLf24dXblN/GmhXqQ sha512-6Q59EtF3HamxhvIqpVzBF3H1NzCOE7P2i5A7TFL3JUJguNJPMMec+/f+qHEQSwbHpvSEhj3WH5g1YndFIuomsA=="
+    "size": 2176197,
+    "integrity": "sha256-iYj6Vyw7E/w/LzaMpV2Ro1vag4YzHtC1SbVngv6QnHw= sha384-424tPqn6n5ae1vTY0Ppuv/UOdkRTH+zxJhaJob3z+4DWvCcnLS0oWJ+d3qF/MVOS sha512-lTYkulztinjrdCbguDVURsDz/bhk6OWbioypjrsaoYL2o7/y7hi6utf+LnDg2Rm71oBxlLrpoDvysIDbCi3qEg=="
   },
   {
     "href": "src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts-es5.js",
-    "size": 2555855,
-    "integrity": "sha256-id/Mp1LMCNuf6bFPGbgfl1xEDzUyNsid883KUNgOLH8= sha384-BFXbO9iKxOFbUsCMDIusEbW+a/06UDldSXso15CAjkE2FLzfLCf0njdY8W+MIsG8 sha512-wS04kHrvGvNrNbdHV6X2Ej71ZVLGIHKqI8b4LxMy5n7xNpMiYQCZ2UjyzPvo+kGEokCCBUlLieivdsCHt+sllQ=="
+    "size": 2555898,
+    "integrity": "sha256-NmXL1Mf6FnkpbWruir64WtJCxIrihekj+TZCK4+pUR0= sha384-mR2ksO1wzcV1L/ibfH+PmowTaE3kPD6Ve15+/nRn2COj7H31hQjias+ReX2SI6bA sha512-qk4NADuYr93nvJzcRKHDBQT8LZMZ4C1uBqz5vGBs5lTK9FrJLQQaONFm+3OCx10X4ZLZCyAS55Rz8AWEwE4FZQ=="
   },
   {
     "href": "src_app_tabs-cliente_tabs-cliente_module_ts-es2015.js",
@@ -7543,11 +7543,6 @@
     "href": "plugins/cordova-plugin-ionic/dist/guards.js",
     "size": 1092,
     "integrity": "sha256-/xzxcKZH8U8MRKo/B4bSLYOawGPf9IRbQK7rjcMpY5A= sha384-5M3sx0xq+nGTZ5YKUNHuOL26+knaNHE9T3SX9Ej7RtMt8C3yLH8PPvJ3L2D+OMYF sha512-y3Kza+plHx7hWNwaCJWT+IeA8KNN74frFhMw6J3IJgVyXY/3PmjbWvhyWrBYzREu8qmOqX4yvoEq3y0UOIhzVg=="
-  },
-  {
-    "href": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-    "size": 1173,
-    "integrity": "sha256-YSn19P0zRIG9MxdesT37iqYB1WqXVOFIXyjmnTn6foU= sha384-6hVmtB0mCTP4J9/pp89ywqlHr0Tm8G90VvuZ8/f536+8F31ACu3yY2TIw25G5XdE sha512-XpyWeqOgQ1gHWKFp278ERxHTSI1Lj/wnEB8pVo2dZbvn+F/e95S5CsAmEZt6nVkmQfrEDie/eLFbKl33ZGivKw=="
   },
   {
     "href": "plugins/cordova-plugin-statusbar/www/statusbar.js",
