@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.appandroid.ttwash" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.appandroid.ttwash" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>TTwash Express</name>
     <description>An awesome TTwash app Android</description>
     <author email="ttwash.app@gmail.com" href="http://washtt.com/">TTwash Team</author>
@@ -16,11 +16,9 @@
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="FadeSplashScreen" value="false" />
     <preference name="SplashScreenDelay" value="3000" />
-    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-    <platform name="android">
-        <preference name="AndroidXEnabled" value="true" />
-        <preference name="android-minSdkVersion" value="26" />
-        <preference name="android-targetSdkVersion" value="32" />
+    <platform>
+        <preference name="android-minSdkVersion" value="24" />
+        <preference name="android-targetSdkVersion" value="33" />
         <preference name="DisableDeploy" value="true" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
