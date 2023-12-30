@@ -40,15 +40,15 @@ export class IngresarperfilComponent implements OnInit {
       firstname: [, { validators: [Validators.required]}],
       lastname: [, { validators: [Validators.required] }],
    
-      companyname: [],
-      companycodigo: [],  
-      telephone: [, { validators: [Validators.required] }],
+     // companyname: [],
+     // companycodigo: [],  
+     // telephone: [, { validators: [Validators.required] }],
       mobilphone: [, { validators: [Validators.required] }],
-      customertypes : [, { validators: [Validators.required] }]
+     // customertypes : [, { validators: [Validators.required] }]
     });
   } 
   
-  cambiar(x : any) {
+ /* cambiar(x : any) {
     if(x == 2) {
     
      this.show1 = true; 
@@ -79,7 +79,7 @@ export class IngresarperfilComponent implements OnInit {
     
     }
     
-    } 
+    } */
 
     async submit_perfil() {
       if (this.form_perfil.valid) {
@@ -91,12 +91,12 @@ export class IngresarperfilComponent implements OnInit {
   var nombres = this.form_perfil.get("firstname").value;
   var apellidos = this.form_perfil.get("lastname").value;
  
-  var    companyname = this.form_perfil.get("companyname").value;
-  var    companycodigo = this.form_perfil.get("companycodigo").value;
+  //var    companyname = this.form_perfil.get("companyname").value;
+ // var    companycodigo = this.form_perfil.get("companycodigo").value;
   
-  var    telephone = this.form_perfil.get("telephone").value;
+  //var    telephone = this.form_perfil.get("telephone").value;
   var    mobilphone = this.form_perfil.get("mobilphone").value;
-  var    customertypes = this.form_perfil.get("customertypes").value;
+  //var    customertypes = this.form_perfil.get("customertypes").value;
   
   
         this.http.post<any>('https://washtt.com/v1_api_clientes_ingresoperfil_inicio.php', { 
@@ -105,11 +105,11 @@ export class IngresarperfilComponent implements OnInit {
         autenticacion_tipo : autenticacion_tipo,
         nombres : nombres , 
         apellidos : apellidos,
-  companyname  : companyname,
-  companycodigo : companycodigo,  
-  telephone : telephone,
+ // companyname  : companyname,
+ // companycodigo : companycodigo,  
+ // telephone : telephone,
   mobilphone : mobilphone,
-  customertypes : customertypes
+  //customertypes : customertypes
       
       }).subscribe({
           next: async data => {

@@ -19,7 +19,7 @@
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  (self["webpackChunkttwash"] = self["webpackChunkttwash"] || []).push([["src_app_tab-cliente-profile_tab-cliente-profile_module_ts"], {
+  (self["webpackChunkttwashexpress"] = self["webpackChunkttwashexpress"] || []).push([["src_app_tab-cliente-profile_tab-cliente-profile_module_ts"], {
     /***/
     45396:
     /*!******************************************************************************!*\
@@ -2371,7 +2371,6 @@
           this.xfpassword = false;
           this.rostro = './assets/imgs/foto_perfil.svg';
           this.baseUrl = 'https://washtt.com';
-          this.aviso = false;
         }
         /******************************************************CODIGO CAMARA ************************************************* */
 
@@ -2452,7 +2451,6 @@
           value: function uploadPhoto(imageFileUri) {
             var _this6 = this;
 
-            this.loading.simpleLoader();
             this.file.resolveLocalFilesystemUrl(imageFileUri).then(function (entry) {
               return entry.file(function (file) {
                 return _this6.readFile(file);
@@ -2533,6 +2531,7 @@
           value: function uploadImage(formData) {
             var _this8 = this;
 
+            this.loading.simpleLoader();
             return new Promise(function (_resolve, _reject) {
               /* this.post('v1_api_admin_rostro_upload.php',  formData
                )*/
@@ -2540,15 +2539,16 @@
                 //  resolve(response);
                 _this8.loading.dismissLoader();
 
-                _this8.aviso = true;
                 var datos = response; // alert(datos.success + datos.message)
 
                 switch (datos.success) {
                   case true:
-                    _this8.snackBar.open("Your picture was uploaded successfully", "Close", {
+                    _this8.snackBar.open("Your picture was uploaded successfully", "CONTINUE", {
                       horizontalPosition: "start",
                       verticalPosition: "top"
                     });
+
+                    _this8.doRefresh(null);
 
                     break;
 
@@ -2585,6 +2585,25 @@
                   }
                 }
               }, _callee3);
+            }));
+          }
+        }, {
+          key: "ionViewWillEnter",
+          value: function ionViewWillEnter() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      this.doRefresh(null);
+                      this.reactiveForm();
+
+                    case 2:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
             }));
           }
         }, {
@@ -2721,19 +2740,19 @@
         }, {
           key: "submit_password",
           value: function submit_password() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               var password;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       if (!this.form_password.valid) {
-                        _context4.next = 5;
+                        _context5.next = 5;
                         break;
                       }
 
                       password = this.form_password.get("password").value;
-                      return _context4.abrupt("return", this.servicioauth.cambiarpassword(password));
+                      return _context5.abrupt("return", this.servicioauth.cambiarpassword(password));
 
                     case 5:
                       this.snackBar.open("Enter the new password", "Close", {
@@ -2742,25 +2761,6 @@
                       });
 
                     case 6:
-                    case "end":
-                      return _context4.stop();
-                  }
-                }
-              }, _callee4, this);
-            }));
-          }
-        }, {
-          key: "ionViewWillEnter",
-          value: function ionViewWillEnter() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
-                while (1) {
-                  switch (_context5.prev = _context5.next) {
-                    case 0:
-                      this.doRefresh(null);
-                      this.reactiveForm();
-
-                    case 2:
                     case "end":
                       return _context5.stop();
                   }
@@ -2797,7 +2797,6 @@
                     case 10:
                       autenticacion_tipo = _context6.sent;
                       this.loading.simpleLoader();
-                      this.aviso = false;
 
                       if (user) {
                         this.servicioprofile.getDataCuenta(idtoken, autenticacion_tipo, user.email).subscribe(function (val) {
@@ -2862,7 +2861,7 @@
                         });
                       }
 
-                    case 14:
+                    case 13:
                     case "end":
                       return _context6.stop();
                   }
@@ -7809,7 +7808,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header >  \n  <ion-toolbar  color=\"primary\">   \n     <ion-buttons slot=\"start\">\n    <ion-back-button></ion-back-button>\n  </ion-buttons>    \n    <ion-title>Account</ion-title>   \n  </ion-toolbar>\n  <ion-toolbar *ngIf = \"aviso\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color: #ffffff;\">refresh view to see changes</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n<ion-card color=\"secondary\">\n  <div class=\"img-wrapper\">\n    <img [src]=\"rostro\" />\n  </div>\n\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <ion-button color=\"primary\" (click) = \"fromCamara()\">\n          <ion-icon slot=\"start\" name=\"camera-outline\" color=\"medium\">\n         \n          </ion-icon>\n          Camare\n        </ion-button>\n      </ion-col>\n  \n      <ion-col>\n        <ion-button color=\"primary\" (click) = \"fromGallery()\">\n          <ion-icon slot=\"end\" name=\"albums-outline\" color=\"medium\"></ion-icon>\n         \n     Gallery\n        </ion-button>\n      </ion-col>\n \n    </ion-row>\n    </ion-grid>\n\n\n  <ion-card-content class=\"ion-text-center\">\n    <h2>{{fullname}}</h2>\n    <ion-text color=\"medium\">\n      <div style=\"display: flex;\" class=\"ion-justify-content-center\">\n        <ion-icon name=\"location-outline\" color=\"medium\">\n        </ion-icon>\n        <p>{{address}}</p>\n      </div>\n    </ion-text>\n    \n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">\n          <ion-text style=\"color:#f2f2f2; font-weight: bold;\">\n            <h3>Email</h3>\n          </ion-text>       \n          <ion-text style=\"color:#f2f2f2\">\n            <p>{{email}}</p>\n          </ion-text>\n        </ion-label>        \n      </ion-item>\n\n    <div *ngIf = \"xusername\">\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">\n          <ion-text style=\"color:#f2f2f2; font-weight: bold;\">\n            <h3>Username</h3>\n          </ion-text>       \n          <ion-text style=\"color:#f2f2f2\">\n            <p>{{username}}</p>\n          </ion-text>\n        </ion-label>\n        <!--<ion-button slot=\"end\" (click) = \"edit_username()\">       \n          <ion-icon slot=\"icon-only\" name=\"pencil\" class=\"pen\"></ion-icon>\n        </ion-button>-->\n      </ion-item>\n  </div>\n  <!--<div *ngIf = \"xfusername\">\n      <form [formGroup]=\"form_username\" (ngSubmit)=\"submit_username()\" novalidate>\n        <ion-item lines=\"full\">\n          <ion-label  position=\"floating\" class=\"etiqueta\">Enter the new username</ion-label>\n          <ion-input placeholder=\"Enter the new username\" color=\"tertiary\"  formControlName=\"username\" type=\"text\" required ></ion-input>       \n        </ion-item>\n        <ion-button  type=\"submit\" color=\"primary\" expand=\"block\" >Send</ion-button>\n        </form>\n        <ion-button   class=\"cancel\" expand=\"block\" (click) = \"cancel_username()\" >Cancel</ion-button>\n  </div>--> \n\n  <div *ngIf = \"xpassword\">\n \n\n    <ion-item>\n      <ion-label class=\"ion-text-wrap\">\n        <ion-text style=\"color:#f2f2f2; font-weight: bold;\">\n          <h3>Change password</h3>\n        </ion-text>       \n        <ion-text style=\"color:#f2f2f2\">\n          <p>................</p>\n        </ion-text>\n      </ion-label>\n    <ion-button slot=\"end\" (click) = \"edit_password()\">       \n        <ion-icon slot=\"icon-only\" name=\"pencil\" class=\"pen\"></ion-icon>\n      </ion-button>\n    </ion-item>\n\n\n</div>\n<div *ngIf = \"xfpassword\">\n  <p>Password: 8 characters minimum that includes at least one number, one capital letter and one symbol</p>\n    <form [formGroup]=\"form_password\" (ngSubmit)=\"submit_password()\" novalidate>\n      <ion-item lines=\"full\">\n        <ion-label  position=\"floating\" class=\"etiqueta\">Enter the new password</ion-label>\n        <ion-input placeholder=\"Enter the new password\" color=\"tertiary\"  formControlName=\"password\"  required ></ion-input>       \n      </ion-item> \n      <ion-button  type=\"submit\" color=\"primary\" expand=\"block\" >Send</ion-button>\n      </form>\n      <ion-button   class=\"cancel\" expand=\"block\" (click) = \"cancel_password()\" >Cancel</ion-button>\n</div> \n\n  </ion-card-content>\n</ion-card>\n</ion-content>\n\n";
+      __webpack_exports__["default"] = "<ion-header >  \n  <ion-toolbar  color=\"primary\">   \n     <ion-buttons slot=\"start\">\n    <ion-back-button></ion-back-button>\n  </ion-buttons>    \n    <ion-title>Account</ion-title>   \n  </ion-toolbar>\n  \n</ion-header>\n\n\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n<ion-card color=\"secondary\">\n  <div class=\"img-wrapper\">\n    <img [src]=\"rostro\" />\n  </div>\n\n\n  <ion-grid>\n    <ion-row>\n      <ion-col>\n        <ion-button color=\"primary\" (click) = \"fromCamara()\">\n          <ion-icon slot=\"start\" name=\"camera-outline\" color=\"medium\">\n         \n          </ion-icon>\n          Camare\n        </ion-button>\n      </ion-col>\n  \n      <ion-col>\n        <ion-button color=\"primary\" (click) = \"fromGallery()\">\n          <ion-icon slot=\"end\" name=\"albums-outline\" color=\"medium\"></ion-icon>\n         \n     Gallery\n        </ion-button>\n      </ion-col>\n \n    </ion-row>\n    </ion-grid>\n\n\n  <ion-card-content class=\"ion-text-center\">\n    <h2>{{fullname}}</h2>\n    <ion-text color=\"medium\">\n      <div style=\"display: flex;\" class=\"ion-justify-content-center\">\n        <ion-icon name=\"location-outline\" color=\"medium\">\n        </ion-icon>\n        <p>{{address}}</p>\n      </div>\n    </ion-text>\n    \n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">\n          <ion-text style=\"color:#f2f2f2; font-weight: bold;\">\n            <h3>Email</h3>\n          </ion-text>       \n          <ion-text style=\"color:#f2f2f2\">\n            <p>{{email}}</p>\n          </ion-text>\n        </ion-label>        \n      </ion-item>\n\n    <div *ngIf = \"xusername\">\n      <ion-item>\n        <ion-label class=\"ion-text-wrap\">\n          <ion-text style=\"color:#f2f2f2; font-weight: bold;\">\n            <h3>Username</h3>\n          </ion-text>       \n          <ion-text style=\"color:#f2f2f2\">\n            <p>{{username}}</p>\n          </ion-text>\n        </ion-label>\n        <!--<ion-button slot=\"end\" (click) = \"edit_username()\">       \n          <ion-icon slot=\"icon-only\" name=\"pencil\" class=\"pen\"></ion-icon>\n        </ion-button>-->\n      </ion-item>\n  </div>\n  <!--<div *ngIf = \"xfusername\">\n      <form [formGroup]=\"form_username\" (ngSubmit)=\"submit_username()\" novalidate>\n        <ion-item lines=\"full\">\n          <ion-label  position=\"floating\" class=\"etiqueta\">Enter the new username</ion-label>\n          <ion-input placeholder=\"Enter the new username\" color=\"tertiary\"  formControlName=\"username\" type=\"text\" required ></ion-input>       \n        </ion-item>\n        <ion-button  type=\"submit\" color=\"primary\" expand=\"block\" >Send</ion-button>\n        </form>\n        <ion-button   class=\"cancel\" expand=\"block\" (click) = \"cancel_username()\" >Cancel</ion-button>\n  </div>--> \n\n  <div *ngIf = \"xpassword\">\n \n\n    <ion-item>\n      <ion-label class=\"ion-text-wrap\">\n        <ion-text style=\"color:#f2f2f2; font-weight: bold;\">\n          <h3>Change password</h3>\n        </ion-text>       \n        <ion-text style=\"color:#f2f2f2\">\n          <p>................</p>\n        </ion-text>\n      </ion-label>\n    <ion-button slot=\"end\" (click) = \"edit_password()\">       \n        <ion-icon slot=\"icon-only\" name=\"pencil\" class=\"pen\"></ion-icon>\n      </ion-button>\n    </ion-item>\n\n\n</div>\n<div *ngIf = \"xfpassword\">\n  <p>Password: 8 characters minimum that includes at least one number, one capital letter and one symbol</p>\n    <form [formGroup]=\"form_password\" (ngSubmit)=\"submit_password()\" novalidate>\n      <ion-item lines=\"full\">\n        <ion-label  position=\"floating\" class=\"etiqueta\">Enter the new password</ion-label>\n        <ion-input placeholder=\"Enter the new password\" color=\"tertiary\"  formControlName=\"password\"  required ></ion-input>       \n      </ion-item> \n      <ion-button  type=\"submit\" color=\"primary\" expand=\"block\" >Send</ion-button>\n      </form>\n      <ion-button   class=\"cancel\" expand=\"block\" (click) = \"cancel_password()\" >Cancel</ion-button>\n</div> \n\n  </ion-card-content>\n</ion-card>\n</ion-content>\n\n";
       /***/
     },
 

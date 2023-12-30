@@ -35,6 +35,7 @@ import { SuccesstobookComponent } from './successtobook/successtobook.component'
 import { SuccesspayComponent } from './successpay/successpay.component';
 import { DealsweekComponent } from './dealsweek/dealsweek.component';
 import { SquareConcargoComponent } from './square-concargo/square-concargo.component';
+import { GaleriaComponent } from './galeria/galeria.component';
 
 
 
@@ -134,6 +135,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
         SuccesspayComponent,
         DealsweekComponent,
         SquareConcargoComponent,
+        GaleriaComponent,
    
 
 

@@ -1,4 +1,4 @@
-(self["webpackChunkttwash"] = self["webpackChunkttwash"] || []).push([["src_app_tabs-cliente_tabs-cliente_module_ts"],{
+(self["webpackChunkttwashexpress"] = self["webpackChunkttwashexpress"] || []).push([["src_app_tabs-cliente_tabs-cliente_module_ts"],{
 
 /***/ 29039:
 /*!*************************************************************!*\

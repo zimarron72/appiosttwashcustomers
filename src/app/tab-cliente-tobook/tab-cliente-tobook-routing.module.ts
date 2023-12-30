@@ -24,7 +24,7 @@ import { SuccesstobookComponent } from './successtobook/successtobook.component'
 import { SuccesspayComponent } from './successpay/successpay.component';
 import { DealsweekComponent } from './dealsweek/dealsweek.component';
 import { SquareConcargoComponent } from './square-concargo/square-concargo.component';
-
+import { GaleriaComponent } from './galeria/galeria.component';
 
 const routes: Routes = [
   {
@@ -52,6 +52,9 @@ const routes: Routes = [
       { path: 'successpay', component: SuccesspayComponent}, 
       { path: 'dealsweek', component: DealsweekComponent},     
       { path: 'squareconcargo/:servicio/:precio/:itemid/:wash_id/:descuento/:charge/:concepto/:charge_status', component: SquareConcargoComponent},
+      { path: 'galeria/:order_item_id', component: GaleriaComponent}, 
+
+
 
       {
         path: '',

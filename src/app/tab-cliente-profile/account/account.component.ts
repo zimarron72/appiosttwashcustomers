@@ -42,7 +42,7 @@ export class AccountComponent implements OnInit {
 
   baseUrl: string = 'https://washtt.com'
 
-  aviso : boolean = false
+
 
 
   constructor(
@@ -61,6 +61,11 @@ export class AccountComponent implements OnInit {
 
 
   ) { }
+
+
+
+
+
 
 
 /******************************************************CODIGO CAMARA ************************************************* */
@@ -161,7 +166,7 @@ async ( imageData ) => {
 
 
  uploadPhoto(imageFileUri: any): void {
-  this.loading.simpleLoader()
+ 
 
   this.file.resolveLocalFilesystemUrl(imageFileUri)
     .then(entry => (<FileEntry>entry).file(file => this.readFile(file)))
@@ -204,7 +209,7 @@ alert('SUCCESS!' + result.message)
 
 uploadImage(formData : FormData) {
 
-    
+   this.loading.simpleLoader()  
   return new Promise((_resolve, _reject) => {
    /* this.post('v1_api_admin_rostro_upload.php',  formData
     )*/
@@ -215,23 +220,24 @@ uploadImage(formData : FormData) {
       
       response => {
     //  resolve(response);
-    this.loading.dismissLoader() 
-    this.aviso = true  
+  this.loading.dismissLoader()
     var datos = response
    // alert(datos.success + datos.message)
    switch(datos.success) {
 
 case true:
 
-this.snackBar.open("Your picture was uploaded successfully", "Close",
+this.snackBar.open("Your picture was uploaded successfully", "CONTINUE",
 {       
   horizontalPosition: "start",
   verticalPosition: "top",
 }
 );
+
+this.doRefresh(null);
 break;
 case false:
-
+ 
 this.snackBar.open("Sorry, the picture could not be loaded" + datos.message, "Close",
 {       
   horizontalPosition: "start",
@@ -268,6 +274,18 @@ break;
 
     
   }
+  
+  async ionViewWillEnter() {
+
+    this.doRefresh(null)
+
+    this.reactiveForm();
+
+   
+  }
+  
+  
+  
 
   reactiveForm() {
   
@@ -430,14 +448,7 @@ break;
   }
 
  
-  async ionViewWillEnter() {
-
-    this.doRefresh(null)
-
-    this.reactiveForm();
-
-   
-  }
+  
 
   async doRefresh($event: { target: { complete: () => void; }; }) {
 
@@ -445,7 +456,7 @@ break;
     var idtoken = await this.localstorage.getData('idtoken')
     var autenticacion_tipo = await this.localstorage.getData('autenticacion_tipo')
     this.loading.simpleLoader()
-    this.aviso = false  
+  
 
     if(user) {
 

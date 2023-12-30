@@ -49,7 +49,7 @@
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  (self["webpackChunkttwash"] = self["webpackChunkttwash"] || []).push([["src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts"], {
+  (self["webpackChunkttwashexpress"] = self["webpackChunkttwashexpress"] || []).push([["src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts"], {
     /***/
     7736:
     /*!************************************************************************!*\
@@ -56494,6 +56494,242 @@
     },
 
     /***/
+    15626:
+    /*!*****************************************************************!*\
+      !*** ./src/app/tab-cliente-tobook/galeria/galeria.component.ts ***!
+      \*****************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export */
+
+
+      __webpack_require__.d(__webpack_exports__, {
+        /* harmony export */
+        "GaleriaComponent": function GaleriaComponent() {
+          return (
+            /* binding */
+            _GaleriaComponent
+          );
+        }
+        /* harmony export */
+
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! tslib */
+      64762);
+      /* harmony import */
+
+
+      var _raw_loader_galeria_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! !raw-loader!./galeria.component.html */
+      69007);
+      /* harmony import */
+
+
+      var _galeria_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./galeria.component.scss */
+      75560);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @angular/core */
+      37716);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/router */
+      39895);
+      /* harmony import */
+
+
+      var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @angular/common */
+      38583);
+      /* harmony import */
+
+
+      var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @angular/material/snack-bar */
+      77001);
+      /* harmony import */
+
+
+      var _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../servicios.tobook */
+      91655);
+      /* harmony import */
+
+
+      var _shared_storage_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ../../shared/storage.service */
+      86945);
+      /* harmony import */
+
+
+      var _shared_loading_services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! ../../shared/loading.services */
+      68369);
+
+      var _GaleriaComponent = /*#__PURE__*/function () {
+        function GaleriaComponent(router, snackBar, serviciostobook, loading, localstorage, rutaActiva, location) {
+          _classCallCheck(this, GaleriaComponent);
+
+          this.router = router;
+          this.snackBar = snackBar;
+          this.serviciostobook = serviciostobook;
+          this.loading = loading;
+          this.localstorage = localstorage;
+          this.rutaActiva = rutaActiva;
+          this.location = location;
+        }
+
+        _createClass(GaleriaComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
+              var _this171 = this;
+
+              return regeneratorRuntime.wrap(function _callee28$(_context28) {
+                while (1) {
+                  switch (_context28.prev = _context28.next) {
+                    case 0:
+                      this.id = this.rutaActiva.snapshot.params.order_item_id;
+                      this.rutaActiva.params.subscribe(function (params) {
+                        _this171.id = params.order_item_id;
+                      });
+                      _context28.t0 = JSON;
+                      _context28.next = 5;
+                      return this.localstorage.getData('usuario');
+
+                    case 5:
+                      _context28.t1 = _context28.sent;
+                      this.user = _context28.t0.parse.call(_context28.t0, _context28.t1);
+                      _context28.next = 9;
+                      return this.localstorage.getData('idtoken');
+
+                    case 9:
+                      this.idtoken = _context28.sent;
+                      _context28.next = 12;
+                      return this.localstorage.getData('autenticacion_tipo');
+
+                    case 12:
+                      this.autenticacion_tipo = _context28.sent;
+
+                      if (this.user) {
+                        // this.loading.simpleLoader()
+                        this.serviciostobook.getImagenesJob(this.idtoken, this.autenticacion_tipo, this.id).subscribe({
+                          next: function next(data) {
+                            //   this.loading.dismissLoader()
+                            switch (data.respuesta) {
+                              case 'ERROR':
+                                _this171.localstorage.clearData();
+
+                                _this171.router.navigate(['/login']);
+
+                                _this171.snackBar.open("Sorry, an error occurred,please login again3", "Close", {
+                                  horizontalPosition: "start",
+                                  verticalPosition: "top"
+                                });
+
+                                break;
+
+                              case 'TOKEN ERROR':
+                                _this171.localstorage.clearData();
+
+                                _this171.router.navigate(['/login']);
+
+                                _this171.snackBar.open("Invalid or expired token,please login again4", "Close", {
+                                  horizontalPosition: "start",
+                                  verticalPosition: "top"
+                                });
+
+                                console.log(data.mensaje);
+                                break;
+
+                              default:
+                                _this171.imagenes = data;
+                                console.log(_this171.imagenes);
+                            }
+                          },
+                          error: function error(_error17) {
+                            //  this.loading.dismissLoader() 
+                            var errorMessage = _error17.message;
+                            console.error('There was an error!', errorMessage);
+
+                            _this171.localstorage.clearData();
+
+                            _this171.router.navigate(['/login']);
+
+                            _this171.snackBar.open("Sorry, an error occurred,please login again5", "Close", {
+                              horizontalPosition: "start",
+                              verticalPosition: "top"
+                            });
+                          }
+                        });
+                      } else {
+                        // borramos la informacion local
+                        this.localstorage.clearData();
+                        this.router.navigate(['/login']);
+                        this.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                          horizontalPosition: "start",
+                          verticalPosition: "top"
+                        });
+                      }
+
+                    case 14:
+                    case "end":
+                      return _context28.stop();
+                  }
+                }
+              }, _callee28, this);
+            }));
+          }
+        }, {
+          key: "goBack",
+          value: function goBack() {
+            this.location.back();
+          }
+        }]);
+
+        return GaleriaComponent;
+      }();
+
+      _GaleriaComponent.ctorParameters = function () {
+        return [{
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router
+        }, {
+          type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__.MatSnackBar
+        }, {
+          type: _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__.ServiciosTobook
+        }, {
+          type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_4__.LoadingService
+        }, {
+          type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_3__.StorageService
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.ActivatedRoute
+        }, {
+          type: _angular_common__WEBPACK_IMPORTED_MODULE_8__.Location
+        }];
+      };
+
+      _GaleriaComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
+        selector: 'app-galeria',
+        template: _raw_loader_galeria_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
+        styles: [_galeria_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
+      })], _GaleriaComponent);
+      /***/
+    },
+
+    /***/
     29567:
     /*!*******************************************************************************!*\
       !*** ./src/app/tab-cliente-tobook/ingresarcamion/ingresarcamion.component.ts ***!
@@ -56594,13 +56830,13 @@
         _createClass(IngresarcamionComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-              var _this171 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+              var _this172 = this;
 
               var idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee28$(_context28) {
+              return regeneratorRuntime.wrap(function _callee29$(_context29) {
                 while (1) {
-                  switch (_context28.prev = _context28.next) {
+                  switch (_context29.prev = _context29.next) {
                     case 0:
                       this.form_truck = this.formBuilder.group({
                         model: [, {
@@ -56625,34 +56861,34 @@
                           validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
                         }]
                       });
-                      _context28.next = 3;
+                      _context29.next = 3;
                       return this.localstorage.getData('idtoken');
 
                     case 3:
-                      idtoken = _context28.sent;
-                      _context28.next = 6;
+                      idtoken = _context29.sent;
+                      _context29.next = 6;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 6:
-                      autenticacion_tipo = _context28.sent;
+                      autenticacion_tipo = _context29.sent;
                       this.serviciostobook.getFormtipovehiculos(idtoken, autenticacion_tipo).subscribe({
                         next: function next(vehicletypes) {
-                          _this171.vehicletypes = vehicletypes;
-                          _this171.vehicletypes = Object.values(_this171.vehicletypes);
-                          _this171.vehicletypes = _this171.vehicletypes.filter(function (valor) {
+                          _this172.vehicletypes = vehicletypes;
+                          _this172.vehicletypes = Object.values(_this172.vehicletypes);
+                          _this172.vehicletypes = _this172.vehicletypes.filter(function (valor) {
                             return valor !== 'OK_DATA';
                           });
-                          console.log(_this171.vehicletypes);
+                          console.log(_this172.vehicletypes);
                         },
-                        error: function error(_error17) {
-                          var errorMessage = _error17.message;
+                        error: function error(_error18) {
+                          var errorMessage = _error18.message;
                           console.error('There was an error!' + errorMessage);
 
-                          _this171.localstorage.clearData();
+                          _this172.localstorage.clearData();
 
-                          _this171.router.navigate(['/login']);
+                          _this172.router.navigate(['/login']);
 
-                          _this171.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this172.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -56660,22 +56896,22 @@
                       });
                       this.serviciostobook.getFormtipoDetalles(idtoken, autenticacion_tipo).subscribe({
                         next: function next(tipodetalles) {
-                          _this171.tipodetalles = tipodetalles;
-                          _this171.tipodetalles = Object.values(_this171.tipodetalles);
-                          _this171.tipodetalles = _this171.tipodetalles.filter(function (valor) {
+                          _this172.tipodetalles = tipodetalles;
+                          _this172.tipodetalles = Object.values(_this172.tipodetalles);
+                          _this172.tipodetalles = _this172.tipodetalles.filter(function (valor) {
                             return valor !== 'OK_DATA';
                           });
-                          console.log(_this171.tipodetalles);
+                          console.log(_this172.tipodetalles);
                         },
-                        error: function error(_error18) {
-                          var errorMessage = _error18.message;
+                        error: function error(_error19) {
+                          var errorMessage = _error19.message;
                           console.error('There was an error!' + errorMessage);
 
-                          _this171.localstorage.clearData();
+                          _this172.localstorage.clearData();
 
-                          _this171.router.navigate(['/login']);
+                          _this172.router.navigate(['/login']);
 
-                          _this171.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this172.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -56684,45 +56920,45 @@
 
                     case 9:
                     case "end":
-                      return _context28.stop();
+                      return _context29.stop();
                   }
                 }
-              }, _callee28, this);
+              }, _callee29, this);
             }));
           }
         }, {
           key: "submit_truck",
           value: function submit_truck() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-              var _this172 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+              var _this173 = this;
 
               var user, idtoken, autenticacion_tipo, model, mark, unitnumber, licenseplate, color, detail, defaults, vehicletypes;
-              return regeneratorRuntime.wrap(function _callee30$(_context30) {
+              return regeneratorRuntime.wrap(function _callee31$(_context31) {
                 while (1) {
-                  switch (_context30.prev = _context30.next) {
+                  switch (_context31.prev = _context31.next) {
                     case 0:
                       if (!this.form_truck.valid) {
-                        _context30.next = 23;
+                        _context31.next = 23;
                         break;
                       }
 
-                      _context30.t0 = JSON;
-                      _context30.next = 4;
+                      _context31.t0 = JSON;
+                      _context31.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context30.t1 = _context30.sent;
-                      user = _context30.t0.parse.call(_context30.t0, _context30.t1);
-                      _context30.next = 8;
+                      _context31.t1 = _context31.sent;
+                      user = _context31.t0.parse.call(_context31.t0, _context31.t1);
+                      _context31.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context30.sent;
-                      _context30.next = 11;
+                      idtoken = _context31.sent;
+                      _context31.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context30.sent;
+                      autenticacion_tipo = _context31.sent;
                       model = this.form_truck.get("model").value;
                       mark = this.form_truck.get("mark").value;
                       unitnumber = this.form_truck.get("unitnumber").value;
@@ -56745,13 +56981,13 @@
                         vehicletypes: vehicletypes
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this172, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
-                            return regeneratorRuntime.wrap(function _callee29$(_context29) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this173, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
+                            return regeneratorRuntime.wrap(function _callee30$(_context30) {
                               while (1) {
-                                switch (_context29.prev = _context29.next) {
+                                switch (_context30.prev = _context30.next) {
                                   case 0:
-                                    _context29.t0 = data.respuesta;
-                                    _context29.next = _context29.t0 === 'ERROR' ? 3 : _context29.t0 === 'TOKEN ERROR' ? 7 : _context29.t0 === 'OK_TODO' ? 12 : 14;
+                                    _context30.t0 = data.respuesta;
+                                    _context30.next = _context30.t0 === 'ERROR' ? 3 : _context30.t0 === 'TOKEN ERROR' ? 7 : _context30.t0 === 'OK_TODO' ? 12 : 14;
                                     break;
 
                                   case 3:
@@ -56761,7 +56997,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context29.abrupt("break", 14);
+                                    return _context30.abrupt("break", 14);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -56771,35 +57007,35 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context29.abrupt("break", 14);
+                                    return _context30.abrupt("break", 14);
 
                                   case 12:
                                     this.router.navigate(['/tabs-cliente/tobook/tipovehiculos']);
-                                    return _context29.abrupt("break", 14);
+                                    return _context30.abrupt("break", 14);
 
                                   case 14:
                                   case "end":
-                                    return _context29.stop();
+                                    return _context30.stop();
                                 }
                               }
-                            }, _callee29, this);
+                            }, _callee30, this);
                           }));
                         },
-                        error: function error(_error19) {
-                          var errorMessage = _error19.message;
+                        error: function error(_error20) {
+                          var errorMessage = _error20.message;
                           console.error('There was an error!' + errorMessage);
 
-                          _this172.localstorage.clearData();
+                          _this173.localstorage.clearData();
 
-                          _this172.router.navigate(['/login']);
+                          _this173.router.navigate(['/login']);
 
-                          _this172.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this173.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
-                      _context30.next = 24;
+                      _context31.next = 24;
                       break;
 
                     case 23:
@@ -56810,10 +57046,10 @@
 
                     case 24:
                     case "end":
-                      return _context30.stop();
+                      return _context31.stop();
                   }
                 }
-              }, _callee30, this);
+              }, _callee31, this);
             }));
           }
         }]);
@@ -56962,96 +57198,108 @@
               lastname: [, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
               }],
-              companyname: [],
-              companycodigo: [],
-              telephone: [, {
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
-              }],
+              // companyname: [],
+              // companycodigo: [],  
+              // telephone: [, { validators: [Validators.required] }],
               mobilphone: [, {
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
-              }],
-              customertypes: [, {
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
-              }]
+              }] // customertypes : [, { validators: [Validators.required] }]
+
             });
           }
-        }, {
-          key: "cambiar",
-          value: function cambiar(x) {
-            if (x == 2) {
+          /* cambiar(x : any) {
+             if(x == 2) {
+             
               this.show1 = true;
-              this.form_perfil.get("companyname").setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]);
-              this.form_perfil.get("companyname").updateValueAndValidity();
-              this.form_perfil.get("companycodigo").setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]);
-              this.form_perfil.get("companycodigo").updateValueAndValidity();
-            } else {
-              this.show1 = false;
+             
+             
+             this.form_perfil.get("companyname").setValidators([Validators.required]);
+             this.form_perfil.get("companyname").updateValueAndValidity();
+             
+             this.form_perfil.get("companycodigo").setValidators([Validators.required]);
+             this.form_perfil.get("companycodigo").updateValueAndValidity();
+             
+             
+             
+              
+             
+             }
+             else {
+               this.show1 = false;
+             
+             
               this.form_perfil.get("companyname").clearValidators();
-              this.form_perfil.get("companyname").updateValueAndValidity();
-              this.form_perfil.get("companycodigo").clearValidators();
-              this.form_perfil.get("companycodigo").updateValueAndValidity();
-            }
-          }
+             this.form_perfil.get("companyname").updateValueAndValidity();
+             
+             this.form_perfil.get("companycodigo").clearValidators();
+             this.form_perfil.get("companycodigo").updateValueAndValidity();
+             
+             
+             
+             }
+             
+             } */
+
         }, {
           key: "submit_perfil",
           value: function submit_perfil() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
-              var _this173 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+              var _this174 = this;
 
-              var user, idtoken, autenticacion_tipo, nombres, apellidos, companyname, companycodigo, telephone, mobilphone, customertypes;
-              return regeneratorRuntime.wrap(function _callee32$(_context32) {
+              var user, idtoken, autenticacion_tipo, nombres, apellidos, mobilphone;
+              return regeneratorRuntime.wrap(function _callee33$(_context33) {
                 while (1) {
-                  switch (_context32.prev = _context32.next) {
+                  switch (_context33.prev = _context33.next) {
                     case 0:
                       if (!this.form_perfil.valid) {
-                        _context32.next = 22;
+                        _context33.next = 18;
                         break;
                       }
 
-                      _context32.t0 = JSON;
-                      _context32.next = 4;
+                      _context33.t0 = JSON;
+                      _context33.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context32.t1 = _context32.sent;
-                      user = _context32.t0.parse.call(_context32.t0, _context32.t1);
-                      _context32.next = 8;
+                      _context33.t1 = _context33.sent;
+                      user = _context33.t0.parse.call(_context33.t0, _context33.t1);
+                      _context33.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context32.sent;
-                      _context32.next = 11;
+                      idtoken = _context33.sent;
+                      _context33.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context32.sent;
+                      autenticacion_tipo = _context33.sent;
                       nombres = this.form_perfil.get("firstname").value;
-                      apellidos = this.form_perfil.get("lastname").value;
-                      companyname = this.form_perfil.get("companyname").value;
-                      companycodigo = this.form_perfil.get("companycodigo").value;
-                      telephone = this.form_perfil.get("telephone").value;
-                      mobilphone = this.form_perfil.get("mobilphone").value;
-                      customertypes = this.form_perfil.get("customertypes").value;
+                      apellidos = this.form_perfil.get("lastname").value; //var    companyname = this.form_perfil.get("companyname").value;
+                      // var    companycodigo = this.form_perfil.get("companycodigo").value;
+                      //var    telephone = this.form_perfil.get("telephone").value;
+
+                      mobilphone = this.form_perfil.get("mobilphone").value; //var    customertypes = this.form_perfil.get("customertypes").value;
+
                       this.http.post('https://washtt.com/v1_api_clientes_ingresoperfil_inicio.php', {
                         email: user.email,
                         idtoken: idtoken,
                         autenticacion_tipo: autenticacion_tipo,
                         nombres: nombres,
                         apellidos: apellidos,
-                        companyname: companyname,
-                        companycodigo: companycodigo,
-                        telephone: telephone,
-                        mobilphone: mobilphone,
-                        customertypes: customertypes
+                        // companyname  : companyname,
+                        // companycodigo : companycodigo,  
+                        // telephone : telephone,
+                        mobilphone: mobilphone //customertypes : customertypes
+
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this173, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
-                            return regeneratorRuntime.wrap(function _callee31$(_context31) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this174, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
+                            return regeneratorRuntime.wrap(function _callee32$(_context32) {
                               while (1) {
-                                switch (_context31.prev = _context31.next) {
+                                switch (_context32.prev = _context32.next) {
                                   case 0:
-                                    _context31.t0 = data.respuesta;
-                                    _context31.next = _context31.t0 === 'ERROR' ? 3 : _context31.t0 === 'TOKEN ERROR' ? 7 : _context31.t0 === 'OK_TODO' ? 12 : 14;
+                                    _context32.t0 = data.respuesta;
+                                    _context32.next = _context32.t0 === 'ERROR' ? 3 : _context32.t0 === 'TOKEN ERROR' ? 7 : _context32.t0 === 'OK_TODO' ? 12 : 14;
                                     break;
 
                                   case 3:
@@ -57061,7 +57309,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context31.abrupt("break", 14);
+                                    return _context32.abrupt("break", 14);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -57071,49 +57319,49 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context31.abrupt("break", 14);
+                                    return _context32.abrupt("break", 14);
 
                                   case 12:
                                     this.router.navigate(['/tabs-cliente/tobook/tipovehiculos']);
-                                    return _context31.abrupt("break", 14);
+                                    return _context32.abrupt("break", 14);
 
                                   case 14:
                                   case "end":
-                                    return _context31.stop();
+                                    return _context32.stop();
                                 }
                               }
-                            }, _callee31, this);
+                            }, _callee32, this);
                           }));
                         },
-                        error: function error(_error20) {
-                          var errorMensaje = _error20.message;
+                        error: function error(_error21) {
+                          var errorMensaje = _error21.message;
                           console.error('There was an error!', errorMensaje);
 
-                          _this173.localstorage.clearData();
+                          _this174.localstorage.clearData();
 
-                          _this173.router.navigate(['/login']);
+                          _this174.router.navigate(['/login']);
 
-                          _this173.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this174.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
-                      _context32.next = 23;
+                      _context33.next = 19;
                       break;
 
-                    case 22:
+                    case 18:
                       this.snackBar.open("Please, fill all  field", "Close", {
                         horizontalPosition: "start",
                         verticalPosition: "top"
                       });
 
-                    case 23:
+                    case 19:
                     case "end":
-                      return _context32.stop();
+                      return _context33.stop();
                   }
                 }
-              }, _callee32, this);
+              }, _callee33, this);
             }));
           }
         }]);
@@ -57244,13 +57492,13 @@
         _createClass(IngresarsitioComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
-              var _this174 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+              var _this175 = this;
 
               var idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee33$(_context33) {
+              return regeneratorRuntime.wrap(function _callee34$(_context34) {
                 while (1) {
-                  switch (_context33.prev = _context33.next) {
+                  switch (_context34.prev = _context34.next) {
                     case 0:
                       this.form_site = this.formBuilder.group({
                         suite: [, {
@@ -57272,34 +57520,34 @@
                           validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
                         }]
                       });
-                      _context33.next = 3;
+                      _context34.next = 3;
                       return this.localstorage.getData('idtoken');
 
                     case 3:
-                      idtoken = _context33.sent;
-                      _context33.next = 6;
+                      idtoken = _context34.sent;
+                      _context34.next = 6;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 6:
-                      autenticacion_tipo = _context33.sent;
+                      autenticacion_tipo = _context34.sent;
                       this.serviciostobook.getFormciudades(idtoken, autenticacion_tipo).subscribe({
                         next: function next(cities) {
-                          _this174.cities = cities;
-                          _this174.cities = Object.values(_this174.cities);
-                          _this174.cities = _this174.cities.filter(function (valor) {
+                          _this175.cities = cities;
+                          _this175.cities = Object.values(_this175.cities);
+                          _this175.cities = _this175.cities.filter(function (valor) {
                             return valor !== 'OK_DATA';
                           });
-                          console.log(_this174.cities);
+                          console.log(_this175.cities);
                         },
-                        error: function error(_error21) {
-                          var errorMessage = _error21.message;
+                        error: function error(_error22) {
+                          var errorMessage = _error22.message;
                           console.error('There was an error!' + errorMessage);
 
-                          _this174.localstorage.clearData();
+                          _this175.localstorage.clearData();
 
-                          _this174.router.navigate(['/login']);
+                          _this175.router.navigate(['/login']);
 
-                          _this174.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this175.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -57307,22 +57555,22 @@
                       });
                       this.serviciostobook.getFormestados(idtoken, autenticacion_tipo).subscribe({
                         next: function next(estados) {
-                          _this174.estados = estados;
-                          _this174.estados = Object.values(_this174.estados);
-                          _this174.estados = _this174.estados.filter(function (valor) {
+                          _this175.estados = estados;
+                          _this175.estados = Object.values(_this175.estados);
+                          _this175.estados = _this175.estados.filter(function (valor) {
                             return valor !== 'OK_DATA';
                           });
-                          console.log(_this174.cities);
+                          console.log(_this175.cities);
                         },
-                        error: function error(_error22) {
-                          var errorMessage = _error22.message;
+                        error: function error(_error23) {
+                          var errorMessage = _error23.message;
                           console.error('There was an error!' + errorMessage);
 
-                          _this174.localstorage.clearData();
+                          _this175.localstorage.clearData();
 
-                          _this174.router.navigate(['/login']);
+                          _this175.router.navigate(['/login']);
 
-                          _this174.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this175.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -57331,45 +57579,45 @@
 
                     case 9:
                     case "end":
-                      return _context33.stop();
+                      return _context34.stop();
                   }
                 }
-              }, _callee33, this);
+              }, _callee34, this);
             }));
           }
         }, {
           key: "submit_sitio",
           value: function submit_sitio() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
-              var _this175 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+              var _this176 = this;
 
               var user, idtoken, autenticacion_tipo, suite, street, address, zip, state, city, defaults;
-              return regeneratorRuntime.wrap(function _callee35$(_context35) {
+              return regeneratorRuntime.wrap(function _callee36$(_context36) {
                 while (1) {
-                  switch (_context35.prev = _context35.next) {
+                  switch (_context36.prev = _context36.next) {
                     case 0:
                       if (!this.form_site.valid) {
-                        _context35.next = 23;
+                        _context36.next = 23;
                         break;
                       }
 
-                      _context35.t0 = JSON;
-                      _context35.next = 4;
+                      _context36.t0 = JSON;
+                      _context36.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context35.t1 = _context35.sent;
-                      user = _context35.t0.parse.call(_context35.t0, _context35.t1);
-                      _context35.next = 8;
+                      _context36.t1 = _context36.sent;
+                      user = _context36.t0.parse.call(_context36.t0, _context36.t1);
+                      _context36.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context35.sent;
-                      _context35.next = 11;
+                      idtoken = _context36.sent;
+                      _context36.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context35.sent;
+                      autenticacion_tipo = _context36.sent;
                       suite = this.form_site.get("suite").value;
                       street = this.form_site.get("street").value;
                       address = this.form_site.get("address").value;
@@ -57390,13 +57638,13 @@
                         defaults: defaults
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this175, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
-                            return regeneratorRuntime.wrap(function _callee34$(_context34) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this176, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
+                            return regeneratorRuntime.wrap(function _callee35$(_context35) {
                               while (1) {
-                                switch (_context34.prev = _context34.next) {
+                                switch (_context35.prev = _context35.next) {
                                   case 0:
-                                    _context34.t0 = data.respuesta;
-                                    _context34.next = _context34.t0 === 'ERROR' ? 3 : _context34.t0 === 'TOKEN ERROR' ? 7 : _context34.t0 === 'OK_TODO' ? 12 : 14;
+                                    _context35.t0 = data.respuesta;
+                                    _context35.next = _context35.t0 === 'ERROR' ? 3 : _context35.t0 === 'TOKEN ERROR' ? 7 : _context35.t0 === 'OK_TODO' ? 12 : 14;
                                     break;
 
                                   case 3:
@@ -57406,7 +57654,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context34.abrupt("break", 14);
+                                    return _context35.abrupt("break", 14);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -57416,35 +57664,35 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context34.abrupt("break", 14);
+                                    return _context35.abrupt("break", 14);
 
                                   case 12:
                                     this.router.navigate(['/tabs-cliente/tobook/tipovehiculos']);
-                                    return _context34.abrupt("break", 14);
+                                    return _context35.abrupt("break", 14);
 
                                   case 14:
                                   case "end":
-                                    return _context34.stop();
+                                    return _context35.stop();
                                 }
                               }
-                            }, _callee34, this);
+                            }, _callee35, this);
                           }));
                         },
-                        error: function error(_error23) {
-                          console.error('There was an error!' + _error23.message);
+                        error: function error(_error24) {
+                          console.error('There was an error!' + _error24.message);
 
-                          _this175.localstorage.clearData();
+                          _this176.localstorage.clearData();
 
-                          _this175.router.navigate(['/login']);
+                          _this176.router.navigate(['/login']);
 
-                          _this175.snackBar.open("Sorry, an error occurred,please login again" + _error23.message, "Close", {
+                          _this176.snackBar.open("Sorry, an error occurred,please login again" + _error24.message, "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
                       console.log(this.form_site.value);
-                      _context35.next = 24;
+                      _context36.next = 24;
                       break;
 
                     case 23:
@@ -57455,10 +57703,10 @@
 
                     case 24:
                     case "end":
-                      return _context35.stop();
+                      return _context36.stop();
                   }
                 }
-              }, _callee35, this);
+              }, _callee36, this);
             }));
           }
         }]);
@@ -57644,45 +57892,45 @@
         }, {
           key: "Borrar",
           value: function Borrar(id) {
-            var _this176 = this;
+            var _this177 = this;
 
             this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__.DialogoconfirComponent, {
               data: "Be sure to permanently delete this record?"
             }).afterClosed().subscribe(function (confirmado) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this176, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
-                var _this177 = this;
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this177, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
+                var _this178 = this;
 
                 var idtoken, autenticacion_tipo;
-                return regeneratorRuntime.wrap(function _callee37$(_context37) {
+                return regeneratorRuntime.wrap(function _callee38$(_context38) {
                   while (1) {
-                    switch (_context37.prev = _context37.next) {
+                    switch (_context38.prev = _context38.next) {
                       case 0:
                         if (!confirmado) {
-                          _context37.next = 10;
+                          _context38.next = 10;
                           break;
                         }
 
-                        _context37.next = 3;
+                        _context38.next = 3;
                         return this.localstorage.getData('idtoken');
 
                       case 3:
-                        idtoken = _context37.sent;
-                        _context37.next = 6;
+                        idtoken = _context38.sent;
+                        _context38.next = 6;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 6:
-                        autenticacion_tipo = _context37.sent;
+                        autenticacion_tipo = _context38.sent;
                         this.serviciotobook.deleteItemOrder(idtoken, autenticacion_tipo, id).subscribe({
                           next: function next(datos) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this177, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
-                              var _this178 = this;
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this178, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+                              var _this179 = this;
 
-                              return regeneratorRuntime.wrap(function _callee36$(_context36) {
+                              return regeneratorRuntime.wrap(function _callee37$(_context37) {
                                 while (1) {
-                                  switch (_context36.prev = _context36.next) {
+                                  switch (_context37.prev = _context37.next) {
                                     case 0:
-                                      _context36.t0 = datos.respuesta;
-                                      _context36.next = _context36.t0 === 'TOKEN ERROR' ? 3 : _context36.t0 === 'ERROR' ? 6 : _context36.t0 === '200_OK' ? 10 : 12;
+                                      _context37.t0 = datos.respuesta;
+                                      _context37.next = _context37.t0 === 'TOKEN ERROR' ? 3 : _context37.t0 === 'ERROR' ? 6 : _context37.t0 === '200_OK' ? 10 : 12;
                                       break;
 
                                     case 3:
@@ -57691,7 +57939,7 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context36.abrupt("break", 12);
+                                      return _context37.abrupt("break", 12);
 
                                     case 6:
                                       // borramos la informacion local
@@ -57701,104 +57949,104 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context36.abrupt("break", 12);
+                                      return _context37.abrupt("break", 12);
 
                                     case 10:
                                       this.dbservicio.borrarTobook(id).then(function (res) {
                                         if (res) {
-                                          _this178.snackBar.open('Record successfully removed', "Close", {
+                                          _this179.snackBar.open('Record successfully removed', "Close", {
                                             horizontalPosition: "start",
                                             verticalPosition: "top"
                                           });
                                         } else {
-                                          _this178.snackBar.open('The record has not been deleted ', "Close", {
+                                          _this179.snackBar.open('The record has not been deleted ', "Close", {
                                             horizontalPosition: "start",
                                             verticalPosition: "top"
                                           });
                                         }
                                       });
-                                      return _context36.abrupt("break", 12);
+                                      return _context37.abrupt("break", 12);
 
                                     case 12:
                                     case "end":
-                                      return _context36.stop();
+                                      return _context37.stop();
                                   }
                                 }
-                              }, _callee36, this);
+                              }, _callee37, this);
                             }));
                           },
-                          error: function error(_error24) {
-                            console.error('There was an error!', _error24); // borramos la informacion local
+                          error: function error(_error25) {
+                            console.error('There was an error!', _error25); // borramos la informacion local
 
-                            _this177.localstorage.clearData();
+                            _this178.localstorage.clearData();
 
-                            _this177.router.navigate(['/login']);
+                            _this178.router.navigate(['/login']);
 
-                            _this177.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                            _this178.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
                           }
                         });
-                        _context37.next = 10;
+                        _context38.next = 10;
                         break;
 
                       case 10:
                       case "end":
-                        return _context37.stop();
+                        return _context38.stop();
                     }
                   }
-                }, _callee37, this);
+                }, _callee38, this);
               }));
             });
           }
         }, {
           key: "Cancelar",
           value: function Cancelar(id) {
-            var _this179 = this;
+            var _this180 = this;
 
             this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__.DialogoconfirComponent, {
               data: "Are you sure to cancel this appointment? ?"
             }).afterClosed().subscribe(function (confirmado) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this179, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
-                var _this180 = this;
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this180, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+                var _this181 = this;
 
                 var user, idtoken, autenticacion_tipo;
-                return regeneratorRuntime.wrap(function _callee39$(_context39) {
+                return regeneratorRuntime.wrap(function _callee40$(_context40) {
                   while (1) {
-                    switch (_context39.prev = _context39.next) {
+                    switch (_context40.prev = _context40.next) {
                       case 0:
                         if (!confirmado) {
-                          _context39.next = 15;
+                          _context40.next = 15;
                           break;
                         }
 
-                        _context39.t0 = JSON;
-                        _context39.next = 4;
+                        _context40.t0 = JSON;
+                        _context40.next = 4;
                         return this.localstorage.getData('usuario');
 
                       case 4:
-                        _context39.t1 = _context39.sent;
-                        user = _context39.t0.parse.call(_context39.t0, _context39.t1);
-                        _context39.next = 8;
+                        _context40.t1 = _context40.sent;
+                        user = _context40.t0.parse.call(_context40.t0, _context40.t1);
+                        _context40.next = 8;
                         return this.localstorage.getData('idtoken');
 
                       case 8:
-                        idtoken = _context39.sent;
-                        _context39.next = 11;
+                        idtoken = _context40.sent;
+                        _context40.next = 11;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 11:
-                        autenticacion_tipo = _context39.sent;
+                        autenticacion_tipo = _context40.sent;
                         this.serviciotobook.CancelarItemOrder(idtoken, autenticacion_tipo, id, user.email).subscribe({
                           next: function next(datos) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this180, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
-                              return regeneratorRuntime.wrap(function _callee38$(_context38) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this181, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+                              return regeneratorRuntime.wrap(function _callee39$(_context39) {
                                 while (1) {
-                                  switch (_context38.prev = _context38.next) {
+                                  switch (_context39.prev = _context39.next) {
                                     case 0:
-                                      _context38.t0 = datos.respuesta;
-                                      _context38.next = _context38.t0 === 'TOKEN ERROR' ? 3 : _context38.t0 === 'ERROR' ? 6 : _context38.t0 === 'MISMODIA' ? 10 : _context38.t0 === 'DIASDESPUESCITA' ? 12 : _context38.t0 === 'FALTAUNDIA' ? 14 : _context38.t0 === '200_OK' ? 16 : 18;
+                                      _context39.t0 = datos.respuesta;
+                                      _context39.next = _context39.t0 === 'TOKEN ERROR' ? 3 : _context39.t0 === 'ERROR' ? 6 : _context39.t0 === 'MISMODIA' ? 10 : _context39.t0 === 'DIASDESPUESCITA' ? 12 : _context39.t0 === 'FALTAUNDIA' ? 14 : _context39.t0 === '200_OK' ? 16 : 18;
                                       break;
 
                                     case 3:
@@ -57807,7 +58055,7 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context38.abrupt("break", 18);
+                                      return _context39.abrupt("break", 18);
 
                                     case 6:
                                       // borramos la informacion local
@@ -57817,110 +58065,110 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context38.abrupt("break", 18);
+                                      return _context39.abrupt("break", 18);
 
                                     case 10:
                                       this.snackBar.open(datos.mensaje, "Close", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context38.abrupt("break", 18);
+                                      return _context39.abrupt("break", 18);
 
                                     case 12:
                                       this.snackBar.open(datos.mensaje, "Close", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context38.abrupt("break", 18);
+                                      return _context39.abrupt("break", 18);
 
                                     case 14:
                                       this.snackBar.open(datos.mensaje, "Close", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context38.abrupt("break", 18);
+                                      return _context39.abrupt("break", 18);
 
                                     case 16:
                                       this.snackBar.open('Appointment successfully cancelled', "Close", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context38.abrupt("break", 18);
+                                      return _context39.abrupt("break", 18);
 
                                     case 18:
                                     case "end":
-                                      return _context38.stop();
+                                      return _context39.stop();
                                   }
                                 }
-                              }, _callee38, this);
+                              }, _callee39, this);
                             }));
                           },
-                          error: function error(_error25) {
-                            _this180.snackBar.open('The appointment has not been cancelled ', "Close", {
+                          error: function error(_error26) {
+                            _this181.snackBar.open('The appointment has not been cancelled ', "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
 
-                            console.error('There was an error!', _error25);
+                            console.error('There was an error!', _error26);
                           }
                         });
-                        _context39.next = 15;
+                        _context40.next = 15;
                         break;
 
                       case 15:
                       case "end":
-                        return _context39.stop();
+                        return _context40.stop();
                     }
                   }
-                }, _callee39, this);
+                }, _callee40, this);
               }));
             });
           }
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
-              var _this181 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
+              var _this182 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee40$(_context40) {
+              return regeneratorRuntime.wrap(function _callee41$(_context41) {
                 while (1) {
-                  switch (_context40.prev = _context40.next) {
+                  switch (_context41.prev = _context41.next) {
                     case 0:
                       this.n = this.rutaActiva.snapshot.params.n;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this181.n = params.n;
+                        _this182.n = params.n;
                       });
-                      _context40.t0 = JSON;
-                      _context40.next = 5;
+                      _context41.t0 = JSON;
+                      _context41.next = 5;
                       return this.localstorage.getData('usuario');
 
                     case 5:
-                      _context40.t1 = _context40.sent;
-                      user = _context40.t0.parse.call(_context40.t0, _context40.t1);
-                      _context40.next = 9;
+                      _context41.t1 = _context41.sent;
+                      user = _context41.t0.parse.call(_context41.t0, _context41.t1);
+                      _context41.next = 9;
                       return this.localstorage.getData('idtoken');
 
                     case 9:
-                      idtoken = _context40.sent;
-                      _context40.next = 12;
+                      idtoken = _context41.sent;
+                      _context41.next = 12;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 12:
-                      autenticacion_tipo = _context40.sent;
+                      autenticacion_tipo = _context41.sent;
                       this.loading.simpleLoader();
                       this.serviciotobook.getTipoAppointments(idtoken, autenticacion_tipo, user.email, this.n).subscribe(function (val) {
                         var datos = val;
 
-                        _this181.loading.dismissLoader();
+                        _this182.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
 
                         switch (datos.respuesta) {
                           case 'TOKEN ERROR':
-                            _this181.router.navigate(['/login']);
+                            _this182.router.navigate(['/login']);
 
-                            _this181.snackBar.open("Invalid or expired token,please login again", "Close", {
+                            _this182.snackBar.open("Invalid or expired token,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -57929,11 +58177,11 @@
 
                           case 'ERROR':
                             // borramos la informacion local
-                            _this181.localstorage.clearData();
+                            _this182.localstorage.clearData();
 
-                            _this181.router.navigate(['/login']);
+                            _this182.router.navigate(['/login']);
 
-                            _this181.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                            _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -57943,14 +58191,14 @@
 
                           default:
                             var sinfiltrardatos = Object.values(datos);
-                            _this181.itemOrderTabla.data = sinfiltrardatos;
+                            _this182.itemOrderTabla.data = sinfiltrardatos;
 
                             if (sinfiltrardatos == null) {
-                              _this181.vertabla = false;
-                              _this181.vermensaje = true;
+                              _this182.vertabla = false;
+                              _this182.vermensaje = true;
                             } else {
-                              _this181.vertabla = true;
-                              _this181.vermensaje = false;
+                              _this182.vertabla = true;
+                              _this182.vermensaje = false;
                             }
 
                           // VERSION 1
@@ -58021,16 +58269,16 @@
                           //break;
                         }
                       }, function (error) {
-                        _this181.loading.dismissLoader();
+                        _this182.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
                         console.error('There was an error!', error); // borramos la informacion local
 
-                        _this181.localstorage.clearData();
+                        _this182.localstorage.clearData();
 
-                        _this181.router.navigate(['/login']);
+                        _this182.router.navigate(['/login']);
 
-                        _this181.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                        _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -58038,10 +58286,10 @@
 
                     case 15:
                     case "end":
-                      return _context40.stop();
+                      return _context41.stop();
                   }
                 }
-              }, _callee40, this);
+              }, _callee41, this);
             }));
           }
         }, {
@@ -58218,48 +58466,48 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
-              var _this182 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
+              var _this183 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee41$(_context41) {
+              return regeneratorRuntime.wrap(function _callee42$(_context42) {
                 while (1) {
-                  switch (_context41.prev = _context41.next) {
+                  switch (_context42.prev = _context42.next) {
                     case 0:
                       this.loading.simpleLoader();
                       this.p = this.rutaActiva.snapshot.params.p;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this182.p = params.p;
+                        _this183.p = params.p;
                       });
-                      _context41.t0 = JSON;
-                      _context41.next = 6;
+                      _context42.t0 = JSON;
+                      _context42.next = 6;
                       return this.localstorage.getData('usuario');
 
                     case 6:
-                      _context41.t1 = _context41.sent;
-                      user = _context41.t0.parse.call(_context41.t0, _context41.t1);
-                      _context41.next = 10;
+                      _context42.t1 = _context42.sent;
+                      user = _context42.t0.parse.call(_context42.t0, _context42.t1);
+                      _context42.next = 10;
                       return this.localstorage.getData('idtoken');
 
                     case 10:
-                      idtoken = _context41.sent;
-                      _context41.next = 13;
+                      idtoken = _context42.sent;
+                      _context42.next = 13;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 13:
-                      autenticacion_tipo = _context41.sent;
+                      autenticacion_tipo = _context42.sent;
                       this.serviciotobook.getTipoPays(idtoken, autenticacion_tipo, user.email, this.p).subscribe(function (val) {
                         var datos = val;
 
-                        _this182.loading.dismissLoader();
+                        _this183.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
 
                         switch (datos.respuesta) {
                           case 'TOKEN ERROR':
-                            _this182.router.navigate(['/login']);
+                            _this183.router.navigate(['/login']);
 
-                            _this182.snackBar.open("Invalid or expired token,please login again", "Close", {
+                            _this183.snackBar.open("Invalid or expired token,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -58268,11 +58516,11 @@
 
                           case 'ERROR':
                             // borramos la informacion local
-                            _this182.localstorage.clearData();
+                            _this183.localstorage.clearData();
 
-                            _this182.router.navigate(['/login']);
+                            _this183.router.navigate(['/login']);
 
-                            _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                            _this183.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -58281,7 +58529,7 @@
 
                           default:
                             var sinfiltrardatos = Object.values(datos);
-                            _this182.itemPagosTabla.data = sinfiltrardatos;
+                            _this183.itemPagosTabla.data = sinfiltrardatos;
 
                           /*  console.log(datos)
                             var sinfiltrardatos = Object.values(datos)
@@ -58329,11 +58577,11 @@
                         if ($event) $event.target.complete();
                         console.error('There was an error!', error); // borramos la informacion local
 
-                        _this182.localstorage.clearData();
+                        _this183.localstorage.clearData();
 
-                        _this182.router.navigate(['/login']);
+                        _this183.router.navigate(['/login']);
 
-                        _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                        _this183.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -58341,10 +58589,10 @@
 
                     case 15:
                     case "end":
-                      return _context41.stop();
+                      return _context42.stop();
                   }
                 }
-              }, _callee41, this);
+              }, _callee42, this);
             }));
           }
         }]);
@@ -58643,6 +58891,15 @@
               token_notificacion: token_notificacion
             });
           }
+        }, {
+          key: "getImagenesJob",
+          value: function getImagenesJob(idtoken, autenticacion_tipo, id) {
+            return this.http.post('https://washtt.com/v1_api_clientes_getfotosjob.php', {
+              idtoken: idtoken,
+              autenticacion_tipo: autenticacion_tipo,
+              id: id
+            });
+          }
         }]);
 
         return ServiciosTobook;
@@ -58757,31 +59014,31 @@
         _createClass(SquareConcargoComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
-              return regeneratorRuntime.wrap(function _callee42$(_context42) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
+              return regeneratorRuntime.wrap(function _callee43$(_context43) {
                 while (1) {
-                  switch (_context42.prev = _context42.next) {
+                  switch (_context43.prev = _context43.next) {
                     case 0:
                     case "end":
-                      return _context42.stop();
+                      return _context43.stop();
                   }
                 }
-              }, _callee42);
+              }, _callee43);
             }));
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
-              var _this183 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
+              var _this184 = this;
 
               var formatter$, appId, locationId, payments;
-              return regeneratorRuntime.wrap(function _callee43$(_context43) {
+              return regeneratorRuntime.wrap(function _callee44$(_context44) {
                 while (1) {
-                  switch (_context43.prev = _context43.next) {
+                  switch (_context44.prev = _context44.next) {
                     case 0:
                       this.loading.simpleLoader();
-                      _context43.next = 3;
+                      _context44.next = 3;
                       return this.dsls.loadScript('square');
 
                     case 3:
@@ -58794,14 +59051,14 @@
                       this.concepto = this.rutaActiva.snapshot.params.concepto;
                       this.charge_status = this.rutaActiva.snapshot.params.charge_status;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this183.servicio = params.servicio;
-                        _this183.precio = params.precio;
-                        _this183.descuento = params.descuento;
-                        _this183.itemid = params.itemid;
-                        _this183.wash_id = params.wash_id;
-                        _this183.concepto = params.concepto;
-                        _this183.charge = params.charge;
-                        _this183.charge_status = params.charge_status;
+                        _this184.servicio = params.servicio;
+                        _this184.precio = params.precio;
+                        _this184.descuento = params.descuento;
+                        _this184.itemid = params.itemid;
+                        _this184.wash_id = params.wash_id;
+                        _this184.concepto = params.concepto;
+                        _this184.charge = params.charge;
+                        _this184.charge_status = params.charge_status;
                       });
                       formatter$ = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -58818,12 +59075,12 @@
                       appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
                       locationId = 'JCQ7Q20HXQTZ8';
                       payments = Square.payments(appId, locationId);
-                      _context43.next = 23;
+                      _context44.next = 23;
                       return payments.card();
 
                     case 23:
-                      this.card = _context43.sent;
-                      _context43.next = 26;
+                      this.card = _context44.sent;
+                      _context44.next = 26;
                       return this.card.attach('#card-container');
 
                     case 26:
@@ -58889,31 +59146,6 @@
 
                     case 27:
                     case "end":
-                      return _context43.stop();
-                  }
-                }
-              }, _callee43, this);
-            }));
-          }
-        }, {
-          key: "ionViewDidLeave",
-          value: function ionViewDidLeave() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
-              var destroyed;
-              return regeneratorRuntime.wrap(function _callee44$(_context44) {
-                while (1) {
-                  switch (_context44.prev = _context44.next) {
-                    case 0:
-                      _context44.next = 2;
-                      return this.card.destroy();
-
-                    case 2:
-                      destroyed = _context44.sent;
-                      document.getElementById('payment-status-container').innerText = '';
-                      document.getElementById('payment-status-container').innerText = '';
-
-                    case 5:
-                    case "end":
                       return _context44.stop();
                   }
                 }
@@ -58921,41 +59153,66 @@
             }));
           }
         }, {
+          key: "ionViewDidLeave",
+          value: function ionViewDidLeave() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
+              var destroyed;
+              return regeneratorRuntime.wrap(function _callee45$(_context45) {
+                while (1) {
+                  switch (_context45.prev = _context45.next) {
+                    case 0:
+                      _context45.next = 2;
+                      return this.card.destroy();
+
+                    case 2:
+                      destroyed = _context45.sent;
+                      document.getElementById('payment-status-container').innerText = '';
+                      document.getElementById('payment-status-container').innerText = '';
+
+                    case 5:
+                    case "end":
+                      return _context45.stop();
+                  }
+                }
+              }, _callee45, this);
+            }));
+          }
+        }, {
           key: "eventHandler",
           value: function eventHandler() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
-              var _this184 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
+              var _this185 = this;
 
               var user, idtoken, autenticacion_tipo, result, url, data;
-              return regeneratorRuntime.wrap(function _callee46$(_context46) {
+              return regeneratorRuntime.wrap(function _callee47$(_context47) {
                 while (1) {
-                  switch (_context46.prev = _context46.next) {
+                  switch (_context47.prev = _context47.next) {
                     case 0:
                       this.loading.simpleLoader(); //  event.preventDefault();
 
-                      _context46.t0 = JSON;
-                      _context46.next = 4;
+                      _context47.t0 = JSON;
+                      _context47.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context46.t1 = _context46.sent;
-                      user = _context46.t0.parse.call(_context46.t0, _context46.t1);
-                      _context46.next = 8;
+                      _context47.t1 = _context47.sent;
+                      user = _context47.t0.parse.call(_context47.t0, _context47.t1);
+                      _context47.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context46.sent;
-                      _context46.next = 11;
+                      idtoken = _context47.sent;
+                      _context47.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context46.sent;
+                      autenticacion_tipo = _context47.sent;
                       this.email = user.email;
-                      _context46.next = 15;
+                      _context47.next = 15;
                       return this.card.tokenize();
 
                     case 15:
-                      result = _context46.sent;
+                      result = _context47.sent;
 
                       if (result.status === 'OK') {
                         console.log("Payment token is ".concat(result.token));
@@ -58988,23 +59245,23 @@
                           document.getElementById('payment-status-container').innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
                           console.error('Error:', error);
 
-                          _this184.loading.dismissLoader();
+                          _this185.loading.dismissLoader();
                         }).then(function (response) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this184, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this185, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
                             var destroyed;
-                            return regeneratorRuntime.wrap(function _callee45$(_context45) {
+                            return regeneratorRuntime.wrap(function _callee46$(_context46) {
                               while (1) {
-                                switch (_context45.prev = _context45.next) {
+                                switch (_context46.prev = _context46.next) {
                                   case 0:
                                     console.log(response);
-                                    _context45.next = 3;
+                                    _context46.next = 3;
                                     return this.card.destroy();
 
                                   case 3:
-                                    destroyed = _context45.sent;
+                                    destroyed = _context46.sent;
                                     this.loading.dismissLoader();
-                                    _context45.t0 = response.respuesta;
-                                    _context45.next = _context45.t0 === 'ERROR1' ? 8 : _context45.t0 === 'TOKEN ERROR' ? 10 : _context45.t0 === 'ERROR2' ? 14 : _context45.t0 === 'YA PAGADO' ? 18 : _context45.t0 === 'TODO_OK' ? 20 : _context45.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
+                                    _context46.t0 = response.respuesta;
+                                    _context46.next = _context46.t0 === 'ERROR1' ? 8 : _context46.t0 === 'TOKEN ERROR' ? 10 : _context46.t0 === 'ERROR2' ? 14 : _context46.t0 === 'YA PAGADO' ? 18 : _context46.t0 === 'TODO_OK' ? 20 : _context46.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
                                     break;
 
                                   case 8:
@@ -59012,7 +59269,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context45.abrupt("break", 25);
+                                    return _context46.abrupt("break", 25);
 
                                   case 10:
                                     this.localstorage.clearData();
@@ -59021,7 +59278,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context45.abrupt("break", 25);
+                                    return _context46.abrupt("break", 25);
 
                                   case 14:
                                     this.localstorage.clearData();
@@ -59030,19 +59287,19 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context45.abrupt("break", 25);
+                                    return _context46.abrupt("break", 25);
 
                                   case 18:
                                     this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close", {
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context45.abrupt("break", 25);
+                                    return _context46.abrupt("break", 25);
 
                                   case 20:
                                     // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
-                                    return _context45.abrupt("break", 25);
+                                    return _context46.abrupt("break", 25);
 
                                   case 22:
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
@@ -59050,24 +59307,24 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context45.abrupt("break", 25);
+                                    return _context46.abrupt("break", 25);
 
                                   case 25:
                                   case "end":
-                                    return _context45.stop();
+                                    return _context46.stop();
                                 }
                               }
-                            }, _callee45, this);
+                            }, _callee46, this);
                           }));
                         });
                       }
 
                     case 17:
                     case "end":
-                      return _context46.stop();
+                      return _context47.stop();
                   }
                 }
-              }, _callee46, this);
+              }, _callee47, this);
             }));
           }
         }, {
@@ -59199,31 +59456,31 @@
         _createClass(SquareComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
-              return regeneratorRuntime.wrap(function _callee47$(_context47) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
+              return regeneratorRuntime.wrap(function _callee48$(_context48) {
                 while (1) {
-                  switch (_context47.prev = _context47.next) {
+                  switch (_context48.prev = _context48.next) {
                     case 0:
                     case "end":
-                      return _context47.stop();
+                      return _context48.stop();
                   }
                 }
-              }, _callee47);
+              }, _callee48);
             }));
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
-              var _this185 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
+              var _this186 = this;
 
               var formatter$, appId, locationId, payments;
-              return regeneratorRuntime.wrap(function _callee48$(_context48) {
+              return regeneratorRuntime.wrap(function _callee49$(_context49) {
                 while (1) {
-                  switch (_context48.prev = _context48.next) {
+                  switch (_context49.prev = _context49.next) {
                     case 0:
                       this.loading.simpleLoader();
-                      _context48.next = 3;
+                      _context49.next = 3;
                       return this.dsls.loadScript('square');
 
                     case 3:
@@ -59236,14 +59493,14 @@
                       this.concepto = this.rutaActiva.snapshot.params.concepto;
                       this.charge_status = this.rutaActiva.snapshot.params.charge_status;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this185.servicio = params.servicio;
-                        _this185.precio = params.precio;
-                        _this185.descuento = params.descuento;
-                        _this185.itemid = params.itemid;
-                        _this185.wash_id = params.wash_id;
-                        _this185.concepto = params.concepto;
-                        _this185.charge = params.charge;
-                        _this185.charge_status = params.charge_status;
+                        _this186.servicio = params.servicio;
+                        _this186.precio = params.precio;
+                        _this186.descuento = params.descuento;
+                        _this186.itemid = params.itemid;
+                        _this186.wash_id = params.wash_id;
+                        _this186.concepto = params.concepto;
+                        _this186.charge = params.charge;
+                        _this186.charge_status = params.charge_status;
                       });
                       formatter$ = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -59259,43 +59516,18 @@
                       appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
                       locationId = 'JCQ7Q20HXQTZ8';
                       payments = Square.payments(appId, locationId);
-                      _context48.next = 22;
+                      _context49.next = 22;
                       return payments.card();
 
                     case 22:
-                      this.card = _context48.sent;
-                      _context48.next = 25;
+                      this.card = _context49.sent;
+                      _context49.next = 25;
                       return this.card.attach('#card-container');
 
                     case 25:
                       this.loading.dismissLoader();
 
                     case 26:
-                    case "end":
-                      return _context48.stop();
-                  }
-                }
-              }, _callee48, this);
-            }));
-          }
-        }, {
-          key: "ionViewDidLeave",
-          value: function ionViewDidLeave() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
-              var destroyed;
-              return regeneratorRuntime.wrap(function _callee49$(_context49) {
-                while (1) {
-                  switch (_context49.prev = _context49.next) {
-                    case 0:
-                      _context49.next = 2;
-                      return this.card.destroy();
-
-                    case 2:
-                      destroyed = _context49.sent;
-                      document.getElementById('payment-status-container').innerText = '';
-                      document.getElementById('payment-status-container').innerText = '';
-
-                    case 5:
                     case "end":
                       return _context49.stop();
                   }
@@ -59304,41 +59536,66 @@
             }));
           }
         }, {
+          key: "ionViewDidLeave",
+          value: function ionViewDidLeave() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
+              var destroyed;
+              return regeneratorRuntime.wrap(function _callee50$(_context50) {
+                while (1) {
+                  switch (_context50.prev = _context50.next) {
+                    case 0:
+                      _context50.next = 2;
+                      return this.card.destroy();
+
+                    case 2:
+                      destroyed = _context50.sent;
+                      document.getElementById('payment-status-container').innerText = '';
+                      document.getElementById('payment-status-container').innerText = '';
+
+                    case 5:
+                    case "end":
+                      return _context50.stop();
+                  }
+                }
+              }, _callee50, this);
+            }));
+          }
+        }, {
           key: "eventHandler",
           value: function eventHandler() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
-              var _this186 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
+              var _this187 = this;
 
               var user, idtoken, autenticacion_tipo, result, url, data;
-              return regeneratorRuntime.wrap(function _callee51$(_context51) {
+              return regeneratorRuntime.wrap(function _callee52$(_context52) {
                 while (1) {
-                  switch (_context51.prev = _context51.next) {
+                  switch (_context52.prev = _context52.next) {
                     case 0:
                       this.loading.simpleLoader(); //  event.preventDefault();
 
-                      _context51.t0 = JSON;
-                      _context51.next = 4;
+                      _context52.t0 = JSON;
+                      _context52.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context51.t1 = _context51.sent;
-                      user = _context51.t0.parse.call(_context51.t0, _context51.t1);
-                      _context51.next = 8;
+                      _context52.t1 = _context52.sent;
+                      user = _context52.t0.parse.call(_context52.t0, _context52.t1);
+                      _context52.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context51.sent;
-                      _context51.next = 11;
+                      idtoken = _context52.sent;
+                      _context52.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context51.sent;
+                      autenticacion_tipo = _context52.sent;
                       this.email = user.email;
-                      _context51.next = 15;
+                      _context52.next = 15;
                       return this.card.tokenize();
 
                     case 15:
-                      result = _context51.sent;
+                      result = _context52.sent;
 
                       if (result.status === 'OK') {
                         console.log("Payment token is ".concat(result.token));
@@ -59371,23 +59628,23 @@
                           document.getElementById('payment-status-container').innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
                           console.error('Error:', error);
 
-                          _this186.loading.dismissLoader();
+                          _this187.loading.dismissLoader();
                         }).then(function (response) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this186, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this187, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
                             var destroyed;
-                            return regeneratorRuntime.wrap(function _callee50$(_context50) {
+                            return regeneratorRuntime.wrap(function _callee51$(_context51) {
                               while (1) {
-                                switch (_context50.prev = _context50.next) {
+                                switch (_context51.prev = _context51.next) {
                                   case 0:
                                     console.log(response);
-                                    _context50.next = 3;
+                                    _context51.next = 3;
                                     return this.card.destroy();
 
                                   case 3:
-                                    destroyed = _context50.sent;
+                                    destroyed = _context51.sent;
                                     this.loading.dismissLoader();
-                                    _context50.t0 = response.respuesta;
-                                    _context50.next = _context50.t0 === 'ERROR1' ? 8 : _context50.t0 === 'TOKEN ERROR' ? 10 : _context50.t0 === 'ERROR2' ? 14 : _context50.t0 === 'YA PAGADO' ? 18 : _context50.t0 === 'TODO_OK' ? 20 : _context50.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
+                                    _context51.t0 = response.respuesta;
+                                    _context51.next = _context51.t0 === 'ERROR1' ? 8 : _context51.t0 === 'TOKEN ERROR' ? 10 : _context51.t0 === 'ERROR2' ? 14 : _context51.t0 === 'YA PAGADO' ? 18 : _context51.t0 === 'TODO_OK' ? 20 : _context51.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
                                     break;
 
                                   case 8:
@@ -59395,7 +59652,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context50.abrupt("break", 25);
+                                    return _context51.abrupt("break", 25);
 
                                   case 10:
                                     this.localstorage.clearData();
@@ -59404,7 +59661,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context50.abrupt("break", 25);
+                                    return _context51.abrupt("break", 25);
 
                                   case 14:
                                     this.localstorage.clearData();
@@ -59413,19 +59670,19 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context50.abrupt("break", 25);
+                                    return _context51.abrupt("break", 25);
 
                                   case 18:
                                     this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close", {
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context50.abrupt("break", 25);
+                                    return _context51.abrupt("break", 25);
 
                                   case 20:
                                     // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
-                                    return _context50.abrupt("break", 25);
+                                    return _context51.abrupt("break", 25);
 
                                   case 22:
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
@@ -59433,24 +59690,24 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context50.abrupt("break", 25);
+                                    return _context51.abrupt("break", 25);
 
                                   case 25:
                                   case "end":
-                                    return _context50.stop();
+                                    return _context51.stop();
                                 }
                               }
-                            }, _callee50, this);
+                            }, _callee51, this);
                           }));
                         });
                       }
 
                     case 17:
                     case "end":
-                      return _context51.stop();
+                      return _context52.stop();
                   }
                 }
-              }, _callee51, this);
+              }, _callee52, this);
             }));
           }
         }, {
@@ -59665,19 +59922,19 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
@@ -59800,6 +60057,12 @@
       var _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
       /*! ./square-concargo/square-concargo.component */
       52322);
+      /* harmony import */
+
+
+      var _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+      /*! ./galeria/galeria.component */
+      15626);
 
       var routes = [{
         path: '',
@@ -59862,6 +60125,9 @@
           path: 'squareconcargo/:servicio/:precio/:itemid/:wash_id/:descuento/:charge/:concepto/:charge_status',
           component: _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_19__.SquareConcargoComponent
         }, {
+          path: 'galeria/:order_item_id',
+          component: _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_20__.GaleriaComponent
+        }, {
           path: '',
           redirectTo: '/tabs-cliente/tobook/tipovehiculos'
         }]
@@ -59874,9 +60140,9 @@
         _classCallCheck(this, TabClienteTobookPageRoutingModule);
       });
 
-      _TabClienteTobookPageRoutingModule = (0, tslib__WEBPACK_IMPORTED_MODULE_20__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_21__.NgModule)({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_22__.RouterModule.forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_22__.RouterModule]
+      _TabClienteTobookPageRoutingModule = (0, tslib__WEBPACK_IMPORTED_MODULE_21__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_22__.NgModule)({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_23__.RouterModule.forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_23__.RouterModule]
       })], _TabClienteTobookPageRoutingModule);
       /***/
     },
@@ -59909,37 +60175,37 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(
       /*! @angular/common */
       38583);
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(
       /*! @angular/forms */
       3679);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(
       /*! @ionic/angular */
       80476);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
@@ -60101,133 +60367,139 @@
       /* harmony import */
 
 
-      var _servicios_tobook__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
+      var _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
+      /*! ./galeria/galeria.component */
+      15626);
+      /* harmony import */
+
+
+      var _servicios_tobook__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
       /*! ./servicios.tobook */
       91655);
       /* harmony import */
 
 
-      var _shared_database_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+      var _shared_database_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
       /*! ../shared/database-service */
       21904);
       /* harmony import */
 
 
-      var _shared_storage_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
+      var _shared_storage_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
       /*! ../shared/storage.service */
       86945);
       /* harmony import */
 
 
-      var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
+      var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
       /*! ../shared/square.servicio */
       73258);
       /* harmony import */
 
 
-      var _angular_material_list__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(
+      var _angular_material_list__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(
       /*! @angular/material/list */
       77746);
       /* harmony import */
 
 
-      var _angular_material_button__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(
+      var _angular_material_button__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(
       /*! @angular/material/button */
       51095);
       /* harmony import */
 
 
-      var _angular_material_icon__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(
+      var _angular_material_icon__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
       /*! @angular/material/icon */
       76627);
       /* harmony import */
 
 
-      var _angular_material_card__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
+      var _angular_material_card__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
       /*! @angular/material/card */
       93738);
       /* harmony import */
 
 
-      var _angular_material_divider__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
+      var _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(
       /*! @angular/material/divider */
       1769);
       /* harmony import */
 
 
-      var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
+      var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
       /*! @angular/material/toolbar */
       12522);
       /* harmony import */
 
 
-      var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
+      var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
       /*! @angular/flex-layout */
       25830);
       /* harmony import */
 
 
-      var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
+      var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
       /*! @angular/material/sidenav */
       94935);
       /* harmony import */
 
 
-      var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
+      var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
       /*! @angular/material/tabs */
       65939);
       /* harmony import */
 
 
-      var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
+      var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
       /*! @angular/material/form-field */
       98295);
       /* harmony import */
 
 
-      var _angular_material_input__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
+      var _angular_material_input__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
       /*! @angular/material/input */
       83166);
       /* harmony import */
 
 
-      var _angular_material_select__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
+      var _angular_material_select__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
       /*! @angular/material/select */
       67441);
       /* harmony import */
 
 
-      var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
+      var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(
       /*! @angular/material/datepicker */
       43220);
       /* harmony import */
 
 
-      var _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(
+      var _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(
       /*! @angular/material-moment-adapter */
       36063);
       /* harmony import */
 
 
-      var _angular_material_core__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(
+      var _angular_material_core__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(
       /*! @angular/material/core */
       5015);
       /* harmony import */
 
 
-      var _angular_material_table__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(
+      var _angular_material_table__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(
       /*! @angular/material/table */
       32091);
       /* harmony import */
 
 
-      var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(
+      var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(
       /*! @angular/material/dialog */
       22238);
       /* harmony import */
 
 
-      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(
+      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(
       /*! @ionic/storage-angular */
       54925); // components
       // servicio
@@ -60240,12 +60512,12 @@
         _classCallCheck(this, TabClienteTobookPageModule);
       });
 
-      _TabClienteTobookPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_30__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_31__.NgModule)({
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_32__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_33__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_34__.IonicModule, _tab_cliente_tobook_routing_module__WEBPACK_IMPORTED_MODULE_0__.TabClienteTobookPageRoutingModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_35__.MatListModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_36__.MatButtonModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_37__.MatIconModule, _angular_material_divider__WEBPACK_IMPORTED_MODULE_38__.MatDividerModule, _angular_router__WEBPACK_IMPORTED_MODULE_39__.RouterModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_40__.MatToolbarModule, _angular_flex_layout__WEBPACK_IMPORTED_MODULE_41__.FlexLayoutModule, _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_42__.MatSidenavModule, _angular_material_tabs__WEBPACK_IMPORTED_MODULE_43__.MatTabsModule, _angular_material_card__WEBPACK_IMPORTED_MODULE_44__.MatCardModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_45__.MatFormFieldModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_46__.MatInputModule, _angular_forms__WEBPACK_IMPORTED_MODULE_33__.ReactiveFormsModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_47__.MatSelectModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_48__.MatDatepickerModule, _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_49__.MatMomentDateModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_50__.MatNativeDateModule, _angular_material_table__WEBPACK_IMPORTED_MODULE_51__.MatTableModule, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_52__.MatDialogModule, _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_53__.IonicStorageModule],
-        declarations: [_tab_cliente_tobook_page__WEBPACK_IMPORTED_MODULE_1__.TabClienteTobookPage, _cart_cart_component__WEBPACK_IMPORTED_MODULE_2__.CartComponent, _tipovehiculos_tipovehiculos_component__WEBPACK_IMPORTED_MODULE_3__.TipovehiculosComponent, _tipolavados_tipolavados_component__WEBPACK_IMPORTED_MODULE_4__.TipolavadosComponent, _tiposervicios_tiposervicios_component__WEBPACK_IMPORTED_MODULE_5__.TiposerviciosComponent, _ingresarsitio_ingresarsitio_component__WEBPACK_IMPORTED_MODULE_6__.IngresarsitioComponent, _ingresarperfil_ingresarperfil_component__WEBPACK_IMPORTED_MODULE_7__.IngresarperfilComponent, _ingresarcamion_ingresarcamion_component__WEBPACK_IMPORTED_MODULE_8__.IngresarcamionComponent, _citamobil_citamobil_component__WEBPACK_IMPORTED_MODULE_9__.CitamobilComponent, _citayarda_citayarda_component__WEBPACK_IMPORTED_MODULE_10__.CitayardaComponent, _mybooks_mybooks_component__WEBPACK_IMPORTED_MODULE_11__.MybooksComponent, _washs_washs_component__WEBPACK_IMPORTED_MODULE_17__.WashsComponent, _tipopagos_tipopagos_component__WEBPACK_IMPORTED_MODULE_12__.TipopagosComponent, _tipobooks_tipobooks_component__WEBPACK_IMPORTED_MODULE_13__.TipobooksComponent, _dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_14__.DialogoconfirComponent, _dialogreservacion_dialogreservacion_component__WEBPACK_IMPORTED_MODULE_18__.DialogreservacionComponent, _dialogcupon_dialogcupon_component__WEBPACK_IMPORTED_MODULE_19__.DialogcuponComponent, _square_square_component__WEBPACK_IMPORTED_MODULE_15__.SquareComponent, _mypays_mypays_component__WEBPACK_IMPORTED_MODULE_16__.MypaysComponent, _dialogaddvehiculo_dialogaddvehiculo_component__WEBPACK_IMPORTED_MODULE_20__.DialogaddvehiculoComponent, _dialogositio_dialogositio_component__WEBPACK_IMPORTED_MODULE_21__.DialogositioComponent, _successtobook_successtobook_component__WEBPACK_IMPORTED_MODULE_22__.SuccesstobookComponent, _successpay_successpay_component__WEBPACK_IMPORTED_MODULE_23__.SuccesspayComponent, _dealsweek_dealsweek_component__WEBPACK_IMPORTED_MODULE_24__.DealsweekComponent, _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_25__.SquareConcargoComponent],
+      _TabClienteTobookPageModule = (0, tslib__WEBPACK_IMPORTED_MODULE_31__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_32__.NgModule)({
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_33__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_34__.FormsModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_35__.IonicModule, _tab_cliente_tobook_routing_module__WEBPACK_IMPORTED_MODULE_0__.TabClienteTobookPageRoutingModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_36__.MatListModule, _angular_material_button__WEBPACK_IMPORTED_MODULE_37__.MatButtonModule, _angular_material_icon__WEBPACK_IMPORTED_MODULE_38__.MatIconModule, _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__.MatDividerModule, _angular_router__WEBPACK_IMPORTED_MODULE_40__.RouterModule, _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_41__.MatToolbarModule, _angular_flex_layout__WEBPACK_IMPORTED_MODULE_42__.FlexLayoutModule, _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_43__.MatSidenavModule, _angular_material_tabs__WEBPACK_IMPORTED_MODULE_44__.MatTabsModule, _angular_material_card__WEBPACK_IMPORTED_MODULE_45__.MatCardModule, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_46__.MatFormFieldModule, _angular_material_input__WEBPACK_IMPORTED_MODULE_47__.MatInputModule, _angular_forms__WEBPACK_IMPORTED_MODULE_34__.ReactiveFormsModule, _angular_material_select__WEBPACK_IMPORTED_MODULE_48__.MatSelectModule, _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_49__.MatDatepickerModule, _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_50__.MatMomentDateModule, _angular_material_core__WEBPACK_IMPORTED_MODULE_51__.MatNativeDateModule, _angular_material_table__WEBPACK_IMPORTED_MODULE_52__.MatTableModule, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_53__.MatDialogModule, _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_54__.IonicStorageModule],
+        declarations: [_tab_cliente_tobook_page__WEBPACK_IMPORTED_MODULE_1__.TabClienteTobookPage, _cart_cart_component__WEBPACK_IMPORTED_MODULE_2__.CartComponent, _tipovehiculos_tipovehiculos_component__WEBPACK_IMPORTED_MODULE_3__.TipovehiculosComponent, _tipolavados_tipolavados_component__WEBPACK_IMPORTED_MODULE_4__.TipolavadosComponent, _tiposervicios_tiposervicios_component__WEBPACK_IMPORTED_MODULE_5__.TiposerviciosComponent, _ingresarsitio_ingresarsitio_component__WEBPACK_IMPORTED_MODULE_6__.IngresarsitioComponent, _ingresarperfil_ingresarperfil_component__WEBPACK_IMPORTED_MODULE_7__.IngresarperfilComponent, _ingresarcamion_ingresarcamion_component__WEBPACK_IMPORTED_MODULE_8__.IngresarcamionComponent, _citamobil_citamobil_component__WEBPACK_IMPORTED_MODULE_9__.CitamobilComponent, _citayarda_citayarda_component__WEBPACK_IMPORTED_MODULE_10__.CitayardaComponent, _mybooks_mybooks_component__WEBPACK_IMPORTED_MODULE_11__.MybooksComponent, _washs_washs_component__WEBPACK_IMPORTED_MODULE_17__.WashsComponent, _tipopagos_tipopagos_component__WEBPACK_IMPORTED_MODULE_12__.TipopagosComponent, _tipobooks_tipobooks_component__WEBPACK_IMPORTED_MODULE_13__.TipobooksComponent, _dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_14__.DialogoconfirComponent, _dialogreservacion_dialogreservacion_component__WEBPACK_IMPORTED_MODULE_18__.DialogreservacionComponent, _dialogcupon_dialogcupon_component__WEBPACK_IMPORTED_MODULE_19__.DialogcuponComponent, _square_square_component__WEBPACK_IMPORTED_MODULE_15__.SquareComponent, _mypays_mypays_component__WEBPACK_IMPORTED_MODULE_16__.MypaysComponent, _dialogaddvehiculo_dialogaddvehiculo_component__WEBPACK_IMPORTED_MODULE_20__.DialogaddvehiculoComponent, _dialogositio_dialogositio_component__WEBPACK_IMPORTED_MODULE_21__.DialogositioComponent, _successtobook_successtobook_component__WEBPACK_IMPORTED_MODULE_22__.SuccesstobookComponent, _successpay_successpay_component__WEBPACK_IMPORTED_MODULE_23__.SuccesspayComponent, _dealsweek_dealsweek_component__WEBPACK_IMPORTED_MODULE_24__.DealsweekComponent, _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_25__.SquareConcargoComponent, _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_26__.GaleriaComponent],
         entryComponents: [],
-        providers: [_servicios_tobook__WEBPACK_IMPORTED_MODULE_26__.ServiciosTobook, _shared_database_service__WEBPACK_IMPORTED_MODULE_27__.DatabaseService, _shared_storage_service__WEBPACK_IMPORTED_MODULE_28__.StorageService, _shared_square_servicio__WEBPACK_IMPORTED_MODULE_29__.SquareServicio],
-        schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_31__.CUSTOM_ELEMENTS_SCHEMA, _angular_core__WEBPACK_IMPORTED_MODULE_31__.NO_ERRORS_SCHEMA]
+        providers: [_servicios_tobook__WEBPACK_IMPORTED_MODULE_27__.ServiciosTobook, _shared_database_service__WEBPACK_IMPORTED_MODULE_28__.DatabaseService, _shared_storage_service__WEBPACK_IMPORTED_MODULE_29__.StorageService, _shared_square_servicio__WEBPACK_IMPORTED_MODULE_30__.SquareServicio],
+        schemas: [_angular_core__WEBPACK_IMPORTED_MODULE_32__.CUSTOM_ELEMENTS_SCHEMA, _angular_core__WEBPACK_IMPORTED_MODULE_32__.NO_ERRORS_SCHEMA]
       })], _TabClienteTobookPageModule);
       /***/
     },
@@ -60365,35 +60637,35 @@
         _createClass(TabClienteTobookPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this187 = this;
+            var _this188 = this;
 
             this.angularAuth.authState.subscribe(function (user) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this187, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this188, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
                 var cliente;
-                return regeneratorRuntime.wrap(function _callee52$(_context52) {
+                return regeneratorRuntime.wrap(function _callee53$(_context53) {
                   while (1) {
-                    switch (_context52.prev = _context52.next) {
+                    switch (_context53.prev = _context53.next) {
                       case 0:
                         if (!user) {
-                          _context52.next = 13;
+                          _context53.next = 13;
                           break;
                         }
 
-                        _context52.t0 = JSON;
-                        _context52.next = 4;
+                        _context53.t0 = JSON;
+                        _context53.next = 4;
                         return this.localstorage.getData('usuario');
 
                       case 4:
-                        _context52.t1 = _context52.sent;
-                        cliente = _context52.t0.parse.call(_context52.t0, _context52.t1);
+                        _context53.t1 = _context53.sent;
+                        cliente = _context53.t0.parse.call(_context53.t0, _context53.t1);
                         this.cliente_name = cliente.name;
                         this.cliente_correo = cliente.email;
-                        _context52.next = 10;
+                        _context53.next = 10;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 10:
-                        this.autenticacion_tipo = _context52.sent;
-                        _context52.next = 15;
+                        this.autenticacion_tipo = _context53.sent;
+                        _context53.next = 15;
                         break;
 
                       case 13:
@@ -60402,10 +60674,10 @@
 
                       case 15:
                       case "end":
-                        return _context52.stop();
+                        return _context53.stop();
                     }
                   }
-                }, _callee52, this);
+                }, _callee53, this);
               }));
             });
           }
@@ -60545,46 +60817,46 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
-              var _this188 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
+              var _this189 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee53$(_context53) {
+              return regeneratorRuntime.wrap(function _callee54$(_context54) {
                 while (1) {
-                  switch (_context53.prev = _context53.next) {
+                  switch (_context54.prev = _context54.next) {
                     case 0:
-                      _context53.t0 = JSON;
-                      _context53.next = 3;
+                      _context54.t0 = JSON;
+                      _context54.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context53.t1 = _context53.sent;
-                      user = _context53.t0.parse.call(_context53.t0, _context53.t1);
-                      _context53.next = 7;
+                      _context54.t1 = _context54.sent;
+                      user = _context54.t0.parse.call(_context54.t0, _context54.t1);
+                      _context54.next = 7;
                       return this.localstorage.getData('idtoken');
 
                     case 7:
-                      idtoken = _context53.sent;
-                      _context53.next = 10;
+                      idtoken = _context54.sent;
+                      _context54.next = 10;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 10:
-                      autenticacion_tipo = _context53.sent;
+                      autenticacion_tipo = _context54.sent;
 
                       if (user) {
                         this.loading.simpleLoader();
                         this.serviciotobook.getAppointments(idtoken, autenticacion_tipo, user.email).subscribe(function (val) {
                           var datos = val;
 
-                          _this188.loading.dismissLoader();
+                          _this189.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
 
                           switch (datos.respuesta) {
                             case 'TOKEN ERROR':
-                              _this188.router.navigate(['/login']);
+                              _this189.router.navigate(['/login']);
 
-                              _this188.snackBar.open("Invalid or expired token,please login again", "Close", {
+                              _this189.snackBar.open("Invalid or expired token,please login again", "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -60593,11 +60865,11 @@
 
                             case 'ERROR':
                               // borramos la informacion local
-                              _this188.localstorage.clearData();
+                              _this189.localstorage.clearData();
 
-                              _this188.router.navigate(['/login']);
+                              _this189.router.navigate(['/login']);
 
-                              _this188.snackBar.open("Sorry, an error occurred,please login again6" + datos.mensaje, "Close", {
+                              _this189.snackBar.open("Sorry, an error occurred,please login again6" + datos.mensaje, "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -60605,10 +60877,10 @@
                               break;
 
                             case '200_OK':
-                              _this188.inhold = datos.sinconfirmar;
-                              _this188.confirmed = datos.confirmados;
-                              _this188.completed = datos.completados;
-                              _this188.cancelled = datos.cancelados; // VERSION 1:
+                              _this189.inhold = datos.sinconfirmar;
+                              _this189.confirmed = datos.confirmados;
+                              _this189.completed = datos.completados;
+                              _this189.cancelled = datos.cancelados; // VERSION 1:
 
                               /* console.log(datos)
                                       var sinfiltrardatos = Object.values(datos)
@@ -60714,16 +60986,16 @@
                               break;
                           }
                         }, function (error) {
-                          _this188.loading.dismissLoader();
+                          _this189.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
                           console.error('There was an error!', error); // borramos la informacion local
 
-                          _this188.localstorage.clearData();
+                          _this189.localstorage.clearData();
 
-                          _this188.router.navigate(['/login']);
+                          _this189.router.navigate(['/login']);
 
-                          _this188.snackBar.open("Sorry, an error occurred,please login again7" + error.message, "Close", {
+                          _this189.snackBar.open("Sorry, an error occurred,please login again7" + error.message, "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -60741,10 +61013,10 @@
 
                     case 12:
                     case "end":
-                      return _context53.stop();
+                      return _context54.stop();
                   }
                 }
-              }, _callee53, this);
+              }, _callee54, this);
             }));
           }
         }]);
@@ -60975,23 +61247,23 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
-              var _this189 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+              var _this190 = this;
 
-              return regeneratorRuntime.wrap(function _callee54$(_context54) {
+              return regeneratorRuntime.wrap(function _callee55$(_context55) {
                 while (1) {
-                  switch (_context54.prev = _context54.next) {
+                  switch (_context55.prev = _context55.next) {
                     case 0:
-                      _context54.t0 = JSON;
-                      _context54.next = 3;
+                      _context55.t0 = JSON;
+                      _context55.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context54.t1 = _context54.sent;
-                      this.user = _context54.t0.parse.call(_context54.t0, _context54.t1);
+                      _context55.t1 = _context55.sent;
+                      this.user = _context55.t0.parse.call(_context55.t0, _context55.t1);
 
                       if (!this.user) {
-                        _context54.next = 19;
+                        _context55.next = 19;
                         break;
                       }
 
@@ -60999,33 +61271,33 @@
                       this.vehiculoid = this.rutaActiva.snapshot.params.vehiculoid;
                       this.vehiculo = this.rutaActiva.snapshot.params.vehiculo;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this189.vehiculoid = params.vehiculoid;
-                        _this189.vehiculo = params.vehiculo;
+                        _this190.vehiculoid = params.vehiculoid;
+                        _this190.vehiculo = params.vehiculo;
                       });
-                      _context54.next = 12;
+                      _context55.next = 12;
                       return this.localstorage.getData('idtoken');
 
                     case 12:
-                      this.idtoken = _context54.sent;
-                      _context54.next = 15;
+                      this.idtoken = _context55.sent;
+                      _context55.next = 15;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 15:
-                      this.autenticacion_tipo = _context54.sent;
+                      this.autenticacion_tipo = _context55.sent;
                       // CONSULTA API 1  LAVADOS DE LOS SERVICIOS
                       this.serviciostobook.getLavados(this.vehiculoid, this.idtoken, this.autenticacion_tipo).subscribe({
                         next: function next(data) {
-                          _this189.loading.dismissLoader();
+                          _this190.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
 
                           switch (data.respuesta) {
                             case 'ERROR':
-                              _this189.localstorage.clearData();
+                              _this190.localstorage.clearData();
 
-                              _this189.router.navigate(['/login']);
+                              _this190.router.navigate(['/login']);
 
-                              _this189.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                              _this190.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -61033,11 +61305,11 @@
                               break;
 
                             case 'TOKEN ERROR':
-                              _this189.localstorage.clearData();
+                              _this190.localstorage.clearData();
 
-                              _this189.router.navigate(['/login']);
+                              _this190.router.navigate(['/login']);
 
-                              _this189.snackBar.open("Invalid or expired token,please login again", "Close", {
+                              _this190.snackBar.open("Invalid or expired token,please login again", "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -61046,27 +61318,27 @@
                               break;
 
                             default:
-                              _this189.lavados = data;
+                              _this190.lavados = data;
                           }
                         },
-                        error: function error(_error26) {
-                          _this189.loading.dismissLoader();
+                        error: function error(_error27) {
+                          _this190.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
-                          var errorMessage = _error26.message;
+                          var errorMessage = _error27.message;
                           console.error('There was an error!', errorMessage);
 
-                          _this189.localstorage.clearData();
+                          _this190.localstorage.clearData();
 
-                          _this189.router.navigate(['/login']);
+                          _this190.router.navigate(['/login']);
 
-                          _this189.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this190.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
-                      _context54.next = 23;
+                      _context55.next = 23;
                       break;
 
                     case 19:
@@ -61080,10 +61352,10 @@
 
                     case 23:
                     case "end":
-                      return _context54.stop();
+                      return _context55.stop();
                   }
                 }
-              }, _callee54, this);
+              }, _callee55, this);
             }));
           }
         }]);
@@ -61218,44 +61490,44 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
-              var _this190 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
+              var _this191 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee55$(_context55) {
+              return regeneratorRuntime.wrap(function _callee56$(_context56) {
                 while (1) {
-                  switch (_context55.prev = _context55.next) {
+                  switch (_context56.prev = _context56.next) {
                     case 0:
                       this.loading.simpleLoader();
-                      _context55.t0 = JSON;
-                      _context55.next = 4;
+                      _context56.t0 = JSON;
+                      _context56.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context55.t1 = _context55.sent;
-                      user = _context55.t0.parse.call(_context55.t0, _context55.t1);
-                      _context55.next = 8;
+                      _context56.t1 = _context56.sent;
+                      user = _context56.t0.parse.call(_context56.t0, _context56.t1);
+                      _context56.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context55.sent;
-                      _context55.next = 11;
+                      idtoken = _context56.sent;
+                      _context56.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context55.sent;
+                      autenticacion_tipo = _context56.sent;
                       this.serviciotobook.getPays(idtoken, autenticacion_tipo, user.email).subscribe(function (val) {
                         var datos = val;
 
-                        _this190.loading.dismissLoader();
+                        _this191.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
 
                         switch (datos.respuesta) {
                           case 'TOKEN ERROR':
-                            _this190.router.navigate(['/login']);
+                            _this191.router.navigate(['/login']);
 
-                            _this190.snackBar.open("Invalid or expired token,please login again", "Close", {
+                            _this191.snackBar.open("Invalid or expired token,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -61264,11 +61536,11 @@
 
                           case 'ERROR':
                             // borramos la informacion local
-                            _this190.localstorage.clearData();
+                            _this191.localstorage.clearData();
 
-                            _this190.router.navigate(['/login']);
+                            _this191.router.navigate(['/login']);
 
-                            _this190.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                            _this191.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -61276,9 +61548,9 @@
                             break;
 
                           case '200_OK':
-                            _this190.inview = datos.enrevision;
-                            _this190.admitted = datos.aceptados;
-                            _this190.reject = datos.negados;
+                            _this191.inview = datos.enrevision;
+                            _this191.admitted = datos.aceptados;
+                            _this191.reject = datos.negados;
                             /*console.log(datos)
                             var sinfiltrardatos = Object.values(datos)
                              var filtradatos = sinfiltrardatos.filter(((celda: string | any[]) =>  celda !== '200_OK'))
@@ -61349,16 +61621,16 @@
                             break;
                         }
                       }, function (error) {
-                        _this190.loading.dismissLoader();
+                        _this191.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
                         console.error('There was an error!', error); // borramos la informacion local
 
-                        _this190.localstorage.clearData();
+                        _this191.localstorage.clearData();
 
-                        _this190.router.navigate(['/login']);
+                        _this191.router.navigate(['/login']);
 
-                        _this190.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                        _this191.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -61366,10 +61638,10 @@
 
                     case 13:
                     case "end":
-                      return _context55.stop();
+                      return _context56.stop();
                   }
                 }
-              }, _callee55, this);
+              }, _callee56, this);
             }));
           }
         }]);
@@ -61511,23 +61783,23 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
-              var _this191 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
+              var _this192 = this;
 
-              return regeneratorRuntime.wrap(function _callee57$(_context57) {
+              return regeneratorRuntime.wrap(function _callee58$(_context58) {
                 while (1) {
-                  switch (_context57.prev = _context57.next) {
+                  switch (_context58.prev = _context58.next) {
                     case 0:
-                      _context57.t0 = JSON;
-                      _context57.next = 3;
+                      _context58.t0 = JSON;
+                      _context58.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context57.t1 = _context57.sent;
-                      this.user = _context57.t0.parse.call(_context57.t0, _context57.t1);
+                      _context58.t1 = _context58.sent;
+                      this.user = _context58.t0.parse.call(_context58.t0, _context58.t1);
 
                       if (!this.user) {
-                        _context57.next = 22;
+                        _context58.next = 22;
                         break;
                       }
 
@@ -61536,37 +61808,37 @@
                       this.lavado = this.rutaActiva.snapshot.params.lavado;
                       this.lavadoid = this.rutaActiva.snapshot.params.lavadoid;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this191.vehiculo = params.vehiculo;
-                        _this191.lavado = params.lavado;
-                        _this191.lavadoid = params.lavadoid;
+                        _this192.vehiculo = params.vehiculo;
+                        _this192.lavado = params.lavado;
+                        _this192.lavadoid = params.lavadoid;
                       });
-                      _context57.next = 13;
+                      _context58.next = 13;
                       return this.localstorage.setData('tipolavado', this.lavado);
 
                     case 13:
-                      _context57.next = 15;
+                      _context58.next = 15;
                       return this.localstorage.getData('idtoken');
 
                     case 15:
-                      this.idtoken = _context57.sent;
-                      _context57.next = 18;
+                      this.idtoken = _context58.sent;
+                      _context58.next = 18;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 18:
-                      this.autenticacion_tipo = _context57.sent;
+                      this.autenticacion_tipo = _context58.sent;
                       // CONSULTA API 1  LOS SERVICIOS
                       this.serviciostobook.getServicios(this.lavadoid, this.idtoken, this.autenticacion_tipo).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this191, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this192, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
                             var washs;
-                            return regeneratorRuntime.wrap(function _callee56$(_context56) {
+                            return regeneratorRuntime.wrap(function _callee57$(_context57) {
                               while (1) {
-                                switch (_context56.prev = _context56.next) {
+                                switch (_context57.prev = _context57.next) {
                                   case 0:
                                     this.loading.dismissLoader();
                                     if ($event) $event.target.complete();
-                                    _context56.t0 = data.respuesta;
-                                    _context56.next = _context56.t0 === 'ERROR' ? 5 : _context56.t0 === 'TOKEN ERROR' ? 9 : 14;
+                                    _context57.t0 = data.respuesta;
+                                    _context57.next = _context57.t0 === 'ERROR' ? 5 : _context57.t0 === 'TOKEN ERROR' ? 9 : 14;
                                     break;
 
                                   case 5:
@@ -61576,7 +61848,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context56.abrupt("break", 18);
+                                    return _context57.abrupt("break", 18);
 
                                   case 9:
                                     this.localstorage.clearData();
@@ -61586,40 +61858,40 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context56.abrupt("break", 18);
+                                    return _context57.abrupt("break", 18);
 
                                   case 14:
                                     this.servicios = data;
                                     washs = Object.values(this.servicios);
-                                    _context56.next = 18;
+                                    _context57.next = 18;
                                     return this.localstorage.setObject('allservices', washs);
 
                                   case 18:
                                   case "end":
-                                    return _context56.stop();
+                                    return _context57.stop();
                                 }
                               }
-                            }, _callee56, this);
+                            }, _callee57, this);
                           }));
                         },
-                        error: function error(_error27) {
-                          _this191.loading.dismissLoader();
+                        error: function error(_error28) {
+                          _this192.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
-                          var errorMessage = _error27.message;
+                          var errorMessage = _error28.message;
                           console.error('There was an error!', errorMessage);
 
-                          _this191.localstorage.clearData();
+                          _this192.localstorage.clearData();
 
-                          _this191.router.navigate(['/login']);
+                          _this192.router.navigate(['/login']);
 
-                          _this191.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this192.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
-                      _context57.next = 26;
+                      _context58.next = 26;
                       break;
 
                     case 22:
@@ -61634,10 +61906,10 @@
 
                     case 26:
                     case "end":
-                      return _context57.stop();
+                      return _context58.stop();
                   }
                 }
-              }, _callee57, this);
+              }, _callee58, this);
             }));
           }
         }]);
@@ -61773,47 +62045,47 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
-              var _this192 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+              var _this193 = this;
 
-              return regeneratorRuntime.wrap(function _callee58$(_context58) {
+              return regeneratorRuntime.wrap(function _callee59$(_context59) {
                 while (1) {
-                  switch (_context58.prev = _context58.next) {
+                  switch (_context59.prev = _context59.next) {
                     case 0:
-                      _context58.t0 = JSON;
-                      _context58.next = 3;
+                      _context59.t0 = JSON;
+                      _context59.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context58.t1 = _context58.sent;
-                      this.user = _context58.t0.parse.call(_context58.t0, _context58.t1);
-                      _context58.next = 7;
+                      _context59.t1 = _context59.sent;
+                      this.user = _context59.t0.parse.call(_context59.t0, _context59.t1);
+                      _context59.next = 7;
                       return this.localstorage.getData('idtoken');
 
                     case 7:
-                      this.idtoken = _context58.sent;
-                      _context58.next = 10;
+                      this.idtoken = _context59.sent;
+                      _context59.next = 10;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 10:
-                      this.autenticacion_tipo = _context58.sent;
+                      this.autenticacion_tipo = _context59.sent;
 
                       if (this.user) {
                         this.loading.simpleLoader(); // CONSULTA API 1  VEHICULOS DE LOS SERVICIOS
 
                         this.serviciostobook.getVehiculo(this.idtoken, this.autenticacion_tipo, this.user.email).subscribe({
                           next: function next(data) {
-                            _this192.loading.dismissLoader();
+                            _this193.loading.dismissLoader();
 
                             if ($event) $event.target.complete();
 
                             switch (data.respuesta) {
                               case 'ERROR':
-                                _this192.localstorage.clearData();
+                                _this193.localstorage.clearData();
 
-                                _this192.router.navigate(['/login']);
+                                _this193.router.navigate(['/login']);
 
-                                _this192.snackBar.open("Sorry, an error occurred,please login again3", "Close", {
+                                _this193.snackBar.open("Sorry, an error occurred,please login again3", "Close", {
                                   horizontalPosition: "start",
                                   verticalPosition: "top"
                                 });
@@ -61821,11 +62093,11 @@
                                 break;
 
                               case 'TOKEN ERROR':
-                                _this192.localstorage.clearData();
+                                _this193.localstorage.clearData();
 
-                                _this192.router.navigate(['/login']);
+                                _this193.router.navigate(['/login']);
 
-                                _this192.snackBar.open("Invalid or expired token,please login again4", "Close", {
+                                _this193.snackBar.open("Invalid or expired token,please login again4", "Close", {
                                   horizontalPosition: "start",
                                   verticalPosition: "top"
                                 });
@@ -61834,36 +62106,40 @@
                                 break;
 
                               case 'PERFIL_INCOMPLETO':
-                                _this192.router.navigate(['tabs-cliente/tobook/ingresarperfil/']);
+                                _this193.router.navigate(['tabs-cliente/tobook/ingresarperfil/']);
 
                                 break;
 
-                              case 'SITE_INCOMPLETO':
-                                _this192.router.navigate(['tabs-cliente/tobook/ingresarsitio/']);
-
+                              /*  case 'SITE_INCOMPLETO':
+                                  this.router.navigate(['tabs-cliente/tobook/ingresarsitio/']);
                                 break;
+                                
+                                case 'NO_FLOTA':
+                                  this.router.navigate(['tabs-cliente/tobook/ingresarcamion/']);
+                                break;*/
 
-                              case 'NO_FLOTA':
-                                _this192.router.navigate(['tabs-cliente/tobook/ingresarcamion/']);
-
+                              case 'CONTINUAR':
+                                _this193.vehiculos = data;
+                                console.log(_this193.vehiculos);
                                 break;
 
                               default:
-                                _this192.vehiculos = data;
+                                _this193.vehiculos = data;
+                                console.log(_this193.vehiculos);
                             }
                           },
-                          error: function error(_error28) {
-                            _this192.loading.dismissLoader();
+                          error: function error(_error29) {
+                            _this193.loading.dismissLoader();
 
                             if ($event) $event.target.complete();
-                            var errorMessage = _error28.message;
+                            var errorMessage = _error29.message;
                             console.error('There was an error!', errorMessage);
 
-                            _this192.localstorage.clearData();
+                            _this193.localstorage.clearData();
 
-                            _this192.router.navigate(['/login']);
+                            _this193.router.navigate(['/login']);
 
-                            _this192.snackBar.open("Sorry, an error occurred,please login again5", "Close", {
+                            _this193.snackBar.open("Sorry, an error occurred,please login again5", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -61880,15 +62156,15 @@
                         });
                       }
 
-                      _context58.next = 14;
+                      _context59.next = 14;
                       return this.localstorage.removeData('tiporeservacion');
 
                     case 14:
                     case "end":
-                      return _context58.stop();
+                      return _context59.stop();
                   }
                 }
-              }, _callee58, this);
+              }, _callee59, this);
             }));
           }
         }]);
@@ -62019,31 +62295,31 @@
         _createClass(WashsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
-              var _this193 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+              var _this194 = this;
 
-              return regeneratorRuntime.wrap(function _callee60$(_context60) {
+              return regeneratorRuntime.wrap(function _callee61$(_context61) {
                 while (1) {
-                  switch (_context60.prev = _context60.next) {
+                  switch (_context61.prev = _context61.next) {
                     case 0:
-                      _context60.next = 2;
+                      _context61.next = 2;
                       return this.localstorage.getData('usuario').then(function (val) {
                         var user = JSON.parse(val);
 
                         if (user) {
-                          _this193.washname = _this193.rutaActiva.snapshot.params.washname;
-                          _this193.washlavado = _this193.rutaActiva.snapshot.params.washlavado;
-                          _this193.washvehiculo = _this193.rutaActiva.snapshot.params.washvehiculo;
-                          _this193.washdescripcion = _this193.rutaActiva.snapshot.params.washdescripcion;
-                          _this193.washid = _this193.rutaActiva.snapshot.params.washid;
-                          _this193.washprecio = _this193.rutaActiva.snapshot.params.washprecio;
-                          _this193.washpreciomobil = _this193.rutaActiva.snapshot.params.washpreciomobil;
+                          _this194.washname = _this194.rutaActiva.snapshot.params.washname;
+                          _this194.washlavado = _this194.rutaActiva.snapshot.params.washlavado;
+                          _this194.washvehiculo = _this194.rutaActiva.snapshot.params.washvehiculo;
+                          _this194.washdescripcion = _this194.rutaActiva.snapshot.params.washdescripcion;
+                          _this194.washid = _this194.rutaActiva.snapshot.params.washid;
+                          _this194.washprecio = _this194.rutaActiva.snapshot.params.washprecio;
+                          _this194.washpreciomobil = _this194.rutaActiva.snapshot.params.washpreciomobil;
 
-                          _this193.rutaActiva.params.subscribe(function (params) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this193, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
-                              return regeneratorRuntime.wrap(function _callee59$(_context59) {
+                          _this194.rutaActiva.params.subscribe(function (params) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+                              return regeneratorRuntime.wrap(function _callee60$(_context60) {
                                 while (1) {
-                                  switch (_context59.prev = _context59.next) {
+                                  switch (_context60.prev = _context60.next) {
                                     case 0:
                                       this.washname = params.washname;
                                       this.washlavado = params.washlavado;
@@ -62052,32 +62328,32 @@
                                       this.washid = params.washid;
                                       this.washprecio = params.washprecio;
                                       this.washpreciomobil = params.washpreciomobil;
-                                      _context59.next = 9;
+                                      _context60.next = 9;
                                       return this.localstorage.setData('washpreciomobil', this.washpreciomobil);
 
                                     case 9:
-                                      _context59.next = 11;
+                                      _context60.next = 11;
                                       return this.localstorage.setData('washprecio', this.washprecio);
 
                                     case 11:
-                                      _context59.next = 13;
+                                      _context60.next = 13;
                                       return this.localstorage.setData('tipolavado', this.washlavado);
 
                                     case 13:
                                     case "end":
-                                      return _context59.stop();
+                                      return _context60.stop();
                                   }
                                 }
-                              }, _callee59, this);
+                              }, _callee60, this);
                             }));
                           });
                         } else {
                           // borramos la informacion local
-                          _this193.localstorage.clearData();
+                          _this194.localstorage.clearData();
 
-                          _this193.router.navigate(['/login']);
+                          _this194.router.navigate(['/login']);
 
-                          _this193.snackBar.open("Please login again ", "Close", {
+                          _this194.snackBar.open("Please login again ", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -62085,11 +62361,11 @@
                       }, function (err) {
                         console.log(err);
 
-                        _this193.localstorage.clearData();
+                        _this194.localstorage.clearData();
 
-                        _this193.router.navigate(['/login']);
+                        _this194.router.navigate(['/login']);
 
-                        _this193.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                        _this194.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -62097,161 +62373,161 @@
 
                     case 2:
                     case "end":
-                      return _context60.stop();
+                      return _context61.stop();
                   }
                 }
-              }, _callee60, this);
+              }, _callee61, this);
             }));
           }
         }, {
           key: "reservarnow",
           value: function reservarnow() {
-            var _this194 = this;
+            var _this195 = this;
 
             this.dialogo.open(_dialogreservacion_dialogreservacion_component__WEBPACK_IMPORTED_MODULE_3__.DialogreservacionComponent, {
               data: "Please select your type of reservation "
             }).afterClosed().subscribe(function (confirmado) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this195, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
                 var washs, _iterator8, _step8, wash, _iterator9, _step9, _wash;
 
-                return regeneratorRuntime.wrap(function _callee61$(_context61) {
+                return regeneratorRuntime.wrap(function _callee62$(_context62) {
                   while (1) {
-                    switch (_context61.prev = _context61.next) {
+                    switch (_context62.prev = _context62.next) {
                       case 0:
-                        _context61.t0 = confirmado;
-                        _context61.next = _context61.t0 === 1 ? 3 : _context61.t0 === 2 ? 30 : _context61.t0 === 3 ? 57 : _context61.t0 === 4 ? 59 : 61;
+                        _context62.t0 = confirmado;
+                        _context62.next = _context62.t0 === 1 ? 3 : _context62.t0 === 2 ? 30 : _context62.t0 === 3 ? 57 : _context62.t0 === 4 ? 59 : 61;
                         break;
 
                       case 3:
-                        _context61.next = 5;
+                        _context62.next = 5;
                         return this.localstorage.setData('tiporeservacion', 'citamobil');
 
                       case 5:
-                        _context61.t1 = JSON;
-                        _context61.next = 8;
+                        _context62.t1 = JSON;
+                        _context62.next = 8;
                         return this.localstorage.getData('allservices');
 
                       case 8:
-                        _context61.t2 = _context61.sent;
-                        washs = _context61.t1.parse.call(_context61.t1, _context61.t2);
+                        _context62.t2 = _context62.sent;
+                        washs = _context62.t1.parse.call(_context62.t1, _context62.t2);
                         _iterator8 = _createForOfIteratorHelper(washs);
-                        _context61.prev = 11;
+                        _context62.prev = 11;
 
                         _iterator8.s();
 
                       case 13:
                         if ((_step8 = _iterator8.n()).done) {
-                          _context61.next = 20;
+                          _context62.next = 20;
                           break;
                         }
 
                         wash = _step8.value;
 
                         if (!(wash.product_id == this.washid)) {
-                          _context61.next = 18;
+                          _context62.next = 18;
                           break;
                         }
 
-                        _context61.next = 18;
+                        _context62.next = 18;
                         return this.localstorage.setObject('servicio', wash);
 
                       case 18:
-                        _context61.next = 13;
+                        _context62.next = 13;
                         break;
 
                       case 20:
-                        _context61.next = 25;
+                        _context62.next = 25;
                         break;
 
                       case 22:
-                        _context61.prev = 22;
-                        _context61.t3 = _context61["catch"](11);
+                        _context62.prev = 22;
+                        _context62.t3 = _context62["catch"](11);
 
-                        _iterator8.e(_context61.t3);
+                        _iterator8.e(_context62.t3);
 
                       case 25:
-                        _context61.prev = 25;
+                        _context62.prev = 25;
 
                         _iterator8.f();
 
-                        return _context61.finish(25);
+                        return _context62.finish(25);
 
                       case 28:
                         this.router.navigate(['tabs-cliente/tobook/citamobil']);
-                        return _context61.abrupt("break", 61);
+                        return _context62.abrupt("break", 61);
 
                       case 30:
-                        _context61.next = 32;
+                        _context62.next = 32;
                         return this.localstorage.setData('tiporeservacion', 'citayarda');
 
                       case 32:
-                        _context61.t4 = JSON;
-                        _context61.next = 35;
+                        _context62.t4 = JSON;
+                        _context62.next = 35;
                         return this.localstorage.getData('allservices');
 
                       case 35:
-                        _context61.t5 = _context61.sent;
-                        washs = _context61.t4.parse.call(_context61.t4, _context61.t5);
+                        _context62.t5 = _context62.sent;
+                        washs = _context62.t4.parse.call(_context62.t4, _context62.t5);
                         _iterator9 = _createForOfIteratorHelper(washs);
-                        _context61.prev = 38;
+                        _context62.prev = 38;
 
                         _iterator9.s();
 
                       case 40:
                         if ((_step9 = _iterator9.n()).done) {
-                          _context61.next = 47;
+                          _context62.next = 47;
                           break;
                         }
 
                         _wash = _step9.value;
 
                         if (!(_wash.product_id == this.washid)) {
-                          _context61.next = 45;
+                          _context62.next = 45;
                           break;
                         }
 
-                        _context61.next = 45;
+                        _context62.next = 45;
                         return this.localstorage.setObject('servicio', _wash);
 
                       case 45:
-                        _context61.next = 40;
+                        _context62.next = 40;
                         break;
 
                       case 47:
-                        _context61.next = 52;
+                        _context62.next = 52;
                         break;
 
                       case 49:
-                        _context61.prev = 49;
-                        _context61.t6 = _context61["catch"](38);
+                        _context62.prev = 49;
+                        _context62.t6 = _context62["catch"](38);
 
-                        _iterator9.e(_context61.t6);
+                        _iterator9.e(_context62.t6);
 
                       case 52:
-                        _context61.prev = 52;
+                        _context62.prev = 52;
 
                         _iterator9.f();
 
-                        return _context61.finish(52);
+                        return _context62.finish(52);
 
                       case 55:
                         this.router.navigate(['tabs-cliente/tobook/citayarda']);
-                        return _context61.abrupt("break", 61);
+                        return _context62.abrupt("break", 61);
 
                       case 57:
                         this.router.navigate(['tabs-cliente/tobook']);
-                        return _context61.abrupt("break", 61);
+                        return _context62.abrupt("break", 61);
 
                       case 59:
                         this.router.navigate(['tabs-cliente/tobook/dealsweek']);
-                        return _context61.abrupt("break", 61);
+                        return _context62.abrupt("break", 61);
 
                       case 61:
                       case "end":
-                        return _context61.stop();
+                        return _context62.stop();
                     }
                   }
-                }, _callee61, this, [[11, 22, 25, 28], [38, 49, 52, 55]]);
+                }, _callee62, this, [[11, 22, 25, 28], [38, 49, 52, 55]]);
               }));
             });
           }
@@ -62758,6 +63034,24 @@
     },
 
     /***/
+    75560:
+    /*!*******************************************************************!*\
+      !*** ./src/app/tab-cliente-tobook/galeria/galeria.component.scss ***!
+      \*******************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYWxlcmlhLmNvbXBvbmVudC5zY3NzIn0= */";
+      /***/
+    },
+
+    /***/
     46840:
     /*!*********************************************************************************!*\
       !*** ./src/app/tab-cliente-tobook/ingresarcamion/ingresarcamion.component.scss ***!
@@ -63208,6 +63502,24 @@
     },
 
     /***/
+    69007:
+    /*!*********************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tab-cliente-tobook/galeria/galeria.component.html ***!
+      \*********************************************************************************************************/
+
+    /***/
+    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-title> Images of this Job</ion-title>\n    <!--<ion-buttons slot=\"end\">\n      <ion-button (click)=\"goPrev()\">\n        <ion-icon slot=\"icon-only\" name=\"arrow-back\"></ion-icon>\n      </ion-button>\n      <ion-button (click)=\"goNext()\">\n        <ion-icon slot=\"icon-only\" name=\"arrow-forward\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n  </ion-toolbar>\n</ion-header>\n<div style=\"background-color:#cb033c; color: #fff\">\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>  \n  </ion-button>\n</div>\n\n\n\n\n\n<ion-content>\n\n\n<!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\" >\n  <ion-refresher-content></ion-refresher-content>\n</ion-refresher>-->\n\n\n  <!--<swiper-container\n  #swiper\n  (afterinit)=\"swiperReady()\"\n  (slidechange)=\"swiperSlideChanged($event)\"\n  [loop]=\"true\"\n  [pagination]=\"true\" [slidesPerView]=\"1\">  \n  <swiper-slide *ngFor=\"let imagen of imagenes\">\n    <div class=\"swiper-zoom-container\">\n      <img src=\"{{imagen}}\" />\n    </div>\n  </swiper-slide>    \n  </swiper-container>-->\n  \n\n\n    <ion-grid [fixed]=\"true\">\n      <ion-row *ngFor=\"let imagen of imagenes\">\n     \n        <ion-col > \n         <div><ion-icon name=\"enter\"></ion-icon>{{imagen.titulo}}</div>\n        <ion-img\n          src=\"{{imagen.url}}\"\n          \n        ></ion-img>\n        \n        </ion-col>\n        \n      </ion-row>\n    </ion-grid>\n\n\n\n\n\n</ion-content>\n";
+      /***/
+    },
+
+    /***/
     40340:
     /*!***********************************************************************************************************************!*\
       !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tab-cliente-tobook/ingresarcamion/ingresarcamion.component.html ***!
@@ -63239,7 +63551,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-icon name=\"information-circle\" slot='start' style=\"color: #f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\" style=\"color: #f2f2f2;\">Before starting we require basic information for your bill</ion-title>\n  </ion-toolbar>\n</ion-header>\n  <ion-content>\n\n\n<mat-card class=\"perfil\">\n  <mat-card-header>\n    <mat-card-title>Basic information</mat-card-title>\n  </mat-card-header>\n    <mat-card-content>\n      <form  [formGroup]=\"form_perfil\"  novalidate>\n      <mat-form-field>\n        <input matInput placeholder=\"Firstname\"  formControlName=\"firstname\" >\n        <mat-error *ngIf=\"(form_perfil.get('firstname').hasError('required') && form_perfil.get('firstname').touched)\">Firstname is required</mat-error>      \n         </mat-form-field>\n               <mat-form-field>\n        <input matInput placeholder=\"Lastname\"  formControlName=\"lastname\" >\n        <mat-error *ngIf=\"(form_perfil.get('lastname').hasError('required') && form_perfil.get('lastname').touched)\">Lastname is required</mat-error>       \n      </mat-form-field>      \n   <mat-form-field>\n        <mat-select placeholder=\"Customer type\"  formControlName=\"customertypes\"  (selectionChange)=\"cambiar($event.value)\" >\n            <mat-option *ngFor=\"let customertype of customertypes\"  [value]=\"customertype.valor\" >\n              {{customertype.etiqueta}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_perfil.get('customertypes').hasError('required') && form_perfil.get('customertypes').touched)\">Customer type is required</mat-error>      \n      </mat-form-field>\n      <div *ngIf=\"show1\">\n      <mat-form-field >\n        <input matInput placeholder=\"Company name\"   formControlName=\"companyname\">\n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Company name is required</mat-error>\n      </mat-form-field>    \n      <mat-form-field >\n        <input matInput placeholder=\"Company codigo\"  formControlName=\"companycodigo\">\n        <mat-error *ngIf=\"(form_perfil.get('companycodigo').hasError('required') && form_perfil.get('companycodigo').touched)\">Company codigo is required</mat-error>     \n      </mat-form-field></div>\n      <mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Telephone number\"  formControlName=\"telephone\" >\n   \n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Telephone is required</mat-error>\n      </mat-form-field> \n      <mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Mobilphone number\"  formControlName=\"mobilphone\">\n        \n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Mobil telephone is required</mat-error>\n      </mat-form-field><br>     \n    \n      </form>\n      <br>\n      <button mat-flat-button (click) = \"submit_perfil()\" class=\"perfil-continuar\">Continue</button>\n</mat-card-content>\n  </mat-card>\n</ion-content>\n\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-icon name=\"information-circle\" slot='start' style=\"color: #f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\" style=\"color: #f2f2f2;\">Before starting we require basic information for your bill</ion-title>\n  </ion-toolbar>\n</ion-header>\n  <ion-content>\n\n\n<mat-card class=\"perfil\">\n  <mat-card-header>\n    <mat-card-title>Basic information</mat-card-title>\n  </mat-card-header>\n    <mat-card-content>\n      <form  [formGroup]=\"form_perfil\"  novalidate>\n      <mat-form-field>\n        <input matInput placeholder=\"Firstname\"  formControlName=\"firstname\" >\n        <mat-error *ngIf=\"(form_perfil.get('firstname').hasError('required') && form_perfil.get('firstname').touched)\">Firstname is required</mat-error>      \n         </mat-form-field>\n               <mat-form-field>\n        <input matInput placeholder=\"Lastname\"  formControlName=\"lastname\" >\n        <mat-error *ngIf=\"(form_perfil.get('lastname').hasError('required') && form_perfil.get('lastname').touched)\">Lastname is required</mat-error>       \n      </mat-form-field>      \n   <!--<mat-form-field>\n        <mat-select placeholder=\"Customer type\"  formControlName=\"customertypes\"  (selectionChange)=\"cambiar($event.value)\" >\n            <mat-option *ngFor=\"let customertype of customertypes\"  [value]=\"customertype.valor\" >\n              {{customertype.etiqueta}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_perfil.get('customertypes').hasError('required') && form_perfil.get('customertypes').touched)\">Customer type is required</mat-error>      \n      </mat-form-field>--->\n      <!--<div *ngIf=\"show1\">\n      <mat-form-field >\n        <input matInput placeholder=\"Company name\"   formControlName=\"companyname\">\n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Company name is required</mat-error>\n      </mat-form-field>    \n     <mat-form-field >\n        <input matInput placeholder=\"Company codigo\"  formControlName=\"companycodigo\">\n        <mat-error *ngIf=\"(form_perfil.get('companycodigo').hasError('required') && form_perfil.get('companycodigo').touched)\">Company codigo is required</mat-error>     \n      </mat-form-field></div>-->\n      <!--<mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Telephone number\"  formControlName=\"telephone\" >\n   \n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Telephone is required</mat-error>\n      </mat-form-field>-->\n      <mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Mobilphone number\"  formControlName=\"mobilphone\">\n        \n        <mat-error *ngIf=\"(form_perfil.get('mobilphone').hasError('required') && form_perfil.get('mobilphone').touched)\">Mobil telephone is required</mat-error>\n      </mat-form-field><br>     \n    \n      </form>\n      <br>\n      <button mat-flat-button (click) = \"submit_perfil()\" class=\"perfil-continuar\">Continue</button>\n</mat-card-content>\n  </mat-card>\n</ion-content>\n\n";
       /***/
     },
 
@@ -63275,7 +63587,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button>\n\n\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          <a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>\n        </div>\n\n          <a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a> \n        \n        \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button>\n\n\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n";
       /***/
     },
 

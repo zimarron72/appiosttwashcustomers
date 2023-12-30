@@ -122,12 +122,28 @@
 <div *ngIf="element.vercharge_item">
           <!--<a *ngIf="verenlace1" mat-button  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2"><mat-icon>payment</mat-icon> TO PAY NOW </a> 
           <a *ngIf="verenlace2" mat-button  routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> 
-          <a  mat-button  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2">TO PAY NOW<mat-icon>payment</mat-icon> </a>
+          
+          <!--<a  mat-button  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->
+          
+              <ion-button  expand="full" color="secondary"  routerLink="/tabs-cliente/tobook/galeria/{{element.order_item_id}}">CLEANING IMAGES <ion-icon name="sparkles"></ion-icon>
+               </ion-button> 
+          
+          
+         <ion-button  expand="full" color="primary"  routerLink="/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2">TO PAY NOW  
+         <ion-icon name="card"></ion-icon>
+           
+          </ion-button> 
+          
         </div>
 
-          <a mat-button *ngIf="element.verenlace3_item" routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1">TO PAY NOW<mat-icon>payment</mat-icon></a> 
+          <!--<a mat-button *ngIf="element.verenlace3_item" routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1">TO PAY NOW<mat-icon>payment</mat-icon></a>--> 
+      
+       <ion-button *ngIf="element.verenlace3_item" expand="full" color="secondary"  routerLink="/tabs-cliente/tobook/galeria/{{element.order_item_id}}">CLEANING IMAGES <ion-icon name="sparkles"></ion-icon>
+        </ion-button> 
         
-        
+      <ion-button *ngIf="element.verenlace3_item" expand="full" color="primary"  routerLink="/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1">TO PAY NOW    <ion-icon name="card"></ion-icon>
+           
+          </ion-button>   
         
         
         

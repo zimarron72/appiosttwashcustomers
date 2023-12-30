@@ -27,32 +27,32 @@
         <input matInput placeholder="Lastname"  formControlName="lastname" >
         <mat-error *ngIf="(form_perfil.get('lastname').hasError('required') && form_perfil.get('lastname').touched)">Lastname is required</mat-error>       
       </mat-form-field>      
-   <mat-form-field>
+   <!--<mat-form-field>
         <mat-select placeholder="Customer type"  formControlName="customertypes"  (selectionChange)="cambiar($event.value)" >
             <mat-option *ngFor="let customertype of customertypes"  [value]="customertype.valor" >
               {{customertype.etiqueta}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="(form_perfil.get('customertypes').hasError('required') && form_perfil.get('customertypes').touched)">Customer type is required</mat-error>      
-      </mat-form-field>
-      <div *ngIf="show1">
+      </mat-form-field>--->
+      <!--<div *ngIf="show1">
       <mat-form-field >
         <input matInput placeholder="Company name"   formControlName="companyname">
         <mat-error *ngIf="(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)">Company name is required</mat-error>
       </mat-form-field>    
-      <mat-form-field >
+     <mat-form-field >
         <input matInput placeholder="Company codigo"  formControlName="companycodigo">
         <mat-error *ngIf="(form_perfil.get('companycodigo').hasError('required') && form_perfil.get('companycodigo').touched)">Company codigo is required</mat-error>     
-      </mat-form-field></div>
-      <mat-form-field>
+      </mat-form-field></div>-->
+      <!--<mat-form-field>
         <input matInput type="tel" placeholder="Telephone number"  formControlName="telephone" >
    
         <mat-error *ngIf="(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)">Telephone is required</mat-error>
-      </mat-form-field> 
+      </mat-form-field>-->
       <mat-form-field>
         <input matInput type="tel" placeholder="Mobilphone number"  formControlName="mobilphone">
         
-        <mat-error *ngIf="(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)">Mobil telephone is required</mat-error>
+        <mat-error *ngIf="(form_perfil.get('mobilphone').hasError('required') && form_perfil.get('mobilphone').touched)">Mobil telephone is required</mat-error>
       </mat-form-field><br>     
     
       </form>

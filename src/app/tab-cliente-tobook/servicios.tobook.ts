@@ -245,6 +245,10 @@ return this.http.post<any>('https://washtt.com/v1_api_clientes_checkout.php',
     } );
   }
 
-  
+  getImagenesJob(idtoken : string , autenticacion_tipo : string,   id : string) {
+
+    return this.http.post<any>('https://washtt.com/v1_api_clientes_getfotosjob.php',
+     {idtoken : idtoken , autenticacion_tipo : autenticacion_tipo ,  id : id});
+  }
 
 }

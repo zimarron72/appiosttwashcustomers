@@ -96,24 +96,22 @@ token_notificacion : string
                       this.router.navigate(['tabs-cliente/tobook/ingresarperfil/']);
                     break; 
                     
-                    case 'SITE_INCOMPLETO':
+                  /*  case 'SITE_INCOMPLETO':
                       this.router.navigate(['tabs-cliente/tobook/ingresarsitio/']);
                     break;
                     
                     case 'NO_FLOTA':
                       this.router.navigate(['tabs-cliente/tobook/ingresarcamion/']);
-                    break;
+                    break;*/
            
-
-
-                    
-                    
-
-
-
-
-                      default:     
-                      this.vehiculos = data   
+                   case 'CONTINUAR':
+                    this.vehiculos = data  
+                      console.log(this.vehiculos) 
+                   
+                   break;
+                   default:     
+                   this.vehiculos = data  
+                      console.log(this.vehiculos) 
                       }         
                     },
                     error: error => {     

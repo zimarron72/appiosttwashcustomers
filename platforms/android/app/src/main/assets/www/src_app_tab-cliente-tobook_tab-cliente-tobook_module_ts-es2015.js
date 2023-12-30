@@ -1,4 +1,4 @@
-(self["webpackChunkttwash"] = self["webpackChunkttwash"] || []).push([["src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts"],{
+(self["webpackChunkttwashexpress"] = self["webpackChunkttwashexpress"] || []).push([["src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts"],{
 
 /***/ 7736:
 /*!************************************************************************!*\
@@ -40920,6 +40920,134 @@ DialogreservacionComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
 
 /***/ }),
 
+/***/ 15626:
+/*!*****************************************************************!*\
+  !*** ./src/app/tab-cliente-tobook/galeria/galeria.component.ts ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GaleriaComponent": function() { return /* binding */ GaleriaComponent; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_galeria_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./galeria.component.html */ 69007);
+/* harmony import */ var _galeria_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./galeria.component.scss */ 75560);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ 38583);
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
+/* harmony import */ var _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../servicios.tobook */ 91655);
+/* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/storage.service */ 86945);
+/* harmony import */ var _shared_loading_services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/loading.services */ 68369);
+
+
+
+
+
+
+
+
+
+
+
+let GaleriaComponent = class GaleriaComponent {
+    constructor(router, snackBar, serviciostobook, loading, localstorage, rutaActiva, location) {
+        this.router = router;
+        this.snackBar = snackBar;
+        this.serviciostobook = serviciostobook;
+        this.loading = loading;
+        this.localstorage = localstorage;
+        this.rutaActiva = rutaActiva;
+        this.location = location;
+    }
+    ngOnInit() {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            this.id = this.rutaActiva.snapshot.params.order_item_id;
+            this.rutaActiva.params.subscribe((params) => {
+                this.id = params.order_item_id;
+            });
+            this.user = JSON.parse(yield this.localstorage.getData('usuario'));
+            this.idtoken = yield this.localstorage.getData('idtoken');
+            this.autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
+            if (this.user) {
+                // this.loading.simpleLoader()
+                this.serviciostobook.getImagenesJob(this.idtoken, this.autenticacion_tipo, this.id).subscribe({
+                    next: data => {
+                        //   this.loading.dismissLoader()
+                        switch (data.respuesta) {
+                            case 'ERROR':
+                                this.localstorage.clearData();
+                                this.router.navigate(['/login']);
+                                this.snackBar.open("Sorry, an error occurred,please login again3", "Close", {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                });
+                                break;
+                            case 'TOKEN ERROR':
+                                this.localstorage.clearData();
+                                this.router.navigate(['/login']);
+                                this.snackBar.open("Invalid or expired token,please login again4", "Close", {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                });
+                                console.log(data.mensaje);
+                                break;
+                            default:
+                                this.imagenes = data;
+                                console.log(this.imagenes);
+                        }
+                    },
+                    error: error => {
+                        //  this.loading.dismissLoader() 
+                        var errorMessage = error.message;
+                        console.error('There was an error!', errorMessage);
+                        this.localstorage.clearData();
+                        this.router.navigate(['/login']);
+                        this.snackBar.open("Sorry, an error occurred,please login again5", "Close", {
+                            horizontalPosition: "start",
+                            verticalPosition: "top",
+                        });
+                    }
+                });
+            }
+            else {
+                // borramos la informacion local
+                this.localstorage.clearData();
+                this.router.navigate(['/login']);
+                this.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                    horizontalPosition: "start",
+                    verticalPosition: "top",
+                });
+            }
+        });
+    }
+    goBack() {
+        this.location.back();
+    }
+};
+GaleriaComponent.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router },
+    { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__.MatSnackBar },
+    { type: _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__.ServiciosTobook },
+    { type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_4__.LoadingService },
+    { type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_3__.StorageService },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.ActivatedRoute },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_8__.Location }
+];
+GaleriaComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
+        selector: 'app-galeria',
+        template: _raw_loader_galeria_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_galeria_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], GaleriaComponent);
+
+
+
+/***/ }),
+
 /***/ 29567:
 /*!*******************************************************************************!*\
   !*** ./src/app/tab-cliente-tobook/ingresarcamion/ingresarcamion.component.ts ***!
@@ -41153,29 +41281,45 @@ let IngresarperfilComponent = class IngresarperfilComponent {
         this.form_perfil = this.formBuilder.group({
             firstname: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required] }],
             lastname: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required] }],
-            companyname: [],
-            companycodigo: [],
-            telephone: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required] }],
+            // companyname: [],
+            // companycodigo: [],  
+            // telephone: [, { validators: [Validators.required] }],
             mobilphone: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required] }],
-            customertypes: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required] }]
+            // customertypes : [, { validators: [Validators.required] }]
         });
     }
-    cambiar(x) {
-        if (x == 2) {
-            this.show1 = true;
-            this.form_perfil.get("companyname").setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]);
-            this.form_perfil.get("companyname").updateValueAndValidity();
-            this.form_perfil.get("companycodigo").setValidators([_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]);
-            this.form_perfil.get("companycodigo").updateValueAndValidity();
-        }
-        else {
-            this.show1 = false;
-            this.form_perfil.get("companyname").clearValidators();
-            this.form_perfil.get("companyname").updateValueAndValidity();
-            this.form_perfil.get("companycodigo").clearValidators();
-            this.form_perfil.get("companycodigo").updateValueAndValidity();
-        }
-    }
+    /* cambiar(x : any) {
+       if(x == 2) {
+       
+        this.show1 = true;
+       
+       
+       this.form_perfil.get("companyname").setValidators([Validators.required]);
+       this.form_perfil.get("companyname").updateValueAndValidity();
+       
+       this.form_perfil.get("companycodigo").setValidators([Validators.required]);
+       this.form_perfil.get("companycodigo").updateValueAndValidity();
+       
+       
+       
+        
+       
+       }
+       else {
+         this.show1 = false;
+       
+       
+        this.form_perfil.get("companyname").clearValidators();
+       this.form_perfil.get("companyname").updateValueAndValidity();
+       
+       this.form_perfil.get("companycodigo").clearValidators();
+       this.form_perfil.get("companycodigo").updateValueAndValidity();
+       
+       
+       
+       }
+       
+       } */
     submit_perfil() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
             if (this.form_perfil.valid) {
@@ -41184,22 +41328,22 @@ let IngresarperfilComponent = class IngresarperfilComponent {
                 var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
                 var nombres = this.form_perfil.get("firstname").value;
                 var apellidos = this.form_perfil.get("lastname").value;
-                var companyname = this.form_perfil.get("companyname").value;
-                var companycodigo = this.form_perfil.get("companycodigo").value;
-                var telephone = this.form_perfil.get("telephone").value;
+                //var    companyname = this.form_perfil.get("companyname").value;
+                // var    companycodigo = this.form_perfil.get("companycodigo").value;
+                //var    telephone = this.form_perfil.get("telephone").value;
                 var mobilphone = this.form_perfil.get("mobilphone").value;
-                var customertypes = this.form_perfil.get("customertypes").value;
+                //var    customertypes = this.form_perfil.get("customertypes").value;
                 this.http.post('https://washtt.com/v1_api_clientes_ingresoperfil_inicio.php', {
                     email: user.email,
                     idtoken: idtoken,
                     autenticacion_tipo: autenticacion_tipo,
                     nombres: nombres,
                     apellidos: apellidos,
-                    companyname: companyname,
-                    companycodigo: companycodigo,
-                    telephone: telephone,
+                    // companyname  : companyname,
+                    // companycodigo : companycodigo,  
+                    // telephone : telephone,
                     mobilphone: mobilphone,
-                    customertypes: customertypes
+                    //customertypes : customertypes
                 }).subscribe({
                     next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, function* () {
                         switch (data.respuesta) {
@@ -42094,6 +42238,9 @@ let ServiciosTobook = class ServiciosTobook {
             token_notificacion: token_notificacion
         });
     }
+    getImagenesJob(idtoken, autenticacion_tipo, id) {
+        return this.http.post('https://washtt.com/v1_api_clientes_getfotosjob.php', { idtoken: idtoken, autenticacion_tipo: autenticacion_tipo, id: id });
+    }
 };
 ServiciosTobook.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient },
@@ -42694,9 +42841,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TabClienteTobookPageRoutingModule": function() { return /* binding */ TabClienteTobookPageRoutingModule; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _tab_cliente_tobook_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tab-cliente-tobook.page */ 33004);
 /* harmony import */ var _tipovehiculos_tipovehiculos_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tipovehiculos/tipovehiculos.component */ 58133);
 /* harmony import */ var _tipolavados_tipolavados_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tipolavados/tipolavados.component */ 51802);
@@ -42717,6 +42864,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _successpay_successpay_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./successpay/successpay.component */ 5849);
 /* harmony import */ var _dealsweek_dealsweek_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./dealsweek/dealsweek.component */ 96282);
 /* harmony import */ var _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./square-concargo/square-concargo.component */ 52322);
+/* harmony import */ var _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./galeria/galeria.component */ 15626);
+
 
 
 
@@ -42764,6 +42913,7 @@ const routes = [
             { path: 'successpay', component: _successpay_successpay_component__WEBPACK_IMPORTED_MODULE_17__.SuccesspayComponent },
             { path: 'dealsweek', component: _dealsweek_dealsweek_component__WEBPACK_IMPORTED_MODULE_18__.DealsweekComponent },
             { path: 'squareconcargo/:servicio/:precio/:itemid/:wash_id/:descuento/:charge/:concepto/:charge_status', component: _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_19__.SquareConcargoComponent },
+            { path: 'galeria/:order_item_id', component: _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_20__.GaleriaComponent },
             {
                 path: '',
                 redirectTo: '/tabs-cliente/tobook/tipovehiculos',
@@ -42777,10 +42927,10 @@ const routes = [
 ];
 let TabClienteTobookPageRoutingModule = class TabClienteTobookPageRoutingModule {
 };
-TabClienteTobookPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_20__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_21__.NgModule)({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_22__.RouterModule.forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_22__.RouterModule],
+TabClienteTobookPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_21__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_22__.NgModule)({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_23__.RouterModule.forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_23__.RouterModule],
     })
 ], TabClienteTobookPageRoutingModule);
 
@@ -42799,12 +42949,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TabClienteTobookPageModule": function() { return /* binding */ TabClienteTobookPageModule; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @angular/common */ 38583);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @angular/forms */ 3679);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @ionic/angular */ 80476);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @angular/common */ 38583);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _tab_cliente_tobook_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tab-cliente-tobook-routing.module */ 20679);
 /* harmony import */ var _tab_cliente_tobook_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tab-cliente-tobook.page */ 33004);
 /* harmony import */ var _cart_cart_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart/cart.component */ 22922);
@@ -42831,28 +42981,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _successpay_successpay_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./successpay/successpay.component */ 5849);
 /* harmony import */ var _dealsweek_dealsweek_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./dealsweek/dealsweek.component */ 96282);
 /* harmony import */ var _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./square-concargo/square-concargo.component */ 52322);
-/* harmony import */ var _servicios_tobook__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./servicios.tobook */ 91655);
-/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../shared/database-service */ 21904);
-/* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../shared/storage.service */ 86945);
-/* harmony import */ var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../shared/square.servicio */ 73258);
-/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/material/list */ 77746);
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material/button */ 51095);
-/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/material/icon */ 76627);
-/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @angular/material/card */ 93738);
-/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/material/divider */ 1769);
-/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @angular/material/toolbar */ 12522);
-/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @angular/flex-layout */ 25830);
-/* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @angular/material/sidenav */ 94935);
-/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! @angular/material/tabs */ 65939);
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! @angular/material/form-field */ 98295);
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @angular/material/input */ 83166);
-/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @angular/material/select */ 67441);
-/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @angular/material/datepicker */ 43220);
-/* harmony import */ var _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @angular/material-moment-adapter */ 36063);
-/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! @angular/material/core */ 5015);
-/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @angular/material/table */ 32091);
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @angular/material/dialog */ 22238);
-/* harmony import */ var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @ionic/storage-angular */ 54925);
+/* harmony import */ var _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./galeria/galeria.component */ 15626);
+/* harmony import */ var _servicios_tobook__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./servicios.tobook */ 91655);
+/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../shared/database-service */ 21904);
+/* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../shared/storage.service */ 86945);
+/* harmony import */ var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../shared/square.servicio */ 73258);
+/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material/list */ 77746);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/material/button */ 51095);
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/material/icon */ 76627);
+/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! @angular/material/card */ 93738);
+/* harmony import */ var _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/material/divider */ 1769);
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @angular/material/toolbar */ 12522);
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @angular/flex-layout */ 25830);
+/* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! @angular/material/sidenav */ 94935);
+/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @angular/material/tabs */ 65939);
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @angular/material/form-field */ 98295);
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @angular/material/input */ 83166);
+/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @angular/material/select */ 67441);
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @angular/material/datepicker */ 43220);
+/* harmony import */ var _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! @angular/material-moment-adapter */ 36063);
+/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @angular/material/core */ 5015);
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @angular/material/table */ 32091);
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @angular/material/dialog */ 22238);
+/* harmony import */ var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! @ionic/storage-angular */ 54925);
 
 
 
@@ -42861,6 +43012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // components
+
 
 
 
@@ -42915,33 +43067,33 @@ __webpack_require__.r(__webpack_exports__);
 
 let TabClienteTobookPageModule = class TabClienteTobookPageModule {
 };
-TabClienteTobookPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_30__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_31__.NgModule)({
+TabClienteTobookPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_31__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_32__.NgModule)({
         imports: [
-            _angular_common__WEBPACK_IMPORTED_MODULE_32__.CommonModule,
-            _angular_forms__WEBPACK_IMPORTED_MODULE_33__.FormsModule,
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_34__.IonicModule,
+            _angular_common__WEBPACK_IMPORTED_MODULE_33__.CommonModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_34__.FormsModule,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_35__.IonicModule,
             _tab_cliente_tobook_routing_module__WEBPACK_IMPORTED_MODULE_0__.TabClienteTobookPageRoutingModule,
-            _angular_material_list__WEBPACK_IMPORTED_MODULE_35__.MatListModule,
-            _angular_material_button__WEBPACK_IMPORTED_MODULE_36__.MatButtonModule,
-            _angular_material_icon__WEBPACK_IMPORTED_MODULE_37__.MatIconModule,
-            _angular_material_divider__WEBPACK_IMPORTED_MODULE_38__.MatDividerModule,
-            _angular_router__WEBPACK_IMPORTED_MODULE_39__.RouterModule,
-            _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_40__.MatToolbarModule,
-            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_41__.FlexLayoutModule,
-            _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_42__.MatSidenavModule,
-            _angular_material_tabs__WEBPACK_IMPORTED_MODULE_43__.MatTabsModule,
-            _angular_material_card__WEBPACK_IMPORTED_MODULE_44__.MatCardModule,
-            _angular_material_form_field__WEBPACK_IMPORTED_MODULE_45__.MatFormFieldModule,
-            _angular_material_input__WEBPACK_IMPORTED_MODULE_46__.MatInputModule,
-            _angular_forms__WEBPACK_IMPORTED_MODULE_33__.ReactiveFormsModule,
-            _angular_material_select__WEBPACK_IMPORTED_MODULE_47__.MatSelectModule,
-            _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_48__.MatDatepickerModule,
-            _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_49__.MatMomentDateModule,
-            _angular_material_core__WEBPACK_IMPORTED_MODULE_50__.MatNativeDateModule,
-            _angular_material_table__WEBPACK_IMPORTED_MODULE_51__.MatTableModule,
-            _angular_material_dialog__WEBPACK_IMPORTED_MODULE_52__.MatDialogModule,
-            _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_53__.IonicStorageModule
+            _angular_material_list__WEBPACK_IMPORTED_MODULE_36__.MatListModule,
+            _angular_material_button__WEBPACK_IMPORTED_MODULE_37__.MatButtonModule,
+            _angular_material_icon__WEBPACK_IMPORTED_MODULE_38__.MatIconModule,
+            _angular_material_divider__WEBPACK_IMPORTED_MODULE_39__.MatDividerModule,
+            _angular_router__WEBPACK_IMPORTED_MODULE_40__.RouterModule,
+            _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_41__.MatToolbarModule,
+            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_42__.FlexLayoutModule,
+            _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_43__.MatSidenavModule,
+            _angular_material_tabs__WEBPACK_IMPORTED_MODULE_44__.MatTabsModule,
+            _angular_material_card__WEBPACK_IMPORTED_MODULE_45__.MatCardModule,
+            _angular_material_form_field__WEBPACK_IMPORTED_MODULE_46__.MatFormFieldModule,
+            _angular_material_input__WEBPACK_IMPORTED_MODULE_47__.MatInputModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_34__.ReactiveFormsModule,
+            _angular_material_select__WEBPACK_IMPORTED_MODULE_48__.MatSelectModule,
+            _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_49__.MatDatepickerModule,
+            _angular_material_moment_adapter__WEBPACK_IMPORTED_MODULE_50__.MatMomentDateModule,
+            _angular_material_core__WEBPACK_IMPORTED_MODULE_51__.MatNativeDateModule,
+            _angular_material_table__WEBPACK_IMPORTED_MODULE_52__.MatTableModule,
+            _angular_material_dialog__WEBPACK_IMPORTED_MODULE_53__.MatDialogModule,
+            _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_54__.IonicStorageModule
         ],
         declarations: [_tab_cliente_tobook_page__WEBPACK_IMPORTED_MODULE_1__.TabClienteTobookPage,
             _cart_cart_component__WEBPACK_IMPORTED_MODULE_2__.CartComponent,
@@ -42968,12 +43120,13 @@ TabClienteTobookPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_30__.__decorate)(
             _successpay_successpay_component__WEBPACK_IMPORTED_MODULE_23__.SuccesspayComponent,
             _dealsweek_dealsweek_component__WEBPACK_IMPORTED_MODULE_24__.DealsweekComponent,
             _square_concargo_square_concargo_component__WEBPACK_IMPORTED_MODULE_25__.SquareConcargoComponent,
+            _galeria_galeria_component__WEBPACK_IMPORTED_MODULE_26__.GaleriaComponent,
         ],
         entryComponents: [],
-        providers: [_servicios_tobook__WEBPACK_IMPORTED_MODULE_26__.ServiciosTobook, _shared_database_service__WEBPACK_IMPORTED_MODULE_27__.DatabaseService, _shared_storage_service__WEBPACK_IMPORTED_MODULE_28__.StorageService, _shared_square_servicio__WEBPACK_IMPORTED_MODULE_29__.SquareServicio],
+        providers: [_servicios_tobook__WEBPACK_IMPORTED_MODULE_27__.ServiciosTobook, _shared_database_service__WEBPACK_IMPORTED_MODULE_28__.DatabaseService, _shared_storage_service__WEBPACK_IMPORTED_MODULE_29__.StorageService, _shared_square_servicio__WEBPACK_IMPORTED_MODULE_30__.SquareServicio],
         schemas: [
-            _angular_core__WEBPACK_IMPORTED_MODULE_31__.CUSTOM_ELEMENTS_SCHEMA,
-            _angular_core__WEBPACK_IMPORTED_MODULE_31__.NO_ERRORS_SCHEMA
+            _angular_core__WEBPACK_IMPORTED_MODULE_32__.CUSTOM_ELEMENTS_SCHEMA,
+            _angular_core__WEBPACK_IMPORTED_MODULE_32__.NO_ERRORS_SCHEMA
         ]
     })
 ], TabClienteTobookPageModule);
@@ -43958,14 +44111,20 @@ let TipovehiculosComponent = class TipovehiculosComponent {
                             case 'PERFIL_INCOMPLETO':
                                 this.router.navigate(['tabs-cliente/tobook/ingresarperfil/']);
                                 break;
-                            case 'SITE_INCOMPLETO':
+                            /*  case 'SITE_INCOMPLETO':
                                 this.router.navigate(['tabs-cliente/tobook/ingresarsitio/']);
-                                break;
-                            case 'NO_FLOTA':
+                              break;
+                              
+                              case 'NO_FLOTA':
                                 this.router.navigate(['tabs-cliente/tobook/ingresarcamion/']);
+                              break;*/
+                            case 'CONTINUAR':
+                                this.vehiculos = data;
+                                console.log(this.vehiculos);
                                 break;
                             default:
                                 this.vehiculos = data;
+                                console.log(this.vehiculos);
                         }
                     },
                     error: error => {
@@ -44572,6 +44731,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ 75560:
+/*!*******************************************************************!*\
+  !*** ./src/app/tab-cliente-tobook/galeria/galeria.component.scss ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYWxlcmlhLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
 /***/ 46840:
 /*!*********************************************************************************!*\
   !*** ./src/app/tab-cliente-tobook/ingresarcamion/ingresarcamion.component.scss ***!
@@ -44872,6 +45043,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ 69007:
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tab-cliente-tobook/galeria/galeria.component.html ***!
+  \*********************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-title> Images of this Job</ion-title>\n    <!--<ion-buttons slot=\"end\">\n      <ion-button (click)=\"goPrev()\">\n        <ion-icon slot=\"icon-only\" name=\"arrow-back\"></ion-icon>\n      </ion-button>\n      <ion-button (click)=\"goNext()\">\n        <ion-icon slot=\"icon-only\" name=\"arrow-forward\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n  </ion-toolbar>\n</ion-header>\n<div style=\"background-color:#cb033c; color: #fff\">\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>  \n  </ion-button>\n</div>\n\n\n\n\n\n<ion-content>\n\n\n<!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\" >\n  <ion-refresher-content></ion-refresher-content>\n</ion-refresher>-->\n\n\n  <!--<swiper-container\n  #swiper\n  (afterinit)=\"swiperReady()\"\n  (slidechange)=\"swiperSlideChanged($event)\"\n  [loop]=\"true\"\n  [pagination]=\"true\" [slidesPerView]=\"1\">  \n  <swiper-slide *ngFor=\"let imagen of imagenes\">\n    <div class=\"swiper-zoom-container\">\n      <img src=\"{{imagen}}\" />\n    </div>\n  </swiper-slide>    \n  </swiper-container>-->\n  \n\n\n    <ion-grid [fixed]=\"true\">\n      <ion-row *ngFor=\"let imagen of imagenes\">\n     \n        <ion-col > \n         <div><ion-icon name=\"enter\"></ion-icon>{{imagen.titulo}}</div>\n        <ion-img\n          src=\"{{imagen.url}}\"\n          \n        ></ion-img>\n        \n        </ion-col>\n        \n      </ion-row>\n    </ion-grid>\n\n\n\n\n\n</ion-content>\n");
+
+/***/ }),
+
 /***/ 40340:
 /*!***********************************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/tab-cliente-tobook/ingresarcamion/ingresarcamion.component.html ***!
@@ -44892,7 +45075,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-icon name=\"information-circle\" slot='start' style=\"color: #f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\" style=\"color: #f2f2f2;\">Before starting we require basic information for your bill</ion-title>\n  </ion-toolbar>\n</ion-header>\n  <ion-content>\n\n\n<mat-card class=\"perfil\">\n  <mat-card-header>\n    <mat-card-title>Basic information</mat-card-title>\n  </mat-card-header>\n    <mat-card-content>\n      <form  [formGroup]=\"form_perfil\"  novalidate>\n      <mat-form-field>\n        <input matInput placeholder=\"Firstname\"  formControlName=\"firstname\" >\n        <mat-error *ngIf=\"(form_perfil.get('firstname').hasError('required') && form_perfil.get('firstname').touched)\">Firstname is required</mat-error>      \n         </mat-form-field>\n               <mat-form-field>\n        <input matInput placeholder=\"Lastname\"  formControlName=\"lastname\" >\n        <mat-error *ngIf=\"(form_perfil.get('lastname').hasError('required') && form_perfil.get('lastname').touched)\">Lastname is required</mat-error>       \n      </mat-form-field>      \n   <mat-form-field>\n        <mat-select placeholder=\"Customer type\"  formControlName=\"customertypes\"  (selectionChange)=\"cambiar($event.value)\" >\n            <mat-option *ngFor=\"let customertype of customertypes\"  [value]=\"customertype.valor\" >\n              {{customertype.etiqueta}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_perfil.get('customertypes').hasError('required') && form_perfil.get('customertypes').touched)\">Customer type is required</mat-error>      \n      </mat-form-field>\n      <div *ngIf=\"show1\">\n      <mat-form-field >\n        <input matInput placeholder=\"Company name\"   formControlName=\"companyname\">\n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Company name is required</mat-error>\n      </mat-form-field>    \n      <mat-form-field >\n        <input matInput placeholder=\"Company codigo\"  formControlName=\"companycodigo\">\n        <mat-error *ngIf=\"(form_perfil.get('companycodigo').hasError('required') && form_perfil.get('companycodigo').touched)\">Company codigo is required</mat-error>     \n      </mat-form-field></div>\n      <mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Telephone number\"  formControlName=\"telephone\" >\n   \n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Telephone is required</mat-error>\n      </mat-form-field> \n      <mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Mobilphone number\"  formControlName=\"mobilphone\">\n        \n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Mobil telephone is required</mat-error>\n      </mat-form-field><br>     \n    \n      </form>\n      <br>\n      <button mat-flat-button (click) = \"submit_perfil()\" class=\"perfil-continuar\">Continue</button>\n</mat-card-content>\n  </mat-card>\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-icon name=\"information-circle\" slot='start' style=\"color: #f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\" style=\"color: #f2f2f2;\">Before starting we require basic information for your bill</ion-title>\n  </ion-toolbar>\n</ion-header>\n  <ion-content>\n\n\n<mat-card class=\"perfil\">\n  <mat-card-header>\n    <mat-card-title>Basic information</mat-card-title>\n  </mat-card-header>\n    <mat-card-content>\n      <form  [formGroup]=\"form_perfil\"  novalidate>\n      <mat-form-field>\n        <input matInput placeholder=\"Firstname\"  formControlName=\"firstname\" >\n        <mat-error *ngIf=\"(form_perfil.get('firstname').hasError('required') && form_perfil.get('firstname').touched)\">Firstname is required</mat-error>      \n         </mat-form-field>\n               <mat-form-field>\n        <input matInput placeholder=\"Lastname\"  formControlName=\"lastname\" >\n        <mat-error *ngIf=\"(form_perfil.get('lastname').hasError('required') && form_perfil.get('lastname').touched)\">Lastname is required</mat-error>       \n      </mat-form-field>      \n   <!--<mat-form-field>\n        <mat-select placeholder=\"Customer type\"  formControlName=\"customertypes\"  (selectionChange)=\"cambiar($event.value)\" >\n            <mat-option *ngFor=\"let customertype of customertypes\"  [value]=\"customertype.valor\" >\n              {{customertype.etiqueta}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_perfil.get('customertypes').hasError('required') && form_perfil.get('customertypes').touched)\">Customer type is required</mat-error>      \n      </mat-form-field>--->\n      <!--<div *ngIf=\"show1\">\n      <mat-form-field >\n        <input matInput placeholder=\"Company name\"   formControlName=\"companyname\">\n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Company name is required</mat-error>\n      </mat-form-field>    \n     <mat-form-field >\n        <input matInput placeholder=\"Company codigo\"  formControlName=\"companycodigo\">\n        <mat-error *ngIf=\"(form_perfil.get('companycodigo').hasError('required') && form_perfil.get('companycodigo').touched)\">Company codigo is required</mat-error>     \n      </mat-form-field></div>-->\n      <!--<mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Telephone number\"  formControlName=\"telephone\" >\n   \n        <mat-error *ngIf=\"(form_perfil.get('companyname').hasError('required') && form_perfil.get('companyname').touched)\">Telephone is required</mat-error>\n      </mat-form-field>-->\n      <mat-form-field>\n        <input matInput type=\"tel\" placeholder=\"Mobilphone number\"  formControlName=\"mobilphone\">\n        \n        <mat-error *ngIf=\"(form_perfil.get('mobilphone').hasError('required') && form_perfil.get('mobilphone').touched)\">Mobil telephone is required</mat-error>\n      </mat-form-field><br>     \n    \n      </form>\n      <br>\n      <button mat-flat-button (click) = \"submit_perfil()\" class=\"perfil-continuar\">Continue</button>\n</mat-card-content>\n  </mat-card>\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -44916,7 +45099,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button>\n\n\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          <a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>\n        </div>\n\n          <a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a> \n        \n        \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button>\n\n\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n");
 
 /***/ }),
 

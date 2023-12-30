@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title> Images of this Job</ion-title>
+    <!--<ion-buttons slot="end">
+      <ion-button (click)="goPrev()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+      <ion-button (click)="goNext()">
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-buttons>-->
+  </ion-toolbar>
+</ion-header>
+<div style="background-color:#cb033c; color: #fff">
+  <ion-button (click) = "goBack()">
+    <ion-icon slot="start" name="chevron-back-outline"></ion-icon>  
+  </ion-button>
+</div>
+
+
+
+
+
+<ion-content>
+
+
+<!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" >
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>-->
+
+
+  <!--<swiper-container
+  #swiper
+  (afterinit)="swiperReady()"
+  (slidechange)="swiperSlideChanged($event)"
+  [loop]="true"
+  [pagination]="true" [slidesPerView]="1">  
+  <swiper-slide *ngFor="let imagen of imagenes">
+    <div class="swiper-zoom-container">
+      <img src="{{imagen}}" />
+    </div>
+  </swiper-slide>    
+  </swiper-container>-->
+  
+
+
+    <ion-grid [fixed]="true">
+      <ion-row *ngFor="let imagen of imagenes">
+     
+        <ion-col > 
+         <div><ion-icon name="enter"></ion-icon>{{imagen.titulo}}</div>
+        <ion-img
+          src="{{imagen.url}}"
+          
+        ></ion-img>
+        
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+
+
+
+
+
+</ion-content>

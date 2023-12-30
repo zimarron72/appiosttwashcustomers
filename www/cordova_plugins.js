@@ -318,10 +318,10 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
   ];
   module.exports.metadata = {
     "cordova-androidx-build": "1.0.4",
-    "cordova-plugin-camera": "6.0.0",
+    "cordova-plugin-camera": "7.0.0",
     "cordova-plugin-chooser": "1.3.1",
     "cordova-plugin-device": "2.0.2",
-    "cordova-plugin-file": "7.0.0",
+    "cordova-plugin-file": "8.0.1",
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-googleplus": "8.5.2",
     "cordova-plugin-ionic-webview": "5.0.0",
@@ -330,7 +330,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-statusbar": "2.4.3",
     "cordova-plugin-unique-device-id2": "2.0.0",
     "cordova-sqlite-storage": "6.0.0",
-    "wonderpush-cordova-sdk": "3.0.18",
-    "wonderpush-cordova-sdk-fcm": "1.0.6"
+    "wonderpush-cordova-sdk": "3.2.9",
+    "wonderpush-cordova-sdk-fcm": "1.0.7"
   };
 });

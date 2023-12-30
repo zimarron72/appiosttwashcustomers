@@ -1,4 +1,4 @@
-(self["webpackChunkttwash"] = self["webpackChunkttwash"] || []).push([["src_app_registro_registro_module_ts"],{
+(self["webpackChunkttwashexpress"] = self["webpackChunkttwashexpress"] || []).push([["src_app_registro_registro_module_ts"],{
 
 /***/ 84967:
 /*!*****************************************************!*\

@@ -84,16 +84,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "wonderpush-cordova-sdk-fcm": {
-    "source": {
-      "type": "registry",
-      "id": "wonderpush-cordova-sdk-fcm@^1.0.4"
-    },
-    "is_top_level": true,
-    "variables": {
-      "SENDER_ID": "658811684880"
-    }
-  },
   "cordova-androidx-build": {
     "source": {
       "type": "registry",
@@ -105,36 +95,39 @@
   "wonderpush-cordova-sdk": {
     "source": {
       "type": "registry",
-      "id": "wonderpush-cordova-sdk@3.0.18"
+      "id": "wonderpush-cordova-sdk@3.2.9"
     },
     "is_top_level": true,
     "variables": {
       "CLIENT_ID": "213c8ea4ecb545a6aa4238c09a3289b760f47d69",
-      "CLIENT_SECRET": "324db2b9b38519ba4431324b78768785df86b74edd2750dc693346acfb0596bf",
-      "LOGGING": "false",
-      "AUTO_INIT": "true",
-      "REQUIRES_USER_CONSENT": "false"
+      "CLIENT_SECRET": "324db2b9b38519ba4431324b78768785df86b74edd2750dc693346acfb0596bf"
+    }
+  },
+  "wonderpush-cordova-sdk-fcm": {
+    "source": {
+      "type": "registry",
+      "id": "wonderpush-cordova-sdk-fcm@1.0.7"
+    },
+    "is_top_level": true,
+    "variables": {
+      "SENDER_ID": "658811684880"
     }
   },
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-camera@^6.0.0"
+      "id": "cordova-plugin-camera@7.0.0"
     },
     "is_top_level": true,
-    "variables": {
-      "ANDROIDX_CORE_VERSION": "1.6.+"
-    }
+    "variables": {}
   },
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@7.0.0"
+      "id": "cordova-plugin-file@8.0.1"
     },
     "is_top_level": true,
-    "variables": {
-      "ANDROIDX_WEBKIT_VERSION": "1.4.0"
-    }
+    "variables": {}
   },
   "cordova-plugin-chooser": {
     "source": {
