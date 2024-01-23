@@ -101,7 +101,7 @@
   <ion-item>
     <ion-label class="ion-text-wrap">
       <ion-text style="color:#f2f2f2; font-weight: bold;">
-        <h3>Customer</h3>
+        <h3>Customer type</h3>
       </ion-text>       
       <ion-text style="color:#f2f2f2">
         <p>{{tipocliente}}</p>
@@ -173,7 +173,8 @@
   <form [formGroup]="form_rif" (ngSubmit)="submit_rif()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New Tax ID</ion-label>
-      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="rif" type="text" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="rif" type="text" maxlength = "13" (keyup)="taxidFormat($event)" value="{{ taxid }}"
+      ></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -365,7 +366,7 @@
   <form [formGroup]="form_phone" (ngSubmit)="submit_telefono()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New phone</ion-label>
-      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="phone" type="tel" maxlength = "10" minlength = "10" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="phone" type="tel" maxlength = "14" (keyup)="phoneFormat($event)" value="{{ telefonox }}"></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>
@@ -391,7 +392,7 @@
   <form [formGroup]="form_mobilphone" (ngSubmit)="submit_celular()" novalidate>
     <ion-item lines="full">
       <ion-label  position="floating" class="etiqueta">New mobil</ion-label>
-      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="mobil" type="tel" maxlength = "10" minlength = "10" required ></ion-input>       
+      <ion-input placeholder="Enter the new data" style="color:#f2f2f2"  formControlName="mobil" type="tel" maxlength = "14" (keyup)="mobilFormat($event)" value="{{ mobilx }}"></ion-input>       
     </ion-item>
     <ion-button  type="submit" color="primary" expand="block" >Send</ion-button>
     </form>

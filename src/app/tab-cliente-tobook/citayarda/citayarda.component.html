@@ -19,8 +19,8 @@
         <mat-option   [value]="0" >
        Select
         </mat-option>
-        <mat-option   [value]="valor" >
-         {{etiqueta}}
+        <mat-option   [value]="valorx" >
+         {{etiquetax}}
          </mat-option>
           <mat-option *ngFor="let vehiculo of vehiculoscliente"  [value]="vehiculo.id" >
           Unit number: {{vehiculo.unit_number}}
@@ -80,6 +80,7 @@
     <button  mat-flat-button  color="primary" class="yarda-cancel" (click)='cancel()'>Cancel</button>
   </mat-card-content>
 </mat-card>
+
 </ion-content>
 
 

@@ -20,7 +20,7 @@
           <mat-option   [value]="0" >
             Select
              </mat-option>
-             <mat-option   [value]="valor1" >
+            <mat-option   [value]="valor1" >
               {{etiqueta1}}
               </mat-option>
             <mat-option *ngFor="let site of sitioscliente"  [value]="site.id" >
@@ -33,7 +33,7 @@
 
    <mat-form-field>
     <mat-select placeholder="Your vehicle" [(ngModel)]="selectedOption2" formControlName="vehicle" (selectionChange)="cambiar2($event.value)" >
-      
+
         
         <mat-option   [value]="0" >
           Select
@@ -44,6 +44,7 @@
           <mat-option *ngFor="let vehiculo of vehiculoscliente"  [value]="vehiculo.id" >
             Unit number: {{vehiculo.unit_number}}
           </mat-option>
+        
         </mat-select>
         <mat-error *ngIf="(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)">vehicle is required</mat-error>      
     </mat-form-field>
@@ -124,7 +125,7 @@
       <mat-error *ngIf="(form_tobooksite.get('horacita').hasError('required') && form_tobooksite.get('horacita').touched)">Hour is required</mat-error>      
   </mat-form-field>
   <br>  
-  <button id="btnSubmit" mat-flat-button type="submit" color ="primary" class="mobil-continuar">Continue</button>
+  <button  mat-flat-button type="submit" color ="primary" class="mobil-continuar">Continue</button>
     </form>
     <br>
     <button  mat-flat-button  class="mobil-cancel" color= "primary" (click)='cancel()'>Cancel</button>

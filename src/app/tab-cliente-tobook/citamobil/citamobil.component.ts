@@ -20,7 +20,7 @@ export class CitamobilComponent implements OnInit {
   servicio : any
   site : any
 
-  etiqueta1 : string
+ etiqueta1 : string
   valor1 : number
   selectedOption1 : any
 
@@ -190,9 +190,11 @@ export class CitamobilComponent implements OnInit {
 
       var vehiculoid =  this.form_tobooksite.get("vehicle").value;  
       var siteid = this.form_tobooksite.get("location").value;
-if(siteid == 0) {
 
-  this.snackBar.open("Please select a location", "Close",
+    
+if(siteid == 0 || vehiculoid == 0) {
+
+  this.snackBar.open("Please select a location or vehicle", "Close",
   {       
     horizontalPosition: "start",
     verticalPosition: "top",
@@ -203,16 +205,7 @@ if(siteid == 0) {
 
 else {
 
-  if(vehiculoid == 0) {
-    this.snackBar.open("Please select a vehicle", "Close",
-  {       
-    horizontalPosition: "start",
-    verticalPosition: "top",
-  }     
-  
-  );
-  }
-  else {
+
       
     var diacita = this.form_tobooksite.get("diacita").value;
     var date = new Date(diacita);
@@ -241,23 +234,27 @@ if(vehiculocliente.id == vehiculoid) {
 //datos del servicio
 this.servicio = JSON.parse(await this.localstorage.getData('servicio'))  
 var nombreservicio = await this.localstorage.getData('tipolavado')
-
+ 
 //datos de localizacion
 var sitioscliente = JSON.parse(await this.localstorage.getData('formsitescliente'))
  sitioscliente = Object.values(sitioscliente);
  for (let sitecliente of this.sitioscliente) 
  {
    if(sitecliente.id == siteid) {
-     this.site = sitecliente        
+     this.site = sitecliente  
+     var location = this.site.address+' '+this.site.zip+' '+this.site.state+' '+this.site.city      
  }
-var location = this.site.address+' '+this.site.zip+' '+this.site.state+' '+this.site.city
+
 
 }
+
+
+
 // datos precios
 var price = await this.localstorage.getData('precio_mobil$')  
 var cost = await this.localstorage.getData('preciomobiln')      
     
-    
+
     var itemcart = {
   donde : 2,
   sitioid : siteid,
@@ -282,11 +279,11 @@ var cost = await this.localstorage.getData('preciomobiln')
     
     this.router.navigate(['/tabs-cliente/tobook/cart/']);
         
-  }
+ 
 
 }
 
- 
+
       
     }
     else{
@@ -336,7 +333,7 @@ cambiar1(x : any) {
   }
   
   
-  cambiar2(x : any) {
+ cambiar2(x : any) {
 
 
     if(x == 1) {

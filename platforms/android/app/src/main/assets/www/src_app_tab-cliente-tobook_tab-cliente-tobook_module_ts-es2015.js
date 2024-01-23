@@ -39717,76 +39717,68 @@ let CitamobilComponent = class CitamobilComponent {
                 var ensitio = this.form_tobooksite.get("ensitio").value;
                 var vehiculoid = this.form_tobooksite.get("vehicle").value;
                 var siteid = this.form_tobooksite.get("location").value;
-                if (siteid == 0) {
-                    this.snackBar.open("Please select a location", "Close", {
+                if (siteid == 0 || vehiculoid == 0) {
+                    this.snackBar.open("Please select a location or vehicle", "Close", {
                         horizontalPosition: "start",
                         verticalPosition: "top",
                     });
                 }
                 else {
-                    if (vehiculoid == 0) {
-                        this.snackBar.open("Please select a vehicle", "Close", {
-                            horizontalPosition: "start",
-                            verticalPosition: "top",
-                        });
+                    var diacita = this.form_tobooksite.get("diacita").value;
+                    var date = new Date(diacita);
+                    var dia = date.getDate();
+                    var mesIndex = date.getMonth();
+                    var year = date.getFullYear();
+                    if (mesIndex >= 9) {
+                        diacita = (mesIndex + 1) + '-' + dia + '-' + year;
                     }
                     else {
-                        var diacita = this.form_tobooksite.get("diacita").value;
-                        var date = new Date(diacita);
-                        var dia = date.getDate();
-                        var mesIndex = date.getMonth();
-                        var year = date.getFullYear();
-                        if (mesIndex >= 9) {
-                            diacita = (mesIndex + 1) + '-' + dia + '-' + year;
+                        diacita = '0' + (mesIndex + 1) + '-' + dia + '-' + year;
+                    }
+                    var horacita = this.form_tobooksite.get("horacita").value;
+                    //datos del vehiculo seleccionado
+                    var vehiculoscliente = JSON.parse(yield this.localstorage.getData('formvehiculoscliente'));
+                    vehiculoscliente = Object.values(vehiculoscliente);
+                    for (let vehiculocliente of vehiculoscliente) {
+                        if (vehiculocliente.id == vehiculoid) {
+                            this.vehicle = vehiculocliente;
                         }
-                        else {
-                            diacita = '0' + (mesIndex + 1) + '-' + dia + '-' + year;
-                        }
-                        var horacita = this.form_tobooksite.get("horacita").value;
-                        //datos del vehiculo seleccionado
-                        var vehiculoscliente = JSON.parse(yield this.localstorage.getData('formvehiculoscliente'));
-                        vehiculoscliente = Object.values(vehiculoscliente);
-                        for (let vehiculocliente of vehiculoscliente) {
-                            if (vehiculocliente.id == vehiculoid) {
-                                this.vehicle = vehiculocliente;
-                            }
-                        }
-                        //datos del servicio
-                        this.servicio = JSON.parse(yield this.localstorage.getData('servicio'));
-                        var nombreservicio = yield this.localstorage.getData('tipolavado');
-                        //datos de localizacion
-                        var sitioscliente = JSON.parse(yield this.localstorage.getData('formsitescliente'));
-                        sitioscliente = Object.values(sitioscliente);
-                        for (let sitecliente of this.sitioscliente) {
-                            if (sitecliente.id == siteid) {
-                                this.site = sitecliente;
-                            }
+                    }
+                    //datos del servicio
+                    this.servicio = JSON.parse(yield this.localstorage.getData('servicio'));
+                    var nombreservicio = yield this.localstorage.getData('tipolavado');
+                    //datos de localizacion
+                    var sitioscliente = JSON.parse(yield this.localstorage.getData('formsitescliente'));
+                    sitioscliente = Object.values(sitioscliente);
+                    for (let sitecliente of this.sitioscliente) {
+                        if (sitecliente.id == siteid) {
+                            this.site = sitecliente;
                             var location = this.site.address + ' ' + this.site.zip + ' ' + this.site.state + ' ' + this.site.city;
                         }
-                        // datos precios
-                        var price = yield this.localstorage.getData('precio_mobil$');
-                        var cost = yield this.localstorage.getData('preciomobiln');
-                        var itemcart = {
-                            donde: 2,
-                            sitioid: siteid,
-                            vehiculoid: vehiculoid,
-                            diacita: diacita,
-                            horacita: horacita,
-                            unit: this.vehicle.unit_number,
-                            vehicle: this.vehicle.type_vehicle + ' ' + this.vehicle.model,
-                            service: nombreservicio + ' ' + this.servicio.name,
-                            servicioid: this.servicio.product_id,
-                            location: location,
-                            price: price,
-                            cost: cost,
-                            power: power,
-                            water: water,
-                            ensitio: ensitio
-                        };
-                        //localStorage.setItem('itemcart', JSON.stringify(itemcart))
-                        yield this.localstorage.setObject('itemcart', itemcart);
-                        this.router.navigate(['/tabs-cliente/tobook/cart/']);
                     }
+                    // datos precios
+                    var price = yield this.localstorage.getData('precio_mobil$');
+                    var cost = yield this.localstorage.getData('preciomobiln');
+                    var itemcart = {
+                        donde: 2,
+                        sitioid: siteid,
+                        vehiculoid: vehiculoid,
+                        diacita: diacita,
+                        horacita: horacita,
+                        unit: this.vehicle.unit_number,
+                        vehicle: this.vehicle.type_vehicle + ' ' + this.vehicle.model,
+                        service: nombreservicio + ' ' + this.servicio.name,
+                        servicioid: this.servicio.product_id,
+                        location: location,
+                        price: price,
+                        cost: cost,
+                        power: power,
+                        water: water,
+                        ensitio: ensitio
+                    };
+                    //localStorage.setItem('itemcart', JSON.stringify(itemcart))
+                    yield this.localstorage.setObject('itemcart', itemcart);
+                    this.router.navigate(['/tabs-cliente/tobook/cart/']);
                 }
             }
             else {
@@ -39932,8 +39924,8 @@ let CitayardaComponent = class CitayardaComponent {
         };
     }
     ngOnInit() {
-        this.etiqueta = 'Add a new vehicle';
-        this.valor = 1;
+        this.etiquetax = 'Add a new vehicle';
+        this.valorx = 1;
         this.selectedOption = 0;
         this.selectedOption1 = 0;
         const currentYear = new Date().getFullYear();
@@ -40080,13 +40072,13 @@ let CitayardaComponent = class CitayardaComponent {
                 data: `Add a new vehicle to the fleet`
             }).afterClosed().subscribe((confirmar) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
                 if (confirmar) {
-                    this.etiqueta = 'Unit number: ' + confirmar.vehiculo;
-                    this.valor = confirmar.id;
+                    this.etiquetax = 'Unit number: ' + confirmar.vehiculo;
+                    this.valorx = confirmar.id;
                     this.selectedOption = confirmar.id;
                 }
                 else {
-                    this.etiqueta = 'Add a new vehicle';
-                    this.valor = 1;
+                    this.etiquetax = 'Add a new vehicle';
+                    this.valorx = 1;
                     this.selectedOption = 0;
                 }
             }));
@@ -44955,7 +44947,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n<mat-card class=\"mobil\">\n  <mat-card-header>\n    <mat-card-title>Appointment mobil</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n    <form  [formGroup]=\"form_tobooksite\" (ngSubmit)=\"submit()\">\n    \n     <mat-form-field>\n       <mat-select placeholder=\"Your location\" [(ngModel)]=\"selectedOption1\"  formControlName=\"location\" (selectionChange)=\"cambiar1($event.value)\" >\n        \n          <mat-option   [value]=\"0\" >\n            Select\n             </mat-option>\n             <mat-option   [value]=\"valor1\" >\n              {{etiqueta1}}\n              </mat-option>\n            <mat-option *ngFor=\"let site of sitioscliente\"  [value]=\"site.id\" >\n              {{site.address}} {{site.city}} {{site.zip}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_tobooksite.get('location').hasError('required') && form_tobooksite.get('location').touched)\">Location is required</mat-error>      \n      </mat-form-field>\n    <br>\n\n   <mat-form-field>\n    <mat-select placeholder=\"Your vehicle\" [(ngModel)]=\"selectedOption2\" formControlName=\"vehicle\" (selectionChange)=\"cambiar2($event.value)\" >\n      \n        \n        <mat-option   [value]=\"0\" >\n          Select\n           </mat-option>\n           <mat-option   [value]=\"valor2\" >\n            {{etiqueta2}}\n            </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n            Unit number: {{vehiculo.unit_number}}\n          </mat-option>\n        </mat-select>\n        <mat-error *ngIf=\"(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n\n<!--power begin-->\n\n<mat-form-field>\n    <mat-select placeholder=\"There is power supply in the location?\" formControlName=\"power\" > \n      <mat-option   [value]=\"\" >\n        Select\n         </mat-option>    \n        <mat-option *ngFor=\"let power of powers\"  [value]=\"power.valor\" >\n         {{power.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <mat-error *ngIf=\"(form_tobooksite.get('power').hasError('required') && form_tobooksite.get('power').touched)\">your answer is necessary </mat-error>      \n  </mat-form-field>\n  <br>\n\n\n<!--power end-->\n\n<!--water begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"There is water supply in the location?\" formControlName=\"water\" >   \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>   \n      <mat-option *ngFor=\"let water of waters\"  [value]=\"water.valor\" >\n       {{water.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('water').hasError('required') && form_tobooksite.get('water').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--water end-->\n\n<!--ensitio begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"Will you be present on the day and place of the service?\" formControlName=\"ensitio\" > \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>     \n      <mat-option *ngFor=\"let ensitio of ensitios\"  [value]=\"ensitio.valor\" >\n       {{ensitio.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('ensitio').hasError('required') && form_tobooksite.get('ensitio').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--ensitio end-->\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobooksite.get('diacita').hasError('required') && form_tobooksite.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobooksite.get('horacita').hasError('required') && form_tobooksite.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br>  \n  <button id=\"btnSubmit\" mat-flat-button type=\"submit\" color =\"primary\" class=\"mobil-continuar\">Continue</button>\n    </form>\n    <br>\n    <button  mat-flat-button  class=\"mobil-cancel\" color= \"primary\" (click)='cancel()'>Cancel</button>\n </mat-card-content>\n\n</mat-card>\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n<mat-card class=\"mobil\">\n  <mat-card-header>\n    <mat-card-title>Appointment mobil</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n    <form  [formGroup]=\"form_tobooksite\" (ngSubmit)=\"submit()\">\n    \n     <mat-form-field>\n       <mat-select placeholder=\"Your location\" [(ngModel)]=\"selectedOption1\"  formControlName=\"location\" (selectionChange)=\"cambiar1($event.value)\" >\n        \n          <mat-option   [value]=\"0\" >\n            Select\n             </mat-option>\n            <mat-option   [value]=\"valor1\" >\n              {{etiqueta1}}\n              </mat-option>\n            <mat-option *ngFor=\"let site of sitioscliente\"  [value]=\"site.id\" >\n              {{site.address}} {{site.city}} {{site.zip}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_tobooksite.get('location').hasError('required') && form_tobooksite.get('location').touched)\">Location is required</mat-error>      \n      </mat-form-field>\n    <br>\n\n   <mat-form-field>\n    <mat-select placeholder=\"Your vehicle\" [(ngModel)]=\"selectedOption2\" formControlName=\"vehicle\" (selectionChange)=\"cambiar2($event.value)\" >\n\n        \n        <mat-option   [value]=\"0\" >\n          Select\n           </mat-option>\n           <mat-option   [value]=\"valor2\" >\n            {{etiqueta2}}\n            </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n            Unit number: {{vehiculo.unit_number}}\n          </mat-option>\n        \n        </mat-select>\n        <mat-error *ngIf=\"(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n\n<!--power begin-->\n\n<mat-form-field>\n    <mat-select placeholder=\"There is power supply in the location?\" formControlName=\"power\" > \n      <mat-option   [value]=\"\" >\n        Select\n         </mat-option>    \n        <mat-option *ngFor=\"let power of powers\"  [value]=\"power.valor\" >\n         {{power.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <mat-error *ngIf=\"(form_tobooksite.get('power').hasError('required') && form_tobooksite.get('power').touched)\">your answer is necessary </mat-error>      \n  </mat-form-field>\n  <br>\n\n\n<!--power end-->\n\n<!--water begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"There is water supply in the location?\" formControlName=\"water\" >   \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>   \n      <mat-option *ngFor=\"let water of waters\"  [value]=\"water.valor\" >\n       {{water.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('water').hasError('required') && form_tobooksite.get('water').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--water end-->\n\n<!--ensitio begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"Will you be present on the day and place of the service?\" formControlName=\"ensitio\" > \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>     \n      <mat-option *ngFor=\"let ensitio of ensitios\"  [value]=\"ensitio.valor\" >\n       {{ensitio.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('ensitio').hasError('required') && form_tobooksite.get('ensitio').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--ensitio end-->\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobooksite.get('diacita').hasError('required') && form_tobooksite.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobooksite.get('horacita').hasError('required') && form_tobooksite.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br>  \n  <button  mat-flat-button type=\"submit\" color =\"primary\" class=\"mobil-continuar\">Continue</button>\n    </form>\n    <br>\n    <button  mat-flat-button  class=\"mobil-cancel\" color= \"primary\" (click)='cancel()'>Cancel</button>\n </mat-card-content>\n\n</mat-card>\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -44967,7 +44959,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n<mat-card class=\"yarda\">\n  <mat-card-header>\n    <mat-card-title>Appointment in ours site</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n    <form  [formGroup]=\"form_tobookyarda\" (ngSubmit)=\"submit()\">\n\n    <mat-form-field>\n      <mat-select placeholder=\"Your vehicle\" [(ngModel)]=\"selectedOption\"  formControlName=\"vehicle\" (selectionChange)=\"cambiar($event.value)\" >\n        <mat-option   [value]=\"0\" >\n       Select\n        </mat-option>\n        <mat-option   [value]=\"valor\" >\n         {{etiqueta}}\n         </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n          Unit number: {{vehiculo.unit_number}}\n          </mat-option>\n        </mat-select>\n        <mat-error *ngIf=\"(form_tobookyarda.get('vehicle').hasError('required') && form_tobookyarda.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <mat-select placeholder=\"Which of our yards?\" [(ngModel)]=\"selectedOption1\"  formControlName=\"yard\"  >\n       \n         <mat-option   [value]=\"0\" >\n           Select\n            </mat-option>\n  \n           <mat-option *ngFor=\"let site of sitiosyard\"  [value]=\"site.id\" >\n             {{site.nombre_yard}}\n           </mat-option>\n         </mat-select>\n         <mat-error *ngIf=\"(form_tobookyarda.get('yard').hasError('required') && form_tobookyarda.get('yard').touched)\">yard is required</mat-error>      \n     </mat-form-field><br>\n\n\n\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobookyarda.get('diacita').hasError('required') && form_tobookyarda.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobookyarda.get('horacita').hasError('required') && form_tobookyarda.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br> \n  \n\n\n\n\n\n\n  <button id=\"btnSubmit\" mat-flat-button type=\"submit\" color=\"primary\" class=\"yarda-continuar\">Continue</button>\n    </form><br>\n    <button  mat-flat-button  color=\"primary\" class=\"yarda-cancel\" (click)='cancel()'>Cancel</button>\n  </mat-card-content>\n</mat-card>\n</ion-content>\n\n\n\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n<mat-card class=\"yarda\">\n  <mat-card-header>\n    <mat-card-title>Appointment in ours site</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n    <form  [formGroup]=\"form_tobookyarda\" (ngSubmit)=\"submit()\">\n\n    <mat-form-field>\n      <mat-select placeholder=\"Your vehicle\" [(ngModel)]=\"selectedOption\"  formControlName=\"vehicle\" (selectionChange)=\"cambiar($event.value)\" >\n        <mat-option   [value]=\"0\" >\n       Select\n        </mat-option>\n        <mat-option   [value]=\"valorx\" >\n         {{etiquetax}}\n         </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n          Unit number: {{vehiculo.unit_number}}\n          </mat-option>\n        </mat-select>\n        <mat-error *ngIf=\"(form_tobookyarda.get('vehicle').hasError('required') && form_tobookyarda.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <mat-select placeholder=\"Which of our yards?\" [(ngModel)]=\"selectedOption1\"  formControlName=\"yard\"  >\n       \n         <mat-option   [value]=\"0\" >\n           Select\n            </mat-option>\n  \n           <mat-option *ngFor=\"let site of sitiosyard\"  [value]=\"site.id\" >\n             {{site.nombre_yard}}\n           </mat-option>\n         </mat-select>\n         <mat-error *ngIf=\"(form_tobookyarda.get('yard').hasError('required') && form_tobookyarda.get('yard').touched)\">yard is required</mat-error>      \n     </mat-form-field><br>\n\n\n\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobookyarda.get('diacita').hasError('required') && form_tobookyarda.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobookyarda.get('horacita').hasError('required') && form_tobookyarda.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br> \n  \n\n\n\n\n\n\n  <button id=\"btnSubmit\" mat-flat-button type=\"submit\" color=\"primary\" class=\"yarda-continuar\">Continue</button>\n    </form><br>\n    <button  mat-flat-button  color=\"primary\" class=\"yarda-cancel\" (click)='cancel()'>Cancel</button>\n  </mat-card-content>\n</mat-card>\n\n</ion-content>\n\n\n\n\n\n");
 
 /***/ }),
 

@@ -20,8 +20,8 @@ export class CitayardaComponent implements OnInit {
   vehicle : any
   servicio : any
 
-  etiqueta : string
-  valor : number
+ etiquetax : string
+  valorx : number
   selectedOption : any
   selectedOption1 : any
 
@@ -69,8 +69,8 @@ sitiosyard : any
 
   ngOnInit() {
 
-    this.etiqueta = 'Add a new vehicle'
-    this.valor = 1
+   this.etiquetax = 'Add a new vehicle'
+    this.valorx = 1
     this.selectedOption = 0
     this.selectedOption1 = 0 
 
@@ -319,16 +319,16 @@ cambiar(x : any) {
       }).afterClosed().subscribe(async (confirmar) => {
       if(confirmar)  {
 
-        this.etiqueta = 'Unit number: ' + confirmar.vehiculo
-        this.valor = confirmar.id
+        this.etiquetax = 'Unit number: ' + confirmar.vehiculo
+        this.valorx = confirmar.id
         this.selectedOption = confirmar.id
         
       }  
 
       else {
 
-        this.etiqueta = 'Add a new vehicle'
-        this.valor = 1
+        this.etiquetax = 'Add a new vehicle'
+        this.valorx = 1
         this.selectedOption = 0
       
       }

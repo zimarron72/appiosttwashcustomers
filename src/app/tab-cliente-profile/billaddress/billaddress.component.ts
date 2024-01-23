@@ -25,6 +25,10 @@ export class BilladdressComponent implements OnInit {
   
   ]
 
+mobilx = ''
+telefonox = ''
+taxid = ''
+
   apellido : string
   nombre : string
   fullname : string
@@ -1921,7 +1925,33 @@ cities : any
 
   }
 
+  phoneFormat(event:any) {//returns (###) ###-####
+    var input = event.target.value.replace(/\D/g,'').substring(0,10); //Strip everything but 1st 10 digits
+    var size = input.length;
+    if (size>0) {input="("+input}
+    if (size>3) {input=input.slice(0,4)+") "+input.slice(4)}
+    if (size>6) {input=input.slice(0,9)+"-" +input.slice(9)}
+    this.telefonox = input;
+}
 
+mobilFormat(event:any) {//returns (###) ###-####
+  var input = event.target.value.replace(/\D/g,'').substring(0,10); //Strip everything but 1st 10 digits
+  var size = input.length;
+  if (size>0) {input="("+input}
+  if (size>3) {input=input.slice(0,4)+") "+input.slice(4)}
+  if (size>6) {input=input.slice(0,9)+"-" +input.slice(9)}
+  this.mobilx = input;
+}
+
+
+taxidFormat(event:any) {//returns (###) ###-####
+  var input = event.target.value.replace(/\D/g,'').substring(0,10); //Strip everything but 1st 10 digits
+  var size = input.length;
+
+  if (size>2) {input=input.slice(0,3)+"- "+input.slice(3)}
+  if (size>5) {input=input.slice(0,8)+"-" +input.slice(8)}
+  this.taxid= input;
+}
 
 
 }
