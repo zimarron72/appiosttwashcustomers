@@ -158,18 +158,7 @@ async enviar(): Promise<void>  {
 
        
      case 'OK_TODO':
-      var tiporeservacion = await this.localstorage.getData('tiporeservacion')
-      switch(tiporeservacion)
-      {
-        case 'citamobil':
-        this.router.navigate(['/tabs-cliente/tobook/citamobil'])
-        await this.localstorage.removeData('tiporeservacion')
-        break;
-        case 'citayarda':
-          this.router.navigate(['/tabs-cliente/tobook/citayarda'])
-          await this.localstorage.removeData('tiporeservacion')  
-        break  
-      }
+      this.dialogo.close(data)
        
      break; 
      

@@ -73,6 +73,10 @@ export class DialogreservacionComponent implements OnInit {
       var precio = parseInt(await this.localstorage.getData('washprecio'))
       var preciomobil = parseInt(await this.localstorage.getData('washpreciomobil'))
       
+       
+      
+    
+      
       this.serviciostobook.getDescuentoRecargos(idtoken , autenticacion_tipo).subscribe({
       
         next: async descuentos_recargos => {this.descuentos_recargos = descuentos_recargos;
@@ -101,6 +105,8 @@ export class DialogreservacionComponent implements OnInit {
 
          await this.localstorage.setData('preciomobiln', preciomobil)
          await this.localstorage.setData('preciomobil$', this.precio_mobil)
+         
+        
 
          this.loading.dismissLoader() 
 

@@ -58,6 +58,8 @@ date : any;
 
 sitiosyard : any
 
+tipovehiculo : any
+
   constructor(
     private snackBar: MatSnackBar, private formBuilder: FormBuilder,
     private router: Router,
@@ -69,16 +71,26 @@ sitiosyard : any
 
   ngOnInit() {
 
-   this.etiquetax = 'Add a new vehicle'
+  
+    this.doRefresh(null)
+
+  }
+
+
+  async doRefresh($event: { target: { complete: () => void; }; }){
+
+    this.etiquetax = 'Add a new vehicle'
     this.valorx = 1
     this.selectedOption = 0
     this.selectedOption1 = 0 
 
     const currentYear = new Date().getFullYear()
     const currentMes = new Date().getMonth()
-    const currentDia = new Date().getDate()
+    const currentDia = new Date().getDate()  
 
     this.minDate = new Date(currentYear , currentMes , currentDia + 1);
+    
+    
    
     
 
@@ -89,6 +101,17 @@ sitiosyard : any
       horacita: [, { validators: [Validators.required] }],
       
     });
+    
+     this.localstorage.getData('tipovehiculo').then(
+     async (val)=> {  
+     
+     this.tipovehiculo = val
+     }       
+    
+    );
+   
+
+
 
 
     this.localstorage.getData('usuario').then(
@@ -100,7 +123,7 @@ sitiosyard : any
         this.serviciotobook.getSitiosYard(idtoken,autenticacion_tipo).subscribe({
       
           next: async sitiosyard => {this.sitiosyard = sitiosyard;
-         
+          
             this.sitiosyard = Object.values(this.sitiosyard)
             this.sitiosyard =  this.sitiosyard.filter(((valor: string | any[]) => valor !== 'OK_DATA'))
         
@@ -111,7 +134,8 @@ sitiosyard : any
           
           },
           error: error => {
-              
+            if ($event)
+              $event.target.complete();    
             var errorMessage = error.message;          
             console.error('There was an error!' + errorMessage);
             this.localstorage.clearData()
@@ -133,7 +157,7 @@ sitiosyard : any
         this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
               
           next: async vehiculoscliente => {this.vehiculoscliente = vehiculoscliente;
-         
+          
             this.vehiculoscliente = Object.values(this.vehiculoscliente)
             this.vehiculoscliente =  this.vehiculoscliente.filter(((valor: string | any[]) => valor !== 'OK_DATA'))
         
@@ -142,7 +166,8 @@ sitiosyard : any
           
           },
           error: error => {
-              
+            if ($event)
+              $event.target.complete();  
             var errorMessage = error.message;                
             console.error('There was an error!' + errorMessage);
             this.localstorage.clearData()
@@ -166,6 +191,8 @@ sitiosyard : any
 this.serviciotobook.getDiasProhibidos().subscribe({
 
             next: diasprohibidos => {
+              if ($event)
+                $event.target.complete();
              this.p = diasprohibidos
             
           console.log(this.p)
@@ -174,7 +201,8 @@ this.serviciotobook.getDiasProhibidos().subscribe({
             },
           
             error: error => {
-          
+              if ($event)
+                $event.target.complete();
               var errorMessage = error.message; 
               this.localstorage.clearData()
               this.router.navigate(['/login'])              
@@ -190,7 +218,8 @@ this.serviciotobook.getDiasProhibidos().subscribe({
           
           
           })
-   
+
+
 
   }
 
@@ -315,10 +344,10 @@ cambiar(x : any) {
     if(x == 1) {
 
       this.dialogo.open(DialogaddvehiculoComponent, {
-        data: `Add a new vehicle to the fleet`
+        data: `Add a new vehicle to your fleet`
       }).afterClosed().subscribe(async (confirmar) => {
       if(confirmar)  {
-
+        this.doRefresh(null)
         this.etiquetax = 'Unit number: ' + confirmar.vehiculo
         this.valorx = confirmar.id
         this.selectedOption = confirmar.id

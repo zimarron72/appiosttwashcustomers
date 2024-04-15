@@ -284,7 +284,7 @@ charge_status : number
   }
 
   cancelar() {
-    this.router.navigate(['/tabs-cliente/tobook/tipobooks']);
+    this.router.navigate(['/tabs-cliente/tobook/mybooks/7']);
   }
 
 

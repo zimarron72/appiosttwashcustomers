@@ -10,10 +10,13 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-button (click) = "goBack()">
+  <div style="
+  background-color: #ca083f;">
+  <ion-button (click) = "goBack()" fill="clear" style="color: #fff;">
     <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
     back    
   </ion-button> 
+</div>
 
   <!--Tabla  principal-->
 <table mat-table [dataSource]="itemPagosTabla" multiTemplateDataRows

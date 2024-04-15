@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute,  Params } from '@angular/router';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ServiciosTobook} from "../servicios.tobook";
-import { DatabaseService } from '../../shared/database-service';
+
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoconfirComponent } from '../dialogoconfir/dialogoconfir.component'
 import { StorageService } from '../../shared/storage.service';
@@ -42,7 +42,7 @@ export class MybooksComponent implements OnInit {
  
     private snackBar: MatSnackBar, 
     private serviciotobook : ServiciosTobook,
-    private dbservicio : DatabaseService,
+    
     public dialogo: MatDialog,
     private localstorage: StorageService,
     private rutaActiva: ActivatedRoute,
@@ -85,9 +85,10 @@ export class MybooksComponent implements OnInit {
      
       var idtoken = await this.localstorage.getData('idtoken')
        var autenticacion_tipo = await this.localstorage.getData('autenticacion_tipo')
-
+this.loading.simpleLoader()
 this.serviciotobook.deleteItemOrder(idtoken,autenticacion_tipo,id).subscribe({
 next: async datos => {
+ this.loading.dismissLoader() 
 switch(datos.respuesta) {
 
   case 'TOKEN ERROR':
@@ -117,27 +118,18 @@ break;
 
   case '200_OK':
     
-    this.dbservicio.borrarTobook(id).then(res => {
-
-      if(res){
-           this.snackBar.open('Record successfully removed', "Close",
+   
+        this.snackBar.open('The record has been deleted', "Continue",
         {       
           horizontalPosition: "start",
           verticalPosition: "top",
         }
         );
-      }
-      else {
-        this.snackBar.open('The record has not been deleted ', "Close",
-        {       
-          horizontalPosition: "start",
-          verticalPosition: "top",
-        }
-        );
+        this.doRefresh(null);     
     
-      }
+      
     
-    })
+  
 
 
 
@@ -151,7 +143,7 @@ break;
   }  
 },
 error: error => {     
-      
+   this.loading.dismissLoader()     
 console.error('There was an error!', error);
 // borramos la informacion local
 this.localstorage.clearData()
@@ -195,9 +187,11 @@ verticalPosition: "top",
         var user = JSON.parse(await this.localstorage.getData('usuario'))
         var idtoken = await this.localstorage.getData('idtoken')
          var autenticacion_tipo = await this.localstorage.getData('autenticacion_tipo')
-
+this.loading.simpleLoader()
   this.serviciotobook.CancelarItemOrder(idtoken,autenticacion_tipo,id,user.email).subscribe({
+  
   next: async datos => {
+  this.loading.dismissLoader() 
   switch(datos.respuesta) {
   
     case 'TOKEN ERROR':
@@ -257,18 +251,22 @@ verticalPosition: "top",
 
 
     case '200_OK':
-      this.snackBar.open('Appointment successfully cancelled', "Close",
+      this.snackBar.open('Appointment successfully cancelled', "Continue",
           {       
             horizontalPosition: "start",
             verticalPosition: "top",
           }
           ); 
+          this.doRefresh(null);
+              
+        
   
     break;   
     
     }  
   },
-  error: error => {     
+  error: error => {   
+  this.loading.dismissLoader()   
     this.snackBar.open('The appointment has not been cancelled ', "Close",
     {       
       horizontalPosition: "start",

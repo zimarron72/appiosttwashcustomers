@@ -1289,5 +1289,9 @@ sub {
 }
 .custom-loader-class {
   --background:#2E4F9C;
-  --color: #f2f2f2;
+  color: #f2f2f2;
 }
+/*ion-label.platino.ios, ion-label.platino.md
+ {
+  color: var(--ion-color-primary);
+}*/

@@ -427,7 +427,8 @@ break;
 
        if (this.form_password.valid) {
       var password = this.form_password.get("password").value;
- 
+  this.xpassword = true
+    this.xfpassword = false
       return this.servicioauth.cambiarpassword(password)
      
 

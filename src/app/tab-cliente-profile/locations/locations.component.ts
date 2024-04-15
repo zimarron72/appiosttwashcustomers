@@ -278,7 +278,7 @@ export class LocationsComponent implements OnInit {
           case '200_OK':
   
      
-            this.router.navigate(['/tabs-cliente/profile']); 
+           
         
             this.snackBar.open('Location deleted successfully ', "Close",
             {       
@@ -286,6 +286,8 @@ export class LocationsComponent implements OnInit {
               verticalPosition: "top",
             }
             );
+            
+             this.doRefresh(null)
   
   
   break;

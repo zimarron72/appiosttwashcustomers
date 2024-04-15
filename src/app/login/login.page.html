@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar color="primary">
    
     <ion-title>Login</ion-title>
   </ion-toolbar>
@@ -7,16 +7,31 @@
 
 <ion-content>
   <div class="app-logo"></div>
-  <div style="text-align: center; color:#f2f2f2">Version 2.0.4</div>
+  <div style="text-align: center;
+   color: #ca083f;
+    font-weight: bolder;
+     font-size: x-large;
+      margin-top: -23px;
+  font-style: oblique;">Express</div>
+    <div style="text-align: center;
+    color: #fff;  
+      font-size: x-small;  
+   font-style: oblique;">with the usual care!</div>
+  <div style="text-align: center; font-weight: bolder; color:#f2f2f2">2.1.0</div>
   <form [formGroup]="form_login" (ngSubmit)="submit()" novalidate>
-    <ion-item lines="full" >
-      <ion-label  position="floating" >Email</ion-label>
+    <ion-item lines="full" class="platino">
+      <ion-label  position="floating" class="platino">Email</ion-label>
+      
       <ion-icon name="mail" color="light" slot="end"></ion-icon>
-      <ion-input color="light" placeholder="Email" formControlName="email" type="email" required></ion-input>
+      <ion-input   color="light" placeholder="Email" formControlName="email" type="email" required></ion-input>
      
     </ion-item>
+    
+
+
+
     <ion-item lines="full" >
-      <ion-label position="floating" >Password</ion-label>
+      <ion-label position="floating" class="platino">Password</ion-label>
       <ion-icon name="lock-closed" color="light" slot="end"></ion-icon>
      
       <ion-input color="light" placeholder="Password" formControlName="password" type="password" required></ion-input>
@@ -39,15 +54,11 @@
     </ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col>
-      <div class="separador">Or sign in with</div>    
-    </ion-col>
-  </ion-row>
+ 
 
   <ion-row>
     <ion-col>
-      <ion-button   color="primary" expand="block" (click) = "logingoogle()" >GOOGLE</ion-button>
+      <ion-button   color="primary" expand="block" (click) = "logingoogle()" >Sign in by Gmail</ion-button>
     </ion-col>
   </ion-row> 
 
@@ -59,7 +70,7 @@
 
   <ion-row>
     <ion-col>
-      <ion-button   color="primary" expand="block" (click) = "registro()" >Create an account</ion-button>
+      <ion-button   color="primary" expand="block" (click) = "registro()" >Sing up an account</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

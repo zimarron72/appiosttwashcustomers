@@ -18,7 +18,7 @@ import  {environment}  from '../environments/environment';
 //servicios
 import {ServicioAutenticacion} from './shared/servicio.autenticacion';
 import {ServicioApi} from './shared/servicio.api';
-import { DatabaseService } from './shared/database-service';
+//import { DatabaseService } from './shared/database-service';
 import {StorageService} from './shared/storage.service'
 import { SquareServicio } from './shared/square.servicio';
 import { LoadingService } from './shared/loading.services';
@@ -41,7 +41,7 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { RouterModule} from '@angular/router';
 
 //import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { GooglePlus } from '@awesome-cordova-plugins/google-plus/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
 
@@ -84,7 +84,7 @@ import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
        GooglePlus, 
        ServicioAutenticacion, 
        ServicioApi, 
-       DatabaseService,
+       //DatabaseService,
         StorageService,
          SquareServicio,
          LoadingService ],

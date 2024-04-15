@@ -26,11 +26,11 @@ const routes = [
         children: [
             {
                 path: 'profile',
-                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_card_js-node_modules_angular_mate-93e209"), __webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_select_js-node_modules_angular_ma-a367d9"), __webpack_require__.e("src_app_tab-cliente-profile_tab-cliente-profile_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../tab-cliente-profile/tab-cliente-profile.module */ 84013)).then(m => m.TabClienteProfilePageModule)
+                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_card_js-node_modules_angular_mate-93e209"), __webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_select_js-node_modules_angular_ma-6ea12a"), __webpack_require__.e("src_app_tab-cliente-profile_tab-cliente-profile_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../tab-cliente-profile/tab-cliente-profile.module */ 84013)).then(m => m.TabClienteProfilePageModule)
             },
             {
                 path: 'tobook',
-                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_card_js-node_modules_angular_mate-93e209"), __webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_select_js-node_modules_angular_ma-a367d9"), __webpack_require__.e("default-node_modules_firebase_auth_dist_index_esm_js"), __webpack_require__.e("src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../tab-cliente-tobook/tab-cliente-tobook.module */ 40560)).then(m => m.TabClienteTobookPageModule)
+                loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_card_js-node_modules_angular_mate-93e209"), __webpack_require__.e("default-node_modules_angular_material___ivy_ngcc___fesm2015_select_js-node_modules_angular_ma-6ea12a"), __webpack_require__.e("default-node_modules_firebase_auth_dist_index_esm_js"), __webpack_require__.e("src_app_tab-cliente-tobook_tab-cliente-tobook_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../tab-cliente-tobook/tab-cliente-tobook.module */ 40560)).then(m => m.TabClienteTobookPageModule)
             },
             {
                 path: '',

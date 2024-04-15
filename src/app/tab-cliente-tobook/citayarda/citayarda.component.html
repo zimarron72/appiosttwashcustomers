@@ -7,15 +7,20 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 <mat-card class="yarda">
   <mat-card-header>
-    <mat-card-title>Appointment in ours site</mat-card-title>
+    <mat-card-title>Appointment on our site</mat-card-title>
   </mat-card-header>
   <mat-card-content>
+  <p><span style="color:#ffc409">WARNING:</span>This request is for a type vehicle <span style="color:#2dd36f">{{tipovehiculo}}</span>. Otherwise this could lead to additional costs.</p>
+  <p style="color:#2dd36f; font-size:small">Select your vehicle type only {{tipovehiculo}}</p>
     <form  [formGroup]="form_tobookyarda" (ngSubmit)="submit()">
 
     <mat-form-field>
-      <mat-select placeholder="Your vehicle" [(ngModel)]="selectedOption"  formControlName="vehicle" (selectionChange)="cambiar($event.value)" >
+      <mat-select placeholder="Your vehicle type" [(ngModel)]="selectedOption"  formControlName="vehicle" (selectionChange)="cambiar($event.value)" >
         <mat-option   [value]="0" >
        Select
         </mat-option>
@@ -23,7 +28,7 @@
          {{etiquetax}}
          </mat-option>
           <mat-option *ngFor="let vehiculo of vehiculoscliente"  [value]="vehiculo.id" >
-          Unit number: {{vehiculo.unit_number}}
+          Unit number: {{vehiculo.unit_number}} {{vehiculo.type_vehicle}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="(form_tobookyarda.get('vehicle').hasError('required') && form_tobookyarda.get('vehicle').touched)">vehicle is required</mat-error>      

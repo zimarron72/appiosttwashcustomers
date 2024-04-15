@@ -10,8 +10,9 @@
 <ion-content>  
 <ion-card>
   <ion-card-header>
-    <ion-card-subtitle>{{washlavado}}</ion-card-subtitle>
-    <ion-card-title>{{washname}}</ion-card-title>
+    <ion-card-title color="success">Service<br>{{washname}}</ion-card-title>
+    <ion-card-subtitle style="color:#fff">Vehicule {{washlavado}}</ion-card-subtitle>
+  
   </ion-card-header>
 
   <ion-card-content >
@@ -26,10 +27,10 @@
 
 <ion-list>
 <ion-icon name="warning" slot='start' color="danger"></ion-icon>
-<ion-label>Waiting:</ion-label>
+<ion-label color="warning">warning:</ion-label>
 <ion-item>
   <ion-label class="ion-text-wrap">
-    <p style="text-align: justify; color:#f2f2f2;">The company will only place two solid waste bags and personal items for the disposal of these materials. We are NOT responsible for sorting or selecting items and we are not responsible FOR LOSS OF valuables. SO WE RECOMMEND TO REMOVE EVERYTHING BEFORE DOING THIS SERVICE.THE HANDLING OF WASTE AND ARTICLES HAS ADDITIONAL VALUE.</p>
+    <p style="text-align: justify; color:#f2f2f2;">The company will only place two solid waste bags and personal items for the disposal of these materials. We are NOT responsible for sorting or selecting items and we are not responsible FOR LOSS OF valuables. <span style="font-weight:bolder">SO WE RECOMMEND TO REMOVE EVERYTHING BEFORE DOING THIS SERVICE.THE HANDLING OF WASTE AND ARTICLES HAS ADDITIONAL VALUE</span>.</p>
   </ion-label>
 </ion-item>
 </ion-list> 

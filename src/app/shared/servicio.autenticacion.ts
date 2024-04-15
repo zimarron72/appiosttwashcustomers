@@ -4,7 +4,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import { HttpClient } from "@angular/common/http";
 import { AngularFireAuth } from  "@angular/fire/auth";
 import { Platform } from '@ionic/angular';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { GooglePlus } from '@awesome-cordova-plugins/google-plus/ngx';
 import { StorageService } from './storage.service';
 import { LoadingService } from '../shared/loading.services';
 import firebase from 'firebase/app';

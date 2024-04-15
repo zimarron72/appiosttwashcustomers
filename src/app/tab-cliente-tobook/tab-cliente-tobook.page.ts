@@ -22,11 +22,11 @@ export class TabClienteTobookPage implements OnInit {
       url: '/tabs-cliente/tobook/tipovehiculos',
       icon: 'calendar-clear'
     },
-    {
+    /*{
       title: 'Deals of the week',
       url: '/tabs-cliente/tobook/dealsweek',   
       icon: 'pricetags'
-    },
+    },*/
     {
       title: 'Appointments',
       url: '/tabs-cliente/tobook/tipobooks',

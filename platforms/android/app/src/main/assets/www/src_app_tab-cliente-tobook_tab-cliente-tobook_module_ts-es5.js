@@ -53447,40 +53447,39 @@
         }, {
           key: "checkout",
           value: function checkout() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var _this156 = this;
 
-              var user, idtoken, autenticacion_tipo, itemsOrder, itemsinvaciosOrder, subtotal, descuentoOrder, allregistros, count, mobil, _iterator2, _step2, registro;
-
-              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+              var user, idtoken, autenticacion_tipo, itemsOrder, itemsinvaciosOrder, subtotal, descuentoOrder;
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context7.prev = _context7.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       this.loading.simpleLoader();
-                      _context7.t0 = JSON;
-                      _context7.next = 4;
+                      _context6.t0 = JSON;
+                      _context6.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context7.t1 = _context7.sent;
-                      user = _context7.t0.parse.call(_context7.t0, _context7.t1);
-                      _context7.next = 8;
+                      _context6.t1 = _context6.sent;
+                      user = _context6.t0.parse.call(_context6.t0, _context6.t1);
+                      _context6.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context7.sent;
-                      _context7.next = 11;
+                      idtoken = _context6.sent;
+                      _context6.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context7.sent;
-                      _context7.t2 = JSON;
-                      _context7.next = 15;
+                      autenticacion_tipo = _context6.sent;
+                      _context6.t2 = JSON;
+                      _context6.next = 15;
                       return this.localstorage.getData('itemOrder');
 
                     case 15:
-                      _context7.t3 = _context7.sent;
-                      itemsOrder = _context7.t2.parse.call(_context7.t2, _context7.t3);
+                      _context6.t3 = _context6.sent;
+                      itemsOrder = _context6.t2.parse.call(_context6.t2, _context6.t3);
                       itemsinvaciosOrder = itemsOrder.filter(function (itemOrder) {
                         return itemOrder !== 'Borrado';
                       });
@@ -53489,223 +53488,299 @@
                       }).reduce(function (a, b) {
                         return a + b;
                       });
-                      _context7.t4 = JSON;
-                      _context7.next = 22;
+                      _context6.t4 = JSON;
+                      _context6.next = 22;
                       return this.localstorage.getData('datacupon');
 
                     case 22:
-                      _context7.t5 = _context7.sent;
-                      descuentoOrder = _context7.t4.parse.call(_context7.t4, _context7.t5);
+                      _context6.t5 = _context6.sent;
+                      descuentoOrder = _context6.t4.parse.call(_context6.t4, _context6.t5);
                       console.log(descuentoOrder);
                       console.log(subtotal);
                       console.log(itemsinvaciosOrder);
-                      allregistros = itemsinvaciosOrder;
-                      count = 0;
-                      mobil = "no";
-                      _iterator2 = _createForOfIteratorHelper(allregistros);
+                      /*
+                      RESTRICCCION A DOS CITAS
+                       var allregistros = itemsinvaciosOrder
+                      var count = 0
+                       var mobil = "no"*/
 
-                      try {
-                        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                          registro = _step2.value;
+                      /*   for (let registro of allregistros)
+                      {
+                       if(registro.donde == 2) {
+                                     count = count + 1
+                        mobil = "yes"
+                                   }
+                                 }*/
 
-                          if (registro.donde == 2) {
-                            count = count + 1;
-                            mobil = "yes";
-                          }
+                      /*if(mobil == "yes" && count < 2) {
+                        this.loading.dismissLoader()
+                        this.snackBar.open("Sorry, a minimum of two services per mobile appointment is required", "Close",
+                        {
+                          horizontalPosition: "start",
+                          verticalPosition: "top",
                         }
-                      } catch (err) {
-                        _iterator2.e(err);
-                      } finally {
-                        _iterator2.f();
-                      }
+                        );
+                      
+                        return false
+                      
+                      }*/
 
-                      if (!(mobil == "yes" && count < 2)) {
-                        _context7.next = 36;
-                        break;
-                      }
+                      /*if (mobil == "yes" && count >= 2) {
+                      
+                          this.serviciotobook.checkout(
+                      
+                          idtoken,
+                          autenticacion_tipo,
+                          itemsinvaciosOrder,
+                          descuentoOrder,
+                          subtotal,
+                          user.email,
+                              
+                              ).subscribe({
+                            next: async data => { var datos = data
+                      
+                              this.loading.dismissLoader()
+                      
+                              switch(datos.respuesta) {
+                           
+                                case 'ERROR':
+                                this.localstorage.clearData()
+                                this.router.navigate(['/login']);
+                                this.snackBar.open("Sorry, an error occurred,please login again", "Close",
+                                {
+                                  horizontalPosition: "start",
+                                  verticalPosition: "top",
+                                }
+                                );
+                                console.log(data.mensaje)
+                                break;
+                                
+                                case 'TOKEN ERROR':
+                                   this.localstorage.clearData()
+                                  this.router.navigate(['/login']);
+                                  this.snackBar.open("Invalid or expired token,please login again" , "Close",
+                                  {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                  }
+                                  );
+                                  console.log(data.mensaje);
+                                break;
+                                
+                                case 'NO ENVIADOS':
+                      
+                                  await this.localstorage.removeData('itemOrder');
+                                    await this.localstorage.removeData('datacupon');
+                          
+                                    this.router.navigate(['/tabs-cliente/tobook/mybooks']);
+                      
+                                    this.snackBar.open('Reservation completed', "Close",
+                                    {
+                                      horizontalPosition: "start",
+                                      verticalPosition: "top",
+                                    }
+                                    );
+                                 break;
+                      
+                                case '200_OK':
+                      
+                                  await this.localstorage.removeData('itemOrder');
+                                    await this.localstorage.removeData('datacupon');
+                          
+                                    this.router.navigate(['/tabs-cliente/tobook/successtobook']);
+                                break;
+                              }
+                        
+                        }
+                        ,
+                        error: error => {
+                          this.loading.dismissLoader()
+                            console.error('There was an error!', error);
+                            this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again' , "Close",
+                                  {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                  }
+                                  );
+                        }
+                        
+                        })
+                      
+                      
+                      }*/
 
-                      this.loading.dismissLoader();
-                      this.snackBar.open("Sorry, a minimum of two services per mobile appointment is required", "Close", {
-                        horizontalPosition: "start",
-                        verticalPosition: "top"
+                      /*if (mobil == "no" && count == 0) {
+                      
+                        this.serviciotobook.checkout(
+                      
+                        idtoken,
+                        autenticacion_tipo,
+                        itemsinvaciosOrder,
+                        descuentoOrder,
+                        subtotal,
+                        user.email,
+                            
+                            ).subscribe({
+                          next: async data => { var datos = data
+                      
+                            this.loading.dismissLoader()
+                      
+                            switch(datos.respuesta) {
+                         
+                              case 'ERROR':
+                              this.localstorage.clearData()
+                              this.router.navigate(['/login']);
+                              this.snackBar.open("Sorry, an error occurred,please login again", "Close",
+                              {
+                                horizontalPosition: "start",
+                                verticalPosition: "top",
+                              }
+                              );
+                              console.log(data.mensaje)
+                              break;
+                              
+                              case 'TOKEN ERROR':
+                                 this.localstorage.clearData()
+                                this.router.navigate(['/login']);
+                                this.snackBar.open("Invalid or expired token,please login again" , "Close",
+                                {
+                                  horizontalPosition: "start",
+                                  verticalPosition: "top",
+                                }
+                                );
+                                console.log(data.mensaje);
+                              break;
+                              
+                              case 'NO ENVIADOS':
+                      
+                                await this.localstorage.removeData('itemOrder');
+                                  await this.localstorage.removeData('datacupon');
+                        
+                                  this.router.navigate(['/tabs-cliente/tobook/mybooks']);
+                      
+                                  this.snackBar.open('Reservation completed', "Close",
+                                  {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                  }
+                                  );
+                               break;
+                      
+                              case '200_OK':
+                      
+                                await this.localstorage.removeData('itemOrder');
+                                  await this.localstorage.removeData('datacupon');
+                        
+                                  this.router.navigate(['/tabs-cliente/tobook/successtobook']);
+                              break;
+                            }
+                      
+                      }
+                      ,
+                      error: error => {
+                        this.loading.dismissLoader()
+                          console.error('There was an error!', error);
+                          this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again' , "Close",
+                                {
+                                  horizontalPosition: "start",
+                                  verticalPosition: "top",
+                                }
+                                );
+                      }
+                      
+                      })
+                      
+                      
+                      }*/
+
+                      this.serviciotobook.checkout(idtoken, autenticacion_tipo, itemsinvaciosOrder, descuentoOrder, subtotal, user.email).subscribe({
+                        next: function next(data) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this156, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                            var datos;
+                            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                              while (1) {
+                                switch (_context5.prev = _context5.next) {
+                                  case 0:
+                                    datos = data;
+                                    this.loading.dismissLoader();
+                                    _context5.t0 = datos.respuesta;
+                                    _context5.next = _context5.t0 === 'ERROR' ? 5 : _context5.t0 === 'TOKEN ERROR' ? 10 : _context5.t0 === 'NO ENVIADOS' ? 15 : _context5.t0 === '200_OK' ? 22 : 28;
+                                    break;
+
+                                  case 5:
+                                    this.localstorage.clearData();
+                                    this.router.navigate(['/login']);
+                                    this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                                      horizontalPosition: "start",
+                                      verticalPosition: "top"
+                                    });
+                                    console.log(data.mensaje);
+                                    return _context5.abrupt("break", 28);
+
+                                  case 10:
+                                    this.localstorage.clearData();
+                                    this.router.navigate(['/login']);
+                                    this.snackBar.open("Invalid or expired token,please login again", "Close", {
+                                      horizontalPosition: "start",
+                                      verticalPosition: "top"
+                                    });
+                                    console.log(data.mensaje);
+                                    return _context5.abrupt("break", 28);
+
+                                  case 15:
+                                    _context5.next = 17;
+                                    return this.localstorage.removeData('itemOrder');
+
+                                  case 17:
+                                    _context5.next = 19;
+                                    return this.localstorage.removeData('datacupon');
+
+                                  case 19:
+                                    this.router.navigate(['/tabs-cliente/tobook/mybooks']);
+                                    this.snackBar.open('Reservation completed', "Close", {
+                                      horizontalPosition: "start",
+                                      verticalPosition: "top"
+                                    });
+                                    return _context5.abrupt("break", 28);
+
+                                  case 22:
+                                    _context5.next = 24;
+                                    return this.localstorage.removeData('itemOrder');
+
+                                  case 24:
+                                    _context5.next = 26;
+                                    return this.localstorage.removeData('datacupon');
+
+                                  case 26:
+                                    this.router.navigate(['/tabs-cliente/tobook/successtobook']);
+                                    return _context5.abrupt("break", 28);
+
+                                  case 28:
+                                  case "end":
+                                    return _context5.stop();
+                                }
+                              }
+                            }, _callee5, this);
+                          }));
+                        },
+                        error: function error(_error2) {
+                          _this156.loading.dismissLoader();
+
+                          console.error('There was an error!', _error2);
+
+                          _this156.snackBar.open('Sorry, an error occurred:' + _error2.menssage + 'Please try again', "Close", {
+                            horizontalPosition: "start",
+                            verticalPosition: "top"
+                          });
+                        }
                       });
-                      return _context7.abrupt("return", false);
 
-                    case 36:
-                      if (mobil == "yes" && count >= 2) {
-                        this.serviciotobook.checkout(idtoken, autenticacion_tipo, itemsinvaciosOrder, descuentoOrder, subtotal, user.email).subscribe({
-                          next: function next(data) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this156, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-                              var datos;
-                              return regeneratorRuntime.wrap(function _callee5$(_context5) {
-                                while (1) {
-                                  switch (_context5.prev = _context5.next) {
-                                    case 0:
-                                      datos = data;
-                                      this.loading.dismissLoader();
-                                      _context5.t0 = datos.respuesta;
-                                      _context5.next = _context5.t0 === 'ERROR' ? 5 : _context5.t0 === 'TOKEN ERROR' ? 10 : _context5.t0 === 'NO ENVIADOS' ? 15 : _context5.t0 === '200_OK' ? 22 : 28;
-                                      break;
-
-                                    case 5:
-                                      this.localstorage.clearData();
-                                      this.router.navigate(['/login']);
-                                      this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top"
-                                      });
-                                      console.log(data.mensaje);
-                                      return _context5.abrupt("break", 28);
-
-                                    case 10:
-                                      this.localstorage.clearData();
-                                      this.router.navigate(['/login']);
-                                      this.snackBar.open("Invalid or expired token,please login again", "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top"
-                                      });
-                                      console.log(data.mensaje);
-                                      return _context5.abrupt("break", 28);
-
-                                    case 15:
-                                      _context5.next = 17;
-                                      return this.localstorage.removeData('itemOrder');
-
-                                    case 17:
-                                      _context5.next = 19;
-                                      return this.localstorage.removeData('datacupon');
-
-                                    case 19:
-                                      this.router.navigate(['/tabs-cliente/tobook/mybooks']);
-                                      this.snackBar.open('Reservation completed', "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top"
-                                      });
-                                      return _context5.abrupt("break", 28);
-
-                                    case 22:
-                                      _context5.next = 24;
-                                      return this.localstorage.removeData('itemOrder');
-
-                                    case 24:
-                                      _context5.next = 26;
-                                      return this.localstorage.removeData('datacupon');
-
-                                    case 26:
-                                      this.router.navigate(['/tabs-cliente/tobook/successtobook']);
-                                      return _context5.abrupt("break", 28);
-
-                                    case 28:
-                                    case "end":
-                                      return _context5.stop();
-                                  }
-                                }
-                              }, _callee5, this);
-                            }));
-                          },
-                          error: function error(_error2) {
-                            _this156.loading.dismissLoader();
-
-                            console.error('There was an error!', _error2);
-
-                            _this156.snackBar.open('Sorry, an error occurred:' + _error2.menssage + 'Please try again', "Close", {
-                              horizontalPosition: "start",
-                              verticalPosition: "top"
-                            });
-                          }
-                        });
-                      }
-
-                      if (mobil == "no" && count == 0) {
-                        this.serviciotobook.checkout(idtoken, autenticacion_tipo, itemsinvaciosOrder, descuentoOrder, subtotal, user.email).subscribe({
-                          next: function next(data) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this156, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-                              var datos;
-                              return regeneratorRuntime.wrap(function _callee6$(_context6) {
-                                while (1) {
-                                  switch (_context6.prev = _context6.next) {
-                                    case 0:
-                                      datos = data;
-                                      this.loading.dismissLoader();
-                                      _context6.t0 = datos.respuesta;
-                                      _context6.next = _context6.t0 === 'ERROR' ? 5 : _context6.t0 === 'TOKEN ERROR' ? 10 : _context6.t0 === 'NO ENVIADOS' ? 15 : _context6.t0 === '200_OK' ? 22 : 28;
-                                      break;
-
-                                    case 5:
-                                      this.localstorage.clearData();
-                                      this.router.navigate(['/login']);
-                                      this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top"
-                                      });
-                                      console.log(data.mensaje);
-                                      return _context6.abrupt("break", 28);
-
-                                    case 10:
-                                      this.localstorage.clearData();
-                                      this.router.navigate(['/login']);
-                                      this.snackBar.open("Invalid or expired token,please login again", "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top"
-                                      });
-                                      console.log(data.mensaje);
-                                      return _context6.abrupt("break", 28);
-
-                                    case 15:
-                                      _context6.next = 17;
-                                      return this.localstorage.removeData('itemOrder');
-
-                                    case 17:
-                                      _context6.next = 19;
-                                      return this.localstorage.removeData('datacupon');
-
-                                    case 19:
-                                      this.router.navigate(['/tabs-cliente/tobook/mybooks']);
-                                      this.snackBar.open('Reservation completed', "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top"
-                                      });
-                                      return _context6.abrupt("break", 28);
-
-                                    case 22:
-                                      _context6.next = 24;
-                                      return this.localstorage.removeData('itemOrder');
-
-                                    case 24:
-                                      _context6.next = 26;
-                                      return this.localstorage.removeData('datacupon');
-
-                                    case 26:
-                                      this.router.navigate(['/tabs-cliente/tobook/successtobook']);
-                                      return _context6.abrupt("break", 28);
-
-                                    case 28:
-                                    case "end":
-                                      return _context6.stop();
-                                  }
-                                }
-                              }, _callee6, this);
-                            }));
-                          },
-                          error: function error(_error3) {
-                            _this156.loading.dismissLoader();
-
-                            console.error('There was an error!', _error3);
-
-                            _this156.snackBar.open('Sorry, an error occurred:' + _error3.menssage + 'Please try again', "Close", {
-                              horizontalPosition: "start",
-                              verticalPosition: "top"
-                            });
-                          }
-                        });
-                      }
-
-                    case 38:
+                    case 28:
                     case "end":
-                      return _context7.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee7, this);
+              }, _callee6, this);
             }));
           }
         }]);
@@ -53977,31 +54052,31 @@
               }]
             });
             this.localstorage.getData('usuario').then(function (val) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this157, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this157, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
                 var _this158 = this;
 
                 var user, idtoken, autenticacion_tipo;
-                return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                return regeneratorRuntime.wrap(function _callee9$(_context9) {
                   while (1) {
-                    switch (_context10.prev = _context10.next) {
+                    switch (_context9.prev = _context9.next) {
                       case 0:
                         user = JSON.parse(val);
-                        _context10.next = 3;
+                        _context9.next = 3;
                         return this.localstorage.getData('idtoken');
 
                       case 3:
-                        idtoken = _context10.sent;
-                        _context10.next = 6;
+                        idtoken = _context9.sent;
+                        _context9.next = 6;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 6:
-                        autenticacion_tipo = _context10.sent;
+                        autenticacion_tipo = _context9.sent;
                         this.serviciotobook.getSitiosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
                           next: function next(sitioscliente) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this158, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-                              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this158, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+                              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                                 while (1) {
-                                  switch (_context8.prev = _context8.next) {
+                                  switch (_context7.prev = _context7.next) {
                                     case 0:
                                       this.sitioscliente = sitioscliente;
                                       this.sitioscliente = Object.values(this.sitioscliente);
@@ -54009,11 +54084,52 @@
                                         return valor !== 'OK_DATA';
                                       }); //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
 
-                                      _context8.next = 5;
+                                      _context7.next = 5;
                                       return this.localstorage.setObject('formsitescliente', this.sitioscliente);
 
                                     case 5:
                                       console.log(this.sitioscliente);
+
+                                    case 6:
+                                    case "end":
+                                      return _context7.stop();
+                                  }
+                                }
+                              }, _callee7, this);
+                            }));
+                          },
+                          error: function error(_error3) {
+                            var errorMessage = _error3.message;
+                            console.error('There was an error!' + errorMessage);
+
+                            _this158.localstorage.clearData();
+
+                            _this158.router.navigate(['/login']);
+
+                            _this158.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                              horizontalPosition: "start",
+                              verticalPosition: "top"
+                            });
+                          }
+                        });
+                        this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+                          next: function next(vehiculoscliente) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this158, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+                              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                                while (1) {
+                                  switch (_context8.prev = _context8.next) {
+                                    case 0:
+                                      this.vehiculoscliente = vehiculoscliente;
+                                      this.vehiculoscliente = Object.values(this.vehiculoscliente);
+                                      this.vehiculoscliente = this.vehiculoscliente.filter(function (valor) {
+                                        return valor !== 'OK_DATA';
+                                      }); //localStorage.setItem('formvehiculoscliente', JSON.stringify(this.vehiculoscliente))
+
+                                      _context8.next = 5;
+                                      return this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
+
+                                    case 5:
+                                      console.log(this.vehiculoscliente);
 
                                     case 6:
                                     case "end":
@@ -54037,54 +54153,13 @@
                             });
                           }
                         });
-                        this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
-                          next: function next(vehiculoscliente) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this158, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-                              return regeneratorRuntime.wrap(function _callee9$(_context9) {
-                                while (1) {
-                                  switch (_context9.prev = _context9.next) {
-                                    case 0:
-                                      this.vehiculoscliente = vehiculoscliente;
-                                      this.vehiculoscliente = Object.values(this.vehiculoscliente);
-                                      this.vehiculoscliente = this.vehiculoscliente.filter(function (valor) {
-                                        return valor !== 'OK_DATA';
-                                      }); //localStorage.setItem('formvehiculoscliente', JSON.stringify(this.vehiculoscliente))
-
-                                      _context9.next = 5;
-                                      return this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
-
-                                    case 5:
-                                      console.log(this.vehiculoscliente);
-
-                                    case 6:
-                                    case "end":
-                                      return _context9.stop();
-                                  }
-                                }
-                              }, _callee9, this);
-                            }));
-                          },
-                          error: function error(_error5) {
-                            var errorMessage = _error5.message;
-                            console.error('There was an error!' + errorMessage);
-
-                            _this158.localstorage.clearData();
-
-                            _this158.router.navigate(['/login']);
-
-                            _this158.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
-                              horizontalPosition: "start",
-                              verticalPosition: "top"
-                            });
-                          }
-                        });
 
                       case 9:
                       case "end":
-                        return _context10.stop();
+                        return _context9.stop();
                     }
                   }
-                }, _callee10, this);
+                }, _callee9, this);
               }));
             }, function (err) {
               return console.log(err);
@@ -54093,15 +54168,15 @@
         }, {
           key: "submit",
           value: function submit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-              var power, water, ensitio, vehiculoid, siteid, diacita, date, dia, mesIndex, year, horacita, vehiculoscliente, _iterator3, _step3, vehiculocliente, nombreservicio, sitioscliente, _iterator4, _step4, sitecliente, location, price, cost, itemcart;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+              var power, water, ensitio, vehiculoid, siteid, diacita, date, dia, mesIndex, year, horacita, vehiculoscliente, _iterator2, _step2, vehiculocliente, nombreservicio, sitioscliente, _iterator3, _step3, sitecliente, location, price, cost, itemcart;
 
-              return regeneratorRuntime.wrap(function _callee11$(_context11) {
+              return regeneratorRuntime.wrap(function _callee10$(_context10) {
                 while (1) {
-                  switch (_context11.prev = _context11.next) {
+                  switch (_context10.prev = _context10.next) {
                     case 0:
                       if (!this.form_tobooksite.valid) {
-                        _context11.next = 53;
+                        _context10.next = 53;
                         break;
                       }
 
@@ -54112,7 +54187,7 @@
                       siteid = this.form_tobooksite.get("location").value;
 
                       if (!(siteid == 0 || vehiculoid == 0)) {
-                        _context11.next = 10;
+                        _context10.next = 10;
                         break;
                       }
 
@@ -54120,7 +54195,7 @@
                         horizontalPosition: "start",
                         verticalPosition: "top"
                       });
-                      _context11.next = 51;
+                      _context10.next = 51;
                       break;
 
                     case 10:
@@ -54138,19 +54213,19 @@
 
                       horacita = this.form_tobooksite.get("horacita").value; //datos del vehiculo seleccionado
 
-                      _context11.t0 = JSON;
-                      _context11.next = 20;
+                      _context10.t0 = JSON;
+                      _context10.next = 20;
                       return this.localstorage.getData('formvehiculoscliente');
 
                     case 20:
-                      _context11.t1 = _context11.sent;
-                      vehiculoscliente = _context11.t0.parse.call(_context11.t0, _context11.t1);
+                      _context10.t1 = _context10.sent;
+                      vehiculoscliente = _context10.t0.parse.call(_context10.t0, _context10.t1);
                       vehiculoscliente = Object.values(vehiculoscliente);
-                      _iterator3 = _createForOfIteratorHelper(vehiculoscliente);
+                      _iterator2 = _createForOfIteratorHelper(vehiculoscliente);
 
                       try {
-                        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-                          vehiculocliente = _step3.value;
+                        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                          vehiculocliente = _step2.value;
 
                           if (vehiculocliente.id == vehiculoid) {
                             this.vehicle = vehiculocliente;
@@ -54158,36 +54233,36 @@
                         } //datos del servicio
 
                       } catch (err) {
-                        _iterator3.e(err);
+                        _iterator2.e(err);
                       } finally {
-                        _iterator3.f();
+                        _iterator2.f();
                       }
 
-                      _context11.t2 = JSON;
-                      _context11.next = 28;
+                      _context10.t2 = JSON;
+                      _context10.next = 28;
                       return this.localstorage.getData('servicio');
 
                     case 28:
-                      _context11.t3 = _context11.sent;
-                      this.servicio = _context11.t2.parse.call(_context11.t2, _context11.t3);
-                      _context11.next = 32;
+                      _context10.t3 = _context10.sent;
+                      this.servicio = _context10.t2.parse.call(_context10.t2, _context10.t3);
+                      _context10.next = 32;
                       return this.localstorage.getData('tipolavado');
 
                     case 32:
-                      nombreservicio = _context11.sent;
-                      _context11.t4 = JSON;
-                      _context11.next = 36;
+                      nombreservicio = _context10.sent;
+                      _context10.t4 = JSON;
+                      _context10.next = 36;
                       return this.localstorage.getData('formsitescliente');
 
                     case 36:
-                      _context11.t5 = _context11.sent;
-                      sitioscliente = _context11.t4.parse.call(_context11.t4, _context11.t5);
+                      _context10.t5 = _context10.sent;
+                      sitioscliente = _context10.t4.parse.call(_context10.t4, _context10.t5);
                       sitioscliente = Object.values(sitioscliente);
-                      _iterator4 = _createForOfIteratorHelper(this.sitioscliente);
+                      _iterator3 = _createForOfIteratorHelper(this.sitioscliente);
 
                       try {
-                        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                          sitecliente = _step4.value;
+                        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                          sitecliente = _step3.value;
 
                           if (sitecliente.id == siteid) {
                             this.site = sitecliente;
@@ -54196,21 +54271,21 @@
                         } // datos precios
 
                       } catch (err) {
-                        _iterator4.e(err);
+                        _iterator3.e(err);
                       } finally {
-                        _iterator4.f();
+                        _iterator3.f();
                       }
 
-                      _context11.next = 43;
+                      _context10.next = 43;
                       return this.localstorage.getData('precio_mobil$');
 
                     case 43:
-                      price = _context11.sent;
-                      _context11.next = 46;
+                      price = _context10.sent;
+                      _context10.next = 46;
                       return this.localstorage.getData('preciomobiln');
 
                     case 46:
-                      cost = _context11.sent;
+                      cost = _context10.sent;
                       itemcart = {
                         donde: 2,
                         sitioid: siteid,
@@ -54229,14 +54304,14 @@
                         ensitio: ensitio
                       }; //localStorage.setItem('itemcart', JSON.stringify(itemcart))
 
-                      _context11.next = 50;
+                      _context10.next = 50;
                       return this.localstorage.setObject('itemcart', itemcart);
 
                     case 50:
                       this.router.navigate(['/tabs-cliente/tobook/cart/']);
 
                     case 51:
-                      _context11.next = 54;
+                      _context10.next = 54;
                       break;
 
                     case 53:
@@ -54247,10 +54322,10 @@
 
                     case 54:
                     case "end":
-                      return _context11.stop();
+                      return _context10.stop();
                   }
                 }
-              }, _callee11, this);
+              }, _callee10, this);
             }));
           }
         }, {
@@ -54262,10 +54337,10 @@
               this.dialogo.open(_dialogositio_dialogositio_component__WEBPACK_IMPORTED_MODULE_5__.DialogositioComponent, {
                 data: "Add a new location"
               }).afterClosed().subscribe(function (confirmar) {
-                return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this159, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-                  return regeneratorRuntime.wrap(function _callee12$(_context12) {
+                return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this159, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+                  return regeneratorRuntime.wrap(function _callee11$(_context11) {
                     while (1) {
-                      switch (_context12.prev = _context12.next) {
+                      switch (_context11.prev = _context11.next) {
                         case 0:
                           if (confirmar) {
                             this.etiqueta1 = 'Unit number: ' + confirmar.location;
@@ -54279,10 +54354,10 @@
 
                         case 1:
                         case "end":
-                          return _context12.stop();
+                          return _context11.stop();
                       }
                     }
-                  }, _callee12, this);
+                  }, _callee11, this);
                 }));
               });
             }
@@ -54296,10 +54371,10 @@
               this.dialogo.open(_dialogaddvehiculo_dialogaddvehiculo_component__WEBPACK_IMPORTED_MODULE_4__.DialogaddvehiculoComponent, {
                 data: "Add a new vehicle to the fleet"
               }).afterClosed().subscribe(function (confirmar) {
-                return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this160, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-                  return regeneratorRuntime.wrap(function _callee13$(_context13) {
+                return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this160, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+                  return regeneratorRuntime.wrap(function _callee12$(_context12) {
                     while (1) {
-                      switch (_context13.prev = _context13.next) {
+                      switch (_context12.prev = _context12.next) {
                         case 0:
                           if (confirmar) {
                             this.etiqueta2 = 'Unit number: ' + confirmar.vehiculo;
@@ -54313,10 +54388,10 @@
 
                         case 1:
                         case "end":
-                          return _context13.stop();
+                          return _context12.stop();
                       }
                     }
-                  }, _callee13, this);
+                  }, _callee12, this);
                 }));
               });
             }
@@ -54563,31 +54638,31 @@
               }]
             });
             this.localstorage.getData('usuario').then(function (val) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this162, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this162, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
                 var _this163 = this;
 
                 var user, idtoken, autenticacion_tipo;
-                return regeneratorRuntime.wrap(function _callee16$(_context16) {
+                return regeneratorRuntime.wrap(function _callee15$(_context15) {
                   while (1) {
-                    switch (_context16.prev = _context16.next) {
+                    switch (_context15.prev = _context15.next) {
                       case 0:
                         user = JSON.parse(val);
-                        _context16.next = 3;
+                        _context15.next = 3;
                         return this.localstorage.getData('idtoken');
 
                       case 3:
-                        idtoken = _context16.sent;
-                        _context16.next = 6;
+                        idtoken = _context15.sent;
+                        _context15.next = 6;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 6:
-                        autenticacion_tipo = _context16.sent;
+                        autenticacion_tipo = _context15.sent;
                         this.serviciotobook.getSitiosYard(idtoken, autenticacion_tipo).subscribe({
                           next: function next(sitiosyard) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this163, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-                              return regeneratorRuntime.wrap(function _callee14$(_context14) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this163, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+                              return regeneratorRuntime.wrap(function _callee13$(_context13) {
                                 while (1) {
-                                  switch (_context14.prev = _context14.next) {
+                                  switch (_context13.prev = _context13.next) {
                                     case 0:
                                       this.sitiosyard = sitiosyard;
                                       this.sitiosyard = Object.values(this.sitiosyard);
@@ -54595,11 +54670,51 @@
                                         return valor !== 'OK_DATA';
                                       }); //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
 
-                                      _context14.next = 5;
+                                      _context13.next = 5;
                                       return this.localstorage.setObject('formsitesyard', this.sitiosyard);
 
                                     case 5:
                                       console.log(this.sitiosyard);
+
+                                    case 6:
+                                    case "end":
+                                      return _context13.stop();
+                                  }
+                                }
+                              }, _callee13, this);
+                            }));
+                          },
+                          error: function error(_error5) {
+                            var errorMessage = _error5.message;
+                            console.error('There was an error!' + errorMessage);
+
+                            _this163.localstorage.clearData();
+
+                            _this163.router.navigate(['/login']);
+
+                            _this163.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                              horizontalPosition: "start",
+                              verticalPosition: "top"
+                            });
+                          }
+                        });
+                        this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+                          next: function next(vehiculoscliente) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this163, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+                              return regeneratorRuntime.wrap(function _callee14$(_context14) {
+                                while (1) {
+                                  switch (_context14.prev = _context14.next) {
+                                    case 0:
+                                      this.vehiculoscliente = vehiculoscliente;
+                                      this.vehiculoscliente = Object.values(this.vehiculoscliente);
+                                      this.vehiculoscliente = this.vehiculoscliente.filter(function (valor) {
+                                        return valor !== 'OK_DATA';
+                                      });
+                                      _context14.next = 5;
+                                      return this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
+
+                                    case 5:
+                                      console.log(this.vehiculoscliente);
 
                                     case 6:
                                     case "end":
@@ -54617,46 +54732,6 @@
 
                             _this163.router.navigate(['/login']);
 
-                            _this163.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
-                              horizontalPosition: "start",
-                              verticalPosition: "top"
-                            });
-                          }
-                        });
-                        this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
-                          next: function next(vehiculoscliente) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this163, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
-                              return regeneratorRuntime.wrap(function _callee15$(_context15) {
-                                while (1) {
-                                  switch (_context15.prev = _context15.next) {
-                                    case 0:
-                                      this.vehiculoscliente = vehiculoscliente;
-                                      this.vehiculoscliente = Object.values(this.vehiculoscliente);
-                                      this.vehiculoscliente = this.vehiculoscliente.filter(function (valor) {
-                                        return valor !== 'OK_DATA';
-                                      });
-                                      _context15.next = 5;
-                                      return this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
-
-                                    case 5:
-                                      console.log(this.vehiculoscliente);
-
-                                    case 6:
-                                    case "end":
-                                      return _context15.stop();
-                                  }
-                                }
-                              }, _callee15, this);
-                            }));
-                          },
-                          error: function error(_error7) {
-                            var errorMessage = _error7.message;
-                            console.error('There was an error!' + errorMessage);
-
-                            _this163.localstorage.clearData();
-
-                            _this163.router.navigate(['/login']);
-
                             _this163.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
@@ -54666,10 +54741,10 @@
 
                       case 9:
                       case "end":
-                        return _context16.stop();
+                        return _context15.stop();
                     }
                   }
-                }, _callee16, this);
+                }, _callee15, this);
               }));
             }, function (err) {
               return console.log(err);
@@ -54679,8 +54754,8 @@
                 _this162.p = diasprohibidos;
                 console.log(_this162.p);
               },
-              error: function error(_error8) {
-                var errorMessage = _error8.message;
+              error: function error(_error7) {
+                var errorMessage = _error7.message;
 
                 _this162.localstorage.clearData();
 
@@ -54698,21 +54773,21 @@
         }, {
           key: "submit",
           value: function submit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
-              var vehiculoid, diacita, date, dia, mesIndex, year, horacita, vehiculoscliente, _iterator5, _step5, vehiculocliente, nombreservicio, location, price, cost, itemcart;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+              var vehiculoid, diacita, date, dia, mesIndex, year, horacita, vehiculoscliente, _iterator4, _step4, vehiculocliente, nombreservicio, location, price, cost, itemcart;
 
-              return regeneratorRuntime.wrap(function _callee17$(_context17) {
+              return regeneratorRuntime.wrap(function _callee16$(_context16) {
                 while (1) {
-                  switch (_context17.prev = _context17.next) {
+                  switch (_context16.prev = _context16.next) {
                     case 0:
                       if (!this.form_tobookyarda.valid) {
-                        _context17.next = 43;
+                        _context16.next = 43;
                         break;
                       }
 
                       vehiculoid = this.form_tobookyarda.get("vehicle").value;
-                      _context17.t0 = vehiculoid;
-                      _context17.next = _context17.t0 === 0 ? 5 : 7;
+                      _context16.t0 = vehiculoid;
+                      _context16.next = _context16.t0 === 0 ? 5 : 7;
                       break;
 
                     case 5:
@@ -54720,7 +54795,7 @@
                         horizontalPosition: "start",
                         verticalPosition: "top"
                       });
-                      return _context17.abrupt("break", 41);
+                      return _context16.abrupt("break", 41);
 
                     case 7:
                       diacita = this.form_tobookyarda.get("diacita").value;
@@ -54737,19 +54812,19 @@
 
                       horacita = this.form_tobookyarda.get("horacita").value; //datos del vehiculo seleccionado
 
-                      _context17.t1 = JSON;
-                      _context17.next = 17;
+                      _context16.t1 = JSON;
+                      _context16.next = 17;
                       return this.localstorage.getData('formvehiculoscliente');
 
                     case 17:
-                      _context17.t2 = _context17.sent;
-                      vehiculoscliente = _context17.t1.parse.call(_context17.t1, _context17.t2);
+                      _context16.t2 = _context16.sent;
+                      vehiculoscliente = _context16.t1.parse.call(_context16.t1, _context16.t2);
                       vehiculoscliente = Object.values(vehiculoscliente);
-                      _iterator5 = _createForOfIteratorHelper(vehiculoscliente);
+                      _iterator4 = _createForOfIteratorHelper(vehiculoscliente);
 
                       try {
-                        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-                          vehiculocliente = _step5.value;
+                        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                          vehiculocliente = _step4.value;
 
                           if (vehiculocliente.id == vehiculoid) {
                             this.vehicle = vehiculocliente;
@@ -54757,36 +54832,36 @@
                         } //datos del servicio
 
                       } catch (err) {
-                        _iterator5.e(err);
+                        _iterator4.e(err);
                       } finally {
-                        _iterator5.f();
+                        _iterator4.f();
                       }
 
-                      _context17.t3 = JSON;
-                      _context17.next = 25;
+                      _context16.t3 = JSON;
+                      _context16.next = 25;
                       return this.localstorage.getData('servicio');
 
                     case 25:
-                      _context17.t4 = _context17.sent;
-                      this.servicio = _context17.t3.parse.call(_context17.t3, _context17.t4);
-                      _context17.next = 29;
+                      _context16.t4 = _context16.sent;
+                      this.servicio = _context16.t3.parse.call(_context16.t3, _context16.t4);
+                      _context16.next = 29;
                       return this.localstorage.getData('tipolavado');
 
                     case 29:
-                      nombreservicio = _context17.sent;
+                      nombreservicio = _context16.sent;
                       // datos localizacio 
                       location = this.form_tobookyarda.get("yard").value; // datos precios
 
-                      _context17.next = 33;
+                      _context16.next = 33;
                       return this.localstorage.getData('precio_yarda$');
 
                     case 33:
-                      price = _context17.sent;
-                      _context17.next = 36;
+                      price = _context16.sent;
+                      _context16.next = 36;
                       return this.localstorage.getData('precioyardan');
 
                     case 36:
-                      cost = _context17.sent;
+                      cost = _context16.sent;
                       //  alert(this.servicio.name + nombreservicio + location + price + cost)
                       itemcart = {
                         donde: 1,
@@ -54802,14 +54877,14 @@
                         price: price,
                         cost: cost
                       };
-                      _context17.next = 40;
+                      _context16.next = 40;
                       return this.localstorage.setObject('itemcart', itemcart);
 
                     case 40:
                       this.router.navigate(['/tabs-cliente/tobook/cart/']);
 
                     case 41:
-                      _context17.next = 44;
+                      _context16.next = 44;
                       break;
 
                     case 43:
@@ -54820,10 +54895,10 @@
 
                     case 44:
                     case "end":
-                      return _context17.stop();
+                      return _context16.stop();
                   }
                 }
-              }, _callee17, this);
+              }, _callee16, this);
             }));
           }
         }, {
@@ -54835,10 +54910,10 @@
               this.dialogo.open(_dialogaddvehiculo_dialogaddvehiculo_component__WEBPACK_IMPORTED_MODULE_4__.DialogaddvehiculoComponent, {
                 data: "Add a new vehicle to the fleet"
               }).afterClosed().subscribe(function (confirmar) {
-                return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this164, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
-                  return regeneratorRuntime.wrap(function _callee18$(_context18) {
+                return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(_this164, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+                  return regeneratorRuntime.wrap(function _callee17$(_context17) {
                     while (1) {
-                      switch (_context18.prev = _context18.next) {
+                      switch (_context17.prev = _context17.next) {
                         case 0:
                           if (confirmar) {
                             this.etiquetax = 'Unit number: ' + confirmar.vehiculo;
@@ -54852,10 +54927,10 @@
 
                         case 1:
                         case "end":
-                          return _context18.stop();
+                          return _context17.stop();
                       }
                     }
-                  }, _callee18, this);
+                  }, _callee17, this);
                 }));
               });
             }
@@ -54993,31 +55068,31 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
               var _this165 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee19$(_context19) {
+              return regeneratorRuntime.wrap(function _callee18$(_context18) {
                 while (1) {
-                  switch (_context19.prev = _context19.next) {
+                  switch (_context18.prev = _context18.next) {
                     case 0:
-                      _context19.t0 = JSON;
-                      _context19.next = 3;
+                      _context18.t0 = JSON;
+                      _context18.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context19.t1 = _context19.sent;
-                      user = _context19.t0.parse.call(_context19.t0, _context19.t1);
-                      _context19.next = 7;
+                      _context18.t1 = _context18.sent;
+                      user = _context18.t0.parse.call(_context18.t0, _context18.t1);
+                      _context18.next = 7;
                       return this.localstorage.getData('idtoken');
 
                     case 7:
-                      idtoken = _context19.sent;
-                      _context19.next = 10;
+                      idtoken = _context18.sent;
+                      _context18.next = 10;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 10:
-                      autenticacion_tipo = _context19.sent;
+                      autenticacion_tipo = _context18.sent;
 
                       if (user) {
                         this.loading.simpleLoader();
@@ -55085,11 +55160,11 @@
 
                             }
                           },
-                          error: function error(_error9) {
+                          error: function error(_error8) {
                             _this165.loading.dismissLoader();
 
                             if ($event) $event.target.complete();
-                            var errorMessage = _error9.message;
+                            var errorMessage = _error8.message;
                             console.error('There was an error!', errorMessage);
 
                             _this165.localstorage.clearData();
@@ -55114,10 +55189,10 @@
 
                     case 12:
                     case "end":
-                      return _context19.stop();
+                      return _context18.stop();
                   }
                 }
-              }, _callee19, this);
+              }, _callee18, this);
             }));
           }
         }]);
@@ -55256,13 +55331,13 @@
         _createClass(DialogaddvehiculoComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
               var _this166 = this;
 
               var idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee20$(_context20) {
+              return regeneratorRuntime.wrap(function _callee19$(_context19) {
                 while (1) {
-                  switch (_context20.prev = _context20.next) {
+                  switch (_context19.prev = _context19.next) {
                     case 0:
                       this.form_truck = this.formBuilder.group({
                         model: [, {
@@ -55287,16 +55362,16 @@
                           validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
                         }]
                       });
-                      _context20.next = 3;
+                      _context19.next = 3;
                       return this.localstorage.getData('idtoken');
 
                     case 3:
-                      idtoken = _context20.sent;
-                      _context20.next = 6;
+                      idtoken = _context19.sent;
+                      _context19.next = 6;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 6:
-                      autenticacion_tipo = _context20.sent;
+                      autenticacion_tipo = _context19.sent;
                       this.serviciostobook.getFormtipovehiculos(idtoken, autenticacion_tipo).subscribe({
                         next: function next(vehicletypes) {
                           _this166.vehicletypes = vehicletypes;
@@ -55306,8 +55381,8 @@
                           });
                           console.log(_this166.vehicletypes);
                         },
-                        error: function error(_error10) {
-                          var errorMessage = _error10.message;
+                        error: function error(_error9) {
+                          var errorMessage = _error9.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this166.localstorage.clearData();
@@ -55329,8 +55404,8 @@
                           });
                           console.log(_this166.tipodetalles);
                         },
-                        error: function error(_error11) {
-                          var errorMessage = _error11.message;
+                        error: function error(_error10) {
+                          var errorMessage = _error10.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this166.localstorage.clearData();
@@ -55346,45 +55421,45 @@
 
                     case 9:
                     case "end":
-                      return _context20.stop();
+                      return _context19.stop();
                   }
                 }
-              }, _callee20, this);
+              }, _callee19, this);
             }));
           }
         }, {
           key: "enviar",
           value: function enviar() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
               var _this167 = this;
 
               var user, idtoken, autenticacion_tipo, model, mark, unitnumber, licenseplate, color, detail, defaults, vehicletypes;
-              return regeneratorRuntime.wrap(function _callee22$(_context22) {
+              return regeneratorRuntime.wrap(function _callee21$(_context21) {
                 while (1) {
-                  switch (_context22.prev = _context22.next) {
+                  switch (_context21.prev = _context21.next) {
                     case 0:
                       if (!this.form_truck.valid) {
-                        _context22.next = 23;
+                        _context21.next = 23;
                         break;
                       }
 
-                      _context22.t0 = JSON;
-                      _context22.next = 4;
+                      _context21.t0 = JSON;
+                      _context21.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context22.t1 = _context22.sent;
-                      user = _context22.t0.parse.call(_context22.t0, _context22.t1);
-                      _context22.next = 8;
+                      _context21.t1 = _context21.sent;
+                      user = _context21.t0.parse.call(_context21.t0, _context21.t1);
+                      _context21.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context22.sent;
-                      _context22.next = 11;
+                      idtoken = _context21.sent;
+                      _context21.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context22.sent;
+                      autenticacion_tipo = _context21.sent;
                       model = this.form_truck.get("model").value;
                       mark = this.form_truck.get("mark").value;
                       unitnumber = this.form_truck.get("unitnumber").value;
@@ -55407,13 +55482,13 @@
                         vehicletypes: vehicletypes
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this167, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
-                            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this167, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+                            return regeneratorRuntime.wrap(function _callee20$(_context20) {
                               while (1) {
-                                switch (_context21.prev = _context21.next) {
+                                switch (_context20.prev = _context20.next) {
                                   case 0:
-                                    _context21.t0 = data.respuesta;
-                                    _context21.next = _context21.t0 === 'ERROR' ? 3 : _context21.t0 === 'TOKEN ERROR' ? 7 : _context21.t0 === 'OK_TRUCK' ? 12 : 14;
+                                    _context20.t0 = data.respuesta;
+                                    _context20.next = _context20.t0 === 'ERROR' ? 3 : _context20.t0 === 'TOKEN ERROR' ? 7 : _context20.t0 === 'OK_TRUCK' ? 12 : 14;
                                     break;
 
                                   case 3:
@@ -55423,7 +55498,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context21.abrupt("break", 14);
+                                    return _context20.abrupt("break", 14);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -55433,22 +55508,22 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context21.abrupt("break", 14);
+                                    return _context20.abrupt("break", 14);
 
                                   case 12:
                                     this.dialogo.close(data);
-                                    return _context21.abrupt("break", 14);
+                                    return _context20.abrupt("break", 14);
 
                                   case 14:
                                   case "end":
-                                    return _context21.stop();
+                                    return _context20.stop();
                                 }
                               }
-                            }, _callee21, this);
+                            }, _callee20, this);
                           }));
                         },
-                        error: function error(_error12) {
-                          var errorMessage = _error12.message;
+                        error: function error(_error11) {
+                          var errorMessage = _error11.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this167.localstorage.clearData();
@@ -55461,7 +55536,7 @@
                           });
                         }
                       });
-                      _context22.next = 24;
+                      _context21.next = 24;
                       break;
 
                     case 23:
@@ -55472,10 +55547,10 @@
 
                     case 24:
                     case "end":
-                      return _context22.stop();
+                      return _context21.stop();
                   }
                 }
-              }, _callee22, this);
+              }, _callee21, this);
             }));
           }
         }, {
@@ -55864,13 +55939,13 @@
         _createClass(DialogositioComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
               var _this168 = this;
 
               var idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee23$(_context23) {
+              return regeneratorRuntime.wrap(function _callee22$(_context22) {
                 while (1) {
-                  switch (_context23.prev = _context23.next) {
+                  switch (_context22.prev = _context22.next) {
                     case 0:
                       this.form_site = this.formBuilder.group({
                         suite: [, {
@@ -55892,16 +55967,16 @@
                           validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
                         }]
                       });
-                      _context23.next = 3;
+                      _context22.next = 3;
                       return this.localstorage.getData('idtoken');
 
                     case 3:
-                      idtoken = _context23.sent;
-                      _context23.next = 6;
+                      idtoken = _context22.sent;
+                      _context22.next = 6;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 6:
-                      autenticacion_tipo = _context23.sent;
+                      autenticacion_tipo = _context22.sent;
                       this.serviciostobook.getFormciudades(idtoken, autenticacion_tipo).subscribe({
                         next: function next(cities) {
                           _this168.cities = cities;
@@ -55911,8 +55986,8 @@
                           });
                           console.log(_this168.cities);
                         },
-                        error: function error(_error13) {
-                          var errorMessage = _error13.message;
+                        error: function error(_error12) {
+                          var errorMessage = _error12.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this168.localstorage.clearData();
@@ -55934,8 +56009,8 @@
                           });
                           console.log(_this168.cities);
                         },
-                        error: function error(_error14) {
-                          var errorMessage = _error14.message;
+                        error: function error(_error13) {
+                          var errorMessage = _error13.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this168.localstorage.clearData();
@@ -55951,45 +56026,45 @@
 
                     case 9:
                     case "end":
-                      return _context23.stop();
+                      return _context22.stop();
                   }
                 }
-              }, _callee23, this);
+              }, _callee22, this);
             }));
           }
         }, {
           key: "enviar",
           value: function enviar() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
               var _this169 = this;
 
               var user, idtoken, autenticacion_tipo, suite, street, address, zip, state, city, defaults;
-              return regeneratorRuntime.wrap(function _callee25$(_context25) {
+              return regeneratorRuntime.wrap(function _callee24$(_context24) {
                 while (1) {
-                  switch (_context25.prev = _context25.next) {
+                  switch (_context24.prev = _context24.next) {
                     case 0:
                       if (!this.form_site.valid) {
-                        _context25.next = 23;
+                        _context24.next = 23;
                         break;
                       }
 
-                      _context25.t0 = JSON;
-                      _context25.next = 4;
+                      _context24.t0 = JSON;
+                      _context24.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context25.t1 = _context25.sent;
-                      user = _context25.t0.parse.call(_context25.t0, _context25.t1);
-                      _context25.next = 8;
+                      _context24.t1 = _context24.sent;
+                      user = _context24.t0.parse.call(_context24.t0, _context24.t1);
+                      _context24.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context25.sent;
-                      _context25.next = 11;
+                      idtoken = _context24.sent;
+                      _context24.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context25.sent;
+                      autenticacion_tipo = _context24.sent;
                       suite = this.form_site.get("suite").value;
                       street = this.form_site.get("street").value;
                       address = this.form_site.get("address").value;
@@ -56010,14 +56085,14 @@
                         defaults: defaults
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this169, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this169, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
                             var tiporeservacion;
-                            return regeneratorRuntime.wrap(function _callee24$(_context24) {
+                            return regeneratorRuntime.wrap(function _callee23$(_context23) {
                               while (1) {
-                                switch (_context24.prev = _context24.next) {
+                                switch (_context23.prev = _context23.next) {
                                   case 0:
-                                    _context24.t0 = data.respuesta;
-                                    _context24.next = _context24.t0 === 'ERROR' ? 3 : _context24.t0 === 'TOKEN ERROR' ? 7 : _context24.t0 === 'OK_TODO' ? 12 : 27;
+                                    _context23.t0 = data.respuesta;
+                                    _context23.next = _context23.t0 === 'ERROR' ? 3 : _context23.t0 === 'TOKEN ERROR' ? 7 : _context23.t0 === 'OK_TODO' ? 12 : 27;
                                     break;
 
                                   case 3:
@@ -56027,7 +56102,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context24.abrupt("break", 27);
+                                    return _context23.abrupt("break", 27);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -56037,47 +56112,47 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context24.abrupt("break", 27);
+                                    return _context23.abrupt("break", 27);
 
                                   case 12:
-                                    _context24.next = 14;
+                                    _context23.next = 14;
                                     return this.localstorage.getData('tiporeservacion');
 
                                   case 14:
-                                    tiporeservacion = _context24.sent;
-                                    _context24.t1 = tiporeservacion;
-                                    _context24.next = _context24.t1 === 'citamobil' ? 18 : _context24.t1 === 'citayarda' ? 22 : 26;
+                                    tiporeservacion = _context23.sent;
+                                    _context23.t1 = tiporeservacion;
+                                    _context23.next = _context23.t1 === 'citamobil' ? 18 : _context23.t1 === 'citayarda' ? 22 : 26;
                                     break;
 
                                   case 18:
                                     this.router.navigate(['/tabs-cliente/tobook/citamobil']);
-                                    _context24.next = 21;
+                                    _context23.next = 21;
                                     return this.localstorage.removeData('tiporeservacion');
 
                                   case 21:
-                                    return _context24.abrupt("break", 26);
+                                    return _context23.abrupt("break", 26);
 
                                   case 22:
                                     this.router.navigate(['/tabs-cliente/tobook/citayarda']);
-                                    _context24.next = 25;
+                                    _context23.next = 25;
                                     return this.localstorage.removeData('tiporeservacion');
 
                                   case 25:
-                                    return _context24.abrupt("break", 26);
+                                    return _context23.abrupt("break", 26);
 
                                   case 26:
-                                    return _context24.abrupt("break", 27);
+                                    return _context23.abrupt("break", 27);
 
                                   case 27:
                                   case "end":
-                                    return _context24.stop();
+                                    return _context23.stop();
                                 }
                               }
-                            }, _callee24, this);
+                            }, _callee23, this);
                           }));
                         },
-                        error: function error(_error15) {
-                          var errorMessage = _error15.message;
+                        error: function error(_error14) {
+                          var errorMessage = _error14.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this169.localstorage.clearData();
@@ -56091,7 +56166,7 @@
                         }
                       });
                       console.log(this.form_site.value);
-                      _context25.next = 24;
+                      _context24.next = 24;
                       break;
 
                     case 23:
@@ -56102,10 +56177,10 @@
 
                     case 24:
                     case "end":
-                      return _context25.stop();
+                      return _context24.stop();
                   }
                 }
-              }, _callee25, this);
+              }, _callee24, this);
             }));
           }
         }, {
@@ -56252,13 +56327,13 @@
         _createClass(DialogreservacionComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
               var _this170 = this;
 
               var formatter$, date, dia, idtoken, autenticacion_tipo, precio, preciomobil;
-              return regeneratorRuntime.wrap(function _callee27$(_context27) {
+              return regeneratorRuntime.wrap(function _callee26$(_context26) {
                 while (1) {
-                  switch (_context27.prev = _context27.next) {
+                  switch (_context26.prev = _context26.next) {
                     case 0:
                       this.loading.simpleLoader();
                       formatter$ = new Intl.NumberFormat('en-US', {
@@ -56268,86 +56343,103 @@
                       });
                       date = new Date();
                       dia = date.getDay();
-                      _context27.t0 = dia;
-                      _context27.next = _context27.t0 === 0 ? 7 : _context27.t0 === 1 ? 9 : _context27.t0 === 2 ? 11 : _context27.t0 === 3 ? 13 : _context27.t0 === 4 ? 15 : _context27.t0 === 5 ? 17 : _context27.t0 === 6 ? 19 : 21;
+                      _context26.t0 = dia;
+                      _context26.next = _context26.t0 === 0 ? 7 : _context26.t0 === 1 ? 9 : _context26.t0 === 2 ? 11 : _context26.t0 === 3 ? 13 : _context26.t0 === 4 ? 15 : _context26.t0 === 5 ? 17 : _context26.t0 === 6 ? 19 : 21;
                       break;
 
                     case 7:
                       this.diasemana = 'sunday';
-                      return _context27.abrupt("break", 21);
+                      return _context26.abrupt("break", 21);
 
                     case 9:
                       this.diasemana = 'monday';
-                      return _context27.abrupt("break", 21);
+                      return _context26.abrupt("break", 21);
 
                     case 11:
                       this.diasemana = 'tuesday';
-                      return _context27.abrupt("break", 21);
+                      return _context26.abrupt("break", 21);
 
                     case 13:
                       this.diasemana = 'wednesday';
-                      return _context27.abrupt("break", 21);
+                      return _context26.abrupt("break", 21);
 
                     case 15:
                       this.diasemana = 'thursday';
-                      return _context27.abrupt("break", 21);
+                      return _context26.abrupt("break", 21);
 
                     case 17:
                       this.diasemana = 'friday';
-                      return _context27.abrupt("break", 21);
+                      return _context26.abrupt("break", 21);
 
                     case 19:
                       this.diasemana = 'saturday';
-                      return _context27.abrupt("break", 21);
+                      return _context26.abrupt("break", 21);
 
                     case 21:
-                      _context27.next = 23;
+                      _context26.next = 23;
                       return this.localstorage.getData('idtoken');
 
                     case 23:
-                      idtoken = _context27.sent;
-                      _context27.next = 26;
+                      idtoken = _context26.sent;
+                      _context26.next = 26;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 26:
-                      autenticacion_tipo = _context27.sent;
-                      _context27.t1 = parseInt;
-                      _context27.next = 30;
+                      autenticacion_tipo = _context26.sent;
+                      _context26.t1 = parseInt;
+                      _context26.next = 30;
                       return this.localstorage.getData('washprecio');
 
                     case 30:
-                      _context27.t2 = _context27.sent;
-                      precio = (0, _context27.t1)(_context27.t2);
-                      _context27.t3 = parseInt;
-                      _context27.next = 35;
+                      _context26.t2 = _context26.sent;
+                      precio = (0, _context26.t1)(_context26.t2);
+                      _context26.t3 = parseInt;
+                      _context26.next = 35;
                       return this.localstorage.getData('washpreciomobil');
 
                     case 35:
-                      _context27.t4 = _context27.sent;
-                      preciomobil = (0, _context27.t3)(_context27.t4);
+                      _context26.t4 = _context26.sent;
+                      preciomobil = (0, _context26.t3)(_context26.t4);
                       this.serviciostobook.getDescuentoRecargos(idtoken, autenticacion_tipo).subscribe({
                         next: function next(descuentos_recargos) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this170, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
-                            var _iterator6, _step6, descuentorecargo, precioyarda, _iterator7, _step7, _descuentorecargo, preciomobilx;
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this170, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
+                            var _iterator5, _step5, descuentorecargo, precioyarda, _iterator6, _step6, _descuentorecargo, preciomobilx;
 
-                            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+                            return regeneratorRuntime.wrap(function _callee25$(_context25) {
                               while (1) {
-                                switch (_context26.prev = _context26.next) {
+                                switch (_context25.prev = _context25.next) {
                                   case 0:
                                     this.descuentos_recargos = descuentos_recargos;
                                     this.descuentos_recargos = Object.values(this.descuentos_recargos);
                                     this.descuentos_recargos = this.descuentos_recargos.filter(function (valor) {
                                       return valor !== 'OK_DATA';
                                     });
-                                    _iterator6 = _createForOfIteratorHelper(this.descuentos_recargos);
+                                    _iterator5 = _createForOfIteratorHelper(this.descuentos_recargos);
 
                                     try {
-                                      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-                                        descuentorecargo = _step6.value;
+                                      for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+                                        descuentorecargo = _step5.value;
 
                                         if (descuentorecargo.tipocita == 'citayarda' && descuentorecargo.dia == this.diasemana) {
                                           precioyarda = precio + precio * descuentorecargo.recargo / 100 - precio * descuentorecargo.descuento / 100;
                                           this.precio_yarda = formatter$.format(precioyarda);
+                                        }
+                                      }
+                                    } catch (err) {
+                                      _iterator5.e(err);
+                                    } finally {
+                                      _iterator5.f();
+                                    }
+
+                                    _iterator6 = _createForOfIteratorHelper(this.descuentos_recargos);
+
+                                    try {
+                                      for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+                                        _descuentorecargo = _step6.value;
+
+                                        if (_descuentorecargo.tipocita == 'citamobil' && _descuentorecargo.dia == this.diasemana) {
+                                          preciomobilx = preciomobil + preciomobil * _descuentorecargo.recargo / 100 - preciomobil * _descuentorecargo.descuento / 100;
+                                          this.precio_mobil = formatter$.format(preciomobilx);
                                         }
                                       }
                                     } catch (err) {
@@ -56356,36 +56448,19 @@
                                       _iterator6.f();
                                     }
 
-                                    _iterator7 = _createForOfIteratorHelper(this.descuentos_recargos);
-
-                                    try {
-                                      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-                                        _descuentorecargo = _step7.value;
-
-                                        if (_descuentorecargo.tipocita == 'citamobil' && _descuentorecargo.dia == this.diasemana) {
-                                          preciomobilx = preciomobil + preciomobil * _descuentorecargo.recargo / 100 - preciomobil * _descuentorecargo.descuento / 100;
-                                          this.precio_mobil = formatter$.format(preciomobilx);
-                                        }
-                                      }
-                                    } catch (err) {
-                                      _iterator7.e(err);
-                                    } finally {
-                                      _iterator7.f();
-                                    }
-
-                                    _context26.next = 9;
+                                    _context25.next = 9;
                                     return this.localstorage.setData('precioyardan', precioyarda);
 
                                   case 9:
-                                    _context26.next = 11;
+                                    _context25.next = 11;
                                     return this.localstorage.setData('precio_yarda$', this.precio_yarda);
 
                                   case 11:
-                                    _context26.next = 13;
+                                    _context25.next = 13;
                                     return this.localstorage.setData('preciomobiln', preciomobil);
 
                                   case 13:
-                                    _context26.next = 15;
+                                    _context25.next = 15;
                                     return this.localstorage.setData('preciomobil$', this.precio_mobil);
 
                                   case 15:
@@ -56393,16 +56468,16 @@
 
                                   case 16:
                                   case "end":
-                                    return _context26.stop();
+                                    return _context25.stop();
                                 }
                               }
-                            }, _callee26, this);
+                            }, _callee25, this);
                           }));
                         },
-                        error: function error(_error16) {
+                        error: function error(_error15) {
                           _this170.loading.dismissLoader();
 
-                          var errorMessage = _error16.message;
+                          var errorMessage = _error15.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this170.localstorage.clearData();
@@ -56418,10 +56493,10 @@
 
                     case 38:
                     case "end":
-                      return _context27.stop();
+                      return _context26.stop();
                   }
                 }
-              }, _callee27, this);
+              }, _callee26, this);
             }));
           }
         }, {
@@ -56581,34 +56656,34 @@
         _createClass(GaleriaComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
               var _this171 = this;
 
-              return regeneratorRuntime.wrap(function _callee28$(_context28) {
+              return regeneratorRuntime.wrap(function _callee27$(_context27) {
                 while (1) {
-                  switch (_context28.prev = _context28.next) {
+                  switch (_context27.prev = _context27.next) {
                     case 0:
                       this.id = this.rutaActiva.snapshot.params.order_item_id;
                       this.rutaActiva.params.subscribe(function (params) {
                         _this171.id = params.order_item_id;
                       });
-                      _context28.t0 = JSON;
-                      _context28.next = 5;
+                      _context27.t0 = JSON;
+                      _context27.next = 5;
                       return this.localstorage.getData('usuario');
 
                     case 5:
-                      _context28.t1 = _context28.sent;
-                      this.user = _context28.t0.parse.call(_context28.t0, _context28.t1);
-                      _context28.next = 9;
+                      _context27.t1 = _context27.sent;
+                      this.user = _context27.t0.parse.call(_context27.t0, _context27.t1);
+                      _context27.next = 9;
                       return this.localstorage.getData('idtoken');
 
                     case 9:
-                      this.idtoken = _context28.sent;
-                      _context28.next = 12;
+                      this.idtoken = _context27.sent;
+                      _context27.next = 12;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 12:
-                      this.autenticacion_tipo = _context28.sent;
+                      this.autenticacion_tipo = _context27.sent;
 
                       if (this.user) {
                         // this.loading.simpleLoader()
@@ -56646,9 +56721,9 @@
                                 console.log(_this171.imagenes);
                             }
                           },
-                          error: function error(_error17) {
+                          error: function error(_error16) {
                             //  this.loading.dismissLoader() 
-                            var errorMessage = _error17.message;
+                            var errorMessage = _error16.message;
                             console.error('There was an error!', errorMessage);
 
                             _this171.localstorage.clearData();
@@ -56673,10 +56748,10 @@
 
                     case 14:
                     case "end":
-                      return _context28.stop();
+                      return _context27.stop();
                   }
                 }
-              }, _callee28, this);
+              }, _callee27, this);
             }));
           }
         }, {
@@ -56816,13 +56891,13 @@
         _createClass(IngresarcamionComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
               var _this172 = this;
 
               var idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee29$(_context29) {
+              return regeneratorRuntime.wrap(function _callee28$(_context28) {
                 while (1) {
-                  switch (_context29.prev = _context29.next) {
+                  switch (_context28.prev = _context28.next) {
                     case 0:
                       this.form_truck = this.formBuilder.group({
                         model: [, {
@@ -56847,16 +56922,16 @@
                           validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
                         }]
                       });
-                      _context29.next = 3;
+                      _context28.next = 3;
                       return this.localstorage.getData('idtoken');
 
                     case 3:
-                      idtoken = _context29.sent;
-                      _context29.next = 6;
+                      idtoken = _context28.sent;
+                      _context28.next = 6;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 6:
-                      autenticacion_tipo = _context29.sent;
+                      autenticacion_tipo = _context28.sent;
                       this.serviciostobook.getFormtipovehiculos(idtoken, autenticacion_tipo).subscribe({
                         next: function next(vehicletypes) {
                           _this172.vehicletypes = vehicletypes;
@@ -56866,8 +56941,8 @@
                           });
                           console.log(_this172.vehicletypes);
                         },
-                        error: function error(_error18) {
-                          var errorMessage = _error18.message;
+                        error: function error(_error17) {
+                          var errorMessage = _error17.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this172.localstorage.clearData();
@@ -56889,8 +56964,8 @@
                           });
                           console.log(_this172.tipodetalles);
                         },
-                        error: function error(_error19) {
-                          var errorMessage = _error19.message;
+                        error: function error(_error18) {
+                          var errorMessage = _error18.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this172.localstorage.clearData();
@@ -56906,45 +56981,45 @@
 
                     case 9:
                     case "end":
-                      return _context29.stop();
+                      return _context28.stop();
                   }
                 }
-              }, _callee29, this);
+              }, _callee28, this);
             }));
           }
         }, {
           key: "submit_truck",
           value: function submit_truck() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
               var _this173 = this;
 
               var user, idtoken, autenticacion_tipo, model, mark, unitnumber, licenseplate, color, detail, defaults, vehicletypes;
-              return regeneratorRuntime.wrap(function _callee31$(_context31) {
+              return regeneratorRuntime.wrap(function _callee30$(_context30) {
                 while (1) {
-                  switch (_context31.prev = _context31.next) {
+                  switch (_context30.prev = _context30.next) {
                     case 0:
                       if (!this.form_truck.valid) {
-                        _context31.next = 23;
+                        _context30.next = 23;
                         break;
                       }
 
-                      _context31.t0 = JSON;
-                      _context31.next = 4;
+                      _context30.t0 = JSON;
+                      _context30.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context31.t1 = _context31.sent;
-                      user = _context31.t0.parse.call(_context31.t0, _context31.t1);
-                      _context31.next = 8;
+                      _context30.t1 = _context30.sent;
+                      user = _context30.t0.parse.call(_context30.t0, _context30.t1);
+                      _context30.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context31.sent;
-                      _context31.next = 11;
+                      idtoken = _context30.sent;
+                      _context30.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context31.sent;
+                      autenticacion_tipo = _context30.sent;
                       model = this.form_truck.get("model").value;
                       mark = this.form_truck.get("mark").value;
                       unitnumber = this.form_truck.get("unitnumber").value;
@@ -56967,13 +57042,13 @@
                         vehicletypes: vehicletypes
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this173, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-                            return regeneratorRuntime.wrap(function _callee30$(_context30) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this173, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+                            return regeneratorRuntime.wrap(function _callee29$(_context29) {
                               while (1) {
-                                switch (_context30.prev = _context30.next) {
+                                switch (_context29.prev = _context29.next) {
                                   case 0:
-                                    _context30.t0 = data.respuesta;
-                                    _context30.next = _context30.t0 === 'ERROR' ? 3 : _context30.t0 === 'TOKEN ERROR' ? 7 : _context30.t0 === 'OK_TODO' ? 12 : 14;
+                                    _context29.t0 = data.respuesta;
+                                    _context29.next = _context29.t0 === 'ERROR' ? 3 : _context29.t0 === 'TOKEN ERROR' ? 7 : _context29.t0 === 'OK_TODO' ? 12 : 14;
                                     break;
 
                                   case 3:
@@ -56983,7 +57058,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context30.abrupt("break", 14);
+                                    return _context29.abrupt("break", 14);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -56993,22 +57068,22 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context30.abrupt("break", 14);
+                                    return _context29.abrupt("break", 14);
 
                                   case 12:
                                     this.router.navigate(['/tabs-cliente/tobook/tipovehiculos']);
-                                    return _context30.abrupt("break", 14);
+                                    return _context29.abrupt("break", 14);
 
                                   case 14:
                                   case "end":
-                                    return _context30.stop();
+                                    return _context29.stop();
                                 }
                               }
-                            }, _callee30, this);
+                            }, _callee29, this);
                           }));
                         },
-                        error: function error(_error20) {
-                          var errorMessage = _error20.message;
+                        error: function error(_error19) {
+                          var errorMessage = _error19.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this173.localstorage.clearData();
@@ -57021,7 +57096,7 @@
                           });
                         }
                       });
-                      _context31.next = 24;
+                      _context30.next = 24;
                       break;
 
                     case 23:
@@ -57032,10 +57107,10 @@
 
                     case 24:
                     case "end":
-                      return _context31.stop();
+                      return _context30.stop();
                   }
                 }
-              }, _callee31, this);
+              }, _callee30, this);
             }));
           }
         }]);
@@ -57229,36 +57304,36 @@
         }, {
           key: "submit_perfil",
           value: function submit_perfil() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
               var _this174 = this;
 
               var user, idtoken, autenticacion_tipo, nombres, apellidos, mobilphone;
-              return regeneratorRuntime.wrap(function _callee33$(_context33) {
+              return regeneratorRuntime.wrap(function _callee32$(_context32) {
                 while (1) {
-                  switch (_context33.prev = _context33.next) {
+                  switch (_context32.prev = _context32.next) {
                     case 0:
                       if (!this.form_perfil.valid) {
-                        _context33.next = 18;
+                        _context32.next = 18;
                         break;
                       }
 
-                      _context33.t0 = JSON;
-                      _context33.next = 4;
+                      _context32.t0 = JSON;
+                      _context32.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context33.t1 = _context33.sent;
-                      user = _context33.t0.parse.call(_context33.t0, _context33.t1);
-                      _context33.next = 8;
+                      _context32.t1 = _context32.sent;
+                      user = _context32.t0.parse.call(_context32.t0, _context32.t1);
+                      _context32.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context33.sent;
-                      _context33.next = 11;
+                      idtoken = _context32.sent;
+                      _context32.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context33.sent;
+                      autenticacion_tipo = _context32.sent;
                       nombres = this.form_perfil.get("firstname").value;
                       apellidos = this.form_perfil.get("lastname").value; //var    companyname = this.form_perfil.get("companyname").value;
                       // var    companycodigo = this.form_perfil.get("companycodigo").value;
@@ -57279,13 +57354,13 @@
 
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this174, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
-                            return regeneratorRuntime.wrap(function _callee32$(_context32) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this174, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+                            return regeneratorRuntime.wrap(function _callee31$(_context31) {
                               while (1) {
-                                switch (_context32.prev = _context32.next) {
+                                switch (_context31.prev = _context31.next) {
                                   case 0:
-                                    _context32.t0 = data.respuesta;
-                                    _context32.next = _context32.t0 === 'ERROR' ? 3 : _context32.t0 === 'TOKEN ERROR' ? 7 : _context32.t0 === 'OK_TODO' ? 12 : 14;
+                                    _context31.t0 = data.respuesta;
+                                    _context31.next = _context31.t0 === 'ERROR' ? 3 : _context31.t0 === 'TOKEN ERROR' ? 7 : _context31.t0 === 'OK_TODO' ? 12 : 14;
                                     break;
 
                                   case 3:
@@ -57295,7 +57370,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context32.abrupt("break", 14);
+                                    return _context31.abrupt("break", 14);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -57305,22 +57380,22 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context32.abrupt("break", 14);
+                                    return _context31.abrupt("break", 14);
 
                                   case 12:
                                     this.router.navigate(['/tabs-cliente/tobook/tipovehiculos']);
-                                    return _context32.abrupt("break", 14);
+                                    return _context31.abrupt("break", 14);
 
                                   case 14:
                                   case "end":
-                                    return _context32.stop();
+                                    return _context31.stop();
                                 }
                               }
-                            }, _callee32, this);
+                            }, _callee31, this);
                           }));
                         },
-                        error: function error(_error21) {
-                          var errorMensaje = _error21.message;
+                        error: function error(_error20) {
+                          var errorMensaje = _error20.message;
                           console.error('There was an error!', errorMensaje);
 
                           _this174.localstorage.clearData();
@@ -57333,7 +57408,7 @@
                           });
                         }
                       });
-                      _context33.next = 19;
+                      _context32.next = 19;
                       break;
 
                     case 18:
@@ -57344,10 +57419,10 @@
 
                     case 19:
                     case "end":
-                      return _context33.stop();
+                      return _context32.stop();
                   }
                 }
-              }, _callee33, this);
+              }, _callee32, this);
             }));
           }
         }]);
@@ -57478,13 +57553,13 @@
         _createClass(IngresarsitioComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
               var _this175 = this;
 
               var idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee34$(_context34) {
+              return regeneratorRuntime.wrap(function _callee33$(_context33) {
                 while (1) {
-                  switch (_context34.prev = _context34.next) {
+                  switch (_context33.prev = _context33.next) {
                     case 0:
                       this.form_site = this.formBuilder.group({
                         suite: [, {
@@ -57506,16 +57581,16 @@
                           validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required]
                         }]
                       });
-                      _context34.next = 3;
+                      _context33.next = 3;
                       return this.localstorage.getData('idtoken');
 
                     case 3:
-                      idtoken = _context34.sent;
-                      _context34.next = 6;
+                      idtoken = _context33.sent;
+                      _context33.next = 6;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 6:
-                      autenticacion_tipo = _context34.sent;
+                      autenticacion_tipo = _context33.sent;
                       this.serviciostobook.getFormciudades(idtoken, autenticacion_tipo).subscribe({
                         next: function next(cities) {
                           _this175.cities = cities;
@@ -57525,8 +57600,8 @@
                           });
                           console.log(_this175.cities);
                         },
-                        error: function error(_error22) {
-                          var errorMessage = _error22.message;
+                        error: function error(_error21) {
+                          var errorMessage = _error21.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this175.localstorage.clearData();
@@ -57548,8 +57623,8 @@
                           });
                           console.log(_this175.cities);
                         },
-                        error: function error(_error23) {
-                          var errorMessage = _error23.message;
+                        error: function error(_error22) {
+                          var errorMessage = _error22.message;
                           console.error('There was an error!' + errorMessage);
 
                           _this175.localstorage.clearData();
@@ -57565,45 +57640,45 @@
 
                     case 9:
                     case "end":
-                      return _context34.stop();
+                      return _context33.stop();
                   }
                 }
-              }, _callee34, this);
+              }, _callee33, this);
             }));
           }
         }, {
           key: "submit_sitio",
           value: function submit_sitio() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
               var _this176 = this;
 
               var user, idtoken, autenticacion_tipo, suite, street, address, zip, state, city, defaults;
-              return regeneratorRuntime.wrap(function _callee36$(_context36) {
+              return regeneratorRuntime.wrap(function _callee35$(_context35) {
                 while (1) {
-                  switch (_context36.prev = _context36.next) {
+                  switch (_context35.prev = _context35.next) {
                     case 0:
                       if (!this.form_site.valid) {
-                        _context36.next = 23;
+                        _context35.next = 23;
                         break;
                       }
 
-                      _context36.t0 = JSON;
-                      _context36.next = 4;
+                      _context35.t0 = JSON;
+                      _context35.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context36.t1 = _context36.sent;
-                      user = _context36.t0.parse.call(_context36.t0, _context36.t1);
-                      _context36.next = 8;
+                      _context35.t1 = _context35.sent;
+                      user = _context35.t0.parse.call(_context35.t0, _context35.t1);
+                      _context35.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context36.sent;
-                      _context36.next = 11;
+                      idtoken = _context35.sent;
+                      _context35.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context36.sent;
+                      autenticacion_tipo = _context35.sent;
                       suite = this.form_site.get("suite").value;
                       street = this.form_site.get("street").value;
                       address = this.form_site.get("address").value;
@@ -57624,13 +57699,13 @@
                         defaults: defaults
                       }).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this176, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
-                            return regeneratorRuntime.wrap(function _callee35$(_context35) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_4__.__awaiter)(_this176, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+                            return regeneratorRuntime.wrap(function _callee34$(_context34) {
                               while (1) {
-                                switch (_context35.prev = _context35.next) {
+                                switch (_context34.prev = _context34.next) {
                                   case 0:
-                                    _context35.t0 = data.respuesta;
-                                    _context35.next = _context35.t0 === 'ERROR' ? 3 : _context35.t0 === 'TOKEN ERROR' ? 7 : _context35.t0 === 'OK_TODO' ? 12 : 14;
+                                    _context34.t0 = data.respuesta;
+                                    _context34.next = _context34.t0 === 'ERROR' ? 3 : _context34.t0 === 'TOKEN ERROR' ? 7 : _context34.t0 === 'OK_TODO' ? 12 : 14;
                                     break;
 
                                   case 3:
@@ -57640,7 +57715,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context35.abrupt("break", 14);
+                                    return _context34.abrupt("break", 14);
 
                                   case 7:
                                     this.localstorage.clearData();
@@ -57650,35 +57725,35 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context35.abrupt("break", 14);
+                                    return _context34.abrupt("break", 14);
 
                                   case 12:
                                     this.router.navigate(['/tabs-cliente/tobook/tipovehiculos']);
-                                    return _context35.abrupt("break", 14);
+                                    return _context34.abrupt("break", 14);
 
                                   case 14:
                                   case "end":
-                                    return _context35.stop();
+                                    return _context34.stop();
                                 }
                               }
-                            }, _callee35, this);
+                            }, _callee34, this);
                           }));
                         },
-                        error: function error(_error24) {
-                          console.error('There was an error!' + _error24.message);
+                        error: function error(_error23) {
+                          console.error('There was an error!' + _error23.message);
 
                           _this176.localstorage.clearData();
 
                           _this176.router.navigate(['/login']);
 
-                          _this176.snackBar.open("Sorry, an error occurred,please login again" + _error24.message, "Close", {
+                          _this176.snackBar.open("Sorry, an error occurred,please login again" + _error23.message, "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
                       console.log(this.form_site.value);
-                      _context36.next = 24;
+                      _context35.next = 24;
                       break;
 
                     case 23:
@@ -57689,10 +57764,10 @@
 
                     case 24:
                     case "end":
-                      return _context36.stop();
+                      return _context35.stop();
                   }
                 }
-              }, _callee36, this);
+              }, _callee35, this);
             }));
           }
         }]);
@@ -57752,7 +57827,7 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
@@ -57770,31 +57845,31 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_animations__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var _angular_animations__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @angular/animations */
       17238);
       /* harmony import */
 
 
-      var _angular_material_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_material_table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/material/table */
       32091);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
 
 
-      var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/material/snack-bar */
       77001);
       /* harmony import */
@@ -57806,47 +57881,40 @@
       /* harmony import */
 
 
-      var _shared_database_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! ../../shared/database-service */
-      21904);
-      /* harmony import */
-
-
-      var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/material/dialog */
       22238);
       /* harmony import */
 
 
-      var _dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ../dialogoconfir/dialogoconfir.component */
       44583);
       /* harmony import */
 
 
-      var _shared_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _shared_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ../../shared/storage.service */
       86945);
       /* harmony import */
 
 
-      var _shared_loading_services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _shared_loading_services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ../../shared/loading.services */
       68369);
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @angular/common */
       38583);
 
       var _MybooksComponent = /*#__PURE__*/function () {
-        function MybooksComponent(snackBar, serviciotobook, dbservicio, dialogo, localstorage, rutaActiva, router, loading, location) {
+        function MybooksComponent(snackBar, serviciotobook, dialogo, localstorage, rutaActiva, router, loading, location) {
           _classCallCheck(this, MybooksComponent);
 
           this.snackBar = snackBar;
           this.serviciotobook = serviciotobook;
-          this.dbservicio = dbservicio;
           this.dialogo = dialogo;
           this.localstorage = localstorage;
           this.rutaActiva = rutaActiva;
@@ -57854,7 +57922,7 @@
           this.loading = loading;
           this.location = location;
           this.columnsToDisplay = ['Service', 'Appointment', 'Location', 'Expand'];
-          this.itemOrderTabla = new _angular_material_table__WEBPACK_IMPORTED_MODULE_7__.MatTableDataSource();
+          this.itemOrderTabla = new _angular_material_table__WEBPACK_IMPORTED_MODULE_6__.MatTableDataSource();
           this.verenlace1 = false;
           this.verenlace2 = false;
         }
@@ -57880,43 +57948,41 @@
           value: function Borrar(id) {
             var _this177 = this;
 
-            this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__.DialogoconfirComponent, {
+            this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_3__.DialogoconfirComponent, {
               data: "Be sure to permanently delete this record?"
             }).afterClosed().subscribe(function (confirmado) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this177, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this177, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
                 var _this178 = this;
 
                 var idtoken, autenticacion_tipo;
-                return regeneratorRuntime.wrap(function _callee38$(_context38) {
+                return regeneratorRuntime.wrap(function _callee37$(_context37) {
                   while (1) {
-                    switch (_context38.prev = _context38.next) {
+                    switch (_context37.prev = _context37.next) {
                       case 0:
                         if (!confirmado) {
-                          _context38.next = 10;
+                          _context37.next = 10;
                           break;
                         }
 
-                        _context38.next = 3;
+                        _context37.next = 3;
                         return this.localstorage.getData('idtoken');
 
                       case 3:
-                        idtoken = _context38.sent;
-                        _context38.next = 6;
+                        idtoken = _context37.sent;
+                        _context37.next = 6;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 6:
-                        autenticacion_tipo = _context38.sent;
+                        autenticacion_tipo = _context37.sent;
                         this.serviciotobook.deleteItemOrder(idtoken, autenticacion_tipo, id).subscribe({
                           next: function next(datos) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this178, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
-                              var _this179 = this;
-
-                              return regeneratorRuntime.wrap(function _callee37$(_context37) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this178, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+                              return regeneratorRuntime.wrap(function _callee36$(_context36) {
                                 while (1) {
-                                  switch (_context37.prev = _context37.next) {
+                                  switch (_context36.prev = _context36.next) {
                                     case 0:
-                                      _context37.t0 = datos.respuesta;
-                                      _context37.next = _context37.t0 === 'TOKEN ERROR' ? 3 : _context37.t0 === 'ERROR' ? 6 : _context37.t0 === '200_OK' ? 10 : 12;
+                                      _context36.t0 = datos.respuesta;
+                                      _context36.next = _context36.t0 === 'TOKEN ERROR' ? 3 : _context36.t0 === 'ERROR' ? 6 : _context36.t0 === '200_OK' ? 10 : 13;
                                       break;
 
                                     case 3:
@@ -57925,7 +57991,7 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context37.abrupt("break", 12);
+                                      return _context36.abrupt("break", 13);
 
                                     case 6:
                                       // borramos la informacion local
@@ -57935,34 +58001,26 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context37.abrupt("break", 12);
+                                      return _context36.abrupt("break", 13);
 
                                     case 10:
-                                      this.dbservicio.borrarTobook(id).then(function (res) {
-                                        if (res) {
-                                          _this179.snackBar.open('Record successfully removed', "Close", {
-                                            horizontalPosition: "start",
-                                            verticalPosition: "top"
-                                          });
-                                        } else {
-                                          _this179.snackBar.open('The record has not been deleted ', "Close", {
-                                            horizontalPosition: "start",
-                                            verticalPosition: "top"
-                                          });
-                                        }
+                                      this.snackBar.open('The record has been deleted', "Continue", {
+                                        horizontalPosition: "start",
+                                        verticalPosition: "top"
                                       });
-                                      return _context37.abrupt("break", 12);
+                                      this.doRefresh(null);
+                                      return _context36.abrupt("break", 13);
 
-                                    case 12:
+                                    case 13:
                                     case "end":
-                                      return _context37.stop();
+                                      return _context36.stop();
                                   }
                                 }
-                              }, _callee37, this);
+                              }, _callee36, this);
                             }));
                           },
-                          error: function error(_error25) {
-                            console.error('There was an error!', _error25); // borramos la informacion local
+                          error: function error(_error24) {
+                            console.error('There was an error!', _error24); // borramos la informacion local
 
                             _this178.localstorage.clearData();
 
@@ -57974,65 +58032,65 @@
                             });
                           }
                         });
-                        _context38.next = 10;
+                        _context37.next = 10;
                         break;
 
                       case 10:
                       case "end":
-                        return _context38.stop();
+                        return _context37.stop();
                     }
                   }
-                }, _callee38, this);
+                }, _callee37, this);
               }));
             });
           }
         }, {
           key: "Cancelar",
           value: function Cancelar(id) {
-            var _this180 = this;
+            var _this179 = this;
 
-            this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__.DialogoconfirComponent, {
+            this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_3__.DialogoconfirComponent, {
               data: "Are you sure to cancel this appointment? ?"
             }).afterClosed().subscribe(function (confirmado) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this180, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
-                var _this181 = this;
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this179, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+                var _this180 = this;
 
                 var user, idtoken, autenticacion_tipo;
-                return regeneratorRuntime.wrap(function _callee40$(_context40) {
+                return regeneratorRuntime.wrap(function _callee39$(_context39) {
                   while (1) {
-                    switch (_context40.prev = _context40.next) {
+                    switch (_context39.prev = _context39.next) {
                       case 0:
                         if (!confirmado) {
-                          _context40.next = 15;
+                          _context39.next = 15;
                           break;
                         }
 
-                        _context40.t0 = JSON;
-                        _context40.next = 4;
+                        _context39.t0 = JSON;
+                        _context39.next = 4;
                         return this.localstorage.getData('usuario');
 
                       case 4:
-                        _context40.t1 = _context40.sent;
-                        user = _context40.t0.parse.call(_context40.t0, _context40.t1);
-                        _context40.next = 8;
+                        _context39.t1 = _context39.sent;
+                        user = _context39.t0.parse.call(_context39.t0, _context39.t1);
+                        _context39.next = 8;
                         return this.localstorage.getData('idtoken');
 
                       case 8:
-                        idtoken = _context40.sent;
-                        _context40.next = 11;
+                        idtoken = _context39.sent;
+                        _context39.next = 11;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 11:
-                        autenticacion_tipo = _context40.sent;
+                        autenticacion_tipo = _context39.sent;
                         this.serviciotobook.CancelarItemOrder(idtoken, autenticacion_tipo, id, user.email).subscribe({
                           next: function next(datos) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(_this181, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
-                              return regeneratorRuntime.wrap(function _callee39$(_context39) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(_this180, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
+                              return regeneratorRuntime.wrap(function _callee38$(_context38) {
                                 while (1) {
-                                  switch (_context39.prev = _context39.next) {
+                                  switch (_context38.prev = _context38.next) {
                                     case 0:
-                                      _context39.t0 = datos.respuesta;
-                                      _context39.next = _context39.t0 === 'TOKEN ERROR' ? 3 : _context39.t0 === 'ERROR' ? 6 : _context39.t0 === 'MISMODIA' ? 10 : _context39.t0 === 'DIASDESPUESCITA' ? 12 : _context39.t0 === 'FALTAUNDIA' ? 14 : _context39.t0 === '200_OK' ? 16 : 18;
+                                      _context38.t0 = datos.respuesta;
+                                      _context38.next = _context38.t0 === 'TOKEN ERROR' ? 3 : _context38.t0 === 'ERROR' ? 6 : _context38.t0 === 'MISMODIA' ? 10 : _context38.t0 === 'DIASDESPUESCITA' ? 12 : _context38.t0 === 'FALTAUNDIA' ? 14 : _context38.t0 === '200_OK' ? 16 : 19;
                                       break;
 
                                     case 3:
@@ -58041,7 +58099,7 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context39.abrupt("break", 18);
+                                      return _context38.abrupt("break", 19);
 
                                     case 6:
                                       // borramos la informacion local
@@ -58051,110 +58109,111 @@
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context39.abrupt("break", 18);
+                                      return _context38.abrupt("break", 19);
 
                                     case 10:
                                       this.snackBar.open(datos.mensaje, "Close", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context39.abrupt("break", 18);
+                                      return _context38.abrupt("break", 19);
 
                                     case 12:
                                       this.snackBar.open(datos.mensaje, "Close", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context39.abrupt("break", 18);
+                                      return _context38.abrupt("break", 19);
 
                                     case 14:
                                       this.snackBar.open(datos.mensaje, "Close", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context39.abrupt("break", 18);
+                                      return _context38.abrupt("break", 19);
 
                                     case 16:
-                                      this.snackBar.open('Appointment successfully cancelled', "Close", {
+                                      this.snackBar.open('Appointment successfully cancelled', "Continue", {
                                         horizontalPosition: "start",
                                         verticalPosition: "top"
                                       });
-                                      return _context39.abrupt("break", 18);
+                                      this.doRefresh(null);
+                                      return _context38.abrupt("break", 19);
 
-                                    case 18:
+                                    case 19:
                                     case "end":
-                                      return _context39.stop();
+                                      return _context38.stop();
                                   }
                                 }
-                              }, _callee39, this);
+                              }, _callee38, this);
                             }));
                           },
-                          error: function error(_error26) {
-                            _this181.snackBar.open('The appointment has not been cancelled ', "Close", {
+                          error: function error(_error25) {
+                            _this180.snackBar.open('The appointment has not been cancelled ', "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
 
-                            console.error('There was an error!', _error26);
+                            console.error('There was an error!', _error25);
                           }
                         });
-                        _context40.next = 15;
+                        _context39.next = 15;
                         break;
 
                       case 15:
                       case "end":
-                        return _context40.stop();
+                        return _context39.stop();
                     }
                   }
-                }, _callee40, this);
+                }, _callee39, this);
               }));
             });
           }
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
-              var _this182 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+              var _this181 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee41$(_context41) {
+              return regeneratorRuntime.wrap(function _callee40$(_context40) {
                 while (1) {
-                  switch (_context41.prev = _context41.next) {
+                  switch (_context40.prev = _context40.next) {
                     case 0:
                       this.n = this.rutaActiva.snapshot.params.n;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this182.n = params.n;
+                        _this181.n = params.n;
                       });
-                      _context41.t0 = JSON;
-                      _context41.next = 5;
+                      _context40.t0 = JSON;
+                      _context40.next = 5;
                       return this.localstorage.getData('usuario');
 
                     case 5:
-                      _context41.t1 = _context41.sent;
-                      user = _context41.t0.parse.call(_context41.t0, _context41.t1);
-                      _context41.next = 9;
+                      _context40.t1 = _context40.sent;
+                      user = _context40.t0.parse.call(_context40.t0, _context40.t1);
+                      _context40.next = 9;
                       return this.localstorage.getData('idtoken');
 
                     case 9:
-                      idtoken = _context41.sent;
-                      _context41.next = 12;
+                      idtoken = _context40.sent;
+                      _context40.next = 12;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 12:
-                      autenticacion_tipo = _context41.sent;
+                      autenticacion_tipo = _context40.sent;
                       this.loading.simpleLoader();
                       this.serviciotobook.getTipoAppointments(idtoken, autenticacion_tipo, user.email, this.n).subscribe(function (val) {
                         var datos = val;
 
-                        _this182.loading.dismissLoader();
+                        _this181.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
 
                         switch (datos.respuesta) {
                           case 'TOKEN ERROR':
-                            _this182.router.navigate(['/login']);
+                            _this181.router.navigate(['/login']);
 
-                            _this182.snackBar.open("Invalid or expired token,please login again", "Close", {
+                            _this181.snackBar.open("Invalid or expired token,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -58163,11 +58222,11 @@
 
                           case 'ERROR':
                             // borramos la informacion local
-                            _this182.localstorage.clearData();
+                            _this181.localstorage.clearData();
 
-                            _this182.router.navigate(['/login']);
+                            _this181.router.navigate(['/login']);
 
-                            _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                            _this181.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -58177,14 +58236,14 @@
 
                           default:
                             var sinfiltrardatos = Object.values(datos);
-                            _this182.itemOrderTabla.data = sinfiltrardatos;
+                            _this181.itemOrderTabla.data = sinfiltrardatos;
 
                             if (sinfiltrardatos == null) {
-                              _this182.vertabla = false;
-                              _this182.vermensaje = true;
+                              _this181.vertabla = false;
+                              _this181.vermensaje = true;
                             } else {
-                              _this182.vertabla = true;
-                              _this182.vermensaje = false;
+                              _this181.vertabla = true;
+                              _this181.vermensaje = false;
                             }
 
                           // VERSION 1
@@ -58255,16 +58314,16 @@
                           //break;
                         }
                       }, function (error) {
-                        _this182.loading.dismissLoader();
+                        _this181.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
                         console.error('There was an error!', error); // borramos la informacion local
 
-                        _this182.localstorage.clearData();
+                        _this181.localstorage.clearData();
 
-                        _this182.router.navigate(['/login']);
+                        _this181.router.navigate(['/login']);
 
-                        _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                        _this181.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -58272,10 +58331,10 @@
 
                     case 15:
                     case "end":
-                      return _context41.stop();
+                      return _context40.stop();
                   }
                 }
-              }, _callee41, this);
+              }, _callee40, this);
             }));
           }
         }, {
@@ -58290,35 +58349,33 @@
 
       _MybooksComponent.ctorParameters = function () {
         return [{
-          type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__.MatSnackBar
+          type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__.MatSnackBar
         }, {
           type: _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__.ServiciosTobook
         }, {
-          type: _shared_database_service__WEBPACK_IMPORTED_MODULE_3__.DatabaseService
+          type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__.MatDialog
         }, {
-          type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_10__.MatDialog
+          type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_4__.StorageService
         }, {
-          type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_5__.StorageService
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_10__.ActivatedRoute
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.ActivatedRoute
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_10__.Router
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router
+          type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_5__.LoadingService
         }, {
-          type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_6__.LoadingService
-        }, {
-          type: _angular_common__WEBPACK_IMPORTED_MODULE_12__.Location
+          type: _angular_common__WEBPACK_IMPORTED_MODULE_11__.Location
         }];
       };
 
-      _MybooksComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_13__.Component)({
+      _MybooksComponent = (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
         selector: 'app-mybooks',
         template: _raw_loader_mybooks_component_html__WEBPACK_IMPORTED_MODULE_0__["default"],
-        animations: [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_14__.trigger)('detailExpand', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_14__.state)('collapsed', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_14__.style)({
+        animations: [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_13__.trigger)('detailExpand', [(0, _angular_animations__WEBPACK_IMPORTED_MODULE_13__.state)('collapsed', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_13__.style)({
           height: '0px',
           minHeight: '0'
-        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_14__.state)('expanded', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_14__.style)({
+        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_13__.state)('expanded', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_13__.style)({
           height: '*'
-        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_14__.transition)('expanded <=> collapsed', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_14__.animate)('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))])],
+        })), (0, _angular_animations__WEBPACK_IMPORTED_MODULE_13__.transition)('expanded <=> collapsed', (0, _angular_animations__WEBPACK_IMPORTED_MODULE_13__.animate)('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))])],
         styles: [_mybooks_component_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]
       })], _MybooksComponent);
       /***/
@@ -58452,48 +58509,48 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
-              var _this183 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
+              var _this182 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee42$(_context42) {
+              return regeneratorRuntime.wrap(function _callee41$(_context41) {
                 while (1) {
-                  switch (_context42.prev = _context42.next) {
+                  switch (_context41.prev = _context41.next) {
                     case 0:
                       this.loading.simpleLoader();
                       this.p = this.rutaActiva.snapshot.params.p;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this183.p = params.p;
+                        _this182.p = params.p;
                       });
-                      _context42.t0 = JSON;
-                      _context42.next = 6;
+                      _context41.t0 = JSON;
+                      _context41.next = 6;
                       return this.localstorage.getData('usuario');
 
                     case 6:
-                      _context42.t1 = _context42.sent;
-                      user = _context42.t0.parse.call(_context42.t0, _context42.t1);
-                      _context42.next = 10;
+                      _context41.t1 = _context41.sent;
+                      user = _context41.t0.parse.call(_context41.t0, _context41.t1);
+                      _context41.next = 10;
                       return this.localstorage.getData('idtoken');
 
                     case 10:
-                      idtoken = _context42.sent;
-                      _context42.next = 13;
+                      idtoken = _context41.sent;
+                      _context41.next = 13;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 13:
-                      autenticacion_tipo = _context42.sent;
+                      autenticacion_tipo = _context41.sent;
                       this.serviciotobook.getTipoPays(idtoken, autenticacion_tipo, user.email, this.p).subscribe(function (val) {
                         var datos = val;
 
-                        _this183.loading.dismissLoader();
+                        _this182.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
 
                         switch (datos.respuesta) {
                           case 'TOKEN ERROR':
-                            _this183.router.navigate(['/login']);
+                            _this182.router.navigate(['/login']);
 
-                            _this183.snackBar.open("Invalid or expired token,please login again", "Close", {
+                            _this182.snackBar.open("Invalid or expired token,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -58502,11 +58559,11 @@
 
                           case 'ERROR':
                             // borramos la informacion local
-                            _this183.localstorage.clearData();
+                            _this182.localstorage.clearData();
 
-                            _this183.router.navigate(['/login']);
+                            _this182.router.navigate(['/login']);
 
-                            _this183.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                            _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -58515,7 +58572,7 @@
 
                           default:
                             var sinfiltrardatos = Object.values(datos);
-                            _this183.itemPagosTabla.data = sinfiltrardatos;
+                            _this182.itemPagosTabla.data = sinfiltrardatos;
 
                           /*  console.log(datos)
                             var sinfiltrardatos = Object.values(datos)
@@ -58563,11 +58620,11 @@
                         if ($event) $event.target.complete();
                         console.error('There was an error!', error); // borramos la informacion local
 
-                        _this183.localstorage.clearData();
+                        _this182.localstorage.clearData();
 
-                        _this183.router.navigate(['/login']);
+                        _this182.router.navigate(['/login']);
 
-                        _this183.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                        _this182.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -58575,10 +58632,10 @@
 
                     case 15:
                     case "end":
-                      return _context42.stop();
+                      return _context41.stop();
                   }
                 }
-              }, _callee42, this);
+              }, _callee41, this);
             }));
           }
         }]);
@@ -59000,31 +59057,31 @@
         _createClass(SquareConcargoComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
-              return regeneratorRuntime.wrap(function _callee43$(_context43) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
+              return regeneratorRuntime.wrap(function _callee42$(_context42) {
                 while (1) {
-                  switch (_context43.prev = _context43.next) {
+                  switch (_context42.prev = _context42.next) {
                     case 0:
                     case "end":
-                      return _context43.stop();
+                      return _context42.stop();
                   }
                 }
-              }, _callee43);
+              }, _callee42);
             }));
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
-              var _this184 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
+              var _this183 = this;
 
               var formatter$, appId, locationId, payments;
-              return regeneratorRuntime.wrap(function _callee44$(_context44) {
+              return regeneratorRuntime.wrap(function _callee43$(_context43) {
                 while (1) {
-                  switch (_context44.prev = _context44.next) {
+                  switch (_context43.prev = _context43.next) {
                     case 0:
                       this.loading.simpleLoader();
-                      _context44.next = 3;
+                      _context43.next = 3;
                       return this.dsls.loadScript('square');
 
                     case 3:
@@ -59037,14 +59094,14 @@
                       this.concepto = this.rutaActiva.snapshot.params.concepto;
                       this.charge_status = this.rutaActiva.snapshot.params.charge_status;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this184.servicio = params.servicio;
-                        _this184.precio = params.precio;
-                        _this184.descuento = params.descuento;
-                        _this184.itemid = params.itemid;
-                        _this184.wash_id = params.wash_id;
-                        _this184.concepto = params.concepto;
-                        _this184.charge = params.charge;
-                        _this184.charge_status = params.charge_status;
+                        _this183.servicio = params.servicio;
+                        _this183.precio = params.precio;
+                        _this183.descuento = params.descuento;
+                        _this183.itemid = params.itemid;
+                        _this183.wash_id = params.wash_id;
+                        _this183.concepto = params.concepto;
+                        _this183.charge = params.charge;
+                        _this183.charge_status = params.charge_status;
                       });
                       formatter$ = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -59061,12 +59118,12 @@
                       appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
                       locationId = 'JCQ7Q20HXQTZ8';
                       payments = Square.payments(appId, locationId);
-                      _context44.next = 23;
+                      _context43.next = 23;
                       return payments.card();
 
                     case 23:
-                      this.card = _context44.sent;
-                      _context44.next = 26;
+                      this.card = _context43.sent;
+                      _context43.next = 26;
                       return this.card.attach('#card-container');
 
                     case 26:
@@ -59132,6 +59189,31 @@
 
                     case 27:
                     case "end":
+                      return _context43.stop();
+                  }
+                }
+              }, _callee43, this);
+            }));
+          }
+        }, {
+          key: "ionViewDidLeave",
+          value: function ionViewDidLeave() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
+              var destroyed;
+              return regeneratorRuntime.wrap(function _callee44$(_context44) {
+                while (1) {
+                  switch (_context44.prev = _context44.next) {
+                    case 0:
+                      _context44.next = 2;
+                      return this.card.destroy();
+
+                    case 2:
+                      destroyed = _context44.sent;
+                      document.getElementById('payment-status-container').innerText = '';
+                      document.getElementById('payment-status-container').innerText = '';
+
+                    case 5:
+                    case "end":
                       return _context44.stop();
                   }
                 }
@@ -59139,66 +59221,41 @@
             }));
           }
         }, {
-          key: "ionViewDidLeave",
-          value: function ionViewDidLeave() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
-              var destroyed;
-              return regeneratorRuntime.wrap(function _callee45$(_context45) {
-                while (1) {
-                  switch (_context45.prev = _context45.next) {
-                    case 0:
-                      _context45.next = 2;
-                      return this.card.destroy();
-
-                    case 2:
-                      destroyed = _context45.sent;
-                      document.getElementById('payment-status-container').innerText = '';
-                      document.getElementById('payment-status-container').innerText = '';
-
-                    case 5:
-                    case "end":
-                      return _context45.stop();
-                  }
-                }
-              }, _callee45, this);
-            }));
-          }
-        }, {
           key: "eventHandler",
           value: function eventHandler() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
-              var _this185 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
+              var _this184 = this;
 
               var user, idtoken, autenticacion_tipo, result, url, data;
-              return regeneratorRuntime.wrap(function _callee47$(_context47) {
+              return regeneratorRuntime.wrap(function _callee46$(_context46) {
                 while (1) {
-                  switch (_context47.prev = _context47.next) {
+                  switch (_context46.prev = _context46.next) {
                     case 0:
                       this.loading.simpleLoader(); //  event.preventDefault();
 
-                      _context47.t0 = JSON;
-                      _context47.next = 4;
+                      _context46.t0 = JSON;
+                      _context46.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context47.t1 = _context47.sent;
-                      user = _context47.t0.parse.call(_context47.t0, _context47.t1);
-                      _context47.next = 8;
+                      _context46.t1 = _context46.sent;
+                      user = _context46.t0.parse.call(_context46.t0, _context46.t1);
+                      _context46.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context47.sent;
-                      _context47.next = 11;
+                      idtoken = _context46.sent;
+                      _context46.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context47.sent;
+                      autenticacion_tipo = _context46.sent;
                       this.email = user.email;
-                      _context47.next = 15;
+                      _context46.next = 15;
                       return this.card.tokenize();
 
                     case 15:
-                      result = _context47.sent;
+                      result = _context46.sent;
 
                       if (result.status === 'OK') {
                         console.log("Payment token is ".concat(result.token));
@@ -59231,23 +59288,23 @@
                           document.getElementById('payment-status-container').innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
                           console.error('Error:', error);
 
-                          _this185.loading.dismissLoader();
+                          _this184.loading.dismissLoader();
                         }).then(function (response) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this185, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this184, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
                             var destroyed;
-                            return regeneratorRuntime.wrap(function _callee46$(_context46) {
+                            return regeneratorRuntime.wrap(function _callee45$(_context45) {
                               while (1) {
-                                switch (_context46.prev = _context46.next) {
+                                switch (_context45.prev = _context45.next) {
                                   case 0:
                                     console.log(response);
-                                    _context46.next = 3;
+                                    _context45.next = 3;
                                     return this.card.destroy();
 
                                   case 3:
-                                    destroyed = _context46.sent;
+                                    destroyed = _context45.sent;
                                     this.loading.dismissLoader();
-                                    _context46.t0 = response.respuesta;
-                                    _context46.next = _context46.t0 === 'ERROR1' ? 8 : _context46.t0 === 'TOKEN ERROR' ? 10 : _context46.t0 === 'ERROR2' ? 14 : _context46.t0 === 'YA PAGADO' ? 18 : _context46.t0 === 'TODO_OK' ? 20 : _context46.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
+                                    _context45.t0 = response.respuesta;
+                                    _context45.next = _context45.t0 === 'ERROR1' ? 8 : _context45.t0 === 'TOKEN ERROR' ? 10 : _context45.t0 === 'ERROR2' ? 14 : _context45.t0 === 'YA PAGADO' ? 18 : _context45.t0 === 'TODO_OK' ? 20 : _context45.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
                                     break;
 
                                   case 8:
@@ -59255,7 +59312,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context46.abrupt("break", 25);
+                                    return _context45.abrupt("break", 25);
 
                                   case 10:
                                     this.localstorage.clearData();
@@ -59264,7 +59321,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context46.abrupt("break", 25);
+                                    return _context45.abrupt("break", 25);
 
                                   case 14:
                                     this.localstorage.clearData();
@@ -59273,19 +59330,19 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context46.abrupt("break", 25);
+                                    return _context45.abrupt("break", 25);
 
                                   case 18:
                                     this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close", {
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context46.abrupt("break", 25);
+                                    return _context45.abrupt("break", 25);
 
                                   case 20:
                                     // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
-                                    return _context46.abrupt("break", 25);
+                                    return _context45.abrupt("break", 25);
 
                                   case 22:
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
@@ -59293,24 +59350,24 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context46.abrupt("break", 25);
+                                    return _context45.abrupt("break", 25);
 
                                   case 25:
                                   case "end":
-                                    return _context46.stop();
+                                    return _context45.stop();
                                 }
                               }
-                            }, _callee46, this);
+                            }, _callee45, this);
                           }));
                         });
                       }
 
                     case 17:
                     case "end":
-                      return _context47.stop();
+                      return _context46.stop();
                   }
                 }
-              }, _callee47, this);
+              }, _callee46, this);
             }));
           }
         }, {
@@ -59442,31 +59499,31 @@
         _createClass(SquareComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
-              return regeneratorRuntime.wrap(function _callee48$(_context48) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
+              return regeneratorRuntime.wrap(function _callee47$(_context47) {
                 while (1) {
-                  switch (_context48.prev = _context48.next) {
+                  switch (_context47.prev = _context47.next) {
                     case 0:
                     case "end":
-                      return _context48.stop();
+                      return _context47.stop();
                   }
                 }
-              }, _callee48);
+              }, _callee47);
             }));
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
-              var _this186 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee48() {
+              var _this185 = this;
 
               var formatter$, appId, locationId, payments;
-              return regeneratorRuntime.wrap(function _callee49$(_context49) {
+              return regeneratorRuntime.wrap(function _callee48$(_context48) {
                 while (1) {
-                  switch (_context49.prev = _context49.next) {
+                  switch (_context48.prev = _context48.next) {
                     case 0:
                       this.loading.simpleLoader();
-                      _context49.next = 3;
+                      _context48.next = 3;
                       return this.dsls.loadScript('square');
 
                     case 3:
@@ -59479,14 +59536,14 @@
                       this.concepto = this.rutaActiva.snapshot.params.concepto;
                       this.charge_status = this.rutaActiva.snapshot.params.charge_status;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this186.servicio = params.servicio;
-                        _this186.precio = params.precio;
-                        _this186.descuento = params.descuento;
-                        _this186.itemid = params.itemid;
-                        _this186.wash_id = params.wash_id;
-                        _this186.concepto = params.concepto;
-                        _this186.charge = params.charge;
-                        _this186.charge_status = params.charge_status;
+                        _this185.servicio = params.servicio;
+                        _this185.precio = params.precio;
+                        _this185.descuento = params.descuento;
+                        _this185.itemid = params.itemid;
+                        _this185.wash_id = params.wash_id;
+                        _this185.concepto = params.concepto;
+                        _this185.charge = params.charge;
+                        _this185.charge_status = params.charge_status;
                       });
                       formatter$ = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -59502,18 +59559,43 @@
                       appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
                       locationId = 'JCQ7Q20HXQTZ8';
                       payments = Square.payments(appId, locationId);
-                      _context49.next = 22;
+                      _context48.next = 22;
                       return payments.card();
 
                     case 22:
-                      this.card = _context49.sent;
-                      _context49.next = 25;
+                      this.card = _context48.sent;
+                      _context48.next = 25;
                       return this.card.attach('#card-container');
 
                     case 25:
                       this.loading.dismissLoader();
 
                     case 26:
+                    case "end":
+                      return _context48.stop();
+                  }
+                }
+              }, _callee48, this);
+            }));
+          }
+        }, {
+          key: "ionViewDidLeave",
+          value: function ionViewDidLeave() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee49() {
+              var destroyed;
+              return regeneratorRuntime.wrap(function _callee49$(_context49) {
+                while (1) {
+                  switch (_context49.prev = _context49.next) {
+                    case 0:
+                      _context49.next = 2;
+                      return this.card.destroy();
+
+                    case 2:
+                      destroyed = _context49.sent;
+                      document.getElementById('payment-status-container').innerText = '';
+                      document.getElementById('payment-status-container').innerText = '';
+
+                    case 5:
                     case "end":
                       return _context49.stop();
                   }
@@ -59522,66 +59604,41 @@
             }));
           }
         }, {
-          key: "ionViewDidLeave",
-          value: function ionViewDidLeave() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
-              var destroyed;
-              return regeneratorRuntime.wrap(function _callee50$(_context50) {
-                while (1) {
-                  switch (_context50.prev = _context50.next) {
-                    case 0:
-                      _context50.next = 2;
-                      return this.card.destroy();
-
-                    case 2:
-                      destroyed = _context50.sent;
-                      document.getElementById('payment-status-container').innerText = '';
-                      document.getElementById('payment-status-container').innerText = '';
-
-                    case 5:
-                    case "end":
-                      return _context50.stop();
-                  }
-                }
-              }, _callee50, this);
-            }));
-          }
-        }, {
           key: "eventHandler",
           value: function eventHandler() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
-              var _this187 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
+              var _this186 = this;
 
               var user, idtoken, autenticacion_tipo, result, url, data;
-              return regeneratorRuntime.wrap(function _callee52$(_context52) {
+              return regeneratorRuntime.wrap(function _callee51$(_context51) {
                 while (1) {
-                  switch (_context52.prev = _context52.next) {
+                  switch (_context51.prev = _context51.next) {
                     case 0:
                       this.loading.simpleLoader(); //  event.preventDefault();
 
-                      _context52.t0 = JSON;
-                      _context52.next = 4;
+                      _context51.t0 = JSON;
+                      _context51.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context52.t1 = _context52.sent;
-                      user = _context52.t0.parse.call(_context52.t0, _context52.t1);
-                      _context52.next = 8;
+                      _context51.t1 = _context51.sent;
+                      user = _context51.t0.parse.call(_context51.t0, _context51.t1);
+                      _context51.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context52.sent;
-                      _context52.next = 11;
+                      idtoken = _context51.sent;
+                      _context51.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context52.sent;
+                      autenticacion_tipo = _context51.sent;
                       this.email = user.email;
-                      _context52.next = 15;
+                      _context51.next = 15;
                       return this.card.tokenize();
 
                     case 15:
-                      result = _context52.sent;
+                      result = _context51.sent;
 
                       if (result.status === 'OK') {
                         console.log("Payment token is ".concat(result.token));
@@ -59614,23 +59671,23 @@
                           document.getElementById('payment-status-container').innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
                           console.error('Error:', error);
 
-                          _this187.loading.dismissLoader();
+                          _this186.loading.dismissLoader();
                         }).then(function (response) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this187, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee51() {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this186, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee50() {
                             var destroyed;
-                            return regeneratorRuntime.wrap(function _callee51$(_context51) {
+                            return regeneratorRuntime.wrap(function _callee50$(_context50) {
                               while (1) {
-                                switch (_context51.prev = _context51.next) {
+                                switch (_context50.prev = _context50.next) {
                                   case 0:
                                     console.log(response);
-                                    _context51.next = 3;
+                                    _context50.next = 3;
                                     return this.card.destroy();
 
                                   case 3:
-                                    destroyed = _context51.sent;
+                                    destroyed = _context50.sent;
                                     this.loading.dismissLoader();
-                                    _context51.t0 = response.respuesta;
-                                    _context51.next = _context51.t0 === 'ERROR1' ? 8 : _context51.t0 === 'TOKEN ERROR' ? 10 : _context51.t0 === 'ERROR2' ? 14 : _context51.t0 === 'YA PAGADO' ? 18 : _context51.t0 === 'TODO_OK' ? 20 : _context51.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
+                                    _context50.t0 = response.respuesta;
+                                    _context50.next = _context50.t0 === 'ERROR1' ? 8 : _context50.t0 === 'TOKEN ERROR' ? 10 : _context50.t0 === 'ERROR2' ? 14 : _context50.t0 === 'YA PAGADO' ? 18 : _context50.t0 === 'TODO_OK' ? 20 : _context50.t0 === 'PAGO CONDICIONADO' ? 22 : 25;
                                     break;
 
                                   case 8:
@@ -59638,7 +59695,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context51.abrupt("break", 25);
+                                    return _context50.abrupt("break", 25);
 
                                   case 10:
                                     this.localstorage.clearData();
@@ -59647,7 +59704,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context51.abrupt("break", 25);
+                                    return _context50.abrupt("break", 25);
 
                                   case 14:
                                     this.localstorage.clearData();
@@ -59656,19 +59713,19 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context51.abrupt("break", 25);
+                                    return _context50.abrupt("break", 25);
 
                                   case 18:
                                     this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close", {
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context51.abrupt("break", 25);
+                                    return _context50.abrupt("break", 25);
 
                                   case 20:
                                     // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
-                                    return _context51.abrupt("break", 25);
+                                    return _context50.abrupt("break", 25);
 
                                   case 22:
                                     this.router.navigate(['/tabs-cliente/tobook/successpay']);
@@ -59676,24 +59733,24 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context51.abrupt("break", 25);
+                                    return _context50.abrupt("break", 25);
 
                                   case 25:
                                   case "end":
-                                    return _context51.stop();
+                                    return _context50.stop();
                                 }
                               }
-                            }, _callee51, this);
+                            }, _callee50, this);
                           }));
                         });
                       }
 
                     case 17:
                     case "end":
-                      return _context52.stop();
+                      return _context51.stop();
                   }
                 }
-              }, _callee52, this);
+              }, _callee51, this);
             }));
           }
         }, {
@@ -60601,11 +60658,13 @@
             title: 'To book',
             url: '/tabs-cliente/tobook/tipovehiculos',
             icon: 'calendar-clear'
-          }, {
+          },
+          /*{
             title: 'Deals of the week',
             url: '/tabs-cliente/tobook/dealsweek',
             icon: 'pricetags'
-          }, {
+          },*/
+          {
             title: 'Appointments',
             url: '/tabs-cliente/tobook/tipobooks',
             icon: 'calendar'
@@ -60623,35 +60682,35 @@
         _createClass(TabClienteTobookPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this188 = this;
+            var _this187 = this;
 
             this.angularAuth.authState.subscribe(function (user) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this188, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this187, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee52() {
                 var cliente;
-                return regeneratorRuntime.wrap(function _callee53$(_context53) {
+                return regeneratorRuntime.wrap(function _callee52$(_context52) {
                   while (1) {
-                    switch (_context53.prev = _context53.next) {
+                    switch (_context52.prev = _context52.next) {
                       case 0:
                         if (!user) {
-                          _context53.next = 13;
+                          _context52.next = 13;
                           break;
                         }
 
-                        _context53.t0 = JSON;
-                        _context53.next = 4;
+                        _context52.t0 = JSON;
+                        _context52.next = 4;
                         return this.localstorage.getData('usuario');
 
                       case 4:
-                        _context53.t1 = _context53.sent;
-                        cliente = _context53.t0.parse.call(_context53.t0, _context53.t1);
+                        _context52.t1 = _context52.sent;
+                        cliente = _context52.t0.parse.call(_context52.t0, _context52.t1);
                         this.cliente_name = cliente.name;
                         this.cliente_correo = cliente.email;
-                        _context53.next = 10;
+                        _context52.next = 10;
                         return this.localstorage.getData('autenticacion_tipo');
 
                       case 10:
-                        this.autenticacion_tipo = _context53.sent;
-                        _context53.next = 15;
+                        this.autenticacion_tipo = _context52.sent;
+                        _context52.next = 15;
                         break;
 
                       case 13:
@@ -60660,10 +60719,10 @@
 
                       case 15:
                       case "end":
-                        return _context53.stop();
+                        return _context52.stop();
                     }
                   }
-                }, _callee53, this);
+                }, _callee52, this);
               }));
             });
           }
@@ -60803,46 +60862,46 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
-              var _this189 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee53() {
+              var _this188 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee54$(_context54) {
+              return regeneratorRuntime.wrap(function _callee53$(_context53) {
                 while (1) {
-                  switch (_context54.prev = _context54.next) {
+                  switch (_context53.prev = _context53.next) {
                     case 0:
-                      _context54.t0 = JSON;
-                      _context54.next = 3;
+                      _context53.t0 = JSON;
+                      _context53.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context54.t1 = _context54.sent;
-                      user = _context54.t0.parse.call(_context54.t0, _context54.t1);
-                      _context54.next = 7;
+                      _context53.t1 = _context53.sent;
+                      user = _context53.t0.parse.call(_context53.t0, _context53.t1);
+                      _context53.next = 7;
                       return this.localstorage.getData('idtoken');
 
                     case 7:
-                      idtoken = _context54.sent;
-                      _context54.next = 10;
+                      idtoken = _context53.sent;
+                      _context53.next = 10;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 10:
-                      autenticacion_tipo = _context54.sent;
+                      autenticacion_tipo = _context53.sent;
 
                       if (user) {
                         this.loading.simpleLoader();
                         this.serviciotobook.getAppointments(idtoken, autenticacion_tipo, user.email).subscribe(function (val) {
                           var datos = val;
 
-                          _this189.loading.dismissLoader();
+                          _this188.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
 
                           switch (datos.respuesta) {
                             case 'TOKEN ERROR':
-                              _this189.router.navigate(['/login']);
+                              _this188.router.navigate(['/login']);
 
-                              _this189.snackBar.open("Invalid or expired token,please login again", "Close", {
+                              _this188.snackBar.open("Invalid or expired token,please login again", "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -60851,11 +60910,11 @@
 
                             case 'ERROR':
                               // borramos la informacion local
-                              _this189.localstorage.clearData();
+                              _this188.localstorage.clearData();
 
-                              _this189.router.navigate(['/login']);
+                              _this188.router.navigate(['/login']);
 
-                              _this189.snackBar.open("Sorry, an error occurred,please login again6" + datos.mensaje, "Close", {
+                              _this188.snackBar.open("Sorry, an error occurred,please login again6" + datos.mensaje, "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -60863,10 +60922,10 @@
                               break;
 
                             case '200_OK':
-                              _this189.inhold = datos.sinconfirmar;
-                              _this189.confirmed = datos.confirmados;
-                              _this189.completed = datos.completados;
-                              _this189.cancelled = datos.cancelados; // VERSION 1:
+                              _this188.inhold = datos.sinconfirmar;
+                              _this188.confirmed = datos.confirmados;
+                              _this188.completed = datos.completados;
+                              _this188.cancelled = datos.cancelados; // VERSION 1:
 
                               /* console.log(datos)
                                       var sinfiltrardatos = Object.values(datos)
@@ -60972,16 +61031,16 @@
                               break;
                           }
                         }, function (error) {
-                          _this189.loading.dismissLoader();
+                          _this188.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
                           console.error('There was an error!', error); // borramos la informacion local
 
-                          _this189.localstorage.clearData();
+                          _this188.localstorage.clearData();
 
-                          _this189.router.navigate(['/login']);
+                          _this188.router.navigate(['/login']);
 
-                          _this189.snackBar.open("Sorry, an error occurred,please login again7" + error.message, "Close", {
+                          _this188.snackBar.open("Sorry, an error occurred,please login again7" + error.message, "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -60999,10 +61058,10 @@
 
                     case 12:
                     case "end":
-                      return _context54.stop();
+                      return _context53.stop();
                   }
                 }
-              }, _callee54, this);
+              }, _callee53, this);
             }));
           }
         }]);
@@ -61233,23 +61292,23 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
-              var _this190 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee54() {
+              var _this189 = this;
 
-              return regeneratorRuntime.wrap(function _callee55$(_context55) {
+              return regeneratorRuntime.wrap(function _callee54$(_context54) {
                 while (1) {
-                  switch (_context55.prev = _context55.next) {
+                  switch (_context54.prev = _context54.next) {
                     case 0:
-                      _context55.t0 = JSON;
-                      _context55.next = 3;
+                      _context54.t0 = JSON;
+                      _context54.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context55.t1 = _context55.sent;
-                      this.user = _context55.t0.parse.call(_context55.t0, _context55.t1);
+                      _context54.t1 = _context54.sent;
+                      this.user = _context54.t0.parse.call(_context54.t0, _context54.t1);
 
                       if (!this.user) {
-                        _context55.next = 19;
+                        _context54.next = 19;
                         break;
                       }
 
@@ -61257,33 +61316,33 @@
                       this.vehiculoid = this.rutaActiva.snapshot.params.vehiculoid;
                       this.vehiculo = this.rutaActiva.snapshot.params.vehiculo;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this190.vehiculoid = params.vehiculoid;
-                        _this190.vehiculo = params.vehiculo;
+                        _this189.vehiculoid = params.vehiculoid;
+                        _this189.vehiculo = params.vehiculo;
                       });
-                      _context55.next = 12;
+                      _context54.next = 12;
                       return this.localstorage.getData('idtoken');
 
                     case 12:
-                      this.idtoken = _context55.sent;
-                      _context55.next = 15;
+                      this.idtoken = _context54.sent;
+                      _context54.next = 15;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 15:
-                      this.autenticacion_tipo = _context55.sent;
+                      this.autenticacion_tipo = _context54.sent;
                       // CONSULTA API 1  LAVADOS DE LOS SERVICIOS
                       this.serviciostobook.getLavados(this.vehiculoid, this.idtoken, this.autenticacion_tipo).subscribe({
                         next: function next(data) {
-                          _this190.loading.dismissLoader();
+                          _this189.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
 
                           switch (data.respuesta) {
                             case 'ERROR':
-                              _this190.localstorage.clearData();
+                              _this189.localstorage.clearData();
 
-                              _this190.router.navigate(['/login']);
+                              _this189.router.navigate(['/login']);
 
-                              _this190.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                              _this189.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -61291,11 +61350,11 @@
                               break;
 
                             case 'TOKEN ERROR':
-                              _this190.localstorage.clearData();
+                              _this189.localstorage.clearData();
 
-                              _this190.router.navigate(['/login']);
+                              _this189.router.navigate(['/login']);
 
-                              _this190.snackBar.open("Invalid or expired token,please login again", "Close", {
+                              _this189.snackBar.open("Invalid or expired token,please login again", "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top"
                               });
@@ -61304,27 +61363,27 @@
                               break;
 
                             default:
-                              _this190.lavados = data;
+                              _this189.lavados = data;
                           }
                         },
-                        error: function error(_error27) {
-                          _this190.loading.dismissLoader();
+                        error: function error(_error26) {
+                          _this189.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
-                          var errorMessage = _error27.message;
+                          var errorMessage = _error26.message;
                           console.error('There was an error!', errorMessage);
 
-                          _this190.localstorage.clearData();
+                          _this189.localstorage.clearData();
 
-                          _this190.router.navigate(['/login']);
+                          _this189.router.navigate(['/login']);
 
-                          _this190.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this189.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
-                      _context55.next = 23;
+                      _context54.next = 23;
                       break;
 
                     case 19:
@@ -61338,10 +61397,10 @@
 
                     case 23:
                     case "end":
-                      return _context55.stop();
+                      return _context54.stop();
                   }
                 }
-              }, _callee55, this);
+              }, _callee54, this);
             }));
           }
         }]);
@@ -61476,44 +61535,44 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
-              var _this191 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee55() {
+              var _this190 = this;
 
               var user, idtoken, autenticacion_tipo;
-              return regeneratorRuntime.wrap(function _callee56$(_context56) {
+              return regeneratorRuntime.wrap(function _callee55$(_context55) {
                 while (1) {
-                  switch (_context56.prev = _context56.next) {
+                  switch (_context55.prev = _context55.next) {
                     case 0:
                       this.loading.simpleLoader();
-                      _context56.t0 = JSON;
-                      _context56.next = 4;
+                      _context55.t0 = JSON;
+                      _context55.next = 4;
                       return this.localstorage.getData('usuario');
 
                     case 4:
-                      _context56.t1 = _context56.sent;
-                      user = _context56.t0.parse.call(_context56.t0, _context56.t1);
-                      _context56.next = 8;
+                      _context55.t1 = _context55.sent;
+                      user = _context55.t0.parse.call(_context55.t0, _context55.t1);
+                      _context55.next = 8;
                       return this.localstorage.getData('idtoken');
 
                     case 8:
-                      idtoken = _context56.sent;
-                      _context56.next = 11;
+                      idtoken = _context55.sent;
+                      _context55.next = 11;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 11:
-                      autenticacion_tipo = _context56.sent;
+                      autenticacion_tipo = _context55.sent;
                       this.serviciotobook.getPays(idtoken, autenticacion_tipo, user.email).subscribe(function (val) {
                         var datos = val;
 
-                        _this191.loading.dismissLoader();
+                        _this190.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
 
                         switch (datos.respuesta) {
                           case 'TOKEN ERROR':
-                            _this191.router.navigate(['/login']);
+                            _this190.router.navigate(['/login']);
 
-                            _this191.snackBar.open("Invalid or expired token,please login again", "Close", {
+                            _this190.snackBar.open("Invalid or expired token,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -61522,11 +61581,11 @@
 
                           case 'ERROR':
                             // borramos la informacion local
-                            _this191.localstorage.clearData();
+                            _this190.localstorage.clearData();
 
-                            _this191.router.navigate(['/login']);
+                            _this190.router.navigate(['/login']);
 
-                            _this191.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                            _this190.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -61534,9 +61593,9 @@
                             break;
 
                           case '200_OK':
-                            _this191.inview = datos.enrevision;
-                            _this191.admitted = datos.aceptados;
-                            _this191.reject = datos.negados;
+                            _this190.inview = datos.enrevision;
+                            _this190.admitted = datos.aceptados;
+                            _this190.reject = datos.negados;
                             /*console.log(datos)
                             var sinfiltrardatos = Object.values(datos)
                              var filtradatos = sinfiltrardatos.filter(((celda: string | any[]) =>  celda !== '200_OK'))
@@ -61607,16 +61666,16 @@
                             break;
                         }
                       }, function (error) {
-                        _this191.loading.dismissLoader();
+                        _this190.loading.dismissLoader();
 
                         if ($event) $event.target.complete();
                         console.error('There was an error!', error); // borramos la informacion local
 
-                        _this191.localstorage.clearData();
+                        _this190.localstorage.clearData();
 
-                        _this191.router.navigate(['/login']);
+                        _this190.router.navigate(['/login']);
 
-                        _this191.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                        _this190.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -61624,10 +61683,10 @@
 
                     case 13:
                     case "end":
-                      return _context56.stop();
+                      return _context55.stop();
                   }
                 }
-              }, _callee56, this);
+              }, _callee55, this);
             }));
           }
         }]);
@@ -61769,23 +61828,23 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
-              var _this192 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
+              var _this191 = this;
 
-              return regeneratorRuntime.wrap(function _callee58$(_context58) {
+              return regeneratorRuntime.wrap(function _callee57$(_context57) {
                 while (1) {
-                  switch (_context58.prev = _context58.next) {
+                  switch (_context57.prev = _context57.next) {
                     case 0:
-                      _context58.t0 = JSON;
-                      _context58.next = 3;
+                      _context57.t0 = JSON;
+                      _context57.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context58.t1 = _context58.sent;
-                      this.user = _context58.t0.parse.call(_context58.t0, _context58.t1);
+                      _context57.t1 = _context57.sent;
+                      this.user = _context57.t0.parse.call(_context57.t0, _context57.t1);
 
                       if (!this.user) {
-                        _context58.next = 22;
+                        _context57.next = 22;
                         break;
                       }
 
@@ -61794,37 +61853,37 @@
                       this.lavado = this.rutaActiva.snapshot.params.lavado;
                       this.lavadoid = this.rutaActiva.snapshot.params.lavadoid;
                       this.rutaActiva.params.subscribe(function (params) {
-                        _this192.vehiculo = params.vehiculo;
-                        _this192.lavado = params.lavado;
-                        _this192.lavadoid = params.lavadoid;
+                        _this191.vehiculo = params.vehiculo;
+                        _this191.lavado = params.lavado;
+                        _this191.lavadoid = params.lavadoid;
                       });
-                      _context58.next = 13;
+                      _context57.next = 13;
                       return this.localstorage.setData('tipolavado', this.lavado);
 
                     case 13:
-                      _context58.next = 15;
+                      _context57.next = 15;
                       return this.localstorage.getData('idtoken');
 
                     case 15:
-                      this.idtoken = _context58.sent;
-                      _context58.next = 18;
+                      this.idtoken = _context57.sent;
+                      _context57.next = 18;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 18:
-                      this.autenticacion_tipo = _context58.sent;
+                      this.autenticacion_tipo = _context57.sent;
                       // CONSULTA API 1  LOS SERVICIOS
                       this.serviciostobook.getServicios(this.lavadoid, this.idtoken, this.autenticacion_tipo).subscribe({
                         next: function next(data) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this192, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee57() {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this191, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee56() {
                             var washs;
-                            return regeneratorRuntime.wrap(function _callee57$(_context57) {
+                            return regeneratorRuntime.wrap(function _callee56$(_context56) {
                               while (1) {
-                                switch (_context57.prev = _context57.next) {
+                                switch (_context56.prev = _context56.next) {
                                   case 0:
                                     this.loading.dismissLoader();
                                     if ($event) $event.target.complete();
-                                    _context57.t0 = data.respuesta;
-                                    _context57.next = _context57.t0 === 'ERROR' ? 5 : _context57.t0 === 'TOKEN ERROR' ? 9 : 14;
+                                    _context56.t0 = data.respuesta;
+                                    _context56.next = _context56.t0 === 'ERROR' ? 5 : _context56.t0 === 'TOKEN ERROR' ? 9 : 14;
                                     break;
 
                                   case 5:
@@ -61834,7 +61893,7 @@
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
-                                    return _context57.abrupt("break", 18);
+                                    return _context56.abrupt("break", 18);
 
                                   case 9:
                                     this.localstorage.clearData();
@@ -61844,40 +61903,40 @@
                                       verticalPosition: "top"
                                     });
                                     console.log(data.mensaje);
-                                    return _context57.abrupt("break", 18);
+                                    return _context56.abrupt("break", 18);
 
                                   case 14:
                                     this.servicios = data;
                                     washs = Object.values(this.servicios);
-                                    _context57.next = 18;
+                                    _context56.next = 18;
                                     return this.localstorage.setObject('allservices', washs);
 
                                   case 18:
                                   case "end":
-                                    return _context57.stop();
+                                    return _context56.stop();
                                 }
                               }
-                            }, _callee57, this);
+                            }, _callee56, this);
                           }));
                         },
-                        error: function error(_error28) {
-                          _this192.loading.dismissLoader();
+                        error: function error(_error27) {
+                          _this191.loading.dismissLoader();
 
                           if ($event) $event.target.complete();
-                          var errorMessage = _error28.message;
+                          var errorMessage = _error27.message;
                           console.error('There was an error!', errorMessage);
 
-                          _this192.localstorage.clearData();
+                          _this191.localstorage.clearData();
 
-                          _this192.router.navigate(['/login']);
+                          _this191.router.navigate(['/login']);
 
-                          _this192.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                          _this191.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         }
                       });
-                      _context58.next = 26;
+                      _context57.next = 26;
                       break;
 
                     case 22:
@@ -61892,10 +61951,10 @@
 
                     case 26:
                     case "end":
-                      return _context58.stop();
+                      return _context57.stop();
                   }
                 }
-              }, _callee58, this);
+              }, _callee57, this);
             }));
           }
         }]);
@@ -62031,47 +62090,47 @@
         }, {
           key: "doRefresh",
           value: function doRefresh($event) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
-              var _this193 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee58() {
+              var _this192 = this;
 
-              return regeneratorRuntime.wrap(function _callee59$(_context59) {
+              return regeneratorRuntime.wrap(function _callee58$(_context58) {
                 while (1) {
-                  switch (_context59.prev = _context59.next) {
+                  switch (_context58.prev = _context58.next) {
                     case 0:
-                      _context59.t0 = JSON;
-                      _context59.next = 3;
+                      _context58.t0 = JSON;
+                      _context58.next = 3;
                       return this.localstorage.getData('usuario');
 
                     case 3:
-                      _context59.t1 = _context59.sent;
-                      this.user = _context59.t0.parse.call(_context59.t0, _context59.t1);
-                      _context59.next = 7;
+                      _context58.t1 = _context58.sent;
+                      this.user = _context58.t0.parse.call(_context58.t0, _context58.t1);
+                      _context58.next = 7;
                       return this.localstorage.getData('idtoken');
 
                     case 7:
-                      this.idtoken = _context59.sent;
-                      _context59.next = 10;
+                      this.idtoken = _context58.sent;
+                      _context58.next = 10;
                       return this.localstorage.getData('autenticacion_tipo');
 
                     case 10:
-                      this.autenticacion_tipo = _context59.sent;
+                      this.autenticacion_tipo = _context58.sent;
 
                       if (this.user) {
                         this.loading.simpleLoader(); // CONSULTA API 1  VEHICULOS DE LOS SERVICIOS
 
                         this.serviciostobook.getVehiculo(this.idtoken, this.autenticacion_tipo, this.user.email).subscribe({
                           next: function next(data) {
-                            _this193.loading.dismissLoader();
+                            _this192.loading.dismissLoader();
 
                             if ($event) $event.target.complete();
 
                             switch (data.respuesta) {
                               case 'ERROR':
-                                _this193.localstorage.clearData();
+                                _this192.localstorage.clearData();
 
-                                _this193.router.navigate(['/login']);
+                                _this192.router.navigate(['/login']);
 
-                                _this193.snackBar.open("Sorry, an error occurred,please login again3", "Close", {
+                                _this192.snackBar.open("Sorry, an error occurred,please login again3", "Close", {
                                   horizontalPosition: "start",
                                   verticalPosition: "top"
                                 });
@@ -62079,11 +62138,11 @@
                                 break;
 
                               case 'TOKEN ERROR':
-                                _this193.localstorage.clearData();
+                                _this192.localstorage.clearData();
 
-                                _this193.router.navigate(['/login']);
+                                _this192.router.navigate(['/login']);
 
-                                _this193.snackBar.open("Invalid or expired token,please login again4", "Close", {
+                                _this192.snackBar.open("Invalid or expired token,please login again4", "Close", {
                                   horizontalPosition: "start",
                                   verticalPosition: "top"
                                 });
@@ -62092,7 +62151,7 @@
                                 break;
 
                               case 'PERFIL_INCOMPLETO':
-                                _this193.router.navigate(['tabs-cliente/tobook/ingresarperfil/']);
+                                _this192.router.navigate(['tabs-cliente/tobook/ingresarperfil/']);
 
                                 break;
 
@@ -62105,27 +62164,27 @@
                                 break;*/
 
                               case 'CONTINUAR':
-                                _this193.vehiculos = data;
-                                console.log(_this193.vehiculos);
+                                _this192.vehiculos = data;
+                                console.log(_this192.vehiculos);
                                 break;
 
                               default:
-                                _this193.vehiculos = data;
-                                console.log(_this193.vehiculos);
+                                _this192.vehiculos = data;
+                                console.log(_this192.vehiculos);
                             }
                           },
-                          error: function error(_error29) {
-                            _this193.loading.dismissLoader();
+                          error: function error(_error28) {
+                            _this192.loading.dismissLoader();
 
                             if ($event) $event.target.complete();
-                            var errorMessage = _error29.message;
+                            var errorMessage = _error28.message;
                             console.error('There was an error!', errorMessage);
 
-                            _this193.localstorage.clearData();
+                            _this192.localstorage.clearData();
 
-                            _this193.router.navigate(['/login']);
+                            _this192.router.navigate(['/login']);
 
-                            _this193.snackBar.open("Sorry, an error occurred,please login again5", "Close", {
+                            _this192.snackBar.open("Sorry, an error occurred,please login again5", "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -62142,15 +62201,15 @@
                         });
                       }
 
-                      _context59.next = 14;
+                      _context58.next = 14;
                       return this.localstorage.removeData('tiporeservacion');
 
                     case 14:
                     case "end":
-                      return _context59.stop();
+                      return _context58.stop();
                   }
                 }
-              }, _callee59, this);
+              }, _callee58, this);
             }));
           }
         }]);
@@ -62281,31 +62340,31 @@
         _createClass(WashsComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
-              var _this194 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
+              var _this193 = this;
 
-              return regeneratorRuntime.wrap(function _callee61$(_context61) {
+              return regeneratorRuntime.wrap(function _callee60$(_context60) {
                 while (1) {
-                  switch (_context61.prev = _context61.next) {
+                  switch (_context60.prev = _context60.next) {
                     case 0:
-                      _context61.next = 2;
+                      _context60.next = 2;
                       return this.localstorage.getData('usuario').then(function (val) {
                         var user = JSON.parse(val);
 
                         if (user) {
-                          _this194.washname = _this194.rutaActiva.snapshot.params.washname;
-                          _this194.washlavado = _this194.rutaActiva.snapshot.params.washlavado;
-                          _this194.washvehiculo = _this194.rutaActiva.snapshot.params.washvehiculo;
-                          _this194.washdescripcion = _this194.rutaActiva.snapshot.params.washdescripcion;
-                          _this194.washid = _this194.rutaActiva.snapshot.params.washid;
-                          _this194.washprecio = _this194.rutaActiva.snapshot.params.washprecio;
-                          _this194.washpreciomobil = _this194.rutaActiva.snapshot.params.washpreciomobil;
+                          _this193.washname = _this193.rutaActiva.snapshot.params.washname;
+                          _this193.washlavado = _this193.rutaActiva.snapshot.params.washlavado;
+                          _this193.washvehiculo = _this193.rutaActiva.snapshot.params.washvehiculo;
+                          _this193.washdescripcion = _this193.rutaActiva.snapshot.params.washdescripcion;
+                          _this193.washid = _this193.rutaActiva.snapshot.params.washid;
+                          _this193.washprecio = _this193.rutaActiva.snapshot.params.washprecio;
+                          _this193.washpreciomobil = _this193.rutaActiva.snapshot.params.washpreciomobil;
 
-                          _this194.rutaActiva.params.subscribe(function (params) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee60() {
-                              return regeneratorRuntime.wrap(function _callee60$(_context60) {
+                          _this193.rutaActiva.params.subscribe(function (params) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this193, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee59() {
+                              return regeneratorRuntime.wrap(function _callee59$(_context59) {
                                 while (1) {
-                                  switch (_context60.prev = _context60.next) {
+                                  switch (_context59.prev = _context59.next) {
                                     case 0:
                                       this.washname = params.washname;
                                       this.washlavado = params.washlavado;
@@ -62314,32 +62373,32 @@
                                       this.washid = params.washid;
                                       this.washprecio = params.washprecio;
                                       this.washpreciomobil = params.washpreciomobil;
-                                      _context60.next = 9;
+                                      _context59.next = 9;
                                       return this.localstorage.setData('washpreciomobil', this.washpreciomobil);
 
                                     case 9:
-                                      _context60.next = 11;
+                                      _context59.next = 11;
                                       return this.localstorage.setData('washprecio', this.washprecio);
 
                                     case 11:
-                                      _context60.next = 13;
+                                      _context59.next = 13;
                                       return this.localstorage.setData('tipolavado', this.washlavado);
 
                                     case 13:
                                     case "end":
-                                      return _context60.stop();
+                                      return _context59.stop();
                                   }
                                 }
-                              }, _callee60, this);
+                              }, _callee59, this);
                             }));
                           });
                         } else {
                           // borramos la informacion local
-                          _this194.localstorage.clearData();
+                          _this193.localstorage.clearData();
 
-                          _this194.router.navigate(['/login']);
+                          _this193.router.navigate(['/login']);
 
-                          _this194.snackBar.open("Please login again ", "Close", {
+                          _this193.snackBar.open("Please login again ", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
@@ -62347,11 +62406,11 @@
                       }, function (err) {
                         console.log(err);
 
-                        _this194.localstorage.clearData();
+                        _this193.localstorage.clearData();
 
-                        _this194.router.navigate(['/login']);
+                        _this193.router.navigate(['/login']);
 
-                        _this194.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                        _this193.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -62359,161 +62418,161 @@
 
                     case 2:
                     case "end":
-                      return _context61.stop();
+                      return _context60.stop();
                   }
                 }
-              }, _callee61, this);
+              }, _callee60, this);
             }));
           }
         }, {
           key: "reservarnow",
           value: function reservarnow() {
-            var _this195 = this;
+            var _this194 = this;
 
             this.dialogo.open(_dialogreservacion_dialogreservacion_component__WEBPACK_IMPORTED_MODULE_3__.DialogreservacionComponent, {
               data: "Please select your type of reservation "
             }).afterClosed().subscribe(function (confirmado) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this195, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee62() {
-                var washs, _iterator8, _step8, wash, _iterator9, _step9, _wash;
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this194, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee61() {
+                var washs, _iterator7, _step7, wash, _iterator8, _step8, _wash;
 
-                return regeneratorRuntime.wrap(function _callee62$(_context62) {
+                return regeneratorRuntime.wrap(function _callee61$(_context61) {
                   while (1) {
-                    switch (_context62.prev = _context62.next) {
+                    switch (_context61.prev = _context61.next) {
                       case 0:
-                        _context62.t0 = confirmado;
-                        _context62.next = _context62.t0 === 1 ? 3 : _context62.t0 === 2 ? 30 : _context62.t0 === 3 ? 57 : _context62.t0 === 4 ? 59 : 61;
+                        _context61.t0 = confirmado;
+                        _context61.next = _context61.t0 === 1 ? 3 : _context61.t0 === 2 ? 30 : _context61.t0 === 3 ? 57 : _context61.t0 === 4 ? 59 : 61;
                         break;
 
                       case 3:
-                        _context62.next = 5;
+                        _context61.next = 5;
                         return this.localstorage.setData('tiporeservacion', 'citamobil');
 
                       case 5:
-                        _context62.t1 = JSON;
-                        _context62.next = 8;
+                        _context61.t1 = JSON;
+                        _context61.next = 8;
                         return this.localstorage.getData('allservices');
 
                       case 8:
-                        _context62.t2 = _context62.sent;
-                        washs = _context62.t1.parse.call(_context62.t1, _context62.t2);
-                        _iterator8 = _createForOfIteratorHelper(washs);
-                        _context62.prev = 11;
+                        _context61.t2 = _context61.sent;
+                        washs = _context61.t1.parse.call(_context61.t1, _context61.t2);
+                        _iterator7 = _createForOfIteratorHelper(washs);
+                        _context61.prev = 11;
 
-                        _iterator8.s();
+                        _iterator7.s();
 
                       case 13:
-                        if ((_step8 = _iterator8.n()).done) {
-                          _context62.next = 20;
+                        if ((_step7 = _iterator7.n()).done) {
+                          _context61.next = 20;
                           break;
                         }
 
-                        wash = _step8.value;
+                        wash = _step7.value;
 
                         if (!(wash.product_id == this.washid)) {
-                          _context62.next = 18;
+                          _context61.next = 18;
                           break;
                         }
 
-                        _context62.next = 18;
+                        _context61.next = 18;
                         return this.localstorage.setObject('servicio', wash);
 
                       case 18:
-                        _context62.next = 13;
+                        _context61.next = 13;
                         break;
 
                       case 20:
-                        _context62.next = 25;
+                        _context61.next = 25;
                         break;
 
                       case 22:
-                        _context62.prev = 22;
-                        _context62.t3 = _context62["catch"](11);
+                        _context61.prev = 22;
+                        _context61.t3 = _context61["catch"](11);
 
-                        _iterator8.e(_context62.t3);
+                        _iterator7.e(_context61.t3);
 
                       case 25:
-                        _context62.prev = 25;
+                        _context61.prev = 25;
 
-                        _iterator8.f();
+                        _iterator7.f();
 
-                        return _context62.finish(25);
+                        return _context61.finish(25);
 
                       case 28:
                         this.router.navigate(['tabs-cliente/tobook/citamobil']);
-                        return _context62.abrupt("break", 61);
+                        return _context61.abrupt("break", 61);
 
                       case 30:
-                        _context62.next = 32;
+                        _context61.next = 32;
                         return this.localstorage.setData('tiporeservacion', 'citayarda');
 
                       case 32:
-                        _context62.t4 = JSON;
-                        _context62.next = 35;
+                        _context61.t4 = JSON;
+                        _context61.next = 35;
                         return this.localstorage.getData('allservices');
 
                       case 35:
-                        _context62.t5 = _context62.sent;
-                        washs = _context62.t4.parse.call(_context62.t4, _context62.t5);
-                        _iterator9 = _createForOfIteratorHelper(washs);
-                        _context62.prev = 38;
+                        _context61.t5 = _context61.sent;
+                        washs = _context61.t4.parse.call(_context61.t4, _context61.t5);
+                        _iterator8 = _createForOfIteratorHelper(washs);
+                        _context61.prev = 38;
 
-                        _iterator9.s();
+                        _iterator8.s();
 
                       case 40:
-                        if ((_step9 = _iterator9.n()).done) {
-                          _context62.next = 47;
+                        if ((_step8 = _iterator8.n()).done) {
+                          _context61.next = 47;
                           break;
                         }
 
-                        _wash = _step9.value;
+                        _wash = _step8.value;
 
                         if (!(_wash.product_id == this.washid)) {
-                          _context62.next = 45;
+                          _context61.next = 45;
                           break;
                         }
 
-                        _context62.next = 45;
+                        _context61.next = 45;
                         return this.localstorage.setObject('servicio', _wash);
 
                       case 45:
-                        _context62.next = 40;
+                        _context61.next = 40;
                         break;
 
                       case 47:
-                        _context62.next = 52;
+                        _context61.next = 52;
                         break;
 
                       case 49:
-                        _context62.prev = 49;
-                        _context62.t6 = _context62["catch"](38);
+                        _context61.prev = 49;
+                        _context61.t6 = _context61["catch"](38);
 
-                        _iterator9.e(_context62.t6);
+                        _iterator8.e(_context61.t6);
 
                       case 52:
-                        _context62.prev = 52;
+                        _context61.prev = 52;
 
-                        _iterator9.f();
+                        _iterator8.f();
 
-                        return _context62.finish(52);
+                        return _context61.finish(52);
 
                       case 55:
                         this.router.navigate(['tabs-cliente/tobook/citayarda']);
-                        return _context62.abrupt("break", 61);
+                        return _context61.abrupt("break", 61);
 
                       case 57:
                         this.router.navigate(['tabs-cliente/tobook']);
-                        return _context62.abrupt("break", 61);
+                        return _context61.abrupt("break", 61);
 
                       case 59:
                         this.router.navigate(['tabs-cliente/tobook/dealsweek']);
-                        return _context62.abrupt("break", 61);
+                        return _context61.abrupt("break", 61);
 
                       case 61:
                       case "end":
-                        return _context62.stop();
+                        return _context61.stop();
                     }
                   }
-                }, _callee62, this, [[11, 22, 25, 28], [38, 49, 52, 55]]);
+                }, _callee61, this, [[11, 22, 25, 28], [38, 49, 52, 55]]);
               }));
             });
           }
@@ -63105,7 +63164,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #142f5f;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #f2eae1;\n  color: #142f5f;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\n#cancel {\n  width: 90%;\n}\n\n#add {\n  width: 90%;\n}\n\n#checkout {\n  width: 90%;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n#totalvacio {\n  color: #fff;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #2E4F9C;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15Ym9va3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FBQ0o7O0FBRUU7RUFDRSxTQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0UsbUJBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0FBQ0o7O0FBRUU7RUFDRSxnQkFBQTtFQUNBLGFBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0VBQ0EsbUJBQUE7RUFDQSxjQUFBO0VBQ0EsYUFBQTtFQUVKLGtCQUFBO0VBQ0EsZUFBQTtFQUVBLCtHQUFBO0VBQ0ksbUJBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7QUFBSjs7QUFHRTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0FBQUo7O0FBR0U7RUFDRSxhQUFBO0FBQUo7O0FBR0U7RUFDRSxZQUFBO0FBQUo7O0FBR0U7RUFFRSxrQkFBQTtBQURKOztBQUlFO0VBQ0UsVUFBQTtBQURKOztBQUdBO0VBQ0ksVUFBQTtBQUFKOztBQUVBO0VBQ0UsVUFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRjs7QUFFQTtFQUVFLFdBQUE7QUFBRjs7QUFFQTtFQUVFLDhCQUFBO0FBQUY7O0FBR0E7RUFFRSxrQkFBQTtFQUNBLGFBQUE7QUFERjs7QUFJQTtFQUVFLGdCQUFBO0VBQ0EsYUFBQTtFQUNBLGNBQUE7QUFGRiIsImZpbGUiOiJteWJvb2tzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGFibGUge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWRldGFpbC1yb3cge1xuICAgIGhlaWdodDogMDtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTpob3ZlciB7XG4gICAgYmFja2dyb3VuZDogIzE0MmY1ZjtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTphY3RpdmUge1xuICAgIGJhY2tncm91bmQ6ICNlZmVmZWY7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtcm93IHRkIHtcbiAgICBib3JkZXItYm90dG9tLXdpZHRoOiAwO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRldGFpbCB7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRpYWdyYW0ge1xuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7IFxuICAgIGJhY2tncm91bmQ6ICNmMmVhZTE7XG4gICAgY29sb3I6ICMxNDJmNWY7XG4gICAgcGFkZGluZzogMTBweDsgIFxuXG5ib3JkZXItcmFkaXVzOiA0cHg7XG5mb250LXNpemU6IDE0cHg7XG4td2Via2l0LWJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbmJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbiAgICB0ZXh0LWFsaWduOiBqdXN0aWZ5O1xuICAgIG1hcmdpbi1ib3R0b206MTBweDtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1zeW1ib2wge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtc2l6ZTogNDBweDtcbiAgICBsaW5lLWhlaWdodDogbm9ybWFsO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uIHtcbiAgICBwYWRkaW5nOiAxNnB4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uLWF0dHJpYnV0aW9uIHtcbiAgICBvcGFjaXR5OiAwLjU7XG4gIH1cblxuICB0aC5tYXQtaGVhZGVyLWNlbGwsIHRkLm1hdC1jZWxsLCB0ZC5tYXQtZm9vdGVyLWNlbGwge1xuXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB9XG5cbiAgI2NhbmNlbCB7XG4gICAgd2lkdGg6IDkwJTtcbn1cbiNhZGQge1xuICAgIHdpZHRoOiA5MCU7XG59XG4jY2hlY2tvdXQge1xuICB3aWR0aDogOTAlO1xufVxuXG50ci5tYXQtZm9vdGVyLXJvdyB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jdG90YWx2YWNpbyB7XG5cbiAgY29sb3I6ICNmZmZcbn1cbjo6bmctZGVlcCAgLm1hdC10YWJsZSB0Ym9keSB7XG5cbiAgYmFja2dyb3VuZDogI2NiMDMzYyAhaW1wb3J0YW50O1xufVxuXG4udGlja2V0IHtcblxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogdW5zZXQ7XG59XG5cbi50aWNrZXRzIHtcblxuICB0ZXh0LWFsaWduOiBsZWZ0O1xuICBtYXJnaW46IHVuc2V0O1xuICBjb2xvcjogIzJFNEY5QztcblxufSJdfQ== */";
+      __webpack_exports__["default"] = "table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #2e4f9c;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #2e4f9c;\n  color: #f2f2f2;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\n#cancel {\n  width: 90%;\n}\n\n#add {\n  width: 90%;\n}\n\n#checkout {\n  width: 90%;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n#totalvacio {\n  color: #fff;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #fff;\n  font-weight: bolder;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15Ym9va3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FBQ0o7O0FBRUU7RUFDRSxTQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0UsbUJBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0FBQ0o7O0FBRUU7RUFDRSxnQkFBQTtFQUNBLGFBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0VBQ0EsbUJBQUE7RUFDQSxjQUFBO0VBQ0EsYUFBQTtFQUVKLGtCQUFBO0VBQ0EsZUFBQTtFQUVBLCtHQUFBO0VBQ0ksbUJBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7QUFBSjs7QUFHRTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0FBQUo7O0FBR0U7RUFDRSxhQUFBO0FBQUo7O0FBR0U7RUFDRSxZQUFBO0FBQUo7O0FBR0U7RUFFRSxrQkFBQTtBQURKOztBQUlFO0VBQ0UsVUFBQTtBQURKOztBQUdBO0VBQ0ksVUFBQTtBQUFKOztBQUVBO0VBQ0UsVUFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRjs7QUFFQTtFQUVFLFdBQUE7QUFBRjs7QUFFQTtFQUVFLDhCQUFBO0FBQUY7O0FBR0E7RUFFRSxrQkFBQTtFQUNBLGFBQUE7QUFERjs7QUFJQTtFQUVFLGdCQUFBO0VBQ0EsYUFBQTtFQUNBLFdBQUE7RUFDQSxtQkFBQTtBQUZGIiwiZmlsZSI6Im15Ym9va3MuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbiAgXG4gIHRyLmV4YW1wbGUtZGV0YWlsLXJvdyB7XG4gICAgaGVpZ2h0OiAwO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWVsZW1lbnQtcm93Om5vdCguZXhhbXBsZS1leHBhbmRlZC1yb3cpOmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kOiAjMmU0ZjljO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWVsZW1lbnQtcm93Om5vdCguZXhhbXBsZS1leHBhbmRlZC1yb3cpOmFjdGl2ZSB7XG4gICAgYmFja2dyb3VuZDogI2VmZWZlZjtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1yb3cgdGQge1xuICAgIGJvcmRlci1ib3R0b20td2lkdGg6IDA7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGV0YWlsIHtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGlhZ3JhbSB7XG4gICAgYm94LXNpemluZzogYm9yZGVyLWJveDsgXG4gICAgYmFja2dyb3VuZDogIzJlNGY5YztcbiAgICBjb2xvcjogI2YyZjJmMjtcbiAgICBwYWRkaW5nOiAxMHB4OyAgXG5cbmJvcmRlci1yYWRpdXM6IDRweDtcbmZvbnQtc2l6ZTogMTRweDtcbi13ZWJraXQtYm94LXNoYWRvdzogMCAzcHggMXB4IC0ycHggcmdiYSgwLCAwLCAwLCAwLjIpLCAwIDJweCAycHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCA1cHggMCByZ2JhKDAsIDAsIDAsIDAuMTIpO1xuYm94LXNoYWRvdzogMCAzcHggMXB4IC0ycHggcmdiYSgwLCAwLCAwLCAwLjIpLCAwIDJweCAycHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCA1cHggMCByZ2JhKDAsIDAsIDAsIDAuMTIpO1xuICAgIHRleHQtYWxpZ246IGp1c3RpZnk7XG4gICAgbWFyZ2luLWJvdHRvbToxMHB4O1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LXN5bWJvbCB7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgZm9udC1zaXplOiA0MHB4O1xuICAgIGxpbmUtaGVpZ2h0OiBub3JtYWw7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGVzY3JpcHRpb24ge1xuICAgIHBhZGRpbmc6IDE2cHg7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGVzY3JpcHRpb24tYXR0cmlidXRpb24ge1xuICAgIG9wYWNpdHk6IDAuNTtcbiAgfVxuXG4gIHRoLm1hdC1oZWFkZXItY2VsbCwgdGQubWF0LWNlbGwsIHRkLm1hdC1mb290ZXItY2VsbCB7XG5cbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIH1cblxuICAjY2FuY2VsIHtcbiAgICB3aWR0aDogOTAlO1xufVxuI2FkZCB7XG4gICAgd2lkdGg6IDkwJTtcbn1cbiNjaGVja291dCB7XG4gIHdpZHRoOiA5MCU7XG59XG5cbnRyLm1hdC1mb290ZXItcm93IHtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbiN0b3RhbHZhY2lvIHtcblxuICBjb2xvcjogI2ZmZlxufVxuOjpuZy1kZWVwICAubWF0LXRhYmxlIHRib2R5IHtcblxuICBiYWNrZ3JvdW5kOiAjY2IwMzNjICFpbXBvcnRhbnQ7XG59XG5cbi50aWNrZXQge1xuXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiB1bnNldDtcbn1cblxuLnRpY2tldHMge1xuXG4gIHRleHQtYWxpZ246IGxlZnQ7XG4gIG1hcmdpbjogdW5zZXQ7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXdlaWdodDogYm9sZGVyO1xufSJdfQ== */";
       /***/
     },
 
@@ -63123,7 +63182,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #142f5f;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #f2eae1;\n  color: #142f5f;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #2E4F9C;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15cGF5cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQUE7QUFDSjs7QUFFRTtFQUNFLFNBQUE7QUFDSjs7QUFFRTtFQUNFLG1CQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7QUFDSjs7QUFFRTtFQUNFLGdCQUFBO0VBQ0EsYUFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7RUFDQSxtQkFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0VBRUosa0JBQUE7RUFDQSxlQUFBO0VBRUEsK0dBQUE7RUFDSSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsV0FBQTtBQUFKOztBQUdFO0VBQ0UsaUJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7QUFBSjs7QUFHRTtFQUNFLGFBQUE7QUFBSjs7QUFHRTtFQUNFLFlBQUE7QUFBSjs7QUFHRTtFQUVFLGtCQUFBO0FBREo7O0FBTUE7RUFDRSxpQkFBQTtBQUhGOztBQU1BO0VBRUUsOEJBQUE7QUFKRjs7QUFPQTtFQUVFLGtCQUFBO0VBQ0EsYUFBQTtBQUxGOztBQVFBO0VBRUUsZ0JBQUE7RUFDQSxhQUFBO0VBQ0EsY0FBQTtBQU5GIiwiZmlsZSI6Im15cGF5cy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxlIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1kZXRhaWwtcm93IHtcbiAgICBoZWlnaHQ6IDA7XG4gIH1cbiAgXG4gIHRyLmV4YW1wbGUtZWxlbWVudC1yb3c6bm90KC5leGFtcGxlLWV4cGFuZGVkLXJvdyk6aG92ZXIge1xuICAgIGJhY2tncm91bmQ6ICMxNDJmNWY7XG4gIH1cbiAgXG4gIHRyLmV4YW1wbGUtZWxlbWVudC1yb3c6bm90KC5leGFtcGxlLWV4cGFuZGVkLXJvdyk6YWN0aXZlIHtcbiAgICBiYWNrZ3JvdW5kOiAjZWZlZmVmO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LXJvdyB0ZCB7XG4gICAgYm9yZGVyLWJvdHRvbS13aWR0aDogMDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kZXRhaWwge1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgZGlzcGxheTogZmxleDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kaWFncmFtIHtcbiAgICBib3gtc2l6aW5nOiBib3JkZXItYm94OyBcbiAgICBiYWNrZ3JvdW5kOiAjZjJlYWUxO1xuICAgIGNvbG9yOiAjMTQyZjVmO1xuICAgIHBhZGRpbmc6IDEwcHg7ICBcblxuYm9yZGVyLXJhZGl1czogNHB4O1xuZm9udC1zaXplOiAxNHB4O1xuLXdlYmtpdC1ib3gtc2hhZG93OiAwIDNweCAxcHggLTJweCByZ2JhKDAsIDAsIDAsIDAuMiksIDAgMnB4IDJweCAwIHJnYmEoMCwgMCwgMCwgMC4xNCksIDAgMXB4IDVweCAwIHJnYmEoMCwgMCwgMCwgMC4xMik7XG5ib3gtc2hhZG93OiAwIDNweCAxcHggLTJweCByZ2JhKDAsIDAsIDAsIDAuMiksIDAgMnB4IDJweCAwIHJnYmEoMCwgMCwgMCwgMC4xNCksIDAgMXB4IDVweCAwIHJnYmEoMCwgMCwgMCwgMC4xMik7XG4gICAgdGV4dC1hbGlnbjoganVzdGlmeTtcbiAgICBtYXJnaW4tYm90dG9tOjEwcHg7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtc3ltYm9sIHtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBmb250LXNpemU6IDQwcHg7XG4gICAgbGluZS1oZWlnaHQ6IG5vcm1hbDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kZXNjcmlwdGlvbiB7XG4gICAgcGFkZGluZzogMTZweDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kZXNjcmlwdGlvbi1hdHRyaWJ1dGlvbiB7XG4gICAgb3BhY2l0eTogMC41O1xuICB9XG5cbiAgdGgubWF0LWhlYWRlci1jZWxsLCB0ZC5tYXQtY2VsbCwgdGQubWF0LWZvb3Rlci1jZWxsIHtcblxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgfVxuXG5cblxudHIubWF0LWZvb3Rlci1yb3cge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuOjpuZy1kZWVwICAubWF0LXRhYmxlIHRib2R5IHtcblxuICBiYWNrZ3JvdW5kOiAjY2IwMzNjICFpbXBvcnRhbnQ7XG59XG5cbi50aWNrZXQge1xuXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiB1bnNldDtcbn1cblxuLnRpY2tldHMge1xuXG4gIHRleHQtYWxpZ246IGxlZnQ7XG4gIG1hcmdpbjogdW5zZXQ7XG4gIGNvbG9yOiMyRTRGOUM7XG5cbn0iXX0= */";
+      __webpack_exports__["default"] = "table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #2E4F9C;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #2E4F9C;\n  color: #f2f2f2;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #fff;\n  font-weight: bolder;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15cGF5cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQUE7QUFDSjs7QUFFRTtFQUNFLFNBQUE7QUFDSjs7QUFFRTtFQUNFLG1CQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7QUFDSjs7QUFFRTtFQUNFLGdCQUFBO0VBQ0EsYUFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7RUFDQSxtQkFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0VBRUosa0JBQUE7RUFDQSxlQUFBO0VBRUEsK0dBQUE7RUFDSSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsV0FBQTtBQUFKOztBQUdFO0VBQ0UsaUJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7QUFBSjs7QUFHRTtFQUNFLGFBQUE7QUFBSjs7QUFHRTtFQUNFLFlBQUE7QUFBSjs7QUFHRTtFQUVFLGtCQUFBO0FBREo7O0FBTUE7RUFDRSxpQkFBQTtBQUhGOztBQU1BO0VBRUUsOEJBQUE7QUFKRjs7QUFPQTtFQUVFLGtCQUFBO0VBQ0EsYUFBQTtBQUxGOztBQVFBO0VBRUUsZ0JBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtFQUNGLG1CQUFBO0FBTkEiLCJmaWxlIjoibXlwYXlzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGFibGUge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWRldGFpbC1yb3cge1xuICAgIGhlaWdodDogMDtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTpob3ZlciB7XG4gICAgYmFja2dyb3VuZDogIzJFNEY5QztcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTphY3RpdmUge1xuICAgIGJhY2tncm91bmQ6ICNlZmVmZWY7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtcm93IHRkIHtcbiAgICBib3JkZXItYm90dG9tLXdpZHRoOiAwO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRldGFpbCB7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRpYWdyYW0ge1xuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7IFxuICAgIGJhY2tncm91bmQ6ICMyRTRGOUM7XG4gICAgY29sb3I6ICNmMmYyZjI7XG4gICAgcGFkZGluZzogMTBweDsgIFxuXG5ib3JkZXItcmFkaXVzOiA0cHg7XG5mb250LXNpemU6IDE0cHg7XG4td2Via2l0LWJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbmJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbiAgICB0ZXh0LWFsaWduOiBqdXN0aWZ5O1xuICAgIG1hcmdpbi1ib3R0b206MTBweDtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1zeW1ib2wge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtc2l6ZTogNDBweDtcbiAgICBsaW5lLWhlaWdodDogbm9ybWFsO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uIHtcbiAgICBwYWRkaW5nOiAxNnB4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uLWF0dHJpYnV0aW9uIHtcbiAgICBvcGFjaXR5OiAwLjU7XG4gIH1cblxuICB0aC5tYXQtaGVhZGVyLWNlbGwsIHRkLm1hdC1jZWxsLCB0ZC5tYXQtZm9vdGVyLWNlbGwge1xuXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB9XG5cblxuXG50ci5tYXQtZm9vdGVyLXJvdyB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG46Om5nLWRlZXAgIC5tYXQtdGFibGUgdGJvZHkge1xuXG4gIGJhY2tncm91bmQ6ICNjYjAzM2MgIWltcG9ydGFudDtcbn1cblxuLnRpY2tldCB7XG5cbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IHVuc2V0O1xufVxuXG4udGlja2V0cyB7XG5cbiAgdGV4dC1hbGlnbjogbGVmdDtcbiAgbWFyZ2luOiB1bnNldDtcbiAgY29sb3I6I2ZmZjtcbmZvbnQtd2VpZ2h0OiBib2xkZXI7XG59Il19 */";
       /***/
     },
 
@@ -63483,7 +63542,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<h1 mat-dialog-title>{{mensaje}}</h1>\n<div mat-dialog-content>\n    <p>Do not forget to take a look at our offers of the week:</p>\n    <button mat-flat-button class= \"deals\" (click)=\"view()\" style=\"color:#000\" >Deals of de week</button>\n</div><br>\n<p class=\"precio\">{{precio_yarda}}</p>\n<div mat-dialog-actions1>    \n  \n<button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"yarda()\">Booking in our site</button>\n   \n</div><br>\n<p class=\"precio\">{{precio_mobil}}</p>\n<div mat-dialog-actions2>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"mobil()\" cdkFocusInitial >Mobil's bookings</button>\n</div>\n<br>\n<div mat-dialog-actions3>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"cancel()\" >Cancel</button>\n</div>\n";
+      __webpack_exports__["default"] = "<h1 mat-dialog-title>{{mensaje}}</h1>\n<!--<div mat-dialog-content>\n    <p>Do not forget to take a look at our offers of the week:</p>\n    <button mat-flat-button class= \"deals\" (click)=\"view()\" style=\"color:#000\" >Deals of de week</button>\n</div><br>-->\n<p class=\"precio\">{{precio_yarda}}</p>\n<div mat-dialog-actions1>    \n  \n<button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"yarda()\">Booking in our site</button>\n   \n</div><br>\n<p class=\"precio\">{{precio_mobil}}</p>\n<div mat-dialog-actions2>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"mobil()\" cdkFocusInitial >Mobil's bookings</button>\n</div>\n<br>\n<div mat-dialog-actions3>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"cancel()\" >Cancel</button>\n</div>\n";
       /***/
     },
 
@@ -63573,7 +63632,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button>\n\n\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n    \n  </ion-toolbar>\n\n    \n\n\n\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div style=\"\n  background-color: #ca083f;\">\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n</div>\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n";
       /***/
     },
 
@@ -63591,7 +63650,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments:<br>{{p}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n\n  <!--Tabla  principal-->\n<table mat-table [dataSource]=\"itemPagosTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\" style=\"font-size: 14px;\"> {{element.service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"order_number\">\n    <th mat-header-cell *matHeaderCellDef> Order</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.order_number}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n <!--<ng-container matColumnDef=\"status\">\n    <th mat-header-cell *matHeaderCellDef> Status </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.status}} </td>\n  </ng-container>-->\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\">Payment date:</p>\n      <p class=\"ticket\">{{element.fechapago}}</p>\n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n      <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>      \n          <p class=\"tickets\">Tip:</p>\n            <p class=\"ticket\">{{element.Propina_string}}</p>\n         \n           \n                <div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item_string}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <p class=\"tickets\">Total:</p>\n            <p class=\"ticket\">{{element.Amount_string}}</p>       \n            <!--<p class=\"tickets\">Payment reference:</p>\n              <p class=\"ticket\">{{element.txn_id}}</p>-->  \n\n\n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments:<br>{{p}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  <div style=\"\n  background-color: #ca083f;\">\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n</div>\n\n  <!--Tabla  principal-->\n<table mat-table [dataSource]=\"itemPagosTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\" style=\"font-size: 14px;\"> {{element.service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"order_number\">\n    <th mat-header-cell *matHeaderCellDef> Order</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.order_number}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n <!--<ng-container matColumnDef=\"status\">\n    <th mat-header-cell *matHeaderCellDef> Status </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.status}} </td>\n  </ng-container>-->\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\">Payment date:</p>\n      <p class=\"ticket\">{{element.fechapago}}</p>\n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n      <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>      \n          <p class=\"tickets\">Tip:</p>\n            <p class=\"ticket\">{{element.Propina_string}}</p>\n         \n           \n                <div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item_string}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <p class=\"tickets\">Total:</p>\n            <p class=\"ticket\">{{element.Amount_string}}</p>       \n            <!--<p class=\"tickets\">Payment reference:</p>\n              <p class=\"ticket\">{{element.txn_id}}</p>-->  \n\n\n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n\n\n</ion-content>\n";
       /***/
     },
 
@@ -63609,7 +63668,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content style=\"background-color: #f2f2f2;\">\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n   <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" >\n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n<div style=\"text-align: center; color:#f2f2f2\">Service charge</div>\n\n    <div class=\"label\">Monto</div> \n    <input type=\"text\" id=\"charge\" name=\"charge\" class=\"form-control\" value ='{{charge_string}}' readonly=\"\"> \n\n    <div class=\"label\">Concepto</div> \n    <input type=\"text\" id=\"concepto\" name=\"concepto\" class=\"form-control\" value ='{{concepto}}' readonly=\"\"> \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"Tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n   \n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content style=\"background-color: #f2f2f2;\">\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n   <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" >\n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n<div style=\"text-align: center; color:#f2f2f2\">Service charge</div>\n\n    <div class=\"label\">Monto</div> \n    <input type=\"text\" id=\"charge\" name=\"charge\" class=\"form-control\" value ='{{charge_string}}' readonly=\"\"> \n\n    <div class=\"label\">Concepto</div> \n    <input type=\"text\" id=\"concepto\" name=\"concepto\" class=\"form-control\" value ='{{concepto}}' readonly=\"\"> \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"Tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n   \n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n";
       /***/
     },
 
@@ -63627,7 +63686,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content >\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n    <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n    \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n\n\n\n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n\n\n\n<!--<form id=\"payment-form\">\n    \n    \n          \n  <div class=\"campo\"> \n<label for=\"concept\">Service</label> \n<input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n</div>\n\n<div class=\"campo\"> \n<label for=\"sub-total\">Price</label> \n<input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{subtotal}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"descuento\">Discount</label> \n<input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"total\">Total</label> \n<input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total}}' readonly=\"\"> \n</div>\n\n\n<div class=\"campo\"> \n<label for=\"tip\">Tip</label> \n<input type=\"text\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\"> \n</div>\n\n\n</div>\n<div class=\"campo\"> \n<img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n </div>     \n\n\n<div id=\"card-container\"></div>\n<button id=\"card-button\" type=\"button\">Pay</button>\n</form>-->\n\n\n\n\n\n   \n\n   <!--<form id=\"nonce-form\" novalidate action=\"\" method=\"post\">\n <div class=\"\" id=\"billing\">\n        <label for=\"concept\">Service</label>\n        <input type=\"text\" name=\"concept\" id=\"concept\" size=\"35\" value ='{{servicio}}' readonly=\"\" ><br>\n        <label for=\"sub-total\">Subtotal</label>\n        <input type=\"text\" name=\"sub-total\" id=\"sub-total\"  size=\"35\" value ='{{subtotal}}' readonly=\"\"><br>\n        <label for=\"descuento\">Discount</label>\n        <input type=\"text\" name=\"descuento\" id=\"descuento\"  size=\"35\" value ='{{descuento}}' readonly=\"\"><br>\n        <label for=\"total\">Total</label>\n        <input type=\"text\" name=\"total\" id=\"total\"  size=\"35\" value ='{{total}}' readonly=\"\"><br>\n        <label for=\"tip\">Tip</label>\n        <input type=\"text\" name=\"tip\" id=\"tip\"  size=\"35\" value ='{{tip}}' readonly=\"\" ><br>\n </div>\n\n\n      <label for=\"sq-card-number\">Card Number:</label>\n      <div id=\"sq-card-number\"></div>\n      <div id=\"error-card-number\"></div>\n      <label for=\"sq-cvv\">CVV:</label>\n      <div id=\"sq-cvv\"></div>\n      <div id=\"error-sq-cvv\"></div>\n      <label for=\"sq-expiration-date\">Expiration Date:</label>     \n      <div id=\"sq-expiration-date\"></div>\n      <div id=\"error-expiration-date\"></div>\n     <label for=\"sq-postal-code\">Postal Code:</label>\n      <div id=\"sq-postal-code\"></div>\n      <div id=\"error-postal-code\"></div>\n\n     \n\n      <button id=\"sq-creditcard\" class=\"btn-main button-credit-card\" (click)=\"this.requestCardNonce($event)\">To pay</button>\n    \n      <input type=\"hidden\" id=\"sq-id\" name=\"sq-id\">\n      <input type=\"hidden\" id=\"card-nonce\" name=\"nonce\">\n\n      <ion-button (click)=\"this.requestCardNonce($event)\">\n        <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n       To pay\n      </ion-button>\n\n\n    </form>-->\n \n\n\n\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content >\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n    <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n    \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n\n\n\n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n\n\n\n<!--<form id=\"payment-form\">\n    \n    \n          \n  <div class=\"campo\"> \n<label for=\"concept\">Service</label> \n<input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n</div>\n\n<div class=\"campo\"> \n<label for=\"sub-total\">Price</label> \n<input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{subtotal}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"descuento\">Discount</label> \n<input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"total\">Total</label> \n<input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total}}' readonly=\"\"> \n</div>\n\n\n<div class=\"campo\"> \n<label for=\"tip\">Tip</label> \n<input type=\"text\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\"> \n</div>\n\n\n</div>\n<div class=\"campo\"> \n<img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n </div>     \n\n\n<div id=\"card-container\"></div>\n<button id=\"card-button\" type=\"button\">Pay</button>\n</form>-->\n\n\n\n\n\n   \n\n   <!--<form id=\"nonce-form\" novalidate action=\"\" method=\"post\">\n <div class=\"\" id=\"billing\">\n        <label for=\"concept\">Service</label>\n        <input type=\"text\" name=\"concept\" id=\"concept\" size=\"35\" value ='{{servicio}}' readonly=\"\" ><br>\n        <label for=\"sub-total\">Subtotal</label>\n        <input type=\"text\" name=\"sub-total\" id=\"sub-total\"  size=\"35\" value ='{{subtotal}}' readonly=\"\"><br>\n        <label for=\"descuento\">Discount</label>\n        <input type=\"text\" name=\"descuento\" id=\"descuento\"  size=\"35\" value ='{{descuento}}' readonly=\"\"><br>\n        <label for=\"total\">Total</label>\n        <input type=\"text\" name=\"total\" id=\"total\"  size=\"35\" value ='{{total}}' readonly=\"\"><br>\n        <label for=\"tip\">Tip</label>\n        <input type=\"text\" name=\"tip\" id=\"tip\"  size=\"35\" value ='{{tip}}' readonly=\"\" ><br>\n </div>\n\n\n      <label for=\"sq-card-number\">Card Number:</label>\n      <div id=\"sq-card-number\"></div>\n      <div id=\"error-card-number\"></div>\n      <label for=\"sq-cvv\">CVV:</label>\n      <div id=\"sq-cvv\"></div>\n      <div id=\"error-sq-cvv\"></div>\n      <label for=\"sq-expiration-date\">Expiration Date:</label>     \n      <div id=\"sq-expiration-date\"></div>\n      <div id=\"error-expiration-date\"></div>\n     <label for=\"sq-postal-code\">Postal Code:</label>\n      <div id=\"sq-postal-code\"></div>\n      <div id=\"error-postal-code\"></div>\n\n     \n\n      <button id=\"sq-creditcard\" class=\"btn-main button-credit-card\" (click)=\"this.requestCardNonce($event)\">To pay</button>\n    \n      <input type=\"hidden\" id=\"sq-id\" name=\"sq-id\">\n      <input type=\"hidden\" id=\"card-nonce\" name=\"nonce\">\n\n      <ion-button (click)=\"this.requestCardNonce($event)\">\n        <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n       To pay\n      </ion-button>\n\n\n    </form>-->\n \n\n\n\n";
       /***/
     },
 
@@ -63681,7 +63740,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-split-pane contentId=\"main-content\">\n\n  <ion-menu contentId=\"main-content\" type=\"overlay\" >\n\n    <ion-content >\n<div class=\"app-logo\"></div>\n      <ion-list id=\"inbox-list\">\n        <div class=\"data-perfil\">\n          <p class=\"perfilnombre\">{{cliente_name}}</p>\n          <p class=\"perfilcorreo\">{{cliente_correo}}</p>      \n      </div>\n\n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let pages of Pages; let i = index\">\n          <ion-item color=\"secondary\" (click)=\"activeIndex = i\" routerDirection=\"root\" [routerLink]=\"[pages.url]\" lines=\"none\"\n            detail=\"false\" [class.selected]=\"activeIndex == i\">\n            <ion-icon slot=\"start\" [ios]=\"pages.icon + '-outline'\" [md]=\"pages.icon + '-sharp'\"></ion-icon>\n            <ion-label>{{ pages.title }}</ion-label>\n          </ion-item>         \n        </ion-menu-toggle>\n  \n        <ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://washtt.com/common-questions\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'help-buoy'\"></ion-icon>\n            <ion-label>\n             Help\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle> \n\n        <ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://www.washtt.com/contactus\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'mail-outline'\"></ion-icon>\n            <ion-label>\n              Contact us\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle>\n\n        \n\n\n\n    <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'correo_pass'\">\n        <ion-item color=\"secondary\" (click) =\"salida_regular()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle> \n\n      \n      <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'google'\">\n        <ion-item color=\"secondary\" (click) =\" salida_google()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle>\n\n      </ion-list>\n\n    </ion-content>\n\n  </ion-menu>\n\n  <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n\n</ion-split-pane>\n\n\n\n\n\n\n \n\n\n\n \n\n\n";
+      __webpack_exports__["default"] = "<ion-split-pane contentId=\"main-content\">\n\n  <ion-menu contentId=\"main-content\" type=\"overlay\" >\n\n    <ion-content >\n<div class=\"app-logo\"></div>\n<div style=\"text-align: center;\n   color: #fff;\n    font-weight: bolder;\n     font-size: xx-large;\n      margin-top: -23px;\n  font-style: oblique;\">Express</div>\n  <div style=\"text-align: center;\n  color: #fff;  \n    font-size: x-small;  \n font-style: oblique;\">with the usual care!</div>\n      <ion-list id=\"inbox-list\">\n        <div class=\"data-perfil\">\n          <p class=\"perfilnombre\">{{cliente_name}}</p>\n          <p class=\"perfilcorreo\">{{cliente_correo}}</p>      \n      </div>\n\n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let pages of Pages; let i = index\">\n          <ion-item color=\"secondary\" (click)=\"activeIndex = i\" routerDirection=\"root\" [routerLink]=\"[pages.url]\" lines=\"none\"\n            detail=\"false\" [class.selected]=\"activeIndex == i\">\n            <ion-icon slot=\"start\" [ios]=\"pages.icon + '-outline'\" [md]=\"pages.icon + '-sharp'\"></ion-icon>\n            <ion-label>{{ pages.title }}</ion-label>\n          </ion-item>         \n        </ion-menu-toggle>\n  \n        <!--<ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://washtt.com/common-questions\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'help-buoy'\"></ion-icon>\n            <ion-label>\n             Help\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle> \n\n        <ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://www.washtt.com/contactus\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'mail-outline'\"></ion-icon>\n            <ion-label>\n              Contact us\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle>-->\n\n        \n\n\n\n    <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'correo_pass'\">\n        <ion-item color=\"secondary\" (click) =\"salida_regular()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle> \n\n      \n      <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'google'\">\n        <ion-item color=\"secondary\" (click) =\" salida_google()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle>\n\n      </ion-list>\n\n    </ion-content>\n\n  </ion-menu>\n\n  <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n\n</ion-split-pane>\n\n\n\n\n\n\n \n\n\n\n \n\n\n";
       /***/
     },
 
@@ -63699,7 +63758,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  \n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list>\n\n    <ion-item   color=\"primary\" routerLink=\"/tabs-cliente/tobook/mybooks/1\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n       IN HOLD              \n      </ion-label>\n      <IonBadge  >({{inhold}})</IonBadge>\n      \n    </ion-item>\n    \n    <ion-item color =\"warning\" routerLink=\"/tabs-cliente/tobook/mybooks/2\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        COMFIRMED     \n      </ion-label >\n      <IonBadge  >({{confirmed}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color =\"success\"  routerLink=\"/tabs-cliente/tobook/mybooks/7\">\n     \n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      COMPLETED     \n      </ion-label>\n      <IonBadge  >({{completed}})</IonBadge>\n    </ion-item>\n\n    <ion-item  routerLink=\"/tabs-cliente/tobook/mybooks/9\">\n   \n      <ion-label floating ion-left>\n        <ion-icon name=\"close-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      CANCELLED      \n      </ion-label>\n      <IonBadge  >({{cancelled}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>  \n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  \n\n  <ion-list style=\"margin-top: -8px;\">\n\n    <ion-item   color=\"primary\" routerLink=\"/tabs-cliente/tobook/mybooks/1\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n       IN HOLD              \n      </ion-label>\n      <IonBadge  >({{inhold}})</IonBadge>\n      \n    </ion-item>\n    \n    <ion-item color =\"warning\" routerLink=\"/tabs-cliente/tobook/mybooks/2\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        COMFIRMED     \n      </ion-label >\n      <IonBadge  >({{confirmed}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color =\"success\"  routerLink=\"/tabs-cliente/tobook/mybooks/7\">\n     \n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      COMPLETED     \n      </ion-label>\n      <IonBadge  >({{completed}})</IonBadge>\n    </ion-item>\n\n    <ion-item  routerLink=\"/tabs-cliente/tobook/mybooks/9\">\n   \n      <ion-label floating ion-left>\n        <ion-icon name=\"close-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      CANCELLED      \n      </ion-label>\n      <IonBadge  >({{cancelled}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n";
       /***/
     },
 
@@ -63735,7 +63794,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n \n  <ion-list>\n\n    <ion-item  color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/mypays/Verifying\">\n      <ion-label floating ion-left>\n       \n        <ion-icon name=\"checkmark\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        IN REVIEW      \n      </ion-label>\n      <IonBadge  >({{inview}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color=\"success\" routerLink=\"/tabs-cliente/tobook/mypays/Processed\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        ADMITTED\n      </ion-label>\n      <IonBadge  >({{admitted}})</IonBadge>\n  \n    </ion-item>\n    \n    <ion-item color=\"danger\" routerLink=\"/tabs-cliente/tobook/mypays/Denied\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      REJECT   \n      </ion-label>\n      <IonBadge  >({{reject}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n \n  <ion-list style=\"margin-top: -10px;\">\n\n    <ion-item  color=\"primary\"  routerLink=\"/tabs-cliente/tobook/mypays/Verifying\">\n      <ion-label floating ion-left>\n       \n        <ion-icon name=\"checkmark\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        IN REVIEW      \n      </ion-label>\n      <IonBadge  >({{inview}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color=\"success\" routerLink=\"/tabs-cliente/tobook/mypays/Processed\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        ADMITTED\n      </ion-label>\n      <IonBadge  >({{admitted}})</IonBadge>\n  \n    </ion-item>\n    \n    <ion-item color=\"warning\" routerLink=\"/tabs-cliente/tobook/mypays/Denied\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      REJECT   \n      </ion-label>\n      <IonBadge  >({{reject}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n\n";
       /***/
     },
 

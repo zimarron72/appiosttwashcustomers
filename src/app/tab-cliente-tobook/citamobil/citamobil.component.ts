@@ -19,6 +19,8 @@ export class CitamobilComponent implements OnInit {
   vehicle : any
   servicio : any
   site : any
+  
+    tipovehiculo : any
 
  etiqueta1 : string
   valor1 : number
@@ -84,13 +86,88 @@ export class CitamobilComponent implements OnInit {
 
   ngOnInit() {
 
- this.etiqueta1 = 'Add a new location'
+    this.doRefresh(null)  
+
+ 
+
+  }
+
+async doRefresh($event: { target: { complete: () => void; }; }){
+
+
+
+  this.etiqueta1 = 'Add a new location'
+  this.valor1 = 1
+  this.selectedOption1 = 0
+
+  this.etiqueta2 = 'Add a new vehicle'
+  this.valor2 = 1
+  this.selectedOption2 = 0   
+
+
+  const currentYear = new Date().getFullYear()
+  const currentMes = new Date().getMonth()
+  const currentDia = new Date().getDate()
+
+  this.minDate = new Date(currentYear , currentMes , currentDia + 1);
+ 
+
+  this.form_tobooksite = this.formBuilder.group({
+  location: [, { validators: [Validators.required]}],
+    vehicle: [, { validators: [Validators.required] }],
+    diacita: [, { validators: [Validators.required] }],
+    horacita: [, { validators: [Validators.required] }],
+    power: [, { validators: [Validators.required] }],
+    water: [, { validators: [Validators.required] }],
+    ensitio: [, { validators: [Validators.required] }],
+    
+  });
+  
+  
+ this.localstorage.getData('tipovehiculo').then(
+   async (val)=> {
+   
+   this.tipovehiculo = val
+   }
+        
+  
+  );   
+
+
+this.localstorage.getData('usuario').then(
+    async (val)=> {
+var user  = JSON.parse(val);
+var idtoken = await this.localstorage.getData('idtoken')
+var autenticacion_tipo = await this.localstorage.getData('autenticacion_tipo')
+
+this.serviciotobook.getSitiosCliente(idtoken,autenticacion_tipo,user.email).subscribe({
+    
+  next: async sitioscliente => {this.sitioscliente = sitioscliente;
+ 
+    this.sitioscliente = Object.values(this.sitioscliente)
+    this.sitioscliente =  this.sitioscliente.filter(((valor: string | any[]) => valor !== 'OK_DATA'))
+
+  //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
+  await this.localstorage.setObject('formsitescliente', this.sitioscliente)
+
+    console.log(this.sitioscliente)
+  
+  },
+  error: error => {
+    if ($event)
+      $event.target.complete();     
+    var errorMessage = error.message;          
+    console.error('There was an error!' + errorMessage);
+    this.localstorage.clearData()
+    this.router.navigate(['/login'])  
+    this.etiqueta1 = 'Add a new location'
     this.valor1 = 1
     this.selectedOption1 = 0
 
     this.etiqueta2 = 'Add a new vehicle'
     this.valor2 = 1
-    this.selectedOption2 = 0
+    this.selectedOption2 = 0   
+  
 
     const currentYear = new Date().getFullYear()
     const currentMes = new Date().getMonth()
@@ -109,6 +186,16 @@ export class CitamobilComponent implements OnInit {
       ensitio: [, { validators: [Validators.required] }],
       
     });
+    
+    
+   this.localstorage.getData('tipovehiculo').then(
+     async (val)=> {
+     
+     this.tipovehiculo = val
+     }
+          
+    
+    );   
 
 
   this.localstorage.getData('usuario').then(
@@ -148,7 +235,8 @@ export class CitamobilComponent implements OnInit {
   this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
         
     next: async vehiculoscliente => {this.vehiculoscliente = vehiculoscliente;
-   
+      if ($event)
+        $event.target.complete();    
       this.vehiculoscliente = Object.values(this.vehiculoscliente)
       this.vehiculoscliente =  this.vehiculoscliente.filter(((valor: string | any[]) => valor !== 'OK_DATA'))
   
@@ -176,9 +264,62 @@ export class CitamobilComponent implements OnInit {
 (err)=> console.log(err)
 
 
-    )
+    ) 
+    this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close",
+    {       
+      horizontalPosition: "start",
+      verticalPosition: "top",
+    }
+    );
+}
+});
 
-  }
+this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+      
+  next: async vehiculoscliente => {this.vehiculoscliente = vehiculoscliente;
+    if ($event)
+      $event.target.complete();   
+    this.vehiculoscliente = Object.values(this.vehiculoscliente)
+    this.vehiculoscliente =  this.vehiculoscliente.filter(((valor: string | any[]) => valor !== 'OK_DATA'))
+
+    //localStorage.setItem('formvehiculoscliente', JSON.stringify(this.vehiculoscliente))
+await this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente)
+    console.log(this.vehiculoscliente)
+  
+  },
+  error: error => {
+    if ($event)
+      $event.target.complete();     
+    var errorMessage = error.message;          
+    console.error('There was an error!' + errorMessage);
+    this.localstorage.clearData()
+    this.router.navigate(['/login'])   
+    this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close",
+    {       
+      horizontalPosition: "start",
+      verticalPosition: "top",
+    }
+    );
+}
+});
+
+},
+(err)=> {
+  if ($event)
+    $event.target.complete();    
+  console.log(err) }
+
+
+
+
+  )
+
+
+
+
+}
+
+
 
 
   async submit() {
@@ -309,8 +450,8 @@ cambiar1(x : any) {
         data: `Add a new location`
       }).afterClosed().subscribe(async (confirmar) => {
       if(confirmar)  {
-
-        this.etiqueta1 = 'Unit number: ' + confirmar.location
+        this.doRefresh(null)  
+        this.etiqueta1 = confirmar.location
         this.valor1 = confirmar.id
         this.selectedOption1 = confirmar.id
         
@@ -334,7 +475,7 @@ cambiar1(x : any) {
   
   
  cambiar2(x : any) {
-
+ 
 
     if(x == 1) {
 
@@ -342,7 +483,7 @@ cambiar1(x : any) {
         data: `Add a new vehicle to the fleet`
       }).afterClosed().subscribe(async (confirmar) => {
       if(confirmar)  {
-
+        this.doRefresh(null)  
         this.etiqueta2 = 'Unit number: ' + confirmar.vehiculo
         this.valor2 = confirmar.id
         this.selectedOption2 = confirmar.id

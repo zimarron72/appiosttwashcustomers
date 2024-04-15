@@ -7,13 +7,40 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 <mat-card class="mobil">
   <mat-card-header>
-    <mat-card-title>Appointment mobil</mat-card-title>
+    <mat-card-title>Mobile appointment</mat-card-title>
   </mat-card-header>
   <mat-card-content>
+   <p><span style="color:#ffc409">WARNING:</span>This request is for a type vehicle <span style="color:#2dd36f">{{tipovehiculo}}</span>. Otherwise this could lead to additional costs.</p>
+  <p style="color:#2dd36f; font-size:small">Select your vehicle type only {{tipovehiculo}}</p>
+  
+  
     <form  [formGroup]="form_tobooksite" (ngSubmit)="submit()">
     
+    
+    <mat-form-field>
+    <mat-select placeholder="Your vehicle" [(ngModel)]="selectedOption2" formControlName="vehicle" (selectionChange)="cambiar2($event.value)" >
+
+        
+        <mat-option   [value]="0" >
+          Select
+           </mat-option>
+           <mat-option   [value]="valor2" >
+            {{etiqueta2}}
+            </mat-option>
+          <mat-option *ngFor="let vehiculo of vehiculoscliente"  [value]="vehiculo.id" >
+            Unit number: {{vehiculo.unit_number}} {{vehiculo.type_vehicle}}
+          </mat-option>
+        
+        </mat-select>
+        <mat-error *ngIf="(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)">vehicle is required</mat-error>      
+    </mat-form-field>
+    <br>
+    <p style="color:#2dd36f; font-size:small">There is a compensation fee charged in the event that the wash is not completed due to the client's absence.</p>
      <mat-form-field>
        <mat-select placeholder="Your location" [(ngModel)]="selectedOption1"  formControlName="location" (selectionChange)="cambiar1($event.value)" >
         
@@ -31,24 +58,7 @@
       </mat-form-field>
     <br>
 
-   <mat-form-field>
-    <mat-select placeholder="Your vehicle" [(ngModel)]="selectedOption2" formControlName="vehicle" (selectionChange)="cambiar2($event.value)" >
-
-        
-        <mat-option   [value]="0" >
-          Select
-           </mat-option>
-           <mat-option   [value]="valor2" >
-            {{etiqueta2}}
-            </mat-option>
-          <mat-option *ngFor="let vehiculo of vehiculoscliente"  [value]="vehiculo.id" >
-            Unit number: {{vehiculo.unit_number}}
-          </mat-option>
-        
-        </mat-select>
-        <mat-error *ngIf="(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)">vehicle is required</mat-error>      
-    </mat-form-field>
-    <br>
+   
 
 <!--power begin-->
 

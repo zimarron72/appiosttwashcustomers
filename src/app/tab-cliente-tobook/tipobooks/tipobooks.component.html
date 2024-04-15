@@ -5,20 +5,24 @@
     </ion-buttons>
     <ion-title>Appointments</ion-title>
   </ion-toolbar>
+   <ion-toolbar  style ="color:#f2f2f2;" color="primary"> 
+    <ion-icon name="warning" slot='start' style ="color:#f2f2f2;"></ion-icon>
+    <ion-title size="small">In case of changes made to the data in this table, refresh the table to view the changes.</ion-title>
+  </ion-toolbar>
 </ion-header>
-<ion-content>
-  
+<ion-content>  
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  
 
-  <ion-list>
+  <ion-list style="margin-top: -8px;">
 
     <ion-item   color="primary" routerLink="/tabs-cliente/tobook/mybooks/1">
 
       <ion-label floating ion-left>
         <ion-icon name="warning" item-start class="text-primary" class="figura"></ion-icon> 
-       IN HOLD              
+       ON WAITING              
       </ion-label>
       <IonBadge  >({{inhold}})</IonBadge>
       
@@ -38,7 +42,7 @@
      
       <ion-label floating ion-left>
         <ion-icon name="checkmark-done-circle" item-start class="text-primary" class="figura"></ion-icon> 
-      COMPLETED     
+      ATTENDED     
       </ion-label>
       <IonBadge  >({{completed}})</IonBadge>
     </ion-item>

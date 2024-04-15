@@ -143,32 +143,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppModule": function() { return /* binding */ AppModule; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/router */ 39895);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ 51524);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app-routing.module */ 90158);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.component */ 55041);
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/platform-browser/animations */ 75835);
-/* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/fire */ 50057);
-/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/fire/auth */ 49743);
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/platform-browser/animations */ 75835);
+/* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/fire */ 50057);
+/* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/fire/auth */ 49743);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../environments/environment */ 92340);
 /* harmony import */ var _shared_servicio_autenticacion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/servicio.autenticacion */ 10240);
 /* harmony import */ var _shared_servicio_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared/servicio.api */ 63381);
-/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/database-service */ 21904);
-/* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/storage.service */ 86945);
-/* harmony import */ var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./shared/square.servicio */ 73258);
-/* harmony import */ var _shared_loading_services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./shared/loading.services */ 68369);
-/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
-/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/material/list */ 77746);
-/* harmony import */ var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ionic/storage-angular */ 54925);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/common/http */ 91841);
-/* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ 70283);
-/* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
-/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ 73494);
-/* harmony import */ var _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @awesome-cordova-plugins/wonderpush/ngx */ 14769);
+/* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shared/storage.service */ 86945);
+/* harmony import */ var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/square.servicio */ 73258);
+/* harmony import */ var _shared_loading_services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./shared/loading.services */ 68369);
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
+/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/material/list */ 77746);
+/* harmony import */ var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ionic/storage-angular */ 54925);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/common/http */ 91841);
+/* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ 70283);
+/* harmony import */ var _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @awesome-cordova-plugins/google-plus/ngx */ 71044);
+/* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ 73494);
+/* harmony import */ var _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @awesome-cordova-plugins/wonderpush/ngx */ 14769);
 
 
 
@@ -184,7 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 //servicios
 
 
-
+//import { DatabaseService } from './shared/database-service';
 
 
 
@@ -203,680 +202,41 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppModule = class AppModule {
 };
-AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.NgModule)({
+AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_13__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_14__.NgModule)({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent],
         entryComponents: [],
         imports: [
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__.BrowserModule,
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_17__.IonicModule.forRoot(),
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_15__.BrowserModule,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_16__.IonicModule.forRoot(),
             _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule,
-            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_18__.BrowserAnimationsModule,
-            _angular_fire__WEBPACK_IMPORTED_MODULE_19__.AngularFireModule.initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.firebaseConfig),
-            _angular_fire_auth__WEBPACK_IMPORTED_MODULE_20__.AngularFireAuthModule,
-            _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_21__.MatSnackBarModule,
-            _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_22__.IonicStorageModule.forRoot(),
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_23__.HttpClientModule,
-            _angular_material_list__WEBPACK_IMPORTED_MODULE_24__.MatListModule,
-            _angular_router__WEBPACK_IMPORTED_MODULE_25__.RouterModule,
+            _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_17__.BrowserAnimationsModule,
+            _angular_fire__WEBPACK_IMPORTED_MODULE_18__.AngularFireModule.initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.firebaseConfig),
+            _angular_fire_auth__WEBPACK_IMPORTED_MODULE_19__.AngularFireAuthModule,
+            _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_20__.MatSnackBarModule,
+            _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_21__.IonicStorageModule.forRoot(),
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_22__.HttpClientModule,
+            _angular_material_list__WEBPACK_IMPORTED_MODULE_23__.MatListModule,
+            _angular_router__WEBPACK_IMPORTED_MODULE_24__.RouterModule,
         ],
-        providers: [_ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_10__.SQLite,
-            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_12__.StatusBar,
+        providers: [_ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_9__.SQLite,
+            _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_11__.StatusBar,
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_0__.SplashScreen,
             {
-                provide: _angular_router__WEBPACK_IMPORTED_MODULE_25__.RouteReuseStrategy,
-                useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_17__.IonicRouteStrategy
+                provide: _angular_router__WEBPACK_IMPORTED_MODULE_24__.RouteReuseStrategy,
+                useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_16__.IonicRouteStrategy
             },
-            _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_13__.WonderPush,
-            _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_11__.GooglePlus,
+            _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_12__.WonderPush,
+            _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_10__.GooglePlus,
             _shared_servicio_autenticacion__WEBPACK_IMPORTED_MODULE_4__.ServicioAutenticacion,
             _shared_servicio_api__WEBPACK_IMPORTED_MODULE_5__.ServicioApi,
-            _shared_database_service__WEBPACK_IMPORTED_MODULE_6__.DatabaseService,
-            _shared_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService,
-            _shared_square_servicio__WEBPACK_IMPORTED_MODULE_8__.SquareServicio,
-            _shared_loading_services__WEBPACK_IMPORTED_MODULE_9__.LoadingService],
+            //DatabaseService,
+            _shared_storage_service__WEBPACK_IMPORTED_MODULE_6__.StorageService,
+            _shared_square_servicio__WEBPACK_IMPORTED_MODULE_7__.SquareServicio,
+            _shared_loading_services__WEBPACK_IMPORTED_MODULE_8__.LoadingService],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent],
     })
 ], AppModule);
-
-
-
-/***/ }),
-
-/***/ 21904:
-/*!********************************************!*\
-  !*** ./src/app/shared/database-service.ts ***!
-  \********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DatabaseService": function() { return /* binding */ DatabaseService; }
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ 80476);
-/* harmony import */ var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic-native/sqlite/ngx */ 70283);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 26215);
-
-
-
-
-
-let DatabaseService = class DatabaseService {
-    constructor(platform, sqlite) {
-        this.platform = platform;
-        this.sqlite = sqlite;
-        this.dbReady = new rxjs__WEBPACK_IMPORTED_MODULE_1__.BehaviorSubject(false);
-        this.platform.ready().then(() => {
-            this.sqlite.create({
-                name: 'todos.db',
-                location: 'default'
-            })
-                .then((db) => {
-                this.database = db;
-                this.createTables().then(() => {
-                    //communicate we are ready!
-                    this.dbReady.next(true);
-                });
-            });
-        });
-    }
-    createTables() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            return this.database.executeSql(`CREATE TABLE IF NOT EXISTS Mybooks (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        order_id INTEGER,
-        order_number TEXT,
-        order_total REAL,
-        order_subtotal REAL,
-        order_discount REAL,
-        order_status INTEGER,
-        order_date TEXT,
-        order_item_id INTEGER,
-        product_item_price REAL,
-        product_name TEXT,
-        mimap TEXT,
-        cita TEXT,
-        citahora TEXT,
-        vehiculotipo TEXT,
-        Order_Item_Status INTEGER,
-        wash_id INTEGER,
-        latitud REAL,
-        longitud REAL,
-        discount_item REAL,
-        total_item REAL,
-        rp_monto REAL,
-        rp_concepto TEXT,
-        rp_aprobacion REAL
-
-
-      );`, [])
-                .then(() => {
-                return this.database.executeSql(`CREATE TABLE IF NOT EXISTS Mypays (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  txn_id TEXT,
-  status TEXT,
-  fechapago TEXT,
-  amount REAL,
-  userid INTEGER,
-  order_id INTEGER,
-  order_item_id INTEGER,
-  order_number TEXT,
-  service TEXT,
-  price REAL,
-  descuento REAL,
-  propina REAL,
-  total REAL
-  
-
-);`, []);
-            }).catch((err) => console.log("error detected creating tables", err));
-        });
-    }
-    isReady() {
-        return new Promise((resolve, _reject) => {
-            //if dbReady is true, resolve
-            if (this.dbReady.getValue()) {
-                resolve();
-            }
-            //otherwise, wait to resolve until dbReady returns true
-            else {
-                this.dbReady.subscribe((ready) => {
-                    if (ready) {
-                        resolve();
-                    }
-                });
-            }
-        });
-    }
-    addOrder(items) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.isReady();
-            //var items = Object.values(datos)
-            for (let item of items) {
-                this.database.executeSql(`INSERT INTO Mybooks(
-          
-        order_id,
-        order_number ,
-        order_total,
-        order_subtotal ,
-        order_discount,
-        order_status ,
-        order_date,
-        order_item_id ,
-        product_item_price ,
-        product_name,
-        mimap ,
-        cita ,
-        citahora ,
-        vehiculotipo,
-        Order_Item_Status ,
-        wash_id ,
-        latitud ,
-        longitud ,
-        discount_item,
-        total_item
-        
-        
-        
-        ) VALUES (
-        
-        '${item.order_id}',
-        '${item.order_number}',
-        '${item.order_total}',
-        '${item.order_subtotal}',
-        '${item.order_discount}',
-        '${item.order_status}',
-        '${item.order_date}',
-        '${item.order_item_id}',
-        '${item.product_item_price}',
-        '${item.product_name}',
-        '${item.mimap}',
-        '${item.cita}',
-        '${item.citahora}',
-        '${item.vehiculotipo}',
-        '${item.Order_Item_Status}',
-        '${item.wash_id}',
-        '${item.latitud}',
-        '${item.longitud}',
-        '${item.discount}',
-        '${item.total}',
-        '${item.rp_monto}',
-        '${item.rp_concepto}',
-        '${item.rp_aprobacion}'
-
-        );`, []);
-            }
-        });
-    }
-    addMypays(pays) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.isReady();
-            for (let pay of pays) {
-                this.database.executeSql(`INSERT INTO Mypays(
-          
-        txn_id,
-        status,
-        fechapago,
-        amount,
-        userid,
-        order_id,
-        order_item_id,
-        order_number,
-        service,
-        price,
-        descuent,
-        propina,
-        total
-         
-        
-        
-        ) VALUES (
-        
-        '${pay.txn_id}',
-        '${pay.status}',
-        '${pay.payment_date}',
-        '${pay.auth_amount}',
-        '${pay.user_id}',
-        '${pay.order_id}',
-        '${pay.order_item_id}',
-        '${pay.order_number}',
-        '${pay.service}',
-        '${pay.precio}',
-        '${pay.discount}',
-        '${pay.propina}',
-        '${pay.total}',
-         
-       
-        );`, []);
-            }
-        });
-    }
-    /*async addTokenFcm( token : string) {
-      await this.isReady();
-      this.database.executeSql(`INSERT INTO TokenFCM(
-            
-        token
-        
-        ) VALUES (
-        
-        '${token}'
-         
-       
-        );`, []);
-  
-    }
-  
-    async gettokenFCM() {
-      await this.isReady();
-      const data = await this.database.executeSql(`SELECT * from TokenFCM`, []);
-  let token = data.rows.item(0).token
-  
-  return token
-  
-    }*/
-    getTodosItems() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.isReady();
-            const data = yield this.database.executeSql(`SELECT * from Mybooks`, []);
-            let mybooks = [];
-            for (let i = 0; i < data.rows.length; i++) {
-                if (data.rows.item(i).Order_Item_Status == '1'
-                    || data.rows.item(i).Order_Item_Status == '2'
-                    || data.rows.item(i).Order_Item_Status == '7'
-                    || data.rows.item(i).Order_Item_Status == '8') {
-                    switch (data.rows.item(i).Order_Item_Status) {
-                        case 1: // por confirmar
-                            this.status_item = 'on hold';
-                            this.botonpagar = false;
-                            let now = Date.now();
-                            let dosdiasenmilisegundos = 2 * 24 * 60 * 60 * 1000;
-                            let fecha = new Date(data.rows.item(i).order_date);
-                            let fechadeordenmili = fecha.getTime();
-                            let fechaDentroDedosdias = fechadeordenmili + dosdiasenmilisegundos;
-                            if (now >= fechaDentroDedosdias) {
-                                this.botonborrar = false;
-                            }
-                            else {
-                                this.botonborrar = true;
-                            }
-                            break;
-                        case 2: // confirmada por un lavador
-                            this.status_item = 'accepted';
-                            this.botonborrar = false;
-                            this.botonpagar = false;
-                            break;
-                        case 7: // atendida pendiente de pago
-                            this.status_item = 'to pay';
-                            this.botonborrar = false;
-                            this.botonpagar = true;
-                            break;
-                        case 8: // pagada
-                            this.status_item = 'paid out';
-                            this.botonborrar = false;
-                            this.botonpagar = false;
-                            break;
-                    }
-                    mybooks.push({
-                        id: data.rows.item(i).id,
-                        order_id: data.rows.item(i).order_id,
-                        Order: data.rows.item(i).order_number,
-                        total: data.rows.item(i).order_total,
-                        subtotal: data.rows.item(i).order_subtotal,
-                        discount: data.rows.item(i).order_discount,
-                        order_status: data.rows.item(i).order_status,
-                        order_date: data.rows.item(i).order_date,
-                        order_item_id: data.rows.item(i).order_item_id,
-                        Price: data.rows.item(i).product_item_price,
-                        product_name: data.rows.item(i).product_name,
-                        mimap: data.rows.item(i).mimap,
-                        Appointment: data.rows.item(i).cita,
-                        citahora: data.rows.item(i).citahora,
-                        vehiculotipo: data.rows.item(i).vehiculotipo,
-                        Status: this.status_item,
-                        wash_id: data.rows.item(i).wash_id,
-                        longitud: data.rows.item(i).longitud,
-                        latitud: data.rows.item(i).latitud,
-                        discount_item: data.rows.item(i).discount_item,
-                        total_item: data.rows.item(i).total_item,
-                        verborrar: this.botonborrar,
-                        verpagar: this.botonpagar
-                    });
-                }
-            }
-            return mybooks;
-        });
-    }
-    getTodosPays() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.isReady();
-            const data = yield this.database.executeSql(`SELECT * from Mypays`, []);
-            let mypays = [];
-            for (let i = 0; i < data.rows.length; i++) {
-                mypays.push({
-                    id: data.rows.item(i).id,
-                    txn_id: data.rows.item(i).txn_id,
-                    status: data.rows.item(i).status,
-                    fechapago: data.rows.item(i).fechapago,
-                    amount: data.rows.item(i).amount,
-                    userid: data.rows.item(i).userid,
-                    order_id: data.rows.item(i).order_id,
-                    order_item_id: data.rows.item(i).order_item_id,
-                    order_number: data.rows.item(i).order_number,
-                    service: data.rows.item(i).service,
-                    price: data.rows.item(i).price,
-                    descuento: data.rows.item(i).descuento,
-                    propina: data.rows.item(i).propina,
-                    total: data.rows.item(i).total,
-                });
-            }
-        });
-    }
-    getItems(n) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            const formatter$ = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2
-            });
-            yield this.isReady();
-            const data = yield this.database.executeSql(`SELECT * from Mybooks`, []);
-            let Items = [];
-            for (let i = 0; i < data.rows.length; i++) {
-                if (data.rows.item(i).Order_Item_Status == n) {
-                    switch (data.rows.item(i).Order_Item_Status) {
-                        case 1: // por confirmar
-                            this.status_item = 'on hold';
-                            break;
-                        case 2: // confirmada por un lavador
-                            this.status_item = 'accepted';
-                            break;
-                        case 7: // atendida pendiente de pago
-                            this.status_item = 'to pay';
-                            break;
-                        case 8: // pagada
-                            this.status_item = 'paid out';
-                            break;
-                        case 9: // cancelado
-                            this.status_item = 'cancelled';
-                            break;
-                    }
-                    if (!data.rows.item(i).wash_id) {
-                        var washid = "ND";
-                    }
-                    else {
-                        washid = data.rows.item(i).wash_id;
-                    }
-                    var status = '';
-                    var vercharge = false;
-                    var verenlace3 = false;
-                    switch (data.rows.item(i).rp_aprobacion) {
-                        case 0:
-                            status = 'Without approval';
-                            vercharge = true;
-                            var verenlace3 = false;
-                            break;
-                        case 1:
-                            status = 'Waiting for approval';
-                            vercharge = true;
-                            var verenlace3 = false;
-                            break;
-                        case 2:
-                            status = 'Passed';
-                            vercharge = true;
-                            var verenlace3 = false;
-                            break;
-                        default:
-                            vercharge = false;
-                            var verenlace3 = true;
-                    }
-                    Items.push({
-                        id: data.rows.item(i).id,
-                        order_id: data.rows.item(i).order_id,
-                        Order: data.rows.item(i).order_number,
-                        total: data.rows.item(i).order_total,
-                        subtotal: data.rows.item(i).order_subtotal,
-                        discount: data.rows.item(i).order_discount,
-                        order_status: data.rows.item(i).order_status,
-                        order_date: data.rows.item(i).order_date,
-                        order_item_id: data.rows.item(i).order_item_id,
-                        Price: data.rows.item(i).product_item_price,
-                        Service: data.rows.item(i).product_name,
-                        mimap: data.rows.item(i).mimap,
-                        Appointment: data.rows.item(i).cita,
-                        citahora: data.rows.item(i).citahora,
-                        vehiculotipo: data.rows.item(i).vehiculotipo,
-                        Status: this.status_item,
-                        wash_id: washid,
-                        longitud: data.rows.item(i).longitud,
-                        latitud: data.rows.item(i).latitud,
-                        discount_item: data.rows.item(i).discount_item,
-                        total_item: data.rows.item(i).total_item,
-                        Price_item_string: formatter$.format(data.rows.item(i).product_item_price),
-                        Descuento_item_string: formatter$.format(data.rows.item(i).discount_item),
-                        Total_item_string: formatter$.format(data.rows.item(i).total_item),
-                        rp_monto_item: formatter$.format(data.rows.item(i).rp_monto),
-                        rp_concepto_item: data.rows.item(i).rp_concepto,
-                        rp_aprobacion_item: status,
-                        vercharge_item: vercharge,
-                        verenlace3_item: verenlace3
-                    });
-                }
-            }
-            return Items;
-        });
-    }
-    getPays(p) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            const formatter$ = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2
-            });
-            yield this.isReady();
-            const data = yield this.database.executeSql(`SELECT * from Mypays`, []);
-            let Pays = [];
-            for (let i = 0; i < data.rows.length; i++) {
-                if (data.rows.item(i).status == p) {
-                    switch (data.rows.item(i).status) {
-                        case 'Verifying': // verificando
-                            this.status_pay = 'IN REVIEW';
-                            break;
-                        case 'Denied': // negado
-                            this.status_pay = 'REJECT';
-                            break;
-                        case 'Processed': // aceptado
-                            this.status_pay = 'ADMITTED';
-                            break;
-                    }
-                    var date = new Date(data.rows.item(i).fechapago);
-                    var dia = date.getDate();
-                    var mesIndex = date.getMonth();
-                    var year = date.getFullYear();
-                    if (mesIndex >= 9) {
-                        this.date_pay = (mesIndex + 1) + '-' + dia + '-' + year;
-                    }
-                    else {
-                        this.date_pay = '0' + (mesIndex + 1) + '-' + dia + '-' + year;
-                    }
-                    Pays.push({
-                        id: data.rows.item(i).id,
-                        txn_id: data.rows.item(i).txn_id,
-                        status: this.status_pay,
-                        fechapago: this.date_pay,
-                        amount: data.rows.item(i).amount,
-                        userid: data.rows.item(i).userid,
-                        order_id: data.rows.item(i).order_id,
-                        order_item_id: data.rows.item(i).order_item_id,
-                        order_number: data.rows.item(i).order_number,
-                        service: data.rows.item(i).service,
-                        price: data.rows.item(i).price,
-                        descuento: data.rows.item(i).descuento,
-                        propina: data.rows.item(i).propina,
-                        total: data.rows.item(i).total,
-                        Price_item_string: formatter$.format(data.rows.item(i).price),
-                        Descuento_item_string: formatter$.format(data.rows.item(i).descuento),
-                        Total_item_string: formatter$.format(data.rows.item(i).total),
-                        Propina_string: formatter$.format(data.rows.item(i).propina),
-                        Amount_string: formatter$.format(data.rows.item(i).amount),
-                    });
-                }
-            }
-            return Pays;
-        });
-    }
-    borrarTobook(id) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.isReady();
-            return yield this.database.executeSql(`DELETE FROM Mybooks WHERE order_item_id = ${id}`, []);
-        });
-    }
-    UpdateOrders(items) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.isReady();
-            if (items.length !== 0) {
-                for (let item of items) {
-                    const data = yield this.database.executeSql(`SELECT * from Mybooks WHERE order_item_id = ${item.order_item_id}`, []);
-                    if (data.rows.length == 1) {
-                        yield this.database.executeSql(`UPDATE Mybooks SET      
-      
-        Order_Item_Status = ?,
-        wash_id = ?
-        WHERE order_item_id = ${item.order_item_id}
-        `, [
-                            item.Order_Item_Status,
-                            item.wash_id
-                        ]);
-                    }
-                    else {
-                        this.database.executeSql(`INSERT INTO Mybooks(
-          
-          order_id,
-          order_number ,
-          order_total,
-          order_subtotal ,
-          order_discount,
-          order_status ,
-          order_date,
-          order_item_id ,
-          product_item_price ,
-          product_name,
-          mimap ,
-          cita ,
-          citahora ,
-          vehiculotipo,
-          Order_Item_Status ,
-          wash_id ,
-          latitud ,
-          longitud,
-          discount_item,
-          total_item ,
-          rp_monto,
-          rp_concepto,
-          rp_aprobacion 
-          
-          
-          
-          ) VALUES (
-          
-          '${item.order_id}',
-          '${item.order_number}',
-          '${item.order_total}',
-          '${item.order_subtotal}',
-          '${item.order_discount}',
-          '${item.order_status}',
-          '${item.order_date}',
-          '${item.order_item_id}',
-          '${item.product_item_price}',
-          '${item.product_name}',
-          '${item.mimap}',
-          '${item.cita}',
-          '${item.citahora}',
-          '${item.vehiculotipo}',
-          '${item.Order_Item_Status}',
-          '${item.wash_id}',
-          '${item.latitud}',
-          '${item.longitud}',
-          '${item.discount}',
-          '${item.total}'
-          );`, []);
-                    }
-                }
-            }
-            else {
-                return this.database.executeSql(`DELETE FROM Mybooks`, []);
-            }
-        });
-    }
-    UpdatePays(pays) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, function* () {
-            yield this.isReady();
-            if (pays.length !== 0) {
-                for (let pay of pays) {
-                    const data = yield this.database.executeSql(`SELECT * from Mypays WHERE order_item_id = ${pay.order_item_id}`, []);
-                    if (data.rows.length == 1) {
-                        yield this.database.executeSql(`UPDATE Mypays SET      
-    
-      status = ?
-      WHERE order_item_id = ${pay.order_item_id}
-      `, [
-                            pay.status,
-                        ]);
-                    }
-                    else {
-                        this.database.executeSql(`INSERT INTO Mypays(
-        
-        txn_id,
-        status,
-        fechapago,
-        amount,
-        userid,
-        order_id,
-        order_item_id,
-        order_number,
-        service,
-        price,
-        descuento,
-        propina,
-        total   
-        
-        
-        
-        ) VALUES (
-        
-        '${pay.txn_id}',
-        '${pay.status}',
-        '${pay.payment_date}',
-        '${pay.auth_amount}',
-        '${pay.user_id}',
-        '${pay.order_id}',
-        '${pay.order_item_id}',
-        '${pay.order_number}',
-        '${pay.service}',
-        '${pay.precio}',
-        '${pay.discount}',
-        '${pay.propina}' ,
-        '${pay.total}' 
-
-        );`, []);
-                    }
-                }
-            }
-            else {
-                return this.database.executeSql(`DELETE FROM Mypays`, []);
-            }
-        });
-    }
-};
-DatabaseService.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__.Platform },
-    { type: _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_0__.SQLite }
-];
-DatabaseService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Injectable)()
-], DatabaseService);
 
 
 
@@ -1044,7 +404,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ 91841);
 /* harmony import */ var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/fire/auth */ 49743);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/angular */ 80476);
-/* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ 19342);
+/* harmony import */ var _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @awesome-cordova-plugins/google-plus/ngx */ 71044);
 /* harmony import */ var _storage_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./storage.service */ 86945);
 /* harmony import */ var _shared_loading_services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/loading.services */ 68369);
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase/app */ 42329);
@@ -1432,7 +792,7 @@ ServicioAutenticacion.ctorParameters = () => [
     { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__.MatSnackBar },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__.HttpClient },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_10__.Platform },
-    { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__.GooglePlus },
+    { type: _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__.GooglePlus },
     { type: _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_4__.WonderPush },
     { type: _storage_service__WEBPACK_IMPORTED_MODULE_1__.StorageService },
     { type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_2__.LoadingService }

@@ -1,12 +1,22 @@
 <ion-header>
   <ion-toolbar color="primary">
    
-    <ion-title>Sing in</ion-title>
+    <ion-title>Sing up an Account</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="app-logo"></div>
+  <div style="text-align: center;
+   color: #ca083f;
+    font-weight: bolder;
+     font-size: x-large;
+      margin-top: -23px;
+  font-style: oblique;">Express</div>
+  <div style="text-align: center;
+    color: #fff;  
+      font-size: x-small;  
+   font-style: oblique;">with the usual care!</div>
   <form [formGroup]="form_registro" (ngSubmit)="submit()" novalidate>
     <!--<ion-list>-->
     <ion-item lines="full" class="lleno">
@@ -30,35 +40,29 @@
 
  
     <!--</ion-list>-->
-        <ion-button *ngIf ='verboton' type="submit" color="primary" expand="block" >Sign in</ion-button>
+        <ion-button *ngIf ='verboton' type="submit" color="primary" expand="block" >CONTINUE</ion-button>
    
   </form>
- <div style="text-align: center; padding:5px; color: #f2f2f2" >Do you accept the <a href="https://www.washtt.com/terms-and-conditions" target="_Blank">Terms and Conditions</a> & <a href="https://www.washtt.com/privacy" target="_Blank">Privacy Policy?</a></div>
-<br>
-<br>
-  <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="respuesta" value="NOT" >
-    <ion-segment-button style="color: #004594; background-color:#fff; " value="NOT"  >
+ <div  style="text-align: center; padding:5px; color: chartreuse" >Do you accept the <a class="sodio" href="https://www.washtt.com/terms-and-conditions" target="_Blank">Terms and Conditions</a> & <a class="sodio" href="https://www.washtt.com/privacy" target="_Blank">Privacy Policy?</a></div>
+
+  <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="respuesta" value="NOT"  >
+    <ion-segment-button style="color: #f2f2f2; background-color:#004594; " value="NOT"  >
       <ion-label>NOT</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="YES" style="color: #f2f2f2; background-color:#004594; ">
+    <ion-segment-button value="YES" style="color: #fff; background-color: #ca083f ">
       <ion-label>YES</ion-label>
     </ion-segment-button>
   </ion-segment>
 
- 
+  <br>
+  <br>
    
 <ion-grid>
 
 
-  <ion-row>
+  <ion-row >
     <ion-col>
-      <div class="separador">I already have an account</div>    
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <ion-button   color="primary" expand="block" (click) = "login()" >LOGIN</ion-button>
+      <ion-button   color="primary" expand="block" (click) = "login()" >RETURN TO LOGIN</ion-button>
     </ion-col>
   </ion-row> 
  

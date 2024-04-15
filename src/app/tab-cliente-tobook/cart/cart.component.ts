@@ -514,10 +514,13 @@ var itemsinvaciosOrder = this.itemOrdera.filter(((itemOrdera: string | any[]) =>
     console.log(subtotal)
     console.log(itemsinvaciosOrder)
 
+   
+   /*
+   RESTRICCCION A DOS CITAS
     var allregistros = itemsinvaciosOrder
-    var count = 0
-    var mobil = "no"
-    for (let registro of allregistros) 
+   var count = 0
+    var mobil = "no"*/
+ /*   for (let registro of allregistros) 
  {
   if(registro.donde == 2) {
 
@@ -526,9 +529,9 @@ var itemsinvaciosOrder = this.itemOrdera.filter(((itemOrdera: string | any[]) =>
 
   }
 
-}
+}*/
     
-if(mobil == "yes" && count < 2) {
+/*if(mobil == "yes" && count < 2) {
   this.loading.dismissLoader()  
   this.snackBar.open("Sorry, a minimum of two services per mobile appointment is required", "Close",
   {       
@@ -539,9 +542,9 @@ if(mobil == "yes" && count < 2) {
 
   return false
 
-}
+}*/
 
-if (mobil == "yes" && count >= 2) {
+/*if (mobil == "yes" && count >= 2) {
 
     this.serviciotobook.checkout(
 
@@ -623,10 +626,10 @@ if (mobil == "yes" && count >= 2) {
   })
 
 
-}
+}*/
 
 
-if (mobil == "no" && count == 0) {
+/*if (mobil == "no" && count == 0) {
 
   this.serviciotobook.checkout(
 
@@ -708,10 +711,87 @@ error: error => {
 })
 
 
-}
+}*/
 
   
+this.serviciotobook.checkout(
 
+  idtoken,
+  autenticacion_tipo,
+  itemsinvaciosOrder,
+  descuentoOrder,
+  subtotal,
+  user.email,
+      
+      ).subscribe({
+    next: async data => { var datos = data
+
+      this.loading.dismissLoader()  
+
+      switch(datos.respuesta) {
+   
+        case 'ERROR':
+        this.localstorage.clearData()
+        this.router.navigate(['/login']);        
+        this.snackBar.open("Sorry, an error occurred,please login again", "Close",
+        {       
+          horizontalPosition: "start",
+          verticalPosition: "top",
+        }
+        );
+        console.log(data.mensaje)
+        break;
+        
+        case 'TOKEN ERROR':
+           this.localstorage.clearData()
+          this.router.navigate(['/login']);
+          this.snackBar.open("Invalid or expired token,please login again" , "Close",
+          {       
+            horizontalPosition: "start",
+            verticalPosition: "top",
+          }
+          );
+          console.log(data.mensaje);
+        break;  
+        
+        case 'NO ENVIADOS':
+
+          await this.localstorage.removeData('itemOrder');
+            await this.localstorage.removeData('datacupon');
+  
+            this.router.navigate(['/tabs-cliente/tobook/mybooks']);
+
+            this.snackBar.open('Reservation completed', "Close",
+            {       
+              horizontalPosition: "start",
+              verticalPosition: "top",
+            }
+            );
+         break;
+
+        case '200_OK':
+
+          await this.localstorage.removeData('itemOrder');
+            await this.localstorage.removeData('datacupon');
+  
+            this.router.navigate(['/tabs-cliente/tobook/successtobook']);
+        break;
+      }
+
+}
+,
+error: error => {     
+  this.loading.dismissLoader()   
+    console.error('There was an error!', error);
+    this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again' , "Close",
+          {       
+            horizontalPosition: "start",
+            verticalPosition: "top",
+          }
+          );
+}
+
+})
 
 
   }

@@ -1,10 +1,4 @@
 (function () {
-  function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-  function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -289,31 +283,31 @@
       /* harmony import */
 
 
-      var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var tslib__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! tslib */
       64762);
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
 
 
-      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! @angular/platform-browser */
       39075);
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
       /*! @angular/router */
       39895);
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! @ionic/angular */
       80476);
       /* harmony import */
@@ -337,19 +331,19 @@
       /* harmony import */
 
 
-      var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+      var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! @angular/platform-browser/animations */
       75835);
       /* harmony import */
 
 
-      var _angular_fire__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
+      var _angular_fire__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
       /*! @angular/fire */
       50057);
       /* harmony import */
 
 
-      var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+      var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
       /*! @angular/fire/auth */
       49743);
       /* harmony import */
@@ -373,75 +367,70 @@
       /* harmony import */
 
 
-      var _shared_database_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ./shared/database-service */
-      21904);
-      /* harmony import */
-
-
-      var _shared_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _shared_storage_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! ./shared/storage.service */
       86945);
       /* harmony import */
 
 
-      var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ./shared/square.servicio */
       73258);
       /* harmony import */
 
 
-      var _shared_loading_services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _shared_loading_services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! ./shared/loading.services */
       68369);
       /* harmony import */
 
 
-      var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
+      var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
       /*! @angular/material/snack-bar */
       77001);
       /* harmony import */
 
 
-      var _angular_material_list__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
+      var _angular_material_list__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
       /*! @angular/material/list */
       77746);
       /* harmony import */
 
 
-      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
+      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
       /*! @ionic/storage-angular */
       54925);
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
       /*! @angular/common/http */
       91841);
       /* harmony import */
 
 
-      var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @ionic-native/sqlite/ngx */
       70283);
       /* harmony import */
 
 
-      var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
-      /*! @ionic-native/google-plus/ngx */
-      19342);
+      var _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @awesome-cordova-plugins/google-plus/ngx */
+      71044);
       /* harmony import */
 
 
-      var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @ionic-native/status-bar/ngx */
       73494);
       /* harmony import */
 
 
-      var _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @awesome-cordova-plugins/wonderpush/ngx */
       14769); //servicios
+      //import { DatabaseService } from './shared/database-service';
       // Material angular
       // Form
       // Other
@@ -452,871 +441,17 @@
         _classCallCheck(this, AppModule);
       });
 
-      _AppModule = (0, tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_15__.NgModule)({
+      _AppModule = (0, tslib__WEBPACK_IMPORTED_MODULE_13__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_14__.NgModule)({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_17__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_18__.BrowserAnimationsModule, _angular_fire__WEBPACK_IMPORTED_MODULE_19__.AngularFireModule.initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.firebaseConfig), _angular_fire_auth__WEBPACK_IMPORTED_MODULE_20__.AngularFireAuthModule, _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_21__.MatSnackBarModule, _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_22__.IonicStorageModule.forRoot(), _angular_common_http__WEBPACK_IMPORTED_MODULE_23__.HttpClientModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_24__.MatListModule, _angular_router__WEBPACK_IMPORTED_MODULE_25__.RouterModule],
-        providers: [_ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_10__.SQLite, _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_12__.StatusBar, _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_0__.SplashScreen, {
-          provide: _angular_router__WEBPACK_IMPORTED_MODULE_25__.RouteReuseStrategy,
-          useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_17__.IonicRouteStrategy
-        }, _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_13__.WonderPush, _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_11__.GooglePlus, _shared_servicio_autenticacion__WEBPACK_IMPORTED_MODULE_4__.ServicioAutenticacion, _shared_servicio_api__WEBPACK_IMPORTED_MODULE_5__.ServicioApi, _shared_database_service__WEBPACK_IMPORTED_MODULE_6__.DatabaseService, _shared_storage_service__WEBPACK_IMPORTED_MODULE_7__.StorageService, _shared_square_servicio__WEBPACK_IMPORTED_MODULE_8__.SquareServicio, _shared_loading_services__WEBPACK_IMPORTED_MODULE_9__.LoadingService],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_15__.BrowserModule, _ionic_angular__WEBPACK_IMPORTED_MODULE_16__.IonicModule.forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_17__.BrowserAnimationsModule, _angular_fire__WEBPACK_IMPORTED_MODULE_18__.AngularFireModule.initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.firebaseConfig), _angular_fire_auth__WEBPACK_IMPORTED_MODULE_19__.AngularFireAuthModule, _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_20__.MatSnackBarModule, _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_21__.IonicStorageModule.forRoot(), _angular_common_http__WEBPACK_IMPORTED_MODULE_22__.HttpClientModule, _angular_material_list__WEBPACK_IMPORTED_MODULE_23__.MatListModule, _angular_router__WEBPACK_IMPORTED_MODULE_24__.RouterModule],
+        providers: [_ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_9__.SQLite, _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_11__.StatusBar, _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_0__.SplashScreen, {
+          provide: _angular_router__WEBPACK_IMPORTED_MODULE_24__.RouteReuseStrategy,
+          useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_16__.IonicRouteStrategy
+        }, _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_12__.WonderPush, _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_10__.GooglePlus, _shared_servicio_autenticacion__WEBPACK_IMPORTED_MODULE_4__.ServicioAutenticacion, _shared_servicio_api__WEBPACK_IMPORTED_MODULE_5__.ServicioApi, //DatabaseService,
+        _shared_storage_service__WEBPACK_IMPORTED_MODULE_6__.StorageService, _shared_square_servicio__WEBPACK_IMPORTED_MODULE_7__.SquareServicio, _shared_loading_services__WEBPACK_IMPORTED_MODULE_8__.LoadingService],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__.AppComponent]
       })], _AppModule);
-      /***/
-    },
-
-    /***/
-    21904:
-    /*!********************************************!*\
-      !*** ./src/app/shared/database-service.ts ***!
-      \********************************************/
-
-    /***/
-    function _(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export */
-
-
-      __webpack_require__.d(__webpack_exports__, {
-        /* harmony export */
-        "DatabaseService": function DatabaseService() {
-          return (
-            /* binding */
-            _DatabaseService
-          );
-        }
-        /* harmony export */
-
-      });
-      /* harmony import */
-
-
-      var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! tslib */
-      64762);
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-      /*! @angular/core */
-      37716);
-      /* harmony import */
-
-
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @ionic/angular */
-      80476);
-      /* harmony import */
-
-
-      var _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! @ionic-native/sqlite/ngx */
-      70283);
-      /* harmony import */
-
-
-      var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! rxjs */
-      26215);
-
-      var _DatabaseService = /*#__PURE__*/function () {
-        function DatabaseService(platform, sqlite) {
-          var _this2 = this;
-
-          _classCallCheck(this, DatabaseService);
-
-          this.platform = platform;
-          this.sqlite = sqlite;
-          this.dbReady = new rxjs__WEBPACK_IMPORTED_MODULE_1__.BehaviorSubject(false);
-          this.platform.ready().then(function () {
-            _this2.sqlite.create({
-              name: 'todos.db',
-              location: 'default'
-            }).then(function (db) {
-              _this2.database = db;
-
-              _this2.createTables().then(function () {
-                //communicate we are ready!
-                _this2.dbReady.next(true);
-              });
-            });
-          });
-        }
-
-        _createClass(DatabaseService, [{
-          key: "createTables",
-          value: function createTables() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var _this3 = this;
-
-              return regeneratorRuntime.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      return _context.abrupt("return", this.database.executeSql("CREATE TABLE IF NOT EXISTS Mybooks (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        order_id INTEGER,\n        order_number TEXT,\n        order_total REAL,\n        order_subtotal REAL,\n        order_discount REAL,\n        order_status INTEGER,\n        order_date TEXT,\n        order_item_id INTEGER,\n        product_item_price REAL,\n        product_name TEXT,\n        mimap TEXT,\n        cita TEXT,\n        citahora TEXT,\n        vehiculotipo TEXT,\n        Order_Item_Status INTEGER,\n        wash_id INTEGER,\n        latitud REAL,\n        longitud REAL,\n        discount_item REAL,\n        total_item REAL,\n        rp_monto REAL,\n        rp_concepto TEXT,\n        rp_aprobacion REAL\n\n\n      );", []).then(function () {
-                        return _this3.database.executeSql("CREATE TABLE IF NOT EXISTS Mypays (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  txn_id TEXT,\n  status TEXT,\n  fechapago TEXT,\n  amount REAL,\n  userid INTEGER,\n  order_id INTEGER,\n  order_item_id INTEGER,\n  order_number TEXT,\n  service TEXT,\n  price REAL,\n  descuento REAL,\n  propina REAL,\n  total REAL\n  \n\n);", []);
-                      })["catch"](function (err) {
-                        return console.log("error detected creating tables", err);
-                      }));
-
-                    case 1:
-                    case "end":
-                      return _context.stop();
-                  }
-                }
-              }, _callee, this);
-            }));
-          }
-        }, {
-          key: "isReady",
-          value: function isReady() {
-            var _this4 = this;
-
-            return new Promise(function (resolve, _reject) {
-              //if dbReady is true, resolve
-              if (_this4.dbReady.getValue()) {
-                resolve();
-              } //otherwise, wait to resolve until dbReady returns true
-              else {
-                _this4.dbReady.subscribe(function (ready) {
-                  if (ready) {
-                    resolve();
-                  }
-                });
-              }
-            });
-          }
-        }, {
-          key: "addOrder",
-          value: function addOrder(items) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var _iterator, _step, item;
-
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.next = 2;
-                      return this.isReady();
-
-                    case 2:
-                      //var items = Object.values(datos)
-                      _iterator = _createForOfIteratorHelper(items);
-
-                      try {
-                        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                          item = _step.value;
-                          this.database.executeSql("INSERT INTO Mybooks(\n          \n        order_id,\n        order_number ,\n        order_total,\n        order_subtotal ,\n        order_discount,\n        order_status ,\n        order_date,\n        order_item_id ,\n        product_item_price ,\n        product_name,\n        mimap ,\n        cita ,\n        citahora ,\n        vehiculotipo,\n        Order_Item_Status ,\n        wash_id ,\n        latitud ,\n        longitud ,\n        discount_item,\n        total_item\n        \n        \n        \n        ) VALUES (\n        \n        '".concat(item.order_id, "',\n        '").concat(item.order_number, "',\n        '").concat(item.order_total, "',\n        '").concat(item.order_subtotal, "',\n        '").concat(item.order_discount, "',\n        '").concat(item.order_status, "',\n        '").concat(item.order_date, "',\n        '").concat(item.order_item_id, "',\n        '").concat(item.product_item_price, "',\n        '").concat(item.product_name, "',\n        '").concat(item.mimap, "',\n        '").concat(item.cita, "',\n        '").concat(item.citahora, "',\n        '").concat(item.vehiculotipo, "',\n        '").concat(item.Order_Item_Status, "',\n        '").concat(item.wash_id, "',\n        '").concat(item.latitud, "',\n        '").concat(item.longitud, "',\n        '").concat(item.discount, "',\n        '").concat(item.total, "',\n        '").concat(item.rp_monto, "',\n        '").concat(item.rp_concepto, "',\n        '").concat(item.rp_aprobacion, "'\n\n        );"), []);
-                        }
-                      } catch (err) {
-                        _iterator.e(err);
-                      } finally {
-                        _iterator.f();
-                      }
-
-                    case 4:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2, this);
-            }));
-          }
-        }, {
-          key: "addMypays",
-          value: function addMypays(pays) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var _iterator2, _step2, pay;
-
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                while (1) {
-                  switch (_context3.prev = _context3.next) {
-                    case 0:
-                      _context3.next = 2;
-                      return this.isReady();
-
-                    case 2:
-                      _iterator2 = _createForOfIteratorHelper(pays);
-
-                      try {
-                        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                          pay = _step2.value;
-                          this.database.executeSql("INSERT INTO Mypays(\n          \n        txn_id,\n        status,\n        fechapago,\n        amount,\n        userid,\n        order_id,\n        order_item_id,\n        order_number,\n        service,\n        price,\n        descuent,\n        propina,\n        total\n         \n        \n        \n        ) VALUES (\n        \n        '".concat(pay.txn_id, "',\n        '").concat(pay.status, "',\n        '").concat(pay.payment_date, "',\n        '").concat(pay.auth_amount, "',\n        '").concat(pay.user_id, "',\n        '").concat(pay.order_id, "',\n        '").concat(pay.order_item_id, "',\n        '").concat(pay.order_number, "',\n        '").concat(pay.service, "',\n        '").concat(pay.precio, "',\n        '").concat(pay.discount, "',\n        '").concat(pay.propina, "',\n        '").concat(pay.total, "',\n         \n       \n        );"), []);
-                        }
-                      } catch (err) {
-                        _iterator2.e(err);
-                      } finally {
-                        _iterator2.f();
-                      }
-
-                    case 4:
-                    case "end":
-                      return _context3.stop();
-                  }
-                }
-              }, _callee3, this);
-            }));
-          }
-          /*async addTokenFcm( token : string) {
-            await this.isReady();
-            this.database.executeSql(`INSERT INTO TokenFCM(
-                  
-              token
-              
-              ) VALUES (
-              
-              '${token}'
-               
-             
-              );`, []);
-             }
-             async gettokenFCM() {
-            await this.isReady();
-            const data = await this.database.executeSql(`SELECT * from TokenFCM`, []);
-          let token = data.rows.item(0).token
-           return token
-             }*/
-
-        }, {
-          key: "getTodosItems",
-          value: function getTodosItems() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-              var data, mybooks, i, now, dosdiasenmilisegundos, fecha, fechadeordenmili, fechaDentroDedosdias;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
-                while (1) {
-                  switch (_context4.prev = _context4.next) {
-                    case 0:
-                      _context4.next = 2;
-                      return this.isReady();
-
-                    case 2:
-                      _context4.next = 4;
-                      return this.database.executeSql("SELECT * from Mybooks", []);
-
-                    case 4:
-                      data = _context4.sent;
-                      mybooks = [];
-                      i = 0;
-
-                    case 7:
-                      if (!(i < data.rows.length)) {
-                        _context4.next = 37;
-                        break;
-                      }
-
-                      if (!(data.rows.item(i).Order_Item_Status == '1' || data.rows.item(i).Order_Item_Status == '2' || data.rows.item(i).Order_Item_Status == '7' || data.rows.item(i).Order_Item_Status == '8')) {
-                        _context4.next = 34;
-                        break;
-                      }
-
-                      _context4.t0 = data.rows.item(i).Order_Item_Status;
-                      _context4.next = _context4.t0 === 1 ? 12 : _context4.t0 === 2 ? 21 : _context4.t0 === 7 ? 25 : _context4.t0 === 8 ? 29 : 33;
-                      break;
-
-                    case 12:
-                      // por confirmar
-                      this.status_item = 'on hold';
-                      this.botonpagar = false;
-                      now = Date.now();
-                      dosdiasenmilisegundos = 2 * 24 * 60 * 60 * 1000;
-                      fecha = new Date(data.rows.item(i).order_date);
-                      fechadeordenmili = fecha.getTime();
-                      fechaDentroDedosdias = fechadeordenmili + dosdiasenmilisegundos;
-
-                      if (now >= fechaDentroDedosdias) {
-                        this.botonborrar = false;
-                      } else {
-                        this.botonborrar = true;
-                      }
-
-                      return _context4.abrupt("break", 33);
-
-                    case 21:
-                      // confirmada por un lavador
-                      this.status_item = 'accepted';
-                      this.botonborrar = false;
-                      this.botonpagar = false;
-                      return _context4.abrupt("break", 33);
-
-                    case 25:
-                      // atendida pendiente de pago
-                      this.status_item = 'to pay';
-                      this.botonborrar = false;
-                      this.botonpagar = true;
-                      return _context4.abrupt("break", 33);
-
-                    case 29:
-                      // pagada
-                      this.status_item = 'paid out';
-                      this.botonborrar = false;
-                      this.botonpagar = false;
-                      return _context4.abrupt("break", 33);
-
-                    case 33:
-                      mybooks.push({
-                        id: data.rows.item(i).id,
-                        order_id: data.rows.item(i).order_id,
-                        Order: data.rows.item(i).order_number,
-                        total: data.rows.item(i).order_total,
-                        subtotal: data.rows.item(i).order_subtotal,
-                        discount: data.rows.item(i).order_discount,
-                        order_status: data.rows.item(i).order_status,
-                        order_date: data.rows.item(i).order_date,
-                        order_item_id: data.rows.item(i).order_item_id,
-                        Price: data.rows.item(i).product_item_price,
-                        product_name: data.rows.item(i).product_name,
-                        mimap: data.rows.item(i).mimap,
-                        Appointment: data.rows.item(i).cita,
-                        citahora: data.rows.item(i).citahora,
-                        vehiculotipo: data.rows.item(i).vehiculotipo,
-                        Status: this.status_item,
-                        wash_id: data.rows.item(i).wash_id,
-                        longitud: data.rows.item(i).longitud,
-                        latitud: data.rows.item(i).latitud,
-                        discount_item: data.rows.item(i).discount_item,
-                        total_item: data.rows.item(i).total_item,
-                        verborrar: this.botonborrar,
-                        verpagar: this.botonpagar
-                      });
-
-                    case 34:
-                      i++;
-                      _context4.next = 7;
-                      break;
-
-                    case 37:
-                      return _context4.abrupt("return", mybooks);
-
-                    case 38:
-                    case "end":
-                      return _context4.stop();
-                  }
-                }
-              }, _callee4, this);
-            }));
-          }
-        }, {
-          key: "getTodosPays",
-          value: function getTodosPays() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-              var data, mypays, i;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
-                while (1) {
-                  switch (_context5.prev = _context5.next) {
-                    case 0:
-                      _context5.next = 2;
-                      return this.isReady();
-
-                    case 2:
-                      _context5.next = 4;
-                      return this.database.executeSql("SELECT * from Mypays", []);
-
-                    case 4:
-                      data = _context5.sent;
-                      mypays = [];
-
-                      for (i = 0; i < data.rows.length; i++) {
-                        mypays.push({
-                          id: data.rows.item(i).id,
-                          txn_id: data.rows.item(i).txn_id,
-                          status: data.rows.item(i).status,
-                          fechapago: data.rows.item(i).fechapago,
-                          amount: data.rows.item(i).amount,
-                          userid: data.rows.item(i).userid,
-                          order_id: data.rows.item(i).order_id,
-                          order_item_id: data.rows.item(i).order_item_id,
-                          order_number: data.rows.item(i).order_number,
-                          service: data.rows.item(i).service,
-                          price: data.rows.item(i).price,
-                          descuento: data.rows.item(i).descuento,
-                          propina: data.rows.item(i).propina,
-                          total: data.rows.item(i).total
-                        });
-                      }
-
-                    case 7:
-                    case "end":
-                      return _context5.stop();
-                  }
-                }
-              }, _callee5, this);
-            }));
-          }
-        }, {
-          key: "getItems",
-          value: function getItems(n) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-              var formatter$, data, Items, i, washid, status, vercharge, verenlace3;
-              return regeneratorRuntime.wrap(function _callee6$(_context6) {
-                while (1) {
-                  switch (_context6.prev = _context6.next) {
-                    case 0:
-                      formatter$ = new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                        minimumFractionDigits: 2
-                      });
-                      _context6.next = 3;
-                      return this.isReady();
-
-                    case 3:
-                      _context6.next = 5;
-                      return this.database.executeSql("SELECT * from Mybooks", []);
-
-                    case 5:
-                      data = _context6.sent;
-                      Items = [];
-                      i = 0;
-
-                    case 8:
-                      if (!(i < data.rows.length)) {
-                        _context6.next = 48;
-                        break;
-                      }
-
-                      if (!(data.rows.item(i).Order_Item_Status == n)) {
-                        _context6.next = 45;
-                        break;
-                      }
-
-                      _context6.t0 = data.rows.item(i).Order_Item_Status;
-                      _context6.next = _context6.t0 === 1 ? 13 : _context6.t0 === 2 ? 15 : _context6.t0 === 7 ? 17 : _context6.t0 === 8 ? 19 : _context6.t0 === 9 ? 21 : 23;
-                      break;
-
-                    case 13:
-                      // por confirmar
-                      this.status_item = 'on hold';
-                      return _context6.abrupt("break", 23);
-
-                    case 15:
-                      // confirmada por un lavador
-                      this.status_item = 'accepted';
-                      return _context6.abrupt("break", 23);
-
-                    case 17:
-                      // atendida pendiente de pago
-                      this.status_item = 'to pay';
-                      return _context6.abrupt("break", 23);
-
-                    case 19:
-                      // pagada
-                      this.status_item = 'paid out';
-                      return _context6.abrupt("break", 23);
-
-                    case 21:
-                      // cancelado
-                      this.status_item = 'cancelled';
-                      return _context6.abrupt("break", 23);
-
-                    case 23:
-                      if (!data.rows.item(i).wash_id) {
-                        washid = "ND";
-                      } else {
-                        washid = data.rows.item(i).wash_id;
-                      }
-
-                      status = '';
-                      vercharge = false;
-                      verenlace3 = false;
-                      _context6.t1 = data.rows.item(i).rp_aprobacion;
-                      _context6.next = _context6.t1 === 0 ? 30 : _context6.t1 === 1 ? 34 : _context6.t1 === 2 ? 38 : 42;
-                      break;
-
-                    case 30:
-                      status = 'Without approval';
-                      vercharge = true;
-                      verenlace3 = false;
-                      return _context6.abrupt("break", 44);
-
-                    case 34:
-                      status = 'Waiting for approval';
-                      vercharge = true;
-                      verenlace3 = false;
-                      return _context6.abrupt("break", 44);
-
-                    case 38:
-                      status = 'Passed';
-                      vercharge = true;
-                      verenlace3 = false;
-                      return _context6.abrupt("break", 44);
-
-                    case 42:
-                      vercharge = false;
-                      verenlace3 = true;
-
-                    case 44:
-                      Items.push({
-                        id: data.rows.item(i).id,
-                        order_id: data.rows.item(i).order_id,
-                        Order: data.rows.item(i).order_number,
-                        total: data.rows.item(i).order_total,
-                        subtotal: data.rows.item(i).order_subtotal,
-                        discount: data.rows.item(i).order_discount,
-                        order_status: data.rows.item(i).order_status,
-                        order_date: data.rows.item(i).order_date,
-                        order_item_id: data.rows.item(i).order_item_id,
-                        Price: data.rows.item(i).product_item_price,
-                        Service: data.rows.item(i).product_name,
-                        mimap: data.rows.item(i).mimap,
-                        Appointment: data.rows.item(i).cita,
-                        citahora: data.rows.item(i).citahora,
-                        vehiculotipo: data.rows.item(i).vehiculotipo,
-                        Status: this.status_item,
-                        wash_id: washid,
-                        longitud: data.rows.item(i).longitud,
-                        latitud: data.rows.item(i).latitud,
-                        discount_item: data.rows.item(i).discount_item,
-                        total_item: data.rows.item(i).total_item,
-                        Price_item_string: formatter$.format(data.rows.item(i).product_item_price),
-                        Descuento_item_string: formatter$.format(data.rows.item(i).discount_item),
-                        Total_item_string: formatter$.format(data.rows.item(i).total_item),
-                        rp_monto_item: formatter$.format(data.rows.item(i).rp_monto),
-                        rp_concepto_item: data.rows.item(i).rp_concepto,
-                        rp_aprobacion_item: status,
-                        vercharge_item: vercharge,
-                        verenlace3_item: verenlace3
-                      });
-
-                    case 45:
-                      i++;
-                      _context6.next = 8;
-                      break;
-
-                    case 48:
-                      return _context6.abrupt("return", Items);
-
-                    case 49:
-                    case "end":
-                      return _context6.stop();
-                  }
-                }
-              }, _callee6, this);
-            }));
-          }
-        }, {
-          key: "getPays",
-          value: function getPays(p) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-              var formatter$, data, Pays, i, date, dia, mesIndex, year;
-              return regeneratorRuntime.wrap(function _callee7$(_context7) {
-                while (1) {
-                  switch (_context7.prev = _context7.next) {
-                    case 0:
-                      formatter$ = new Intl.NumberFormat('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                        minimumFractionDigits: 2
-                      });
-                      _context7.next = 3;
-                      return this.isReady();
-
-                    case 3:
-                      _context7.next = 5;
-                      return this.database.executeSql("SELECT * from Mypays", []);
-
-                    case 5:
-                      data = _context7.sent;
-                      Pays = [];
-                      i = 0;
-
-                    case 8:
-                      if (!(i < data.rows.length)) {
-                        _context7.next = 28;
-                        break;
-                      }
-
-                      if (!(data.rows.item(i).status == p)) {
-                        _context7.next = 25;
-                        break;
-                      }
-
-                      _context7.t0 = data.rows.item(i).status;
-                      _context7.next = _context7.t0 === 'Verifying' ? 13 : _context7.t0 === 'Denied' ? 15 : _context7.t0 === 'Processed' ? 17 : 19;
-                      break;
-
-                    case 13:
-                      // verificando
-                      this.status_pay = 'IN REVIEW';
-                      return _context7.abrupt("break", 19);
-
-                    case 15:
-                      // negado
-                      this.status_pay = 'REJECT';
-                      return _context7.abrupt("break", 19);
-
-                    case 17:
-                      // aceptado
-                      this.status_pay = 'ADMITTED';
-                      return _context7.abrupt("break", 19);
-
-                    case 19:
-                      date = new Date(data.rows.item(i).fechapago);
-                      dia = date.getDate();
-                      mesIndex = date.getMonth();
-                      year = date.getFullYear();
-
-                      if (mesIndex >= 9) {
-                        this.date_pay = mesIndex + 1 + '-' + dia + '-' + year;
-                      } else {
-                        this.date_pay = '0' + (mesIndex + 1) + '-' + dia + '-' + year;
-                      }
-
-                      Pays.push({
-                        id: data.rows.item(i).id,
-                        txn_id: data.rows.item(i).txn_id,
-                        status: this.status_pay,
-                        fechapago: this.date_pay,
-                        amount: data.rows.item(i).amount,
-                        userid: data.rows.item(i).userid,
-                        order_id: data.rows.item(i).order_id,
-                        order_item_id: data.rows.item(i).order_item_id,
-                        order_number: data.rows.item(i).order_number,
-                        service: data.rows.item(i).service,
-                        price: data.rows.item(i).price,
-                        descuento: data.rows.item(i).descuento,
-                        propina: data.rows.item(i).propina,
-                        total: data.rows.item(i).total,
-                        Price_item_string: formatter$.format(data.rows.item(i).price),
-                        Descuento_item_string: formatter$.format(data.rows.item(i).descuento),
-                        Total_item_string: formatter$.format(data.rows.item(i).total),
-                        Propina_string: formatter$.format(data.rows.item(i).propina),
-                        Amount_string: formatter$.format(data.rows.item(i).amount)
-                      });
-
-                    case 25:
-                      i++;
-                      _context7.next = 8;
-                      break;
-
-                    case 28:
-                      return _context7.abrupt("return", Pays);
-
-                    case 29:
-                    case "end":
-                      return _context7.stop();
-                  }
-                }
-              }, _callee7, this);
-            }));
-          }
-        }, {
-          key: "borrarTobook",
-          value: function borrarTobook(id) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-              return regeneratorRuntime.wrap(function _callee8$(_context8) {
-                while (1) {
-                  switch (_context8.prev = _context8.next) {
-                    case 0:
-                      _context8.next = 2;
-                      return this.isReady();
-
-                    case 2:
-                      _context8.next = 4;
-                      return this.database.executeSql("DELETE FROM Mybooks WHERE order_item_id = ".concat(id), []);
-
-                    case 4:
-                      return _context8.abrupt("return", _context8.sent);
-
-                    case 5:
-                    case "end":
-                      return _context8.stop();
-                  }
-                }
-              }, _callee8, this);
-            }));
-          }
-        }, {
-          key: "UpdateOrders",
-          value: function UpdateOrders(items) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-              var _iterator3, _step3, item, data;
-
-              return regeneratorRuntime.wrap(function _callee9$(_context9) {
-                while (1) {
-                  switch (_context9.prev = _context9.next) {
-                    case 0:
-                      _context9.next = 2;
-                      return this.isReady();
-
-                    case 2:
-                      if (!(items.length !== 0)) {
-                        _context9.next = 29;
-                        break;
-                      }
-
-                      _iterator3 = _createForOfIteratorHelper(items);
-                      _context9.prev = 4;
-
-                      _iterator3.s();
-
-                    case 6:
-                      if ((_step3 = _iterator3.n()).done) {
-                        _context9.next = 19;
-                        break;
-                      }
-
-                      item = _step3.value;
-                      _context9.next = 10;
-                      return this.database.executeSql("SELECT * from Mybooks WHERE order_item_id = ".concat(item.order_item_id), []);
-
-                    case 10:
-                      data = _context9.sent;
-
-                      if (!(data.rows.length == 1)) {
-                        _context9.next = 16;
-                        break;
-                      }
-
-                      _context9.next = 14;
-                      return this.database.executeSql("UPDATE Mybooks SET      \n      \n        Order_Item_Status = ?,\n        wash_id = ?\n        WHERE order_item_id = ".concat(item.order_item_id, "\n        "), [item.Order_Item_Status, item.wash_id]);
-
-                    case 14:
-                      _context9.next = 17;
-                      break;
-
-                    case 16:
-                      this.database.executeSql("INSERT INTO Mybooks(\n          \n          order_id,\n          order_number ,\n          order_total,\n          order_subtotal ,\n          order_discount,\n          order_status ,\n          order_date,\n          order_item_id ,\n          product_item_price ,\n          product_name,\n          mimap ,\n          cita ,\n          citahora ,\n          vehiculotipo,\n          Order_Item_Status ,\n          wash_id ,\n          latitud ,\n          longitud,\n          discount_item,\n          total_item ,\n          rp_monto,\n          rp_concepto,\n          rp_aprobacion \n          \n          \n          \n          ) VALUES (\n          \n          '".concat(item.order_id, "',\n          '").concat(item.order_number, "',\n          '").concat(item.order_total, "',\n          '").concat(item.order_subtotal, "',\n          '").concat(item.order_discount, "',\n          '").concat(item.order_status, "',\n          '").concat(item.order_date, "',\n          '").concat(item.order_item_id, "',\n          '").concat(item.product_item_price, "',\n          '").concat(item.product_name, "',\n          '").concat(item.mimap, "',\n          '").concat(item.cita, "',\n          '").concat(item.citahora, "',\n          '").concat(item.vehiculotipo, "',\n          '").concat(item.Order_Item_Status, "',\n          '").concat(item.wash_id, "',\n          '").concat(item.latitud, "',\n          '").concat(item.longitud, "',\n          '").concat(item.discount, "',\n          '").concat(item.total, "'\n          );"), []);
-
-                    case 17:
-                      _context9.next = 6;
-                      break;
-
-                    case 19:
-                      _context9.next = 24;
-                      break;
-
-                    case 21:
-                      _context9.prev = 21;
-                      _context9.t0 = _context9["catch"](4);
-
-                      _iterator3.e(_context9.t0);
-
-                    case 24:
-                      _context9.prev = 24;
-
-                      _iterator3.f();
-
-                      return _context9.finish(24);
-
-                    case 27:
-                      _context9.next = 30;
-                      break;
-
-                    case 29:
-                      return _context9.abrupt("return", this.database.executeSql("DELETE FROM Mybooks", []));
-
-                    case 30:
-                    case "end":
-                      return _context9.stop();
-                  }
-                }
-              }, _callee9, this, [[4, 21, 24, 27]]);
-            }));
-          }
-        }, {
-          key: "UpdatePays",
-          value: function UpdatePays(pays) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-              var _iterator4, _step4, pay, data;
-
-              return regeneratorRuntime.wrap(function _callee10$(_context10) {
-                while (1) {
-                  switch (_context10.prev = _context10.next) {
-                    case 0:
-                      _context10.next = 2;
-                      return this.isReady();
-
-                    case 2:
-                      if (!(pays.length !== 0)) {
-                        _context10.next = 29;
-                        break;
-                      }
-
-                      _iterator4 = _createForOfIteratorHelper(pays);
-                      _context10.prev = 4;
-
-                      _iterator4.s();
-
-                    case 6:
-                      if ((_step4 = _iterator4.n()).done) {
-                        _context10.next = 19;
-                        break;
-                      }
-
-                      pay = _step4.value;
-                      _context10.next = 10;
-                      return this.database.executeSql("SELECT * from Mypays WHERE order_item_id = ".concat(pay.order_item_id), []);
-
-                    case 10:
-                      data = _context10.sent;
-
-                      if (!(data.rows.length == 1)) {
-                        _context10.next = 16;
-                        break;
-                      }
-
-                      _context10.next = 14;
-                      return this.database.executeSql("UPDATE Mypays SET      \n    \n      status = ?\n      WHERE order_item_id = ".concat(pay.order_item_id, "\n      "), [pay.status]);
-
-                    case 14:
-                      _context10.next = 17;
-                      break;
-
-                    case 16:
-                      this.database.executeSql("INSERT INTO Mypays(\n        \n        txn_id,\n        status,\n        fechapago,\n        amount,\n        userid,\n        order_id,\n        order_item_id,\n        order_number,\n        service,\n        price,\n        descuento,\n        propina,\n        total   \n        \n        \n        \n        ) VALUES (\n        \n        '".concat(pay.txn_id, "',\n        '").concat(pay.status, "',\n        '").concat(pay.payment_date, "',\n        '").concat(pay.auth_amount, "',\n        '").concat(pay.user_id, "',\n        '").concat(pay.order_id, "',\n        '").concat(pay.order_item_id, "',\n        '").concat(pay.order_number, "',\n        '").concat(pay.service, "',\n        '").concat(pay.precio, "',\n        '").concat(pay.discount, "',\n        '").concat(pay.propina, "' ,\n        '").concat(pay.total, "' \n\n        );"), []);
-
-                    case 17:
-                      _context10.next = 6;
-                      break;
-
-                    case 19:
-                      _context10.next = 24;
-                      break;
-
-                    case 21:
-                      _context10.prev = 21;
-                      _context10.t0 = _context10["catch"](4);
-
-                      _iterator4.e(_context10.t0);
-
-                    case 24:
-                      _context10.prev = 24;
-
-                      _iterator4.f();
-
-                      return _context10.finish(24);
-
-                    case 27:
-                      _context10.next = 30;
-                      break;
-
-                    case 29:
-                      return _context10.abrupt("return", this.database.executeSql("DELETE FROM Mypays", []));
-
-                    case 30:
-                    case "end":
-                      return _context10.stop();
-                  }
-                }
-              }, _callee10, this, [[4, 21, 24, 27]]);
-            }));
-          }
-        }]);
-
-        return DatabaseService;
-      }();
-
-      _DatabaseService.ctorParameters = function () {
-        return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__.Platform
-        }, {
-          type: _ionic_native_sqlite_ngx__WEBPACK_IMPORTED_MODULE_0__.SQLite
-        }];
-      };
-
-      _DatabaseService = (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_4__.Injectable)()], _DatabaseService);
       /***/
     },
 
@@ -1478,41 +613,41 @@
         _createClass(ServicioApi, [{
           key: "getlocalstorage",
           value: function getlocalstorage(clave) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-              return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
-                  switch (_context11.prev = _context11.next) {
+                  switch (_context.prev = _context.next) {
                     case 0:
-                      _context11.next = 2;
+                      _context.next = 2;
                       return this.storage.get(clave);
 
                     case 2:
-                      return _context11.abrupt("return", _context11.sent);
+                      return _context.abrupt("return", _context.sent);
 
                     case 3:
                     case "end":
-                      return _context11.stop();
+                      return _context.stop();
                   }
                 }
-              }, _callee11, this);
+              }, _callee, this);
             }));
           }
         }, {
           key: "getProfile",
           value: function getProfile() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-              var _this5 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this2 = this;
 
               var use, user, uid, email;
-              return regeneratorRuntime.wrap(function _callee12$(_context12) {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
-                  switch (_context12.prev = _context12.next) {
+                  switch (_context2.prev = _context2.next) {
                     case 0:
-                      _context12.next = 2;
+                      _context2.next = 2;
                       return this.getlocalstorage('user');
 
                     case 2:
-                      use = _context12.sent;
+                      use = _context2.sent;
                       user = JSON.parse(use); //var user =   JSON.parse(localStorage.getItem('user'));
 
                       uid = user.uid;
@@ -1540,22 +675,22 @@
                               break;
 
                             case 'PERFIL_INCOMPLETO':
-                              _this5.router.navigate(['/ingresaperfil/']);
+                              _this2.router.navigate(['/ingresaperfil/']);
 
                               break;
 
                             case 'SITE_INCOMPLETO':
-                              _this5.router.navigate(['/ingresasite/']);
+                              _this2.router.navigate(['/ingresasite/']);
 
                               break;
 
                             case 'NO_FLOTA':
-                              _this5.router.navigate(['/ingresatruck/']);
+                              _this2.router.navigate(['/ingresatruck/']);
 
                               break;
 
                             case 'OK_TODO':
-                              _this5.router.navigate(['/tobooksite/']);
+                              _this2.router.navigate(['/tobooksite/']);
 
                               break;
                           }
@@ -1568,10 +703,10 @@
 
                     case 7:
                     case "end":
-                      return _context12.stop();
+                      return _context2.stop();
                   }
                 }
-              }, _callee12, this);
+              }, _callee2, this);
             }));
           }
         }]);
@@ -1665,9 +800,9 @@
       /* harmony import */
 
 
-      var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! @ionic-native/google-plus/ngx */
-      19342);
+      var _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @awesome-cordova-plugins/google-plus/ngx */
+      71044);
       /* harmony import */
 
 
@@ -1711,35 +846,35 @@
         _createClass(ServicioAutenticacion, [{
           key: "login",
           value: function login(email, password) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
-              var _this6 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var _this3 = this;
 
-              return regeneratorRuntime.wrap(function _callee15$(_context15) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context15.prev = _context15.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       this.loading.simpleLoader();
                       firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().setPersistence(firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth.Auth.Persistence.LOCAL).then(function () {
-                        _this6.angularAuth.signInWithEmailAndPassword(email, password).then(function (_userCredential) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-                            var _this7 = this;
+                        _this3.angularAuth.signInWithEmailAndPassword(email, password).then(function (_userCredential) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+                            var _this4 = this;
 
                             var data, idtoken, email;
-                            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+                            return regeneratorRuntime.wrap(function _callee4$(_context4) {
                               while (1) {
-                                switch (_context14.prev = _context14.next) {
+                                switch (_context4.prev = _context4.next) {
                                   case 0:
                                     data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                                    _context14.next = 3;
+                                    _context4.next = 3;
                                     return this.localstorage.setObject('usuario', data);
 
                                   case 3:
-                                    _context14.next = 5;
+                                    _context4.next = 5;
                                     return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
 
                                   case 5:
-                                    idtoken = _context14.sent;
-                                    _context14.next = 8;
+                                    idtoken = _context4.sent;
+                                    _context4.next = 8;
                                     return this.localstorage.setData('idtoken', idtoken);
 
                                   case 8:
@@ -1750,14 +885,14 @@
                                       email: email
                                     }).subscribe({
                                       next: function next(data) {
-                                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this7, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-                                          return regeneratorRuntime.wrap(function _callee13$(_context13) {
+                                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this4, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+                                          return regeneratorRuntime.wrap(function _callee3$(_context3) {
                                             while (1) {
-                                              switch (_context13.prev = _context13.next) {
+                                              switch (_context3.prev = _context3.next) {
                                                 case 0:
                                                   this.loading.dismissLoader();
-                                                  _context13.t0 = data.respuesta;
-                                                  _context13.next = _context13.t0 === 'ERROR' ? 4 : _context13.t0 === 'TODO_OK' ? 7 : _context13.t0 === 'TOKEN ERROR' ? 13 : 16;
+                                                  _context3.t0 = data.respuesta;
+                                                  _context3.next = _context3.t0 === 'ERROR' ? 4 : _context3.t0 === 'TODO_OK' ? 7 : _context3.t0 === 'TOKEN ERROR' ? 13 : 16;
                                                   break;
 
                                                 case 4:
@@ -1766,17 +901,17 @@
                                                     verticalPosition: "top"
                                                   });
                                                   console.log(data.mensaje);
-                                                  return _context13.abrupt("break", 16);
+                                                  return _context3.abrupt("break", 16);
 
                                                 case 7:
                                                   this.wonderPush.setUserId(data.userid);
                                                   this.wonderPush.addTag('clientes');
-                                                  _context13.next = 11;
+                                                  _context3.next = 11;
                                                   return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
                                                 case 11:
                                                   this.router.navigate(['/tabs-cliente/tobook']);
-                                                  return _context13.abrupt("break", 16);
+                                                  return _context3.abrupt("break", 16);
 
                                                 case 13:
                                                   this.snackBar.open("Invalid or expired token,please login again", "Close", {
@@ -1784,23 +919,23 @@
                                                     verticalPosition: "top"
                                                   });
                                                   console.log(data.mensaje);
-                                                  return _context13.abrupt("break", 16);
+                                                  return _context3.abrupt("break", 16);
 
                                                 case 16:
                                                 case "end":
-                                                  return _context13.stop();
+                                                  return _context3.stop();
                                               }
                                             }
-                                          }, _callee13, this);
+                                          }, _callee3, this);
                                         }));
                                       },
                                       error: function error(_error2) {
-                                        _this7.loading.dismissLoader();
+                                        _this4.loading.dismissLoader();
 
                                         var errorMessage = _error2.message;
                                         console.error('There was an error!');
 
-                                        _this7.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                                        _this4.snackBar.open("Sorry, an error occurred,please login again", "Close", {
                                           horizontalPosition: "start",
                                           verticalPosition: "top"
                                         });
@@ -1809,34 +944,34 @@
 
                                   case 11:
                                   case "end":
-                                    return _context14.stop();
+                                    return _context4.stop();
                                 }
                               }
-                            }, _callee14, this);
+                            }, _callee4, this);
                           }));
                         })["catch"](function (error) {
-                          _this6.loading.dismissLoader();
+                          _this3.loading.dismissLoader();
 
                           var errorMessage = error.message;
                           console.error('There was an error!' + errorMessage);
 
-                          _this6.router.navigate(['/login']);
+                          _this3.router.navigate(['/login']);
 
-                          _this6.snackBar.open(errorMessage, "Close", {
+                          _this3.snackBar.open(errorMessage, "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top"
                           });
                         });
                       })["catch"](function (error) {
                         // Handle Errors here.
-                        _this6.loading.dismissLoader();
+                        _this3.loading.dismissLoader();
 
                         var errorMessage = error.message;
                         console.error('There was an error!' + errorMessage);
 
-                        _this6.router.navigate(['/login']);
+                        _this3.router.navigate(['/login']);
 
-                        _this6.snackBar.open(errorMessage, "Close", {
+                        _this3.snackBar.open(errorMessage, "Close", {
                           horizontalPosition: "start",
                           verticalPosition: "top"
                         });
@@ -1844,10 +979,10 @@
 
                     case 2:
                     case "end":
-                      return _context15.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee15, this);
+              }, _callee5, this);
             }));
           }
         }, {
@@ -1862,53 +997,53 @@
         }, {
           key: "loginGoogleAndroid",
           value: function loginGoogleAndroid() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
-              var _this8 = this;
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+              var _this5 = this;
 
-              return regeneratorRuntime.wrap(function _callee19$(_context19) {
+              return regeneratorRuntime.wrap(function _callee9$(_context9) {
                 while (1) {
-                  switch (_context19.prev = _context19.next) {
+                  switch (_context9.prev = _context9.next) {
                     case 0:
                       this.platform.ready().then(function (readySource) {
-                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this8, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
-                          var _this9 = this;
+                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this5, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+                          var _this6 = this;
 
                           var res;
-                          return regeneratorRuntime.wrap(function _callee18$(_context18) {
+                          return regeneratorRuntime.wrap(function _callee8$(_context8) {
                             while (1) {
-                              switch (_context18.prev = _context18.next) {
+                              switch (_context8.prev = _context8.next) {
                                 case 0:
                                   console.log('Platform ready from', readySource); // Platform now ready, execute any required native code
 
-                                  _context18.next = 3;
+                                  _context8.next = 3;
                                   return this.googlePlus.login({
                                     'webClientId': '658811684880-1ifeco7pafvknenrf0kq6bimcae2na37.apps.googleusercontent.com',
                                     'offline': true
                                   }).then(function (res) {
-                                    return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this9, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
-                                      var _this10 = this;
+                                    return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+                                      var _this7 = this;
 
                                       var resConfirmed;
-                                      return regeneratorRuntime.wrap(function _callee17$(_context17) {
+                                      return regeneratorRuntime.wrap(function _callee7$(_context7) {
                                         while (1) {
-                                          switch (_context17.prev = _context17.next) {
+                                          switch (_context7.prev = _context7.next) {
                                             case 0:
-                                              _context17.next = 2;
+                                              _context7.next = 2;
                                               return this.angularAuth.signInWithCredential(firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth.GoogleAuthProvider.credential(res.idToken));
 
                                             case 2:
-                                              resConfirmed = _context17.sent;
+                                              resConfirmed = _context7.sent;
 
                                               if (!resConfirmed) {
-                                                _context17.next = 9;
+                                                _context7.next = 9;
                                                 break;
                                               }
 
-                                              _context17.next = 6;
+                                              _context7.next = 6;
                                               return this.localstorage.setObject('usuario', res);
 
                                             case 6:
-                                              _context17.next = 8;
+                                              _context7.next = 8;
                                               return this.localstorage.setData('idtoken', res.idToken);
 
                                             case 8:
@@ -1922,13 +1057,13 @@
                                                 profile_imagen: res.imageUrl
                                               }).subscribe({
                                                 next: function next(data) {
-                                                  return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this10, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
-                                                    return regeneratorRuntime.wrap(function _callee16$(_context16) {
+                                                  return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this7, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+                                                    return regeneratorRuntime.wrap(function _callee6$(_context6) {
                                                       while (1) {
-                                                        switch (_context16.prev = _context16.next) {
+                                                        switch (_context6.prev = _context6.next) {
                                                           case 0:
-                                                            _context16.t0 = data.respuesta;
-                                                            _context16.next = _context16.t0 === 'ERROR' ? 3 : _context16.t0 === 'TOKEN ERROR' ? 6 : _context16.t0 === 'ESCLIENTE' ? 9 : 16;
+                                                            _context6.t0 = data.respuesta;
+                                                            _context6.next = _context6.t0 === 'ERROR' ? 3 : _context6.t0 === 'TOKEN ERROR' ? 6 : _context6.t0 === 'ESCLIENTE' ? 9 : 16;
                                                             break;
 
                                                           case 3:
@@ -1937,7 +1072,7 @@
                                                               verticalPosition: "top"
                                                             });
                                                             console.log(data.mensaje);
-                                                            return _context16.abrupt("break", 16);
+                                                            return _context6.abrupt("break", 16);
 
                                                           case 6:
                                                             this.snackBar.open("Invalid or expired token,please login again (google)", "Close", {
@@ -1945,32 +1080,32 @@
                                                               verticalPosition: "top"
                                                             });
                                                             console.log(data.mensaje);
-                                                            return _context16.abrupt("break", 16);
+                                                            return _context6.abrupt("break", 16);
 
                                                           case 9:
                                                             this.wonderPush.setUserId(data.userid);
                                                             this.wonderPush.addTag('clientes');
-                                                            _context16.next = 13;
+                                                            _context6.next = 13;
                                                             return this.localstorage.setData('autenticacion_tipo', 'google');
 
                                                           case 13:
                                                             this.router.navigate(['/tabs-cliente/tobook']);
                                                             console.log(res);
-                                                            return _context16.abrupt("break", 16);
+                                                            return _context6.abrupt("break", 16);
 
                                                           case 16:
                                                           case "end":
-                                                            return _context16.stop();
+                                                            return _context6.stop();
                                                         }
                                                       }
-                                                    }, _callee16, this);
+                                                    }, _callee6, this);
                                                   }));
                                                 },
                                                 error: function error(_error3) {
                                                   var errorMessage = _error3.message;
                                                   console.error('There was an error!' + errorMessage);
 
-                                                  _this10.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                                                  _this7.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
                                                     horizontalPosition: "start",
                                                     verticalPosition: "top"
                                                   });
@@ -1979,63 +1114,63 @@
 
                                             case 9:
                                             case "end":
-                                              return _context17.stop();
+                                              return _context7.stop();
                                           }
                                         }
-                                      }, _callee17, this);
+                                      }, _callee7, this);
                                     }));
                                   })["catch"](function (error) {
                                     var errorMessage = error.message;
                                     console.error('There was an error!');
 
-                                    _this9.snackBar.open(errorMessage, "Close", {
+                                    _this6.snackBar.open(errorMessage, "Close", {
                                       horizontalPosition: "start",
                                       verticalPosition: "top"
                                     });
                                   });
 
                                 case 3:
-                                  res = _context18.sent;
+                                  res = _context8.sent;
 
                                 case 4:
                                 case "end":
-                                  return _context18.stop();
+                                  return _context8.stop();
                               }
                             }
-                          }, _callee18, this);
+                          }, _callee8, this);
                         }));
                       });
 
                     case 1:
                     case "end":
-                      return _context19.stop();
+                      return _context9.stop();
                   }
                 }
-              }, _callee19, this);
+              }, _callee9, this);
             }));
           }
         }, {
           key: "loginGoogleWeb",
           value: function loginGoogleWeb() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
               var res, user;
-              return regeneratorRuntime.wrap(function _callee20$(_context20) {
+              return regeneratorRuntime.wrap(function _callee10$(_context10) {
                 while (1) {
-                  switch (_context20.prev = _context20.next) {
+                  switch (_context10.prev = _context10.next) {
                     case 0:
-                      _context20.next = 2;
+                      _context10.next = 2;
                       return this.angularAuth.signInWithPopup(new firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth.GoogleAuthProvider());
 
                     case 2:
-                      res = _context20.sent;
+                      res = _context10.sent;
                       user = res.user;
 
                       if (!user) {
-                        _context20.next = 9;
+                        _context10.next = 9;
                         break;
                       }
 
-                      _context20.next = 7;
+                      _context10.next = 7;
                       return this.localstorage.setData('autenticacion_tipo', 'google');
 
                     case 7:
@@ -2044,22 +1179,22 @@
 
                     case 9:
                     case "end":
-                      return _context20.stop();
+                      return _context10.stop();
                   }
                 }
-              }, _callee20, this);
+              }, _callee10, this);
             }));
           }
         }, {
           key: "logout_regular",
           value: function logout_regular() {
-            var _this11 = this;
+            var _this8 = this;
 
             this.angularAuth.signOut().then(function () {
               // Sign-out successful.
-              _this11.localstorage.clearData();
+              _this8.localstorage.clearData();
 
-              _this11.router.navigate(['login']);
+              _this8.router.navigate(['login']);
             })["catch"](function (error) {
               // An error happened.
               var errorMessage = error.message;
@@ -2069,34 +1204,34 @@
         }, {
           key: "logout_google",
           value: function logout_google() {
-            var _this12 = this;
+            var _this9 = this;
 
             this.platform.ready().then(function (readySource) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this12, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
-                var _this13 = this;
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this9, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+                var _this10 = this;
 
-                return regeneratorRuntime.wrap(function _callee22$(_context22) {
+                return regeneratorRuntime.wrap(function _callee12$(_context12) {
                   while (1) {
-                    switch (_context22.prev = _context22.next) {
+                    switch (_context12.prev = _context12.next) {
                       case 0:
                         console.log('Platform ready from', readySource); // Platform now ready, execute any required native code
 
-                        _context22.next = 3;
+                        _context12.next = 3;
                         return this.googlePlus.logout().then(function (res) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this13, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
-                            return regeneratorRuntime.wrap(function _callee21$(_context21) {
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this10, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+                            return regeneratorRuntime.wrap(function _callee11$(_context11) {
                               while (1) {
-                                switch (_context21.prev = _context21.next) {
+                                switch (_context11.prev = _context11.next) {
                                   case 0:
                                     this.localstorage.clearData();
                                     this.router.navigate(['login']);
 
                                   case 2:
                                   case "end":
-                                    return _context21.stop();
+                                    return _context11.stop();
                                 }
                               }
-                            }, _callee21, this);
+                            }, _callee11, this);
                           }));
                         })["catch"](function (err) {
                           console.error(err);
@@ -2104,50 +1239,50 @@
 
                       case 3:
                       case "end":
-                        return _context22.stop();
+                        return _context12.stop();
                     }
                   }
-                }, _callee22, this);
+                }, _callee12, this);
               }));
             });
           }
         }, {
           key: "register",
           value: function register(email, password, name) {
-            var _this14 = this;
+            var _this11 = this;
 
             this.loading.simpleLoader(); // Primero verificamos existen credenciales firebase para este usuario
 
             this.angularAuth.signInWithEmailAndPassword(email, password).then(function (_userCredential) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this14, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
-                var _this15 = this;
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+                var _this12 = this;
 
                 var data, idtoken;
-                return regeneratorRuntime.wrap(function _callee26$(_context26) {
+                return regeneratorRuntime.wrap(function _callee16$(_context16) {
                   while (1) {
-                    switch (_context26.prev = _context26.next) {
+                    switch (_context16.prev = _context16.next) {
                       case 0:
                         if (!firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.uid) {
-                          _context26.next = 14;
+                          _context16.next = 14;
                           break;
                         }
 
                         // esta en firebase
                         data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                        _context26.next = 4;
+                        _context16.next = 4;
                         return this.localstorage.setObject('usuario', data);
 
                       case 4:
-                        _context26.next = 6;
+                        _context16.next = 6;
                         return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
 
                       case 6:
-                        idtoken = _context26.sent;
-                        _context26.next = 9;
+                        idtoken = _context16.sent;
+                        _context16.next = 9;
                         return this.localstorage.setData('idtoken', idtoken);
 
                       case 9:
-                        _context26.next = 11;
+                        _context16.next = 11;
                         return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
                       case 11:
@@ -2158,14 +1293,14 @@
                           password: password
                         }).subscribe({
                           next: function next(data) {
-                            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this15, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
-                              return regeneratorRuntime.wrap(function _callee23$(_context23) {
+                            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this12, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+                              return regeneratorRuntime.wrap(function _callee13$(_context13) {
                                 while (1) {
-                                  switch (_context23.prev = _context23.next) {
+                                  switch (_context13.prev = _context13.next) {
                                     case 0:
                                       this.loading.dismissLoader();
-                                      _context23.t0 = data.respuesta;
-                                      _context23.next = _context23.t0 === 'ERROR' ? 4 : _context23.t0 === 'DUPLICADO_USUARIO' ? 7 : _context23.t0 === 'OK' ? 10 : 16;
+                                      _context13.t0 = data.respuesta;
+                                      _context13.next = _context13.t0 === 'ERROR' ? 4 : _context13.t0 === 'DUPLICADO_USUARIO' ? 7 : _context13.t0 === 'OK' ? 10 : 16;
                                       break;
 
                                     case 4:
@@ -2174,7 +1309,7 @@
                                         verticalPosition: "top"
                                       });
                                       console.log(data.mensaje);
-                                      return _context23.abrupt("break", 16);
+                                      return _context13.abrupt("break", 16);
 
                                     case 7:
                                       this.snackBar.open('There is already an account with this email', "Close", {
@@ -2183,32 +1318,32 @@
                                         verticalPosition: "top"
                                       });
                                       console.log(data.mensaje);
-                                      return _context23.abrupt("break", 16);
+                                      return _context13.abrupt("break", 16);
 
                                     case 10:
                                       this.wonderPush.setUserId(data.userid);
                                       this.wonderPush.addTag('clientes');
-                                      _context23.next = 14;
+                                      _context13.next = 14;
                                       return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
                                     case 14:
                                       this.router.navigate(['/tabs-cliente/tobook']);
-                                      return _context23.abrupt("break", 16);
+                                      return _context13.abrupt("break", 16);
 
                                     case 16:
                                     case "end":
-                                      return _context23.stop();
+                                      return _context13.stop();
                                   }
                                 }
-                              }, _callee23, this);
+                              }, _callee13, this);
                             }));
                           },
                           error: function error(_error4) {
-                            _this15.loading.dismissLoader();
+                            _this12.loading.dismissLoader();
 
                             var errorMessage = _error4.message;
 
-                            _this15.snackBar.open(errorMessage, "Close", {
+                            _this12.snackBar.open(errorMessage, "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -2216,35 +1351,35 @@
                             console.error('There was an error!' + errorMessage);
                           }
                         });
-                        _context26.next = 15;
+                        _context16.next = 15;
                         break;
 
                       case 14:
                         //no esta en firebase
                         this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (_result) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this15, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
-                            var _this16 = this;
+                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this12, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
+                            var _this13 = this;
 
                             var data, idtoken;
-                            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+                            return regeneratorRuntime.wrap(function _callee15$(_context15) {
                               while (1) {
-                                switch (_context25.prev = _context25.next) {
+                                switch (_context15.prev = _context15.next) {
                                   case 0:
                                     data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                                    _context25.next = 3;
+                                    _context15.next = 3;
                                     return this.localstorage.setObject('usuario', data);
 
                                   case 3:
-                                    _context25.next = 5;
+                                    _context15.next = 5;
                                     return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
 
                                   case 5:
-                                    idtoken = _context25.sent;
-                                    _context25.next = 8;
+                                    idtoken = _context15.sent;
+                                    _context15.next = 8;
                                     return this.localstorage.setData('idtoken', idtoken);
 
                                   case 8:
-                                    _context25.next = 10;
+                                    _context15.next = 10;
                                     return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
                                   case 10:
@@ -2255,14 +1390,14 @@
                                       password: password
                                     }).subscribe({
                                       next: function next(data) {
-                                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this16, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
-                                          return regeneratorRuntime.wrap(function _callee24$(_context24) {
+                                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this13, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+                                          return regeneratorRuntime.wrap(function _callee14$(_context14) {
                                             while (1) {
-                                              switch (_context24.prev = _context24.next) {
+                                              switch (_context14.prev = _context14.next) {
                                                 case 0:
                                                   this.loading.dismissLoader();
-                                                  _context24.t0 = data.respuesta;
-                                                  _context24.next = _context24.t0 === 'ERROR' ? 4 : _context24.t0 === 'DUPLICADO_USUARIO' ? 7 : _context24.t0 === 'OK' ? 10 : 16;
+                                                  _context14.t0 = data.respuesta;
+                                                  _context14.next = _context14.t0 === 'ERROR' ? 4 : _context14.t0 === 'DUPLICADO_USUARIO' ? 7 : _context14.t0 === 'OK' ? 10 : 16;
                                                   break;
 
                                                 case 4:
@@ -2271,7 +1406,7 @@
                                                     verticalPosition: "top"
                                                   });
                                                   console.log(data.mensaje);
-                                                  return _context24.abrupt("break", 16);
+                                                  return _context14.abrupt("break", 16);
 
                                                 case 7:
                                                   this.snackBar.open('There is already an account with this email', "Close", {
@@ -2280,32 +1415,32 @@
                                                     verticalPosition: "top"
                                                   });
                                                   console.log(data.mensaje);
-                                                  return _context24.abrupt("break", 16);
+                                                  return _context14.abrupt("break", 16);
 
                                                 case 10:
                                                   this.wonderPush.setUserId(data.userid);
                                                   this.wonderPush.addTag('clientes');
-                                                  _context24.next = 14;
+                                                  _context14.next = 14;
                                                   return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
                                                 case 14:
                                                   this.router.navigate(['/tabs-cliente/tobook']);
-                                                  return _context24.abrupt("break", 16);
+                                                  return _context14.abrupt("break", 16);
 
                                                 case 16:
                                                 case "end":
-                                                  return _context24.stop();
+                                                  return _context14.stop();
                                               }
                                             }
-                                          }, _callee24, this);
+                                          }, _callee14, this);
                                         }));
                                       },
                                       error: function error(_error5) {
-                                        _this16.loading.dismissLoader();
+                                        _this13.loading.dismissLoader();
 
                                         var errorMessage = _error5.message;
 
-                                        _this16.snackBar.open(errorMessage, "Close", {
+                                        _this13.snackBar.open(errorMessage, "Close", {
                                           horizontalPosition: "start",
                                           verticalPosition: "top"
                                         });
@@ -2316,18 +1451,18 @@
 
                                   case 11:
                                   case "end":
-                                    return _context25.stop();
+                                    return _context15.stop();
                                 }
                               }
-                            }, _callee25, this);
+                            }, _callee15, this);
                           }));
                         })["catch"](function (error) {
                           // Handle Errors here.
-                          _this15.loading.dismissLoader();
+                          _this12.loading.dismissLoader();
 
                           var errorMessage = error.message;
 
-                          _this15.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message, "Close", {
+                          _this12.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message, "Close", {
                             duration: 3000,
                             horizontalPosition: "start",
                             verticalPosition: "top"
@@ -2338,50 +1473,50 @@
 
                       case 15:
                       case "end":
-                        return _context26.stop();
+                        return _context16.stop();
                     }
                   }
-                }, _callee26, this);
+                }, _callee16, this);
               }));
             });
             this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (_result) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this14, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
                 var data, idtoken;
-                return regeneratorRuntime.wrap(function _callee27$(_context27) {
+                return regeneratorRuntime.wrap(function _callee17$(_context17) {
                   while (1) {
-                    switch (_context27.prev = _context27.next) {
+                    switch (_context17.prev = _context17.next) {
                       case 0:
                         data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                        _context27.next = 3;
+                        _context17.next = 3;
                         return this.localstorage.setObject('usuario', data);
 
                       case 3:
-                        _context27.next = 5;
+                        _context17.next = 5;
                         return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
 
                       case 5:
-                        idtoken = _context27.sent;
-                        _context27.next = 8;
+                        idtoken = _context17.sent;
+                        _context17.next = 8;
                         return this.localstorage.setData('idtoken', idtoken);
 
                       case 8:
-                        _context27.next = 10;
+                        _context17.next = 10;
                         return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
                       case 10:
                       case "end":
-                        return _context27.stop();
+                        return _context17.stop();
                     }
                   }
-                }, _callee27, this);
+                }, _callee17, this);
               }));
             })["catch"](function (error) {
               // Handle Errors here.
-              _this14.loading.dismissLoader();
+              _this11.loading.dismissLoader();
 
               var errorMessage = error.message;
 
-              _this14.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message, "Close", {
+              _this11.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message, "Close", {
                 duration: 3000,
                 horizontalPosition: "start",
                 verticalPosition: "top"
@@ -2393,27 +1528,27 @@
         }, {
           key: "resetpassword",
           value: function resetpassword(email) {
-            var _this17 = this;
+            var _this14 = this;
 
             this.loading.simpleLoader();
             firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().sendPasswordResetEmail(email).then(function () {
               // Password reset email sent!
               // ..
-              _this17.loading.dismissLoader();
+              _this14.loading.dismissLoader();
 
-              _this17.snackBar.open("An email has been sent to your account to recover your password", "Close", {
+              _this14.snackBar.open("An email has been sent to your account to recover your password", "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
 
-              _this17.router.navigate(['login']);
+              _this14.router.navigate(['login']);
             })["catch"](function (error) {
-              _this17.loading.dismissLoader(); //var errorCode = error.code;
+              _this14.loading.dismissLoader(); //var errorCode = error.code;
 
 
               var errorMessage = error.message;
 
-              _this17.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
+              _this14.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               }); // ..
@@ -2423,15 +1558,15 @@
         }, {
           key: "cambiarpassword",
           value: function cambiarpassword(newPassword) {
-            var _this18 = this;
+            var _this15 = this;
 
             this.loading.simpleLoader();
             var user = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
             user.updatePassword(newPassword).then(function () {
               // Update successful.
-              _this18.loading.dismissLoader();
+              _this15.loading.dismissLoader();
 
-              _this18.snackBar.open("The password was updated successfully", "Close", {
+              _this15.snackBar.open("The password was updated successfully", "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
@@ -2440,7 +1575,7 @@
               // ...
               var errorMessage = error.message;
 
-              _this18.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
+              _this15.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
@@ -2463,7 +1598,7 @@
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_10__.Platform
         }, {
-          type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__.GooglePlus
+          type: _awesome_cordova_plugins_google_plus_ngx__WEBPACK_IMPORTED_MODULE_0__.GooglePlus
         }, {
           type: _awesome_cordova_plugins_wonderpush_ngx__WEBPACK_IMPORTED_MODULE_4__.WonderPush
         }, {
@@ -2536,14 +1671,14 @@
 
       var _SquareServicio = /*#__PURE__*/function () {
         function SquareServicio() {
-          var _this19 = this;
+          var _this16 = this;
 
           _classCallCheck(this, SquareServicio);
 
           this.scripts = {};
 
           _ScriptStore.forEach(function (script) {
-            _this19.scripts[script.name] = {
+            _this16.scripts[script.name] = {
               loaded: false,
               src: script.src
             };
@@ -2553,7 +1688,7 @@
         _createClass(SquareServicio, [{
           key: "loadScripts",
           value: function loadScripts() {
-            var _this20 = this;
+            var _this17 = this;
 
             var promises = [];
 
@@ -2562,21 +1697,21 @@
             }
 
             scripts.forEach(function (script) {
-              return promises.push(_this20.loadScript(script));
+              return promises.push(_this17.loadScript(script));
             });
             return Promise.all(promises);
           }
         }, {
           key: "loadScript",
           value: function loadScript(name) {
-            var _this21 = this;
+            var _this18 = this;
 
             return new Promise(function (resolve, reject) {
-              if (!_this21.scripts[name].loaded) {
+              if (!_this18.scripts[name].loaded) {
                 // load script
                 var script = document.createElement('script');
                 script.type = 'text/javascript';
-                script.src = _this21.scripts[name].src; // @ts-ignore
+                script.src = _this18.scripts[name].src; // @ts-ignore
 
                 if (script.readyState) {
                   // IE
@@ -2586,7 +1721,7 @@
                     if (script.readyState === 'loaded' || script.readyState === 'complete') {
                       // @ts-ignore
                       script.onreadystatechange = null;
-                      _this21.scripts[name].loaded = true;
+                      _this18.scripts[name].loaded = true;
                       resolve({
                         script: name,
                         loaded: true,
@@ -2597,7 +1732,7 @@
                 } else {
                   // Others
                   script.onload = function () {
-                    _this21.scripts[name].loaded = true;
+                    _this18.scripts[name].loaded = true;
                     resolve({
                       script: name,
                       loaded: true,
@@ -2702,20 +1837,20 @@
         _createClass(StorageService, [{
           key: "init",
           value: function init() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-              return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+              return regeneratorRuntime.wrap(function _callee18$(_context18) {
                 while (1) {
-                  switch (_context28.prev = _context28.next) {
+                  switch (_context18.prev = _context18.next) {
                     case 0:
-                      _context28.next = 2;
+                      _context18.next = 2;
                       return this.storage.create();
 
                     case 2:
                     case "end":
-                      return _context28.stop();
+                      return _context18.stop();
                   }
                 }
-              }, _callee28, this);
+              }, _callee18, this);
             }));
           } // Create and expose methods that users of this service can
           // call, for example:
@@ -2723,39 +1858,39 @@
         }, {
           key: "setData",
           value: function setData(key, value) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
-              return regeneratorRuntime.wrap(function _callee29$(_context29) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+              return regeneratorRuntime.wrap(function _callee19$(_context19) {
                 while (1) {
-                  switch (_context29.prev = _context29.next) {
+                  switch (_context19.prev = _context19.next) {
                     case 0:
-                      _context29.next = 2;
+                      _context19.next = 2;
                       return this.storage.set(key, value);
 
                     case 2:
                     case "end":
-                      return _context29.stop();
+                      return _context19.stop();
                   }
                 }
-              }, _callee29, this);
+              }, _callee19, this);
             }));
           }
         }, {
           key: "setObject",
           value: function setObject(key, object) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-              return regeneratorRuntime.wrap(function _callee30$(_context30) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+              return regeneratorRuntime.wrap(function _callee20$(_context20) {
                 while (1) {
-                  switch (_context30.prev = _context30.next) {
+                  switch (_context20.prev = _context20.next) {
                     case 0:
-                      _context30.next = 2;
+                      _context20.next = 2;
                       return this.storage.set(key, JSON.stringify(object));
 
                     case 2:
                     case "end":
-                      return _context30.stop();
+                      return _context20.stop();
                   }
                 }
-              }, _callee30, this);
+              }, _callee20, this);
             }));
           }
           /* public getObject(key: string) {
@@ -2766,42 +1901,42 @@
         }, {
           key: "getData",
           value: function getData(key) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
-              return regeneratorRuntime.wrap(function _callee31$(_context31) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+              return regeneratorRuntime.wrap(function _callee21$(_context21) {
                 while (1) {
-                  switch (_context31.prev = _context31.next) {
+                  switch (_context21.prev = _context21.next) {
                     case 0:
-                      _context31.next = 2;
+                      _context21.next = 2;
                       return this.storage.get(key);
 
                     case 2:
-                      return _context31.abrupt("return", _context31.sent);
+                      return _context21.abrupt("return", _context21.sent);
 
                     case 3:
                     case "end":
-                      return _context31.stop();
+                      return _context21.stop();
                   }
                 }
-              }, _callee31, this);
+              }, _callee21, this);
             }));
           }
         }, {
           key: "removeData",
           value: function removeData(key) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
-              return regeneratorRuntime.wrap(function _callee32$(_context32) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
+              return regeneratorRuntime.wrap(function _callee22$(_context22) {
                 while (1) {
-                  switch (_context32.prev = _context32.next) {
+                  switch (_context22.prev = _context22.next) {
                     case 0:
-                      _context32.next = 2;
+                      _context22.next = 2;
                       return this.storage.remove(key);
 
                     case 2:
                     case "end":
-                      return _context32.stop();
+                      return _context22.stop();
                   }
                 }
-              }, _callee32, this);
+              }, _callee22, this);
             }));
           }
         }, {

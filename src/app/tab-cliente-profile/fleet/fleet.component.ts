@@ -274,8 +274,7 @@ case 'NO BORRAR':
 break;
       
         case '200_OK':
-          this.router.navigate(['/tabs-cliente/profile']); 
-     
+          /*this.router.navigate(['/tabs-cliente/profile']);  */
 
       
           this.snackBar.open('Vehicle deleted successfully ', "Close",
@@ -284,6 +283,8 @@ break;
             verticalPosition: "top",
           }
           );
+          
+           this.doRefresh(null)
 
 
 break;

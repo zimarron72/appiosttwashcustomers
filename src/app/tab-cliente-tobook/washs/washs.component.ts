@@ -61,7 +61,8 @@ export class WashsComponent implements OnInit {
        this.washpreciomobil = params.washpreciomobil
        await this.localstorage.setData('washpreciomobil', this.washpreciomobil)
        await this.localstorage.setData('washprecio', this.washprecio)
-       await this.localstorage.setData('tipolavado', this.washlavado) 
+       await this.localstorage.setData('tipovehiculo', this.washlavado) 
+       
      }
    );
  

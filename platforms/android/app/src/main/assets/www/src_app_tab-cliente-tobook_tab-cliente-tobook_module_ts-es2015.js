@@ -39417,123 +39417,247 @@ let CartComponent = class CartComponent {
             console.log(descuentoOrder);
             console.log(subtotal);
             console.log(itemsinvaciosOrder);
-            var allregistros = itemsinvaciosOrder;
-            var count = 0;
-            var mobil = "no";
-            for (let registro of allregistros) {
-                if (registro.donde == 2) {
-                    count = count + 1;
-                    mobil = "yes";
+            /*
+            RESTRICCCION A DOS CITAS
+             var allregistros = itemsinvaciosOrder
+            var count = 0
+             var mobil = "no"*/
+            /*   for (let registro of allregistros)
+            {
+             if(registro.donde == 2) {
+           
+               count = count + 1
+              mobil = "yes"
+           
+             }
+           
+           }*/
+            /*if(mobil == "yes" && count < 2) {
+              this.loading.dismissLoader()
+              this.snackBar.open("Sorry, a minimum of two services per mobile appointment is required", "Close",
+              {
+                horizontalPosition: "start",
+                verticalPosition: "top",
+              }
+              );
+            
+              return false
+            
+            }*/
+            /*if (mobil == "yes" && count >= 2) {
+            
+                this.serviciotobook.checkout(
+            
+                idtoken,
+                autenticacion_tipo,
+                itemsinvaciosOrder,
+                descuentoOrder,
+                subtotal,
+                user.email,
+                    
+                    ).subscribe({
+                  next: async data => { var datos = data
+            
+                    this.loading.dismissLoader()
+            
+                    switch(datos.respuesta) {
+                 
+                      case 'ERROR':
+                      this.localstorage.clearData()
+                      this.router.navigate(['/login']);
+                      this.snackBar.open("Sorry, an error occurred,please login again", "Close",
+                      {
+                        horizontalPosition: "start",
+                        verticalPosition: "top",
+                      }
+                      );
+                      console.log(data.mensaje)
+                      break;
+                      
+                      case 'TOKEN ERROR':
+                         this.localstorage.clearData()
+                        this.router.navigate(['/login']);
+                        this.snackBar.open("Invalid or expired token,please login again" , "Close",
+                        {
+                          horizontalPosition: "start",
+                          verticalPosition: "top",
+                        }
+                        );
+                        console.log(data.mensaje);
+                      break;
+                      
+                      case 'NO ENVIADOS':
+            
+                        await this.localstorage.removeData('itemOrder');
+                          await this.localstorage.removeData('datacupon');
+                
+                          this.router.navigate(['/tabs-cliente/tobook/mybooks']);
+            
+                          this.snackBar.open('Reservation completed', "Close",
+                          {
+                            horizontalPosition: "start",
+                            verticalPosition: "top",
+                          }
+                          );
+                       break;
+            
+                      case '200_OK':
+            
+                        await this.localstorage.removeData('itemOrder');
+                          await this.localstorage.removeData('datacupon');
+                
+                          this.router.navigate(['/tabs-cliente/tobook/successtobook']);
+                      break;
+                    }
+              
+              }
+              ,
+              error: error => {
+                this.loading.dismissLoader()
+                  console.error('There was an error!', error);
+                  this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again' , "Close",
+                        {
+                          horizontalPosition: "start",
+                          verticalPosition: "top",
+                        }
+                        );
+              }
+              
+              })
+            
+            
+            }*/
+            /*if (mobil == "no" && count == 0) {
+            
+              this.serviciotobook.checkout(
+            
+              idtoken,
+              autenticacion_tipo,
+              itemsinvaciosOrder,
+              descuentoOrder,
+              subtotal,
+              user.email,
+                  
+                  ).subscribe({
+                next: async data => { var datos = data
+            
+                  this.loading.dismissLoader()
+            
+                  switch(datos.respuesta) {
+               
+                    case 'ERROR':
+                    this.localstorage.clearData()
+                    this.router.navigate(['/login']);
+                    this.snackBar.open("Sorry, an error occurred,please login again", "Close",
+                    {
+                      horizontalPosition: "start",
+                      verticalPosition: "top",
+                    }
+                    );
+                    console.log(data.mensaje)
+                    break;
+                    
+                    case 'TOKEN ERROR':
+                       this.localstorage.clearData()
+                      this.router.navigate(['/login']);
+                      this.snackBar.open("Invalid or expired token,please login again" , "Close",
+                      {
+                        horizontalPosition: "start",
+                        verticalPosition: "top",
+                      }
+                      );
+                      console.log(data.mensaje);
+                    break;
+                    
+                    case 'NO ENVIADOS':
+            
+                      await this.localstorage.removeData('itemOrder');
+                        await this.localstorage.removeData('datacupon');
+              
+                        this.router.navigate(['/tabs-cliente/tobook/mybooks']);
+            
+                        this.snackBar.open('Reservation completed', "Close",
+                        {
+                          horizontalPosition: "start",
+                          verticalPosition: "top",
+                        }
+                        );
+                     break;
+            
+                    case '200_OK':
+            
+                      await this.localstorage.removeData('itemOrder');
+                        await this.localstorage.removeData('datacupon');
+              
+                        this.router.navigate(['/tabs-cliente/tobook/successtobook']);
+                    break;
+                  }
+            
+            }
+            ,
+            error: error => {
+              this.loading.dismissLoader()
+                console.error('There was an error!', error);
+                this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again' , "Close",
+                      {
+                        horizontalPosition: "start",
+                        verticalPosition: "top",
+                      }
+                      );
+            }
+            
+            })
+            
+            
+            }*/
+            this.serviciotobook.checkout(idtoken, autenticacion_tipo, itemsinvaciosOrder, descuentoOrder, subtotal, user.email).subscribe({
+                next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+                    var datos = data;
+                    this.loading.dismissLoader();
+                    switch (datos.respuesta) {
+                        case 'ERROR':
+                            this.localstorage.clearData();
+                            this.router.navigate(['/login']);
+                            this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                                horizontalPosition: "start",
+                                verticalPosition: "top",
+                            });
+                            console.log(data.mensaje);
+                            break;
+                        case 'TOKEN ERROR':
+                            this.localstorage.clearData();
+                            this.router.navigate(['/login']);
+                            this.snackBar.open("Invalid or expired token,please login again", "Close", {
+                                horizontalPosition: "start",
+                                verticalPosition: "top",
+                            });
+                            console.log(data.mensaje);
+                            break;
+                        case 'NO ENVIADOS':
+                            yield this.localstorage.removeData('itemOrder');
+                            yield this.localstorage.removeData('datacupon');
+                            this.router.navigate(['/tabs-cliente/tobook/mybooks']);
+                            this.snackBar.open('Reservation completed', "Close", {
+                                horizontalPosition: "start",
+                                verticalPosition: "top",
+                            });
+                            break;
+                        case '200_OK':
+                            yield this.localstorage.removeData('itemOrder');
+                            yield this.localstorage.removeData('datacupon');
+                            this.router.navigate(['/tabs-cliente/tobook/successtobook']);
+                            break;
+                    }
+                }),
+                error: error => {
+                    this.loading.dismissLoader();
+                    console.error('There was an error!', error);
+                    this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again', "Close", {
+                        horizontalPosition: "start",
+                        verticalPosition: "top",
+                    });
                 }
-            }
-            if (mobil == "yes" && count < 2) {
-                this.loading.dismissLoader();
-                this.snackBar.open("Sorry, a minimum of two services per mobile appointment is required", "Close", {
-                    horizontalPosition: "start",
-                    verticalPosition: "top",
-                });
-                return false;
-            }
-            if (mobil == "yes" && count >= 2) {
-                this.serviciotobook.checkout(idtoken, autenticacion_tipo, itemsinvaciosOrder, descuentoOrder, subtotal, user.email).subscribe({
-                    next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-                        var datos = data;
-                        this.loading.dismissLoader();
-                        switch (datos.respuesta) {
-                            case 'ERROR':
-                                this.localstorage.clearData();
-                                this.router.navigate(['/login']);
-                                this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                console.log(data.mensaje);
-                                break;
-                            case 'TOKEN ERROR':
-                                this.localstorage.clearData();
-                                this.router.navigate(['/login']);
-                                this.snackBar.open("Invalid or expired token,please login again", "Close", {
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                console.log(data.mensaje);
-                                break;
-                            case 'NO ENVIADOS':
-                                yield this.localstorage.removeData('itemOrder');
-                                yield this.localstorage.removeData('datacupon');
-                                this.router.navigate(['/tabs-cliente/tobook/mybooks']);
-                                this.snackBar.open('Reservation completed', "Close", {
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                break;
-                            case '200_OK':
-                                yield this.localstorage.removeData('itemOrder');
-                                yield this.localstorage.removeData('datacupon');
-                                this.router.navigate(['/tabs-cliente/tobook/successtobook']);
-                                break;
-                        }
-                    }),
-                    error: error => {
-                        this.loading.dismissLoader();
-                        console.error('There was an error!', error);
-                        this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again', "Close", {
-                            horizontalPosition: "start",
-                            verticalPosition: "top",
-                        });
-                    }
-                });
-            }
-            if (mobil == "no" && count == 0) {
-                this.serviciotobook.checkout(idtoken, autenticacion_tipo, itemsinvaciosOrder, descuentoOrder, subtotal, user.email).subscribe({
-                    next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-                        var datos = data;
-                        this.loading.dismissLoader();
-                        switch (datos.respuesta) {
-                            case 'ERROR':
-                                this.localstorage.clearData();
-                                this.router.navigate(['/login']);
-                                this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                console.log(data.mensaje);
-                                break;
-                            case 'TOKEN ERROR':
-                                this.localstorage.clearData();
-                                this.router.navigate(['/login']);
-                                this.snackBar.open("Invalid or expired token,please login again", "Close", {
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                console.log(data.mensaje);
-                                break;
-                            case 'NO ENVIADOS':
-                                yield this.localstorage.removeData('itemOrder');
-                                yield this.localstorage.removeData('datacupon');
-                                this.router.navigate(['/tabs-cliente/tobook/mybooks']);
-                                this.snackBar.open('Reservation completed', "Close", {
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                break;
-                            case '200_OK':
-                                yield this.localstorage.removeData('itemOrder');
-                                yield this.localstorage.removeData('datacupon');
-                                this.router.navigate(['/tabs-cliente/tobook/successtobook']);
-                                break;
-                        }
-                    }),
-                    error: error => {
-                        this.loading.dismissLoader();
-                        console.error('There was an error!', error);
-                        this.snackBar.open('Sorry, an error occurred:' + error.menssage + 'Please try again', "Close", {
-                            horizontalPosition: "start",
-                            verticalPosition: "top",
-                        });
-                    }
-                });
-            }
+            });
         });
     }
 };
@@ -41592,22 +41716,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MybooksComponent": function() { return /* binding */ MybooksComponent; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_mybooks_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./mybooks.component.html */ 63965);
 /* harmony import */ var _mybooks_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mybooks.component.scss */ 69273);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/animations */ 17238);
-/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/table */ 32091);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 39895);
-/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/animations */ 17238);
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/table */ 32091);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
 /* harmony import */ var _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../servicios.tobook */ 91655);
-/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/database-service */ 21904);
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/dialog */ 22238);
-/* harmony import */ var _dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dialogoconfir/dialogoconfir.component */ 44583);
-/* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/storage.service */ 86945);
-/* harmony import */ var _shared_loading_services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/loading.services */ 68369);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common */ 38583);
-
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/dialog */ 22238);
+/* harmony import */ var _dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dialogoconfir/dialogoconfir.component */ 44583);
+/* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/storage.service */ 86945);
+/* harmony import */ var _shared_loading_services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/loading.services */ 68369);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ 38583);
 
 
 
@@ -41624,10 +41746,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MybooksComponent = class MybooksComponent {
-    constructor(snackBar, serviciotobook, dbservicio, dialogo, localstorage, rutaActiva, router, loading, location) {
+    constructor(snackBar, serviciotobook, dialogo, localstorage, rutaActiva, router, loading, location) {
         this.snackBar = snackBar;
         this.serviciotobook = serviciotobook;
-        this.dbservicio = dbservicio;
         this.dialogo = dialogo;
         this.localstorage = localstorage;
         this.rutaActiva = rutaActiva;
@@ -41635,7 +41756,7 @@ let MybooksComponent = class MybooksComponent {
         this.loading = loading;
         this.location = location;
         this.columnsToDisplay = ['Service', 'Appointment', 'Location', 'Expand'];
-        this.itemOrderTabla = new _angular_material_table__WEBPACK_IMPORTED_MODULE_7__.MatTableDataSource();
+        this.itemOrderTabla = new _angular_material_table__WEBPACK_IMPORTED_MODULE_6__.MatTableDataSource();
         this.verenlace1 = false;
         this.verenlace2 = false;
     }
@@ -41653,14 +41774,14 @@ let MybooksComponent = class MybooksComponent {
         }
     }
     Borrar(id) {
-        this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__.DialogoconfirComponent, {
+        this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_3__.DialogoconfirComponent, {
             data: `Be sure to permanently delete this record?`
-        }).afterClosed().subscribe((confirmado) => (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+        }).afterClosed().subscribe((confirmado) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
             if (confirmado) {
                 var idtoken = yield this.localstorage.getData('idtoken');
                 var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
                 this.serviciotobook.deleteItemOrder(idtoken, autenticacion_tipo, id).subscribe({
-                    next: (datos) => (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+                    next: (datos) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
                         switch (datos.respuesta) {
                             case 'TOKEN ERROR':
                                 this.router.navigate(['/login']);
@@ -41679,20 +41800,11 @@ let MybooksComponent = class MybooksComponent {
                                 });
                                 break;
                             case '200_OK':
-                                this.dbservicio.borrarTobook(id).then(res => {
-                                    if (res) {
-                                        this.snackBar.open('Record successfully removed', "Close", {
-                                            horizontalPosition: "start",
-                                            verticalPosition: "top",
-                                        });
-                                    }
-                                    else {
-                                        this.snackBar.open('The record has not been deleted ', "Close", {
-                                            horizontalPosition: "start",
-                                            verticalPosition: "top",
-                                        });
-                                    }
+                                this.snackBar.open('The record has been deleted', "Continue", {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
                                 });
+                                this.doRefresh(null);
                                 break;
                         }
                     }),
@@ -41713,15 +41825,15 @@ let MybooksComponent = class MybooksComponent {
         }));
     }
     Cancelar(id) {
-        this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_4__.DialogoconfirComponent, {
+        this.dialogo.open(_dialogoconfir_dialogoconfir_component__WEBPACK_IMPORTED_MODULE_3__.DialogoconfirComponent, {
             data: `Are you sure to cancel this appointment? ?`
-        }).afterClosed().subscribe((confirmado) => (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+        }).afterClosed().subscribe((confirmado) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
             if (confirmado) {
                 var user = JSON.parse(yield this.localstorage.getData('usuario'));
                 var idtoken = yield this.localstorage.getData('idtoken');
                 var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
                 this.serviciotobook.CancelarItemOrder(idtoken, autenticacion_tipo, id, user.email).subscribe({
-                    next: (datos) => (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+                    next: (datos) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
                         switch (datos.respuesta) {
                             case 'TOKEN ERROR':
                                 this.router.navigate(['/login']);
@@ -41758,10 +41870,11 @@ let MybooksComponent = class MybooksComponent {
                                 });
                                 break;
                             case '200_OK':
-                                this.snackBar.open('Appointment successfully cancelled', "Close", {
+                                this.snackBar.open('Appointment successfully cancelled', "Continue", {
                                     horizontalPosition: "start",
                                     verticalPosition: "top",
                                 });
+                                this.doRefresh(null);
                                 break;
                         }
                     }),
@@ -41779,7 +41892,7 @@ let MybooksComponent = class MybooksComponent {
         }));
     }
     doRefresh($event) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
             this.n = this.rutaActiva.snapshot.params.n;
             this.rutaActiva.params.subscribe((params) => {
                 this.n = params.n;
@@ -41917,25 +42030,24 @@ let MybooksComponent = class MybooksComponent {
     }
 };
 MybooksComponent.ctorParameters = () => [
-    { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_9__.MatSnackBar },
+    { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__.MatSnackBar },
     { type: _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__.ServiciosTobook },
-    { type: _shared_database_service__WEBPACK_IMPORTED_MODULE_3__.DatabaseService },
-    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_10__.MatDialog },
-    { type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_5__.StorageService },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.ActivatedRoute },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router },
-    { type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_6__.LoadingService },
-    { type: _angular_common__WEBPACK_IMPORTED_MODULE_12__.Location }
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__.MatDialog },
+    { type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_4__.StorageService },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_10__.ActivatedRoute },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_10__.Router },
+    { type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_5__.LoadingService },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_11__.Location }
 ];
-MybooksComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_13__.Component)({
+MybooksComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_12__.Component)({
         selector: 'app-mybooks',
         template: _raw_loader_mybooks_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
         animations: [
-            (0,_angular_animations__WEBPACK_IMPORTED_MODULE_14__.trigger)('detailExpand', [
-                (0,_angular_animations__WEBPACK_IMPORTED_MODULE_14__.state)('collapsed', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_14__.style)({ height: '0px', minHeight: '0' })),
-                (0,_angular_animations__WEBPACK_IMPORTED_MODULE_14__.state)('expanded', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_14__.style)({ height: '*' })),
-                (0,_angular_animations__WEBPACK_IMPORTED_MODULE_14__.transition)('expanded <=> collapsed', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_14__.animate)('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+            (0,_angular_animations__WEBPACK_IMPORTED_MODULE_13__.trigger)('detailExpand', [
+                (0,_angular_animations__WEBPACK_IMPORTED_MODULE_13__.state)('collapsed', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_13__.style)({ height: '0px', minHeight: '0' })),
+                (0,_angular_animations__WEBPACK_IMPORTED_MODULE_13__.state)('expanded', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_13__.style)({ height: '*' })),
+                (0,_angular_animations__WEBPACK_IMPORTED_MODULE_13__.transition)('expanded <=> collapsed', (0,_angular_animations__WEBPACK_IMPORTED_MODULE_13__.animate)('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
             ])
         ],
         styles: [_mybooks_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -43169,11 +43281,11 @@ let TabClienteTobookPage = class TabClienteTobookPage {
                 url: '/tabs-cliente/tobook/tipovehiculos',
                 icon: 'calendar-clear'
             },
-            {
-                title: 'Deals of the week',
-                url: '/tabs-cliente/tobook/dealsweek',
-                icon: 'pricetags'
-            },
+            /*{
+              title: 'Deals of the week',
+              url: '/tabs-cliente/tobook/dealsweek',
+              icon: 'pricetags'
+            },*/
             {
                 title: 'Appointments',
                 url: '/tabs-cliente/tobook/tipobooks',
@@ -44779,7 +44891,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #142f5f;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #f2eae1;\n  color: #142f5f;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\n#cancel {\n  width: 90%;\n}\n\n#add {\n  width: 90%;\n}\n\n#checkout {\n  width: 90%;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n#totalvacio {\n  color: #fff;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #2E4F9C;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15Ym9va3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FBQ0o7O0FBRUU7RUFDRSxTQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0UsbUJBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0FBQ0o7O0FBRUU7RUFDRSxnQkFBQTtFQUNBLGFBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0VBQ0EsbUJBQUE7RUFDQSxjQUFBO0VBQ0EsYUFBQTtFQUVKLGtCQUFBO0VBQ0EsZUFBQTtFQUVBLCtHQUFBO0VBQ0ksbUJBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7QUFBSjs7QUFHRTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0FBQUo7O0FBR0U7RUFDRSxhQUFBO0FBQUo7O0FBR0U7RUFDRSxZQUFBO0FBQUo7O0FBR0U7RUFFRSxrQkFBQTtBQURKOztBQUlFO0VBQ0UsVUFBQTtBQURKOztBQUdBO0VBQ0ksVUFBQTtBQUFKOztBQUVBO0VBQ0UsVUFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRjs7QUFFQTtFQUVFLFdBQUE7QUFBRjs7QUFFQTtFQUVFLDhCQUFBO0FBQUY7O0FBR0E7RUFFRSxrQkFBQTtFQUNBLGFBQUE7QUFERjs7QUFJQTtFQUVFLGdCQUFBO0VBQ0EsYUFBQTtFQUNBLGNBQUE7QUFGRiIsImZpbGUiOiJteWJvb2tzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGFibGUge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWRldGFpbC1yb3cge1xuICAgIGhlaWdodDogMDtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTpob3ZlciB7XG4gICAgYmFja2dyb3VuZDogIzE0MmY1ZjtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTphY3RpdmUge1xuICAgIGJhY2tncm91bmQ6ICNlZmVmZWY7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtcm93IHRkIHtcbiAgICBib3JkZXItYm90dG9tLXdpZHRoOiAwO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRldGFpbCB7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRpYWdyYW0ge1xuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7IFxuICAgIGJhY2tncm91bmQ6ICNmMmVhZTE7XG4gICAgY29sb3I6ICMxNDJmNWY7XG4gICAgcGFkZGluZzogMTBweDsgIFxuXG5ib3JkZXItcmFkaXVzOiA0cHg7XG5mb250LXNpemU6IDE0cHg7XG4td2Via2l0LWJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbmJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbiAgICB0ZXh0LWFsaWduOiBqdXN0aWZ5O1xuICAgIG1hcmdpbi1ib3R0b206MTBweDtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1zeW1ib2wge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtc2l6ZTogNDBweDtcbiAgICBsaW5lLWhlaWdodDogbm9ybWFsO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uIHtcbiAgICBwYWRkaW5nOiAxNnB4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uLWF0dHJpYnV0aW9uIHtcbiAgICBvcGFjaXR5OiAwLjU7XG4gIH1cblxuICB0aC5tYXQtaGVhZGVyLWNlbGwsIHRkLm1hdC1jZWxsLCB0ZC5tYXQtZm9vdGVyLWNlbGwge1xuXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB9XG5cbiAgI2NhbmNlbCB7XG4gICAgd2lkdGg6IDkwJTtcbn1cbiNhZGQge1xuICAgIHdpZHRoOiA5MCU7XG59XG4jY2hlY2tvdXQge1xuICB3aWR0aDogOTAlO1xufVxuXG50ci5tYXQtZm9vdGVyLXJvdyB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jdG90YWx2YWNpbyB7XG5cbiAgY29sb3I6ICNmZmZcbn1cbjo6bmctZGVlcCAgLm1hdC10YWJsZSB0Ym9keSB7XG5cbiAgYmFja2dyb3VuZDogI2NiMDMzYyAhaW1wb3J0YW50O1xufVxuXG4udGlja2V0IHtcblxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIG1hcmdpbjogdW5zZXQ7XG59XG5cbi50aWNrZXRzIHtcblxuICB0ZXh0LWFsaWduOiBsZWZ0O1xuICBtYXJnaW46IHVuc2V0O1xuICBjb2xvcjogIzJFNEY5QztcblxufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #2e4f9c;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #2e4f9c;\n  color: #f2f2f2;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\n#cancel {\n  width: 90%;\n}\n\n#add {\n  width: 90%;\n}\n\n#checkout {\n  width: 90%;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n#totalvacio {\n  color: #fff;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #fff;\n  font-weight: bolder;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15Ym9va3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxXQUFBO0FBQ0o7O0FBRUU7RUFDRSxTQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0UsbUJBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0FBQ0o7O0FBRUU7RUFDRSxnQkFBQTtFQUNBLGFBQUE7QUFDSjs7QUFFRTtFQUNFLHNCQUFBO0VBQ0EsbUJBQUE7RUFDQSxjQUFBO0VBQ0EsYUFBQTtFQUVKLGtCQUFBO0VBQ0EsZUFBQTtFQUVBLCtHQUFBO0VBQ0ksbUJBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7QUFBSjs7QUFHRTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0FBQUo7O0FBR0U7RUFDRSxhQUFBO0FBQUo7O0FBR0U7RUFDRSxZQUFBO0FBQUo7O0FBR0U7RUFFRSxrQkFBQTtBQURKOztBQUlFO0VBQ0UsVUFBQTtBQURKOztBQUdBO0VBQ0ksVUFBQTtBQUFKOztBQUVBO0VBQ0UsVUFBQTtBQUNGOztBQUVBO0VBQ0UsaUJBQUE7QUFDRjs7QUFFQTtFQUVFLFdBQUE7QUFBRjs7QUFFQTtFQUVFLDhCQUFBO0FBQUY7O0FBR0E7RUFFRSxrQkFBQTtFQUNBLGFBQUE7QUFERjs7QUFJQTtFQUVFLGdCQUFBO0VBQ0EsYUFBQTtFQUNBLFdBQUE7RUFDQSxtQkFBQTtBQUZGIiwiZmlsZSI6Im15Ym9va3MuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbiAgXG4gIHRyLmV4YW1wbGUtZGV0YWlsLXJvdyB7XG4gICAgaGVpZ2h0OiAwO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWVsZW1lbnQtcm93Om5vdCguZXhhbXBsZS1leHBhbmRlZC1yb3cpOmhvdmVyIHtcbiAgICBiYWNrZ3JvdW5kOiAjMmU0ZjljO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWVsZW1lbnQtcm93Om5vdCguZXhhbXBsZS1leHBhbmRlZC1yb3cpOmFjdGl2ZSB7XG4gICAgYmFja2dyb3VuZDogI2VmZWZlZjtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1yb3cgdGQge1xuICAgIGJvcmRlci1ib3R0b20td2lkdGg6IDA7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGV0YWlsIHtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGlhZ3JhbSB7XG4gICAgYm94LXNpemluZzogYm9yZGVyLWJveDsgXG4gICAgYmFja2dyb3VuZDogIzJlNGY5YztcbiAgICBjb2xvcjogI2YyZjJmMjtcbiAgICBwYWRkaW5nOiAxMHB4OyAgXG5cbmJvcmRlci1yYWRpdXM6IDRweDtcbmZvbnQtc2l6ZTogMTRweDtcbi13ZWJraXQtYm94LXNoYWRvdzogMCAzcHggMXB4IC0ycHggcmdiYSgwLCAwLCAwLCAwLjIpLCAwIDJweCAycHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCA1cHggMCByZ2JhKDAsIDAsIDAsIDAuMTIpO1xuYm94LXNoYWRvdzogMCAzcHggMXB4IC0ycHggcmdiYSgwLCAwLCAwLCAwLjIpLCAwIDJweCAycHggMCByZ2JhKDAsIDAsIDAsIDAuMTQpLCAwIDFweCA1cHggMCByZ2JhKDAsIDAsIDAsIDAuMTIpO1xuICAgIHRleHQtYWxpZ246IGp1c3RpZnk7XG4gICAgbWFyZ2luLWJvdHRvbToxMHB4O1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LXN5bWJvbCB7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgZm9udC1zaXplOiA0MHB4O1xuICAgIGxpbmUtaGVpZ2h0OiBub3JtYWw7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGVzY3JpcHRpb24ge1xuICAgIHBhZGRpbmc6IDE2cHg7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtZGVzY3JpcHRpb24tYXR0cmlidXRpb24ge1xuICAgIG9wYWNpdHk6IDAuNTtcbiAgfVxuXG4gIHRoLm1hdC1oZWFkZXItY2VsbCwgdGQubWF0LWNlbGwsIHRkLm1hdC1mb290ZXItY2VsbCB7XG5cbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIH1cblxuICAjY2FuY2VsIHtcbiAgICB3aWR0aDogOTAlO1xufVxuI2FkZCB7XG4gICAgd2lkdGg6IDkwJTtcbn1cbiNjaGVja291dCB7XG4gIHdpZHRoOiA5MCU7XG59XG5cbnRyLm1hdC1mb290ZXItcm93IHtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbiN0b3RhbHZhY2lvIHtcblxuICBjb2xvcjogI2ZmZlxufVxuOjpuZy1kZWVwICAubWF0LXRhYmxlIHRib2R5IHtcblxuICBiYWNrZ3JvdW5kOiAjY2IwMzNjICFpbXBvcnRhbnQ7XG59XG5cbi50aWNrZXQge1xuXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiB1bnNldDtcbn1cblxuLnRpY2tldHMge1xuXG4gIHRleHQtYWxpZ246IGxlZnQ7XG4gIG1hcmdpbjogdW5zZXQ7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXdlaWdodDogYm9sZGVyO1xufSJdfQ== */");
 
 /***/ }),
 
@@ -44791,7 +44903,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #142f5f;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #f2eae1;\n  color: #142f5f;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #2E4F9C;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15cGF5cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQUE7QUFDSjs7QUFFRTtFQUNFLFNBQUE7QUFDSjs7QUFFRTtFQUNFLG1CQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7QUFDSjs7QUFFRTtFQUNFLGdCQUFBO0VBQ0EsYUFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7RUFDQSxtQkFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0VBRUosa0JBQUE7RUFDQSxlQUFBO0VBRUEsK0dBQUE7RUFDSSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsV0FBQTtBQUFKOztBQUdFO0VBQ0UsaUJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7QUFBSjs7QUFHRTtFQUNFLGFBQUE7QUFBSjs7QUFHRTtFQUNFLFlBQUE7QUFBSjs7QUFHRTtFQUVFLGtCQUFBO0FBREo7O0FBTUE7RUFDRSxpQkFBQTtBQUhGOztBQU1BO0VBRUUsOEJBQUE7QUFKRjs7QUFPQTtFQUVFLGtCQUFBO0VBQ0EsYUFBQTtBQUxGOztBQVFBO0VBRUUsZ0JBQUE7RUFDQSxhQUFBO0VBQ0EsY0FBQTtBQU5GIiwiZmlsZSI6Im15cGF5cy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxlIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1kZXRhaWwtcm93IHtcbiAgICBoZWlnaHQ6IDA7XG4gIH1cbiAgXG4gIHRyLmV4YW1wbGUtZWxlbWVudC1yb3c6bm90KC5leGFtcGxlLWV4cGFuZGVkLXJvdyk6aG92ZXIge1xuICAgIGJhY2tncm91bmQ6ICMxNDJmNWY7XG4gIH1cbiAgXG4gIHRyLmV4YW1wbGUtZWxlbWVudC1yb3c6bm90KC5leGFtcGxlLWV4cGFuZGVkLXJvdyk6YWN0aXZlIHtcbiAgICBiYWNrZ3JvdW5kOiAjZWZlZmVmO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LXJvdyB0ZCB7XG4gICAgYm9yZGVyLWJvdHRvbS13aWR0aDogMDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kZXRhaWwge1xuICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgZGlzcGxheTogZmxleDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kaWFncmFtIHtcbiAgICBib3gtc2l6aW5nOiBib3JkZXItYm94OyBcbiAgICBiYWNrZ3JvdW5kOiAjZjJlYWUxO1xuICAgIGNvbG9yOiAjMTQyZjVmO1xuICAgIHBhZGRpbmc6IDEwcHg7ICBcblxuYm9yZGVyLXJhZGl1czogNHB4O1xuZm9udC1zaXplOiAxNHB4O1xuLXdlYmtpdC1ib3gtc2hhZG93OiAwIDNweCAxcHggLTJweCByZ2JhKDAsIDAsIDAsIDAuMiksIDAgMnB4IDJweCAwIHJnYmEoMCwgMCwgMCwgMC4xNCksIDAgMXB4IDVweCAwIHJnYmEoMCwgMCwgMCwgMC4xMik7XG5ib3gtc2hhZG93OiAwIDNweCAxcHggLTJweCByZ2JhKDAsIDAsIDAsIDAuMiksIDAgMnB4IDJweCAwIHJnYmEoMCwgMCwgMCwgMC4xNCksIDAgMXB4IDVweCAwIHJnYmEoMCwgMCwgMCwgMC4xMik7XG4gICAgdGV4dC1hbGlnbjoganVzdGlmeTtcbiAgICBtYXJnaW4tYm90dG9tOjEwcHg7XG4gICAgd2lkdGg6IDEwMCU7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtc3ltYm9sIHtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBmb250LXNpemU6IDQwcHg7XG4gICAgbGluZS1oZWlnaHQ6IG5vcm1hbDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kZXNjcmlwdGlvbiB7XG4gICAgcGFkZGluZzogMTZweDtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1kZXNjcmlwdGlvbi1hdHRyaWJ1dGlvbiB7XG4gICAgb3BhY2l0eTogMC41O1xuICB9XG5cbiAgdGgubWF0LWhlYWRlci1jZWxsLCB0ZC5tYXQtY2VsbCwgdGQubWF0LWZvb3Rlci1jZWxsIHtcblxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgfVxuXG5cblxudHIubWF0LWZvb3Rlci1yb3cge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuOjpuZy1kZWVwICAubWF0LXRhYmxlIHRib2R5IHtcblxuICBiYWNrZ3JvdW5kOiAjY2IwMzNjICFpbXBvcnRhbnQ7XG59XG5cbi50aWNrZXQge1xuXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luOiB1bnNldDtcbn1cblxuLnRpY2tldHMge1xuXG4gIHRleHQtYWxpZ246IGxlZnQ7XG4gIG1hcmdpbjogdW5zZXQ7XG4gIGNvbG9yOiMyRTRGOUM7XG5cbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("table {\n  width: 100%;\n}\n\ntr.example-detail-row {\n  height: 0;\n}\n\ntr.example-element-row:not(.example-expanded-row):hover {\n  background: #2E4F9C;\n}\n\ntr.example-element-row:not(.example-expanded-row):active {\n  background: #efefef;\n}\n\n.example-element-row td {\n  border-bottom-width: 0;\n}\n\n.example-element-detail {\n  overflow: hidden;\n  display: flex;\n}\n\n.example-element-diagram {\n  box-sizing: border-box;\n  background: #2E4F9C;\n  color: #f2f2f2;\n  padding: 10px;\n  border-radius: 4px;\n  font-size: 14px;\n  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);\n  text-align: justify;\n  margin-bottom: 10px;\n  width: 100%;\n}\n\n.example-element-symbol {\n  font-weight: bold;\n  font-size: 40px;\n  line-height: normal;\n}\n\n.example-element-description {\n  padding: 16px;\n}\n\n.example-element-description-attribution {\n  opacity: 0.5;\n}\n\nth.mat-header-cell, td.mat-cell, td.mat-footer-cell {\n  text-align: center;\n}\n\ntr.mat-footer-row {\n  font-weight: bold;\n}\n\n::ng-deep .mat-table tbody {\n  background: #cb033c !important;\n}\n\n.ticket {\n  text-align: center;\n  margin: unset;\n}\n\n.tickets {\n  text-align: left;\n  margin: unset;\n  color: #fff;\n  font-weight: bolder;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15cGF5cy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQUE7QUFDSjs7QUFFRTtFQUNFLFNBQUE7QUFDSjs7QUFFRTtFQUNFLG1CQUFBO0FBQ0o7O0FBRUU7RUFDRSxtQkFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7QUFDSjs7QUFFRTtFQUNFLGdCQUFBO0VBQ0EsYUFBQTtBQUNKOztBQUVFO0VBQ0Usc0JBQUE7RUFDQSxtQkFBQTtFQUNBLGNBQUE7RUFDQSxhQUFBO0VBRUosa0JBQUE7RUFDQSxlQUFBO0VBRUEsK0dBQUE7RUFDSSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsV0FBQTtBQUFKOztBQUdFO0VBQ0UsaUJBQUE7RUFDQSxlQUFBO0VBQ0EsbUJBQUE7QUFBSjs7QUFHRTtFQUNFLGFBQUE7QUFBSjs7QUFHRTtFQUNFLFlBQUE7QUFBSjs7QUFHRTtFQUVFLGtCQUFBO0FBREo7O0FBTUE7RUFDRSxpQkFBQTtBQUhGOztBQU1BO0VBRUUsOEJBQUE7QUFKRjs7QUFPQTtFQUVFLGtCQUFBO0VBQ0EsYUFBQTtBQUxGOztBQVFBO0VBRUUsZ0JBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtFQUNGLG1CQUFBO0FBTkEiLCJmaWxlIjoibXlwYXlzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGFibGUge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG4gIFxuICB0ci5leGFtcGxlLWRldGFpbC1yb3cge1xuICAgIGhlaWdodDogMDtcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTpob3ZlciB7XG4gICAgYmFja2dyb3VuZDogIzJFNEY5QztcbiAgfVxuICBcbiAgdHIuZXhhbXBsZS1lbGVtZW50LXJvdzpub3QoLmV4YW1wbGUtZXhwYW5kZWQtcm93KTphY3RpdmUge1xuICAgIGJhY2tncm91bmQ6ICNlZmVmZWY7XG4gIH1cbiAgXG4gIC5leGFtcGxlLWVsZW1lbnQtcm93IHRkIHtcbiAgICBib3JkZXItYm90dG9tLXdpZHRoOiAwO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRldGFpbCB7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRpYWdyYW0ge1xuICAgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7IFxuICAgIGJhY2tncm91bmQ6ICMyRTRGOUM7XG4gICAgY29sb3I6ICNmMmYyZjI7XG4gICAgcGFkZGluZzogMTBweDsgIFxuXG5ib3JkZXItcmFkaXVzOiA0cHg7XG5mb250LXNpemU6IDE0cHg7XG4td2Via2l0LWJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbmJveC1zaGFkb3c6IDAgM3B4IDFweCAtMnB4IHJnYmEoMCwgMCwgMCwgMC4yKSwgMCAycHggMnB4IDAgcmdiYSgwLCAwLCAwLCAwLjE0KSwgMCAxcHggNXB4IDAgcmdiYSgwLCAwLCAwLCAwLjEyKTtcbiAgICB0ZXh0LWFsaWduOiBqdXN0aWZ5O1xuICAgIG1hcmdpbi1ib3R0b206MTBweDtcbiAgICB3aWR0aDogMTAwJTtcbiAgfVxuICBcbiAgLmV4YW1wbGUtZWxlbWVudC1zeW1ib2wge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtc2l6ZTogNDBweDtcbiAgICBsaW5lLWhlaWdodDogbm9ybWFsO1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uIHtcbiAgICBwYWRkaW5nOiAxNnB4O1xuICB9XG4gIFxuICAuZXhhbXBsZS1lbGVtZW50LWRlc2NyaXB0aW9uLWF0dHJpYnV0aW9uIHtcbiAgICBvcGFjaXR5OiAwLjU7XG4gIH1cblxuICB0aC5tYXQtaGVhZGVyLWNlbGwsIHRkLm1hdC1jZWxsLCB0ZC5tYXQtZm9vdGVyLWNlbGwge1xuXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB9XG5cblxuXG50ci5tYXQtZm9vdGVyLXJvdyB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG46Om5nLWRlZXAgIC5tYXQtdGFibGUgdGJvZHkge1xuXG4gIGJhY2tncm91bmQ6ICNjYjAzM2MgIWltcG9ydGFudDtcbn1cblxuLnRpY2tldCB7XG5cbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW46IHVuc2V0O1xufVxuXG4udGlja2V0cyB7XG5cbiAgdGV4dC1hbGlnbjogbGVmdDtcbiAgbWFyZ2luOiB1bnNldDtcbiAgY29sb3I6I2ZmZjtcbmZvbnQtd2VpZ2h0OiBib2xkZXI7XG59Il19 */");
 
 /***/ }),
 
@@ -45031,7 +45143,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{mensaje}}</h1>\n<div mat-dialog-content>\n    <p>Do not forget to take a look at our offers of the week:</p>\n    <button mat-flat-button class= \"deals\" (click)=\"view()\" style=\"color:#000\" >Deals of de week</button>\n</div><br>\n<p class=\"precio\">{{precio_yarda}}</p>\n<div mat-dialog-actions1>    \n  \n<button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"yarda()\">Booking in our site</button>\n   \n</div><br>\n<p class=\"precio\">{{precio_mobil}}</p>\n<div mat-dialog-actions2>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"mobil()\" cdkFocusInitial >Mobil's bookings</button>\n</div>\n<br>\n<div mat-dialog-actions3>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"cancel()\" >Cancel</button>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{mensaje}}</h1>\n<!--<div mat-dialog-content>\n    <p>Do not forget to take a look at our offers of the week:</p>\n    <button mat-flat-button class= \"deals\" (click)=\"view()\" style=\"color:#000\" >Deals of de week</button>\n</div><br>-->\n<p class=\"precio\">{{precio_yarda}}</p>\n<div mat-dialog-actions1>    \n  \n<button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"yarda()\">Booking in our site</button>\n   \n</div><br>\n<p class=\"precio\">{{precio_mobil}}</p>\n<div mat-dialog-actions2>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"mobil()\" cdkFocusInitial >Mobil's bookings</button>\n</div>\n<br>\n<div mat-dialog-actions3>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"cancel()\" >Cancel</button>\n</div>\n");
 
 /***/ }),
 
@@ -45091,7 +45203,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button>\n\n\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n    \n  </ion-toolbar>\n\n    \n\n\n\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div style=\"\n  background-color: #ca083f;\">\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n</div>\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45103,7 +45215,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments:<br>{{p}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n\n  <!--Tabla  principal-->\n<table mat-table [dataSource]=\"itemPagosTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\" style=\"font-size: 14px;\"> {{element.service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"order_number\">\n    <th mat-header-cell *matHeaderCellDef> Order</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.order_number}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n <!--<ng-container matColumnDef=\"status\">\n    <th mat-header-cell *matHeaderCellDef> Status </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.status}} </td>\n  </ng-container>-->\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\">Payment date:</p>\n      <p class=\"ticket\">{{element.fechapago}}</p>\n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n      <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>      \n          <p class=\"tickets\">Tip:</p>\n            <p class=\"ticket\">{{element.Propina_string}}</p>\n         \n           \n                <div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item_string}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <p class=\"tickets\">Total:</p>\n            <p class=\"ticket\">{{element.Amount_string}}</p>       \n            <!--<p class=\"tickets\">Payment reference:</p>\n              <p class=\"ticket\">{{element.txn_id}}</p>-->  \n\n\n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments:<br>{{p}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  <div style=\"\n  background-color: #ca083f;\">\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n</div>\n\n  <!--Tabla  principal-->\n<table mat-table [dataSource]=\"itemPagosTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\" style=\"font-size: 14px;\"> {{element.service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"order_number\">\n    <th mat-header-cell *matHeaderCellDef> Order</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.order_number}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n <!--<ng-container matColumnDef=\"status\">\n    <th mat-header-cell *matHeaderCellDef> Status </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.status}} </td>\n  </ng-container>-->\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\">Payment date:</p>\n      <p class=\"ticket\">{{element.fechapago}}</p>\n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n      <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>      \n          <p class=\"tickets\">Tip:</p>\n            <p class=\"ticket\">{{element.Propina_string}}</p>\n         \n           \n                <div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item_string}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <p class=\"tickets\">Total:</p>\n            <p class=\"ticket\">{{element.Amount_string}}</p>       \n            <!--<p class=\"tickets\">Payment reference:</p>\n              <p class=\"ticket\">{{element.txn_id}}</p>-->  \n\n\n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45115,7 +45227,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content style=\"background-color: #f2f2f2;\">\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n   <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" >\n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n<div style=\"text-align: center; color:#f2f2f2\">Service charge</div>\n\n    <div class=\"label\">Monto</div> \n    <input type=\"text\" id=\"charge\" name=\"charge\" class=\"form-control\" value ='{{charge_string}}' readonly=\"\"> \n\n    <div class=\"label\">Concepto</div> \n    <input type=\"text\" id=\"concepto\" name=\"concepto\" class=\"form-control\" value ='{{concepto}}' readonly=\"\"> \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"Tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n   \n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content style=\"background-color: #f2f2f2;\">\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n   <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" >\n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n<div style=\"text-align: center; color:#f2f2f2\">Service charge</div>\n\n    <div class=\"label\">Monto</div> \n    <input type=\"text\" id=\"charge\" name=\"charge\" class=\"form-control\" value ='{{charge_string}}' readonly=\"\"> \n\n    <div class=\"label\">Concepto</div> \n    <input type=\"text\" id=\"concepto\" name=\"concepto\" class=\"form-control\" value ='{{concepto}}' readonly=\"\"> \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"Tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n   \n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45127,7 +45239,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content >\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n    <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n    \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n\n\n\n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n\n\n\n<!--<form id=\"payment-form\">\n    \n    \n          \n  <div class=\"campo\"> \n<label for=\"concept\">Service</label> \n<input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n</div>\n\n<div class=\"campo\"> \n<label for=\"sub-total\">Price</label> \n<input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{subtotal}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"descuento\">Discount</label> \n<input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"total\">Total</label> \n<input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total}}' readonly=\"\"> \n</div>\n\n\n<div class=\"campo\"> \n<label for=\"tip\">Tip</label> \n<input type=\"text\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\"> \n</div>\n\n\n</div>\n<div class=\"campo\"> \n<img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n </div>     \n\n\n<div id=\"card-container\"></div>\n<button id=\"card-button\" type=\"button\">Pay</button>\n</form>-->\n\n\n\n\n\n   \n\n   <!--<form id=\"nonce-form\" novalidate action=\"\" method=\"post\">\n <div class=\"\" id=\"billing\">\n        <label for=\"concept\">Service</label>\n        <input type=\"text\" name=\"concept\" id=\"concept\" size=\"35\" value ='{{servicio}}' readonly=\"\" ><br>\n        <label for=\"sub-total\">Subtotal</label>\n        <input type=\"text\" name=\"sub-total\" id=\"sub-total\"  size=\"35\" value ='{{subtotal}}' readonly=\"\"><br>\n        <label for=\"descuento\">Discount</label>\n        <input type=\"text\" name=\"descuento\" id=\"descuento\"  size=\"35\" value ='{{descuento}}' readonly=\"\"><br>\n        <label for=\"total\">Total</label>\n        <input type=\"text\" name=\"total\" id=\"total\"  size=\"35\" value ='{{total}}' readonly=\"\"><br>\n        <label for=\"tip\">Tip</label>\n        <input type=\"text\" name=\"tip\" id=\"tip\"  size=\"35\" value ='{{tip}}' readonly=\"\" ><br>\n </div>\n\n\n      <label for=\"sq-card-number\">Card Number:</label>\n      <div id=\"sq-card-number\"></div>\n      <div id=\"error-card-number\"></div>\n      <label for=\"sq-cvv\">CVV:</label>\n      <div id=\"sq-cvv\"></div>\n      <div id=\"error-sq-cvv\"></div>\n      <label for=\"sq-expiration-date\">Expiration Date:</label>     \n      <div id=\"sq-expiration-date\"></div>\n      <div id=\"error-expiration-date\"></div>\n     <label for=\"sq-postal-code\">Postal Code:</label>\n      <div id=\"sq-postal-code\"></div>\n      <div id=\"error-postal-code\"></div>\n\n     \n\n      <button id=\"sq-creditcard\" class=\"btn-main button-credit-card\" (click)=\"this.requestCardNonce($event)\">To pay</button>\n    \n      <input type=\"hidden\" id=\"sq-id\" name=\"sq-id\">\n      <input type=\"hidden\" id=\"card-nonce\" name=\"nonce\">\n\n      <ion-button (click)=\"this.requestCardNonce($event)\">\n        <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n       To pay\n      </ion-button>\n\n\n    </form>-->\n \n\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content >\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n    <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n    \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n\n\n\n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n\n\n\n<!--<form id=\"payment-form\">\n    \n    \n          \n  <div class=\"campo\"> \n<label for=\"concept\">Service</label> \n<input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n</div>\n\n<div class=\"campo\"> \n<label for=\"sub-total\">Price</label> \n<input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{subtotal}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"descuento\">Discount</label> \n<input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"total\">Total</label> \n<input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total}}' readonly=\"\"> \n</div>\n\n\n<div class=\"campo\"> \n<label for=\"tip\">Tip</label> \n<input type=\"text\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\"> \n</div>\n\n\n</div>\n<div class=\"campo\"> \n<img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n </div>     \n\n\n<div id=\"card-container\"></div>\n<button id=\"card-button\" type=\"button\">Pay</button>\n</form>-->\n\n\n\n\n\n   \n\n   <!--<form id=\"nonce-form\" novalidate action=\"\" method=\"post\">\n <div class=\"\" id=\"billing\">\n        <label for=\"concept\">Service</label>\n        <input type=\"text\" name=\"concept\" id=\"concept\" size=\"35\" value ='{{servicio}}' readonly=\"\" ><br>\n        <label for=\"sub-total\">Subtotal</label>\n        <input type=\"text\" name=\"sub-total\" id=\"sub-total\"  size=\"35\" value ='{{subtotal}}' readonly=\"\"><br>\n        <label for=\"descuento\">Discount</label>\n        <input type=\"text\" name=\"descuento\" id=\"descuento\"  size=\"35\" value ='{{descuento}}' readonly=\"\"><br>\n        <label for=\"total\">Total</label>\n        <input type=\"text\" name=\"total\" id=\"total\"  size=\"35\" value ='{{total}}' readonly=\"\"><br>\n        <label for=\"tip\">Tip</label>\n        <input type=\"text\" name=\"tip\" id=\"tip\"  size=\"35\" value ='{{tip}}' readonly=\"\" ><br>\n </div>\n\n\n      <label for=\"sq-card-number\">Card Number:</label>\n      <div id=\"sq-card-number\"></div>\n      <div id=\"error-card-number\"></div>\n      <label for=\"sq-cvv\">CVV:</label>\n      <div id=\"sq-cvv\"></div>\n      <div id=\"error-sq-cvv\"></div>\n      <label for=\"sq-expiration-date\">Expiration Date:</label>     \n      <div id=\"sq-expiration-date\"></div>\n      <div id=\"error-expiration-date\"></div>\n     <label for=\"sq-postal-code\">Postal Code:</label>\n      <div id=\"sq-postal-code\"></div>\n      <div id=\"error-postal-code\"></div>\n\n     \n\n      <button id=\"sq-creditcard\" class=\"btn-main button-credit-card\" (click)=\"this.requestCardNonce($event)\">To pay</button>\n    \n      <input type=\"hidden\" id=\"sq-id\" name=\"sq-id\">\n      <input type=\"hidden\" id=\"card-nonce\" name=\"nonce\">\n\n      <ion-button (click)=\"this.requestCardNonce($event)\">\n        <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n       To pay\n      </ion-button>\n\n\n    </form>-->\n \n\n\n\n");
 
 /***/ }),
 
@@ -45163,7 +45275,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-split-pane contentId=\"main-content\">\n\n  <ion-menu contentId=\"main-content\" type=\"overlay\" >\n\n    <ion-content >\n<div class=\"app-logo\"></div>\n      <ion-list id=\"inbox-list\">\n        <div class=\"data-perfil\">\n          <p class=\"perfilnombre\">{{cliente_name}}</p>\n          <p class=\"perfilcorreo\">{{cliente_correo}}</p>      \n      </div>\n\n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let pages of Pages; let i = index\">\n          <ion-item color=\"secondary\" (click)=\"activeIndex = i\" routerDirection=\"root\" [routerLink]=\"[pages.url]\" lines=\"none\"\n            detail=\"false\" [class.selected]=\"activeIndex == i\">\n            <ion-icon slot=\"start\" [ios]=\"pages.icon + '-outline'\" [md]=\"pages.icon + '-sharp'\"></ion-icon>\n            <ion-label>{{ pages.title }}</ion-label>\n          </ion-item>         \n        </ion-menu-toggle>\n  \n        <ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://washtt.com/common-questions\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'help-buoy'\"></ion-icon>\n            <ion-label>\n             Help\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle> \n\n        <ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://www.washtt.com/contactus\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'mail-outline'\"></ion-icon>\n            <ion-label>\n              Contact us\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle>\n\n        \n\n\n\n    <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'correo_pass'\">\n        <ion-item color=\"secondary\" (click) =\"salida_regular()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle> \n\n      \n      <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'google'\">\n        <ion-item color=\"secondary\" (click) =\" salida_google()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle>\n\n      </ion-list>\n\n    </ion-content>\n\n  </ion-menu>\n\n  <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n\n</ion-split-pane>\n\n\n\n\n\n\n \n\n\n\n \n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-split-pane contentId=\"main-content\">\n\n  <ion-menu contentId=\"main-content\" type=\"overlay\" >\n\n    <ion-content >\n<div class=\"app-logo\"></div>\n<div style=\"text-align: center;\n   color: #fff;\n    font-weight: bolder;\n     font-size: xx-large;\n      margin-top: -23px;\n  font-style: oblique;\">Express</div>\n  <div style=\"text-align: center;\n  color: #fff;  \n    font-size: x-small;  \n font-style: oblique;\">with the usual care!</div>\n      <ion-list id=\"inbox-list\">\n        <div class=\"data-perfil\">\n          <p class=\"perfilnombre\">{{cliente_name}}</p>\n          <p class=\"perfilcorreo\">{{cliente_correo}}</p>      \n      </div>\n\n        <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let pages of Pages; let i = index\">\n          <ion-item color=\"secondary\" (click)=\"activeIndex = i\" routerDirection=\"root\" [routerLink]=\"[pages.url]\" lines=\"none\"\n            detail=\"false\" [class.selected]=\"activeIndex == i\">\n            <ion-icon slot=\"start\" [ios]=\"pages.icon + '-outline'\" [md]=\"pages.icon + '-sharp'\"></ion-icon>\n            <ion-label>{{ pages.title }}</ion-label>\n          </ion-item>         \n        </ion-menu-toggle>\n  \n        <!--<ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://washtt.com/common-questions\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'help-buoy'\"></ion-icon>\n            <ion-label>\n             Help\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle> \n\n        <ion-menu-toggle >\n          <ion-item color=\"secondary\"   lines=\"none\"  href=\"https://www.washtt.com/contactus\" target =\"_Blank\">\n            <ion-icon slot=\"start\" [name]=\"'mail-outline'\"></ion-icon>\n            <ion-label>\n              Contact us\n            </ion-label>\n          </ion-item>\n        </ion-menu-toggle>-->\n\n        \n\n\n\n    <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'correo_pass'\">\n        <ion-item color=\"secondary\" (click) =\"salida_regular()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle> \n\n      \n      <ion-menu-toggle *ngIf=\"autenticacion_tipo === 'google'\">\n        <ion-item color=\"secondary\" (click) =\" salida_google()\"  lines=\"none\"  >\n          <ion-icon slot=\"start\" [name]=\"'power'\"></ion-icon>\n          <ion-label>\n           Sign out\n          </ion-label>\n        </ion-item>\n      </ion-menu-toggle>\n\n      </ion-list>\n\n    </ion-content>\n\n  </ion-menu>\n\n  <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n\n</ion-split-pane>\n\n\n\n\n\n\n \n\n\n\n \n\n\n");
 
 /***/ }),
 
@@ -45175,7 +45287,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  \n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list>\n\n    <ion-item   color=\"primary\" routerLink=\"/tabs-cliente/tobook/mybooks/1\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n       IN HOLD              \n      </ion-label>\n      <IonBadge  >({{inhold}})</IonBadge>\n      \n    </ion-item>\n    \n    <ion-item color =\"warning\" routerLink=\"/tabs-cliente/tobook/mybooks/2\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        COMFIRMED     \n      </ion-label >\n      <IonBadge  >({{confirmed}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color =\"success\"  routerLink=\"/tabs-cliente/tobook/mybooks/7\">\n     \n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      COMPLETED     \n      </ion-label>\n      <IonBadge  >({{completed}})</IonBadge>\n    </ion-item>\n\n    <ion-item  routerLink=\"/tabs-cliente/tobook/mybooks/9\">\n   \n      <ion-label floating ion-left>\n        <ion-icon name=\"close-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      CANCELLED      \n      </ion-label>\n      <IonBadge  >({{cancelled}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>  \n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  \n\n  <ion-list style=\"margin-top: -8px;\">\n\n    <ion-item   color=\"primary\" routerLink=\"/tabs-cliente/tobook/mybooks/1\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n       IN HOLD              \n      </ion-label>\n      <IonBadge  >({{inhold}})</IonBadge>\n      \n    </ion-item>\n    \n    <ion-item color =\"warning\" routerLink=\"/tabs-cliente/tobook/mybooks/2\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        COMFIRMED     \n      </ion-label >\n      <IonBadge  >({{confirmed}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color =\"success\"  routerLink=\"/tabs-cliente/tobook/mybooks/7\">\n     \n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      COMPLETED     \n      </ion-label>\n      <IonBadge  >({{completed}})</IonBadge>\n    </ion-item>\n\n    <ion-item  routerLink=\"/tabs-cliente/tobook/mybooks/9\">\n   \n      <ion-label floating ion-left>\n        <ion-icon name=\"close-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      CANCELLED      \n      </ion-label>\n      <IonBadge  >({{cancelled}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45199,7 +45311,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n \n  <ion-list>\n\n    <ion-item  color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/mypays/Verifying\">\n      <ion-label floating ion-left>\n       \n        <ion-icon name=\"checkmark\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        IN REVIEW      \n      </ion-label>\n      <IonBadge  >({{inview}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color=\"success\" routerLink=\"/tabs-cliente/tobook/mypays/Processed\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        ADMITTED\n      </ion-label>\n      <IonBadge  >({{admitted}})</IonBadge>\n  \n    </ion-item>\n    \n    <ion-item color=\"danger\" routerLink=\"/tabs-cliente/tobook/mypays/Denied\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      REJECT   \n      </ion-label>\n      <IonBadge  >({{reject}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n \n  <ion-list style=\"margin-top: -10px;\">\n\n    <ion-item  color=\"primary\"  routerLink=\"/tabs-cliente/tobook/mypays/Verifying\">\n      <ion-label floating ion-left>\n       \n        <ion-icon name=\"checkmark\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        IN REVIEW      \n      </ion-label>\n      <IonBadge  >({{inview}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color=\"success\" routerLink=\"/tabs-cliente/tobook/mypays/Processed\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        ADMITTED\n      </ion-label>\n      <IonBadge  >({{admitted}})</IonBadge>\n  \n    </ion-item>\n    \n    <ion-item color=\"warning\" routerLink=\"/tabs-cliente/tobook/mypays/Denied\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      REJECT   \n      </ion-label>\n      <IonBadge  >({{reject}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n\n");
 
 /***/ }),
 

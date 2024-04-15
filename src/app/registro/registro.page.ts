@@ -47,6 +47,7 @@ export class RegistroPage implements OnInit {
     }
     else {
       this.verboton = false
+      this.router.navigate(['login']);
     }
     
   }
