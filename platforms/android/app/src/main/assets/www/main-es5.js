@@ -1251,42 +1251,34 @@
           value: function register(email, password, name) {
             var _this11 = this;
 
-            this.loading.simpleLoader(); // Primero verificamos existen credenciales firebase para este usuario
-
-            this.angularAuth.signInWithEmailAndPassword(email, password).then(function (_userCredential) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+            this.loading.simpleLoader();
+            this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (_result) {
+              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
                 var _this12 = this;
 
                 var data, idtoken;
-                return regeneratorRuntime.wrap(function _callee16$(_context16) {
+                return regeneratorRuntime.wrap(function _callee14$(_context14) {
                   while (1) {
-                    switch (_context16.prev = _context16.next) {
+                    switch (_context14.prev = _context14.next) {
                       case 0:
-                        if (!firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.uid) {
-                          _context16.next = 14;
-                          break;
-                        }
-
-                        // esta en firebase
                         data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                        _context16.next = 4;
+                        _context14.next = 3;
                         return this.localstorage.setObject('usuario', data);
 
-                      case 4:
-                        _context16.next = 6;
+                      case 3:
+                        _context14.next = 5;
                         return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
 
-                      case 6:
-                        idtoken = _context16.sent;
-                        _context16.next = 9;
+                      case 5:
+                        idtoken = _context14.sent;
+                        _context14.next = 8;
                         return this.localstorage.setData('idtoken', idtoken);
 
-                      case 9:
-                        _context16.next = 11;
+                      case 8:
+                        _context14.next = 10;
                         return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
 
-                      case 11:
-                        // cumplo con el registro en washtt servidor
+                      case 10:
                         this.http.post('https://washtt.com/v1_api_clientes_registro.php', {
                           name: name,
                           email: email,
@@ -1343,7 +1335,7 @@
 
                             var errorMessage = _error4.message;
 
-                            _this12.snackBar.open(errorMessage, "Close", {
+                            _this12.snackBar.open("ERROR: " + errorMessage, "Close", {
                               horizontalPosition: "start",
                               verticalPosition: "top"
                             });
@@ -1351,164 +1343,13 @@
                             console.error('There was an error!' + errorMessage);
                           }
                         });
-                        _context16.next = 15;
-                        break;
 
-                      case 14:
-                        //no esta en firebase
-                        this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (_result) {
-                          return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this12, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
-                            var _this13 = this;
-
-                            var data, idtoken;
-                            return regeneratorRuntime.wrap(function _callee15$(_context15) {
-                              while (1) {
-                                switch (_context15.prev = _context15.next) {
-                                  case 0:
-                                    data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                                    _context15.next = 3;
-                                    return this.localstorage.setObject('usuario', data);
-
-                                  case 3:
-                                    _context15.next = 5;
-                                    return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
-
-                                  case 5:
-                                    idtoken = _context15.sent;
-                                    _context15.next = 8;
-                                    return this.localstorage.setData('idtoken', idtoken);
-
-                                  case 8:
-                                    _context15.next = 10;
-                                    return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
-
-                                  case 10:
-                                    // cumplo con el registro en washtt servidor
-                                    this.http.post('https://washtt.com/v1_api_clientes_registro.php', {
-                                      name: name,
-                                      email: email,
-                                      password: password
-                                    }).subscribe({
-                                      next: function next(data) {
-                                        return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this13, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-                                          return regeneratorRuntime.wrap(function _callee14$(_context14) {
-                                            while (1) {
-                                              switch (_context14.prev = _context14.next) {
-                                                case 0:
-                                                  this.loading.dismissLoader();
-                                                  _context14.t0 = data.respuesta;
-                                                  _context14.next = _context14.t0 === 'ERROR' ? 4 : _context14.t0 === 'DUPLICADO_USUARIO' ? 7 : _context14.t0 === 'OK' ? 10 : 16;
-                                                  break;
-
-                                                case 4:
-                                                  this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close", {
-                                                    horizontalPosition: "start",
-                                                    verticalPosition: "top"
-                                                  });
-                                                  console.log(data.mensaje);
-                                                  return _context14.abrupt("break", 16);
-
-                                                case 7:
-                                                  this.snackBar.open('There is already an account with this email', "Close", {
-                                                    duration: 3000,
-                                                    horizontalPosition: "start",
-                                                    verticalPosition: "top"
-                                                  });
-                                                  console.log(data.mensaje);
-                                                  return _context14.abrupt("break", 16);
-
-                                                case 10:
-                                                  this.wonderPush.setUserId(data.userid);
-                                                  this.wonderPush.addTag('clientes');
-                                                  _context14.next = 14;
-                                                  return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
-
-                                                case 14:
-                                                  this.router.navigate(['/tabs-cliente/tobook']);
-                                                  return _context14.abrupt("break", 16);
-
-                                                case 16:
-                                                case "end":
-                                                  return _context14.stop();
-                                              }
-                                            }
-                                          }, _callee14, this);
-                                        }));
-                                      },
-                                      error: function error(_error5) {
-                                        _this13.loading.dismissLoader();
-
-                                        var errorMessage = _error5.message;
-
-                                        _this13.snackBar.open(errorMessage, "Close", {
-                                          horizontalPosition: "start",
-                                          verticalPosition: "top"
-                                        });
-
-                                        console.error('There was an error!' + errorMessage);
-                                      }
-                                    });
-
-                                  case 11:
-                                  case "end":
-                                    return _context15.stop();
-                                }
-                              }
-                            }, _callee15, this);
-                          }));
-                        })["catch"](function (error) {
-                          // Handle Errors here.
-                          _this12.loading.dismissLoader();
-
-                          var errorMessage = error.message;
-
-                          _this12.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message, "Close", {
-                            duration: 3000,
-                            horizontalPosition: "start",
-                            verticalPosition: "top"
-                          });
-
-                          console.error('There was an error!' + errorMessage);
-                        });
-
-                      case 15:
+                      case 11:
                       case "end":
-                        return _context16.stop();
+                        return _context14.stop();
                     }
                   }
-                }, _callee16, this);
-              }));
-            });
-            this.angularAuth.createUserWithEmailAndPassword(email, password).then(function (_result) {
-              return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(_this11, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
-                var data, idtoken;
-                return regeneratorRuntime.wrap(function _callee17$(_context17) {
-                  while (1) {
-                    switch (_context17.prev = _context17.next) {
-                      case 0:
-                        data = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
-                        _context17.next = 3;
-                        return this.localstorage.setObject('usuario', data);
-
-                      case 3:
-                        _context17.next = 5;
-                        return firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser.getIdToken(true);
-
-                      case 5:
-                        idtoken = _context17.sent;
-                        _context17.next = 8;
-                        return this.localstorage.setData('idtoken', idtoken);
-
-                      case 8:
-                        _context17.next = 10;
-                        return this.localstorage.setData('autenticacion_tipo', 'correo_pass');
-
-                      case 10:
-                      case "end":
-                        return _context17.stop();
-                    }
-                  }
-                }, _callee17, this);
+                }, _callee14, this);
               }));
             })["catch"](function (error) {
               // Handle Errors here.
@@ -1528,27 +1369,27 @@
         }, {
           key: "resetpassword",
           value: function resetpassword(email) {
-            var _this14 = this;
+            var _this13 = this;
 
             this.loading.simpleLoader();
             firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().sendPasswordResetEmail(email).then(function () {
               // Password reset email sent!
               // ..
-              _this14.loading.dismissLoader();
+              _this13.loading.dismissLoader();
 
-              _this14.snackBar.open("An email has been sent to your account to recover your password", "Close", {
+              _this13.snackBar.open("An email has been sent to your account to recover your password", "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
 
-              _this14.router.navigate(['login']);
+              _this13.router.navigate(['login']);
             })["catch"](function (error) {
-              _this14.loading.dismissLoader(); //var errorCode = error.code;
+              _this13.loading.dismissLoader(); //var errorCode = error.code;
 
 
               var errorMessage = error.message;
 
-              _this14.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
+              _this13.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               }); // ..
@@ -1558,15 +1399,15 @@
         }, {
           key: "cambiarpassword",
           value: function cambiarpassword(newPassword) {
-            var _this15 = this;
+            var _this14 = this;
 
             this.loading.simpleLoader();
             var user = firebase_app__WEBPACK_IMPORTED_MODULE_3__["default"].auth().currentUser;
             user.updatePassword(newPassword).then(function () {
               // Update successful.
-              _this15.loading.dismissLoader();
+              _this14.loading.dismissLoader();
 
-              _this15.snackBar.open("The password was updated successfully", "Close", {
+              _this14.snackBar.open("The password was updated successfully", "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
@@ -1575,7 +1416,7 @@
               // ...
               var errorMessage = error.message;
 
-              _this15.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
+              _this14.snackBar.open('Sorry, an error occurred: ' + errorMessage + 'Please try again', "Close", {
                 horizontalPosition: "start",
                 verticalPosition: "top"
               });
@@ -1671,14 +1512,14 @@
 
       var _SquareServicio = /*#__PURE__*/function () {
         function SquareServicio() {
-          var _this16 = this;
+          var _this15 = this;
 
           _classCallCheck(this, SquareServicio);
 
           this.scripts = {};
 
           _ScriptStore.forEach(function (script) {
-            _this16.scripts[script.name] = {
+            _this15.scripts[script.name] = {
               loaded: false,
               src: script.src
             };
@@ -1688,7 +1529,7 @@
         _createClass(SquareServicio, [{
           key: "loadScripts",
           value: function loadScripts() {
-            var _this17 = this;
+            var _this16 = this;
 
             var promises = [];
 
@@ -1697,21 +1538,21 @@
             }
 
             scripts.forEach(function (script) {
-              return promises.push(_this17.loadScript(script));
+              return promises.push(_this16.loadScript(script));
             });
             return Promise.all(promises);
           }
         }, {
           key: "loadScript",
           value: function loadScript(name) {
-            var _this18 = this;
+            var _this17 = this;
 
             return new Promise(function (resolve, reject) {
-              if (!_this18.scripts[name].loaded) {
+              if (!_this17.scripts[name].loaded) {
                 // load script
                 var script = document.createElement('script');
                 script.type = 'text/javascript';
-                script.src = _this18.scripts[name].src; // @ts-ignore
+                script.src = _this17.scripts[name].src; // @ts-ignore
 
                 if (script.readyState) {
                   // IE
@@ -1721,7 +1562,7 @@
                     if (script.readyState === 'loaded' || script.readyState === 'complete') {
                       // @ts-ignore
                       script.onreadystatechange = null;
-                      _this18.scripts[name].loaded = true;
+                      _this17.scripts[name].loaded = true;
                       resolve({
                         script: name,
                         loaded: true,
@@ -1732,7 +1573,7 @@
                 } else {
                   // Others
                   script.onload = function () {
-                    _this18.scripts[name].loaded = true;
+                    _this17.scripts[name].loaded = true;
                     resolve({
                       script: name,
                       loaded: true,
@@ -1837,20 +1678,20 @@
         _createClass(StorageService, [{
           key: "init",
           value: function init() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
-              return regeneratorRuntime.wrap(function _callee18$(_context18) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
+              return regeneratorRuntime.wrap(function _callee15$(_context15) {
                 while (1) {
-                  switch (_context18.prev = _context18.next) {
+                  switch (_context15.prev = _context15.next) {
                     case 0:
-                      _context18.next = 2;
+                      _context15.next = 2;
                       return this.storage.create();
 
                     case 2:
                     case "end":
-                      return _context18.stop();
+                      return _context15.stop();
                   }
                 }
-              }, _callee18, this);
+              }, _callee15, this);
             }));
           } // Create and expose methods that users of this service can
           // call, for example:
@@ -1858,39 +1699,39 @@
         }, {
           key: "setData",
           value: function setData(key, value) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
-              return regeneratorRuntime.wrap(function _callee19$(_context19) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+              return regeneratorRuntime.wrap(function _callee16$(_context16) {
                 while (1) {
-                  switch (_context19.prev = _context19.next) {
+                  switch (_context16.prev = _context16.next) {
                     case 0:
-                      _context19.next = 2;
+                      _context16.next = 2;
                       return this.storage.set(key, value);
 
                     case 2:
                     case "end":
-                      return _context19.stop();
+                      return _context16.stop();
                   }
                 }
-              }, _callee19, this);
+              }, _callee16, this);
             }));
           }
         }, {
           key: "setObject",
           value: function setObject(key, object) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
-              return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+              return regeneratorRuntime.wrap(function _callee17$(_context17) {
                 while (1) {
-                  switch (_context20.prev = _context20.next) {
+                  switch (_context17.prev = _context17.next) {
                     case 0:
-                      _context20.next = 2;
+                      _context17.next = 2;
                       return this.storage.set(key, JSON.stringify(object));
 
                     case 2:
                     case "end":
-                      return _context20.stop();
+                      return _context17.stop();
                   }
                 }
-              }, _callee20, this);
+              }, _callee17, this);
             }));
           }
           /* public getObject(key: string) {
@@ -1901,42 +1742,42 @@
         }, {
           key: "getData",
           value: function getData(key) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
-              return regeneratorRuntime.wrap(function _callee21$(_context21) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+              return regeneratorRuntime.wrap(function _callee18$(_context18) {
                 while (1) {
-                  switch (_context21.prev = _context21.next) {
+                  switch (_context18.prev = _context18.next) {
                     case 0:
-                      _context21.next = 2;
+                      _context18.next = 2;
                       return this.storage.get(key);
 
                     case 2:
-                      return _context21.abrupt("return", _context21.sent);
+                      return _context18.abrupt("return", _context18.sent);
 
                     case 3:
                     case "end":
-                      return _context21.stop();
+                      return _context18.stop();
                   }
                 }
-              }, _callee21, this);
+              }, _callee18, this);
             }));
           }
         }, {
           key: "removeData",
           value: function removeData(key) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
-              return regeneratorRuntime.wrap(function _callee22$(_context22) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+              return regeneratorRuntime.wrap(function _callee19$(_context19) {
                 while (1) {
-                  switch (_context22.prev = _context22.next) {
+                  switch (_context19.prev = _context19.next) {
                     case 0:
-                      _context22.next = 2;
+                      _context19.next = 2;
                       return this.storage.remove(key);
 
                     case 2:
                     case "end":
-                      return _context22.stop();
+                      return _context19.stop();
                   }
                 }
-              }, _callee22, this);
+              }, _callee19, this);
             }));
           }
         }, {

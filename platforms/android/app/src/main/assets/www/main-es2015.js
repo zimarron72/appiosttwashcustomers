@@ -616,121 +616,51 @@ let ServicioAutenticacion = class ServicioAutenticacion {
     }
     register(email, password, name) {
         this.loading.simpleLoader();
-        // Primero verificamos existen credenciales firebase para este usuario
-        this.angularAuth.signInWithEmailAndPassword(email, password).then((_userCredential) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-            if (firebase_app__WEBPACK_IMPORTED_MODULE_3__.default.auth().currentUser.uid) { // esta en firebase
-                var data = firebase_app__WEBPACK_IMPORTED_MODULE_3__.default.auth().currentUser;
-                yield this.localstorage.setObject('usuario', data);
-                var idtoken = yield firebase_app__WEBPACK_IMPORTED_MODULE_3__.default.auth().currentUser.getIdToken(true);
-                yield this.localstorage.setData('idtoken', idtoken);
-                yield this.localstorage.setData('autenticacion_tipo', 'correo_pass');
-                // cumplo con el registro en washtt servidor
-                this.http.post('https://washtt.com/v1_api_clientes_registro.php', {
-                    name: name, email: email, password: password
-                }).subscribe({
-                    next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-                        this.loading.dismissLoader();
-                        switch (data.respuesta) {
-                            case 'ERROR':
-                                this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close", {
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                console.log(data.mensaje);
-                                break;
-                            case 'DUPLICADO_USUARIO':
-                                this.snackBar.open('There is already an account with this email', "Close", {
-                                    duration: 3000,
-                                    horizontalPosition: "start",
-                                    verticalPosition: "top",
-                                });
-                                console.log(data.mensaje);
-                                break;
-                            case 'OK':
-                                this.wonderPush.setUserId(data.userid);
-                                this.wonderPush.addTag('clientes');
-                                yield this.localstorage.setData('autenticacion_tipo', 'correo_pass');
-                                this.router.navigate(['/tabs-cliente/tobook']);
-                                break;
-                        }
-                    }),
-                    error: error => {
-                        this.loading.dismissLoader();
-                        var errorMessage = error.message;
-                        this.snackBar.open(errorMessage, "Close", {
-                            horizontalPosition: "start",
-                            verticalPosition: "top",
-                        });
-                        console.error('There was an error!' + errorMessage);
-                    }
-                });
-            }
-            else { //no esta en firebase
-                this.angularAuth.createUserWithEmailAndPassword(email, password).then((_result) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-                    var data = firebase_app__WEBPACK_IMPORTED_MODULE_3__.default.auth().currentUser;
-                    yield this.localstorage.setObject('usuario', data);
-                    var idtoken = yield firebase_app__WEBPACK_IMPORTED_MODULE_3__.default.auth().currentUser.getIdToken(true);
-                    yield this.localstorage.setData('idtoken', idtoken);
-                    yield this.localstorage.setData('autenticacion_tipo', 'correo_pass');
-                    // cumplo con el registro en washtt servidor
-                    this.http.post('https://washtt.com/v1_api_clientes_registro.php', {
-                        name: name, email: email, password: password
-                    }).subscribe({
-                        next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-                            this.loading.dismissLoader();
-                            switch (data.respuesta) {
-                                case 'ERROR':
-                                    this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close", {
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top",
-                                    });
-                                    console.log(data.mensaje);
-                                    break;
-                                case 'DUPLICADO_USUARIO':
-                                    this.snackBar.open('There is already an account with this email', "Close", {
-                                        duration: 3000,
-                                        horizontalPosition: "start",
-                                        verticalPosition: "top",
-                                    });
-                                    console.log(data.mensaje);
-                                    break;
-                                case 'OK':
-                                    this.wonderPush.setUserId(data.userid);
-                                    this.wonderPush.addTag('clientes');
-                                    yield this.localstorage.setData('autenticacion_tipo', 'correo_pass');
-                                    this.router.navigate(['/tabs-cliente/tobook']);
-                                    break;
-                            }
-                        }),
-                        error: error => {
-                            this.loading.dismissLoader();
-                            var errorMessage = error.message;
-                            this.snackBar.open(errorMessage, "Close", {
-                                horizontalPosition: "start",
-                                verticalPosition: "top",
-                            });
-                            console.error('There was an error!' + errorMessage);
-                        }
-                    });
-                })).catch((error) => {
-                    // Handle Errors here.
-                    this.loading.dismissLoader();
-                    var errorMessage = error.message;
-                    this.snackBar.open("Sorry, an error occurred,Please try again error3:" + error.message, "Close", {
-                        duration: 3000,
-                        horizontalPosition: "start",
-                        verticalPosition: "top",
-                    });
-                    console.error('There was an error!' + errorMessage);
-                });
-            }
-        }));
         this.angularAuth.createUserWithEmailAndPassword(email, password).then((_result) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             var data = firebase_app__WEBPACK_IMPORTED_MODULE_3__.default.auth().currentUser;
             yield this.localstorage.setObject('usuario', data);
             var idtoken = yield firebase_app__WEBPACK_IMPORTED_MODULE_3__.default.auth().currentUser.getIdToken(true);
             yield this.localstorage.setData('idtoken', idtoken);
             yield this.localstorage.setData('autenticacion_tipo', 'correo_pass');
+            this.http.post('https://washtt.com/v1_api_clientes_registro.php', {
+                name: name, email: email, password: password
+            }).subscribe({
+                next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                    this.loading.dismissLoader();
+                    switch (data.respuesta) {
+                        case 'ERROR':
+                            this.snackBar.open("Sorry, an error occurred,Please try again error 1: " + data.mensaje, "Close", {
+                                horizontalPosition: "start",
+                                verticalPosition: "top",
+                            });
+                            console.log(data.mensaje);
+                            break;
+                        case 'DUPLICADO_USUARIO':
+                            this.snackBar.open('There is already an account with this email', "Close", {
+                                duration: 3000,
+                                horizontalPosition: "start",
+                                verticalPosition: "top",
+                            });
+                            console.log(data.mensaje);
+                            break;
+                        case 'OK':
+                            this.wonderPush.setUserId(data.userid);
+                            this.wonderPush.addTag('clientes');
+                            yield this.localstorage.setData('autenticacion_tipo', 'correo_pass');
+                            this.router.navigate(['/tabs-cliente/tobook']);
+                            break;
+                    }
+                }),
+                error: error => {
+                    this.loading.dismissLoader();
+                    var errorMessage = error.message;
+                    this.snackBar.open("ERROR: " + errorMessage, "Close", {
+                        horizontalPosition: "start",
+                        verticalPosition: "top",
+                    });
+                    console.error('There was an error!' + errorMessage);
+                }
+            });
         })).catch((error) => {
             // Handle Errors here.
             this.loading.dismissLoader();

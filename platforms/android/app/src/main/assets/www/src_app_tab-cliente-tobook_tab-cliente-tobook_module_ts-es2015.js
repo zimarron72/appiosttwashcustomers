@@ -39699,11 +39699,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CitamobilComponent": function() { return /* binding */ CitamobilComponent; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_citamobil_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./citamobil.component.html */ 62799);
 /* harmony import */ var _citamobil_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./citamobil.component.scss */ 48476);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ 3679);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../servicios.tobook */ 91655);
@@ -39768,73 +39768,160 @@ let CitamobilComponent = class CitamobilComponent {
         ];
     }
     ngOnInit() {
-        this.etiqueta1 = 'Add a new location';
-        this.valor1 = 1;
-        this.selectedOption1 = 0;
-        this.etiqueta2 = 'Add a new vehicle';
-        this.valor2 = 1;
-        this.selectedOption2 = 0;
-        const currentYear = new Date().getFullYear();
-        const currentMes = new Date().getMonth();
-        const currentDia = new Date().getDate();
-        this.minDate = new Date(currentYear, currentMes, currentDia + 1);
-        this.form_tobooksite = this.formBuilder.group({
-            location: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
-            vehicle: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
-            diacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
-            horacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
-            power: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
-            water: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
-            ensitio: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
+        this.doRefresh(null);
+    }
+    doRefresh($event) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+            this.etiqueta1 = 'Add a new location';
+            this.valor1 = 1;
+            this.selectedOption1 = 0;
+            this.etiqueta2 = 'Add a new vehicle';
+            this.valor2 = 1;
+            this.selectedOption2 = 0;
+            const currentYear = new Date().getFullYear();
+            const currentMes = new Date().getMonth();
+            const currentDia = new Date().getDate();
+            this.minDate = new Date(currentYear, currentMes, currentDia + 1);
+            this.form_tobooksite = this.formBuilder.group({
+                location: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                vehicle: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                diacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                horacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                power: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                water: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                ensitio: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+            });
+            this.localstorage.getData('tipovehiculo').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                this.tipovehiculo = val;
+            }));
+            this.localstorage.getData('usuario').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                var user = JSON.parse(val);
+                var idtoken = yield this.localstorage.getData('idtoken');
+                var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
+                this.serviciotobook.getSitiosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+                    next: (sitioscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                        this.sitioscliente = sitioscliente;
+                        this.sitioscliente = Object.values(this.sitioscliente);
+                        this.sitioscliente = this.sitioscliente.filter(((valor) => valor !== 'OK_DATA'));
+                        //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
+                        yield this.localstorage.setObject('formsitescliente', this.sitioscliente);
+                        console.log(this.sitioscliente);
+                    }),
+                    error: error => {
+                        if ($event)
+                            $event.target.complete();
+                        var errorMessage = error.message;
+                        console.error('There was an error!' + errorMessage);
+                        this.localstorage.clearData();
+                        this.router.navigate(['/login']);
+                        this.etiqueta1 = 'Add a new location';
+                        this.valor1 = 1;
+                        this.selectedOption1 = 0;
+                        this.etiqueta2 = 'Add a new vehicle';
+                        this.valor2 = 1;
+                        this.selectedOption2 = 0;
+                        const currentYear = new Date().getFullYear();
+                        const currentMes = new Date().getMonth();
+                        const currentDia = new Date().getDate();
+                        this.minDate = new Date(currentYear, currentMes, currentDia + 1);
+                        this.form_tobooksite = this.formBuilder.group({
+                            location: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                            vehicle: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                            diacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                            horacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                            power: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                            water: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                            ensitio: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_7__.Validators.required] }],
+                        });
+                        this.localstorage.getData('tipovehiculo').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                            this.tipovehiculo = val;
+                        }));
+                        this.localstorage.getData('usuario').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                            var user = JSON.parse(val);
+                            var idtoken = yield this.localstorage.getData('idtoken');
+                            var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
+                            this.serviciotobook.getSitiosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+                                next: (sitioscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                                    this.sitioscliente = sitioscliente;
+                                    this.sitioscliente = Object.values(this.sitioscliente);
+                                    this.sitioscliente = this.sitioscliente.filter(((valor) => valor !== 'OK_DATA'));
+                                    //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
+                                    yield this.localstorage.setObject('formsitescliente', this.sitioscliente);
+                                    console.log(this.sitioscliente);
+                                }),
+                                error: error => {
+                                    var errorMessage = error.message;
+                                    console.error('There was an error!' + errorMessage);
+                                    this.localstorage.clearData();
+                                    this.router.navigate(['/login']);
+                                    this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                                        horizontalPosition: "start",
+                                        verticalPosition: "top",
+                                    });
+                                }
+                            });
+                            this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+                                next: (vehiculoscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                                    this.vehiculoscliente = vehiculoscliente;
+                                    if ($event)
+                                        $event.target.complete();
+                                    this.vehiculoscliente = Object.values(this.vehiculoscliente);
+                                    this.vehiculoscliente = this.vehiculoscliente.filter(((valor) => valor !== 'OK_DATA'));
+                                    //localStorage.setItem('formvehiculoscliente', JSON.stringify(this.vehiculoscliente))
+                                    yield this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
+                                    console.log(this.vehiculoscliente);
+                                }),
+                                error: error => {
+                                    var errorMessage = error.message;
+                                    console.error('There was an error!' + errorMessage);
+                                    this.localstorage.clearData();
+                                    this.router.navigate(['/login']);
+                                    this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                                        horizontalPosition: "start",
+                                        verticalPosition: "top",
+                                    });
+                                }
+                            });
+                        }), (err) => console.log(err));
+                        this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                            horizontalPosition: "start",
+                            verticalPosition: "top",
+                        });
+                    }
+                });
+                this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+                    next: (vehiculoscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                        this.vehiculoscliente = vehiculoscliente;
+                        if ($event)
+                            $event.target.complete();
+                        this.vehiculoscliente = Object.values(this.vehiculoscliente);
+                        this.vehiculoscliente = this.vehiculoscliente.filter(((valor) => valor !== 'OK_DATA'));
+                        //localStorage.setItem('formvehiculoscliente', JSON.stringify(this.vehiculoscliente))
+                        yield this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
+                        console.log(this.vehiculoscliente);
+                    }),
+                    error: error => {
+                        if ($event)
+                            $event.target.complete();
+                        var errorMessage = error.message;
+                        console.error('There was an error!' + errorMessage);
+                        this.localstorage.clearData();
+                        this.router.navigate(['/login']);
+                        this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                            horizontalPosition: "start",
+                            verticalPosition: "top",
+                        });
+                    }
+                });
+            }), (err) => {
+                if ($event)
+                    $event.target.complete();
+                console.log(err);
+            });
         });
-        this.localstorage.getData('usuario').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-            var user = JSON.parse(val);
-            var idtoken = yield this.localstorage.getData('idtoken');
-            var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
-            this.serviciotobook.getSitiosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
-                next: (sitioscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-                    this.sitioscliente = sitioscliente;
-                    this.sitioscliente = Object.values(this.sitioscliente);
-                    this.sitioscliente = this.sitioscliente.filter(((valor) => valor !== 'OK_DATA'));
-                    //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
-                    yield this.localstorage.setObject('formsitescliente', this.sitioscliente);
-                    console.log(this.sitioscliente);
-                }),
-                error: error => {
-                    var errorMessage = error.message;
-                    console.error('There was an error!' + errorMessage);
-                    this.localstorage.clearData();
-                    this.router.navigate(['/login']);
-                    this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
-                        horizontalPosition: "start",
-                        verticalPosition: "top",
-                    });
-                }
-            });
-            this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
-                next: (vehiculoscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
-                    this.vehiculoscliente = vehiculoscliente;
-                    this.vehiculoscliente = Object.values(this.vehiculoscliente);
-                    this.vehiculoscliente = this.vehiculoscliente.filter(((valor) => valor !== 'OK_DATA'));
-                    //localStorage.setItem('formvehiculoscliente', JSON.stringify(this.vehiculoscliente))
-                    yield this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
-                    console.log(this.vehiculoscliente);
-                }),
-                error: error => {
-                    var errorMessage = error.message;
-                    console.error('There was an error!' + errorMessage);
-                    this.localstorage.clearData();
-                    this.router.navigate(['/login']);
-                    this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
-                        horizontalPosition: "start",
-                        verticalPosition: "top",
-                    });
-                }
-            });
-        }), (err) => console.log(err));
     }
     submit() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
             if (this.form_tobooksite.valid) {
                 var power = this.form_tobooksite.get("power").value;
                 var water = this.form_tobooksite.get("water").value;
@@ -39917,9 +40004,10 @@ let CitamobilComponent = class CitamobilComponent {
         if (x == 1) {
             this.dialogo.open(_dialogositio_dialogositio_component__WEBPACK_IMPORTED_MODULE_5__.DialogositioComponent, {
                 data: `Add a new location`
-            }).afterClosed().subscribe((confirmar) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+            }).afterClosed().subscribe((confirmar) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
                 if (confirmar) {
-                    this.etiqueta1 = 'Unit number: ' + confirmar.location;
+                    this.doRefresh(null);
+                    this.etiqueta1 = confirmar.location;
                     this.valor1 = confirmar.id;
                     this.selectedOption1 = confirmar.id;
                 }
@@ -39935,8 +40023,9 @@ let CitamobilComponent = class CitamobilComponent {
         if (x == 1) {
             this.dialogo.open(_dialogaddvehiculo_dialogaddvehiculo_component__WEBPACK_IMPORTED_MODULE_4__.DialogaddvehiculoComponent, {
                 data: `Add a new vehicle to the fleet`
-            }).afterClosed().subscribe((confirmar) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+            }).afterClosed().subscribe((confirmar) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
                 if (confirmar) {
+                    this.doRefresh(null);
                     this.etiqueta2 = 'Unit number: ' + confirmar.vehiculo;
                     this.valor2 = confirmar.id;
                     this.selectedOption2 = confirmar.id;
@@ -39955,13 +40044,13 @@ let CitamobilComponent = class CitamobilComponent {
 };
 CitamobilComponent.ctorParameters = () => [
     { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_8__.MatSnackBar },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormBuilder },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_7__.FormBuilder },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_9__.Router },
     { type: _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__.ServiciosTobook },
     { type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_3__.StorageService },
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_10__.MatDialog }
 ];
-CitamobilComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
+CitamobilComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_11__.Component)({
         selector: 'app-citamobil',
         template: _raw_loader_citamobil_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -39984,11 +40073,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CitayardaComponent": function() { return /* binding */ CitayardaComponent; }
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_citayarda_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./citayarda.component.html */ 92950);
 /* harmony import */ var _citayarda_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./citayarda.component.scss */ 14028);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ 3679);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../servicios.tobook */ 91655);
@@ -40048,83 +40137,99 @@ let CitayardaComponent = class CitayardaComponent {
         };
     }
     ngOnInit() {
-        this.etiquetax = 'Add a new vehicle';
-        this.valorx = 1;
-        this.selectedOption = 0;
-        this.selectedOption1 = 0;
-        const currentYear = new Date().getFullYear();
-        const currentMes = new Date().getMonth();
-        const currentDia = new Date().getDate();
-        this.minDate = new Date(currentYear, currentMes, currentDia + 1);
-        this.form_tobookyarda = this.formBuilder.group({
-            yard: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required] }],
-            vehicle: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required] }],
-            diacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required] }],
-            horacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__.Validators.required] }],
-        });
-        this.localstorage.getData('usuario').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
-            var user = JSON.parse(val);
-            var idtoken = yield this.localstorage.getData('idtoken');
-            var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
-            this.serviciotobook.getSitiosYard(idtoken, autenticacion_tipo).subscribe({
-                next: (sitiosyard) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
-                    this.sitiosyard = sitiosyard;
-                    this.sitiosyard = Object.values(this.sitiosyard);
-                    this.sitiosyard = this.sitiosyard.filter(((valor) => valor !== 'OK_DATA'));
-                    //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
-                    yield this.localstorage.setObject('formsitesyard', this.sitiosyard);
-                    console.log(this.sitiosyard);
-                }),
+        this.doRefresh(null);
+    }
+    doRefresh($event) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            this.etiquetax = 'Add a new vehicle';
+            this.valorx = 1;
+            this.selectedOption = 0;
+            this.selectedOption1 = 0;
+            const currentYear = new Date().getFullYear();
+            const currentMes = new Date().getMonth();
+            const currentDia = new Date().getDate();
+            this.minDate = new Date(currentYear, currentMes, currentDia + 1);
+            this.form_tobookyarda = this.formBuilder.group({
+                yard: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
+                vehicle: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
+                diacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
+                horacita: [, { validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_6__.Validators.required] }],
+            });
+            this.localstorage.getData('tipovehiculo').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                this.tipovehiculo = val;
+            }));
+            this.localstorage.getData('usuario').then((val) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                var user = JSON.parse(val);
+                var idtoken = yield this.localstorage.getData('idtoken');
+                var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
+                this.serviciotobook.getSitiosYard(idtoken, autenticacion_tipo).subscribe({
+                    next: (sitiosyard) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                        this.sitiosyard = sitiosyard;
+                        this.sitiosyard = Object.values(this.sitiosyard);
+                        this.sitiosyard = this.sitiosyard.filter(((valor) => valor !== 'OK_DATA'));
+                        //  localStorage.setItem('formsitescliente', JSON.stringify(this.sitioscliente))
+                        yield this.localstorage.setObject('formsitesyard', this.sitiosyard);
+                        console.log(this.sitiosyard);
+                    }),
+                    error: error => {
+                        if ($event)
+                            $event.target.complete();
+                        var errorMessage = error.message;
+                        console.error('There was an error!' + errorMessage);
+                        this.localstorage.clearData();
+                        this.router.navigate(['/login']);
+                        this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
+                            horizontalPosition: "start",
+                            verticalPosition: "top",
+                        });
+                    }
+                });
+                this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
+                    next: (vehiculoscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                        this.vehiculoscliente = vehiculoscliente;
+                        this.vehiculoscliente = Object.values(this.vehiculoscliente);
+                        this.vehiculoscliente = this.vehiculoscliente.filter(((valor) => valor !== 'OK_DATA'));
+                        yield this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
+                        console.log(this.vehiculoscliente);
+                    }),
+                    error: error => {
+                        if ($event)
+                            $event.target.complete();
+                        var errorMessage = error.message;
+                        console.error('There was an error!' + errorMessage);
+                        this.localstorage.clearData();
+                        this.router.navigate(['/login']);
+                        this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                            horizontalPosition: "start",
+                            verticalPosition: "top",
+                        });
+                    }
+                });
+            }), (err) => console.log(err));
+            this.serviciotobook.getDiasProhibidos().subscribe({
+                next: diasprohibidos => {
+                    if ($event)
+                        $event.target.complete();
+                    this.p = diasprohibidos;
+                    console.log(this.p);
+                },
                 error: error => {
+                    if ($event)
+                        $event.target.complete();
                     var errorMessage = error.message;
-                    console.error('There was an error!' + errorMessage);
                     this.localstorage.clearData();
                     this.router.navigate(['/login']);
+                    console.error('There was an error!' + errorMessage);
                     this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
                         horizontalPosition: "start",
                         verticalPosition: "top",
                     });
                 }
             });
-            this.serviciotobook.getVehiculosCliente(idtoken, autenticacion_tipo, user.email).subscribe({
-                next: (vehiculoscliente) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
-                    this.vehiculoscliente = vehiculoscliente;
-                    this.vehiculoscliente = Object.values(this.vehiculoscliente);
-                    this.vehiculoscliente = this.vehiculoscliente.filter(((valor) => valor !== 'OK_DATA'));
-                    yield this.localstorage.setObject('formvehiculoscliente', this.vehiculoscliente);
-                    console.log(this.vehiculoscliente);
-                }),
-                error: error => {
-                    var errorMessage = error.message;
-                    console.error('There was an error!' + errorMessage);
-                    this.localstorage.clearData();
-                    this.router.navigate(['/login']);
-                    this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                        horizontalPosition: "start",
-                        verticalPosition: "top",
-                    });
-                }
-            });
-        }), (err) => console.log(err));
-        this.serviciotobook.getDiasProhibidos().subscribe({
-            next: diasprohibidos => {
-                this.p = diasprohibidos;
-                console.log(this.p);
-            },
-            error: error => {
-                var errorMessage = error.message;
-                this.localstorage.clearData();
-                this.router.navigate(['/login']);
-                console.error('There was an error!' + errorMessage);
-                this.snackBar.open("Sorry, an error occurred,please login again (google)", "Close", {
-                    horizontalPosition: "start",
-                    verticalPosition: "top",
-                });
-            }
         });
     }
     submit() {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             if (this.form_tobookyarda.valid) {
                 var vehiculoid = this.form_tobookyarda.get("vehicle").value;
                 switch (vehiculoid) {
@@ -40193,9 +40298,10 @@ let CitayardaComponent = class CitayardaComponent {
     cambiar(x) {
         if (x == 1) {
             this.dialogo.open(_dialogaddvehiculo_dialogaddvehiculo_component__WEBPACK_IMPORTED_MODULE_4__.DialogaddvehiculoComponent, {
-                data: `Add a new vehicle to the fleet`
-            }).afterClosed().subscribe((confirmar) => (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+                data: `Add a new vehicle to your fleet`
+            }).afterClosed().subscribe((confirmar) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
                 if (confirmar) {
+                    this.doRefresh(null);
                     this.etiquetax = 'Unit number: ' + confirmar.vehiculo;
                     this.valorx = confirmar.id;
                     this.selectedOption = confirmar.id;
@@ -40214,13 +40320,13 @@ let CitayardaComponent = class CitayardaComponent {
 };
 CitayardaComponent.ctorParameters = () => [
     { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__.MatSnackBar },
-    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormBuilder },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_6__.FormBuilder },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router },
     { type: _servicios_tobook__WEBPACK_IMPORTED_MODULE_2__.ServiciosTobook },
     { type: _shared_storage_service__WEBPACK_IMPORTED_MODULE_3__.StorageService },
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_9__.MatDialog }
 ];
-CitayardaComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
+CitayardaComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
         selector: 'app-citayarda',
         template: _raw_loader_citayarda_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -40826,17 +40932,7 @@ let DialogositioComponent = class DialogositioComponent {
                                 console.log(data.mensaje);
                                 break;
                             case 'OK_TODO':
-                                var tiporeservacion = yield this.localstorage.getData('tiporeservacion');
-                                switch (tiporeservacion) {
-                                    case 'citamobil':
-                                        this.router.navigate(['/tabs-cliente/tobook/citamobil']);
-                                        yield this.localstorage.removeData('tiporeservacion');
-                                        break;
-                                    case 'citayarda':
-                                        this.router.navigate(['/tabs-cliente/tobook/citayarda']);
-                                        yield this.localstorage.removeData('tiporeservacion');
-                                        break;
-                                }
+                                this.dialogo.close(data);
                                 break;
                         }
                     }),
@@ -41069,6 +41165,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let GaleriaComponent = class GaleriaComponent {
+    /*sliderOpt = {
+    
+    
+      zoom: {
+        maxRatio: 5,
+      },
+    };*/
     constructor(router, snackBar, serviciostobook, loading, localstorage, rutaActiva, location) {
         this.router = router;
         this.snackBar = snackBar;
@@ -41077,6 +41180,106 @@ let GaleriaComponent = class GaleriaComponent {
         this.localstorage = localstorage;
         this.rutaActiva = rutaActiva;
         this.location = location;
+        this.sliderOpt = {
+            /*  initialSlide: 1,
+           slidesPerView:1,
+           centeredSlides:true,
+           loop:true,
+           spaceBetween:1,*/
+            zoom: {
+                maxRatio: 2,
+            },
+            on: {
+                beforeInit() {
+                    const swiper = this;
+                    swiper.classNames.push(`${swiper.params.containerModifierClass}flip`);
+                    swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
+                    const overwriteParams = {
+                        slidesPerView: 1,
+                        slidesPerColumn: 1,
+                        slidesPerGroup: 1,
+                        watchSlidesProgress: true,
+                        spaceBetween: 0,
+                        virtualTranslate: true,
+                    };
+                    swiper.params = Object.assign(swiper.params, overwriteParams);
+                    swiper.originalParams = Object.assign(swiper.originalParams, overwriteParams);
+                },
+                setTranslate() {
+                    const swiper = this;
+                    const { $, slides, rtlTranslate: rtl } = swiper;
+                    for (let i = 0; i < slides.length; i += 1) {
+                        const $slideEl = slides.eq(i);
+                        let progress = $slideEl[0].progress;
+                        if (swiper.params.flipEffect.limitRotation) {
+                            progress = Math.max(Math.min($slideEl[0].progress, 1), -1);
+                        }
+                        const offset$$1 = $slideEl[0].swiperSlideOffset;
+                        const rotate = -180 * progress;
+                        let rotateY = rotate;
+                        let rotateX = 0;
+                        let tx = -offset$$1;
+                        let ty = 0;
+                        if (!swiper.isHorizontal()) {
+                            ty = tx;
+                            tx = 0;
+                            rotateX = -rotateY;
+                            rotateY = 0;
+                        }
+                        else if (rtl) {
+                            rotateY = -rotateY;
+                        }
+                        $slideEl[0].style.zIndex = -Math.abs(Math.round(progress)) + slides.length;
+                        if (swiper.params.flipEffect.slideShadows) {
+                            // Set shadows
+                            let shadowBefore = swiper.isHorizontal()
+                                ? $slideEl.find('.swiper-slide-shadow-left')
+                                : $slideEl.find('.swiper-slide-shadow-top');
+                            let shadowAfter = swiper.isHorizontal()
+                                ? $slideEl.find('.swiper-slide-shadow-right')
+                                : $slideEl.find('.swiper-slide-shadow-bottom');
+                            if (shadowBefore.length === 0) {
+                                shadowBefore = swiper.$(`<div class="swiper-slide-shadow-${swiper.isHorizontal() ? 'left' : 'top'}"></div>`);
+                                $slideEl.append(shadowBefore);
+                            }
+                            if (shadowAfter.length === 0) {
+                                shadowAfter = swiper.$(`<div class="swiper-slide-shadow-${swiper.isHorizontal() ? 'right' : 'bottom'}"></div>`);
+                                $slideEl.append(shadowAfter);
+                            }
+                            if (shadowBefore.length)
+                                shadowBefore[0].style.opacity = Math.max(-progress, 0);
+                            if (shadowAfter.length)
+                                shadowAfter[0].style.opacity = Math.max(progress, 0);
+                        }
+                        $slideEl.transform(`translate3d(${tx}px, ${ty}px, 0px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`);
+                    }
+                },
+                setTransition(duration) {
+                    const swiper = this;
+                    const { slides, activeIndex, $wrapperEl } = swiper;
+                    slides
+                        .transition(duration)
+                        .find('.swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left')
+                        .transition(duration);
+                    if (swiper.params.virtualTranslate && duration !== 0) {
+                        let eventTriggered = false;
+                        // eslint-disable-next-line
+                        slides.eq(activeIndex).transitionEnd(function onTransitionEnd() {
+                            if (eventTriggered)
+                                return;
+                            if (!swiper || swiper.destroyed)
+                                return;
+                            eventTriggered = true;
+                            swiper.animating = false;
+                            const triggerEvents = ['webkitTransitionEnd', 'transitionend'];
+                            for (let i = 0; i < triggerEvents.length; i += 1) {
+                                $wrapperEl.trigger(triggerEvents[i]);
+                            }
+                        });
+                    }
+                },
+            },
+        };
     }
     ngOnInit() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
@@ -41780,8 +41983,10 @@ let MybooksComponent = class MybooksComponent {
             if (confirmado) {
                 var idtoken = yield this.localstorage.getData('idtoken');
                 var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
+                this.loading.simpleLoader();
                 this.serviciotobook.deleteItemOrder(idtoken, autenticacion_tipo, id).subscribe({
                     next: (datos) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+                        this.loading.dismissLoader();
                         switch (datos.respuesta) {
                             case 'TOKEN ERROR':
                                 this.router.navigate(['/login']);
@@ -41809,6 +42014,7 @@ let MybooksComponent = class MybooksComponent {
                         }
                     }),
                     error: error => {
+                        this.loading.dismissLoader();
                         console.error('There was an error!', error);
                         // borramos la informacion local
                         this.localstorage.clearData();
@@ -41832,8 +42038,10 @@ let MybooksComponent = class MybooksComponent {
                 var user = JSON.parse(yield this.localstorage.getData('usuario'));
                 var idtoken = yield this.localstorage.getData('idtoken');
                 var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
+                this.loading.simpleLoader();
                 this.serviciotobook.CancelarItemOrder(idtoken, autenticacion_tipo, id, user.email).subscribe({
                     next: (datos) => (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+                        this.loading.dismissLoader();
                         switch (datos.respuesta) {
                             case 'TOKEN ERROR':
                                 this.router.navigate(['/login']);
@@ -41879,6 +42087,7 @@ let MybooksComponent = class MybooksComponent {
                         }
                     }),
                     error: error => {
+                        this.loading.dismissLoader();
                         this.snackBar.open('The appointment has not been cancelled ', "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top",
@@ -42839,7 +43048,7 @@ let SquareComponent = class SquareComponent {
         });
     }
     cancelar() {
-        this.router.navigate(['/tabs-cliente/tobook/tipobooks']);
+        this.router.navigate(['/tabs-cliente/tobook/mybooks/7']);
     }
 };
 SquareComponent.ctorParameters = () => [
@@ -44343,7 +44552,7 @@ let WashsComponent = class WashsComponent {
                         this.washpreciomobil = params.washpreciomobil;
                         yield this.localstorage.setData('washpreciomobil', this.washpreciomobil);
                         yield this.localstorage.setData('washprecio', this.washprecio);
-                        yield this.localstorage.setData('tipolavado', this.washlavado);
+                        yield this.localstorage.setData('tipovehiculo', this.washlavado);
                     }));
                 }
                 else {
@@ -44831,7 +45040,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("::ng-deep .mat-dialog-container {\n  background: #2E4F9C !important;\n}\n\n.tobook {\n  width: 100%;\n}\n\n.deals {\n  width: 100%;\n  background-color: #0efa49 !important;\n}\n\n.precio {\n  margin: unset;\n  text-align: center;\n  color: #0efa49;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImRpYWxvZ3Jlc2VydmFjaW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksOEJBQUE7QUFBSjs7QUFHQTtFQUNJLFdBQUE7QUFBSjs7QUFHQTtFQUNJLFdBQUE7RUFDQSxvQ0FBQTtBQUFKOztBQUdBO0VBQ0ksYUFBQTtFQUNBLGtCQUFBO0VBQ0EsY0FBQTtBQUFKIiwiZmlsZSI6ImRpYWxvZ3Jlc2VydmFjaW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOjpuZy1kZWVwIC5tYXQtZGlhbG9nLWNvbnRhaW5lciB7XG5cbiAgICBiYWNrZ3JvdW5kOiAjMkU0RjlDICFpbXBvcnRhbnQ7XG59XG5cbi50b2Jvb2sge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIFxufVxuLmRlYWxzIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMGVmYTQ5ICFpbXBvcnRhbnQ7XG59XG5cbi5wcmVjaW8ge1xuICAgIG1hcmdpbjp1bnNldDtcbiAgICB0ZXh0LWFsaWduOmNlbnRlcjtcbiAgICBjb2xvcjojMGVmYTQ5XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("::ng-deep .mat-dialog-container {\n  background: #2E4F9C !important;\n}\n\n.tobook {\n  width: 100%;\n  background-color: #2dd36f;\n}\n\n.tobook1 {\n  width: 100%;\n  background-color: #2dd36f;\n  color: black;\n}\n\n.tobook2 {\n  width: 100%;\n  background-color: #ffc409;\n  color: black;\n}\n\n.deals {\n  width: 100%;\n  background-color: #0efa49 !important;\n}\n\n.precio1 {\n  margin: unset;\n  text-align: center;\n  color: #0efa49;\n}\n\n.precio2 {\n  margin: unset;\n  text-align: center;\n  color: #ffc409;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImRpYWxvZ3Jlc2VydmFjaW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksOEJBQUE7QUFBSjs7QUFLQTtFQUNJLFdBQUE7RUFDRix5QkFBQTtBQUZGOztBQUtBO0VBQ0ksV0FBQTtFQUNGLHlCQUFBO0VBQ0UsWUFBQTtBQUZKOztBQU9BO0VBQ0ksV0FBQTtFQUNELHlCQUFBO0VBQ0QsWUFBQTtBQUpGOztBQVFBO0VBQ0ksV0FBQTtFQUNBLG9DQUFBO0FBTEo7O0FBUUE7RUFDSSxhQUFBO0VBQ0Esa0JBQUE7RUFDQSxjQUFBO0FBTEo7O0FBUUE7RUFDSSxhQUFBO0VBQ0Esa0JBQUE7RUFDQSxjQUFBO0FBTEoiLCJmaWxlIjoiZGlhbG9ncmVzZXJ2YWNpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6Om5nLWRlZXAgLm1hdC1kaWFsb2ctY29udGFpbmVyIHtcblxuICAgIGJhY2tncm91bmQ6ICMyRTRGOUMgIWltcG9ydGFudDtcbn1cblxuXG5cbi50b2Jvb2sge1xuICAgIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMmRkMzZmO1xufVxuXG4udG9ib29rMSB7XG4gICAgd2lkdGg6IDEwMCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICMyZGQzNmY7XG4gICAgY29sb3I6IGJsYWNrO1xufVxuXG5cblxuLnRvYm9vazIge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmYzQwOTtcbiAgY29sb3I6IGJsYWNrOyBcbn1cblxuXG4uZGVhbHMge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMwZWZhNDkgIWltcG9ydGFudDtcbn1cblxuLnByZWNpbzEge1xuICAgIG1hcmdpbjp1bnNldDtcbiAgICB0ZXh0LWFsaWduOmNlbnRlcjtcbiAgICBjb2xvcjojMGVmYTQ5XG59XG5cbi5wcmVjaW8yIHtcbiAgICBtYXJnaW46dW5zZXQ7XG4gICAgdGV4dC1hbGlnbjpjZW50ZXI7XG4gICAgY29sb3I6I2ZmYzQwOTtcbn1cbiJdfQ== */");
 
 /***/ }),
 
@@ -44843,7 +45052,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYWxlcmlhLmNvbXBvbmVudC5zY3NzIn0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-card {\n  /*width: 100%;\n  height:160px;*/\n  box-shadow: none;\n  border-radius: 12px;\n}\n\nion-slides {\n  height: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbGVyaWEuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDQTtnQkFBQTtFQUVBLGdCQUFBO0VBQ0EsbUJBQUE7QUFDQTs7QUFJQTtFQUNFLFlBQUE7QUFERiIsImZpbGUiOiJnYWxlcmlhLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNhcmQge1xuLyp3aWR0aDogMTAwJTtcbmhlaWdodDoxNjBweDsqL1xuYm94LXNoYWRvdzogbm9uZTtcbmJvcmRlci1yYWRpdXM6MTJweDtcblxuXG59XG5cbmlvbi1zbGlkZXMge1xuICBoZWlnaHQ6IDEwMCU7XG59XG4iXX0= */");
 
 /***/ }),
 
@@ -45035,7 +45244,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ3YXNocy5jb21wb25lbnQuc2NzcyJ9 */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-card {\n  box-shadow: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndhc2hzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUEsZ0JBQUE7QUFBQSIsImZpbGUiOiJ3YXNocy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jYXJkIHtcblxuYm94LXNoYWRvdzogbm9uZTtcblxuXG5cbn1cblxuIl19 */");
 
 /***/ }),
 
@@ -45059,7 +45268,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n<mat-card class=\"mobil\">\n  <mat-card-header>\n    <mat-card-title>Appointment mobil</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n    <form  [formGroup]=\"form_tobooksite\" (ngSubmit)=\"submit()\">\n    \n     <mat-form-field>\n       <mat-select placeholder=\"Your location\" [(ngModel)]=\"selectedOption1\"  formControlName=\"location\" (selectionChange)=\"cambiar1($event.value)\" >\n        \n          <mat-option   [value]=\"0\" >\n            Select\n             </mat-option>\n            <mat-option   [value]=\"valor1\" >\n              {{etiqueta1}}\n              </mat-option>\n            <mat-option *ngFor=\"let site of sitioscliente\"  [value]=\"site.id\" >\n              {{site.address}} {{site.city}} {{site.zip}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_tobooksite.get('location').hasError('required') && form_tobooksite.get('location').touched)\">Location is required</mat-error>      \n      </mat-form-field>\n    <br>\n\n   <mat-form-field>\n    <mat-select placeholder=\"Your vehicle\" [(ngModel)]=\"selectedOption2\" formControlName=\"vehicle\" (selectionChange)=\"cambiar2($event.value)\" >\n\n        \n        <mat-option   [value]=\"0\" >\n          Select\n           </mat-option>\n           <mat-option   [value]=\"valor2\" >\n            {{etiqueta2}}\n            </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n            Unit number: {{vehiculo.unit_number}}\n          </mat-option>\n        \n        </mat-select>\n        <mat-error *ngIf=\"(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n\n<!--power begin-->\n\n<mat-form-field>\n    <mat-select placeholder=\"There is power supply in the location?\" formControlName=\"power\" > \n      <mat-option   [value]=\"\" >\n        Select\n         </mat-option>    \n        <mat-option *ngFor=\"let power of powers\"  [value]=\"power.valor\" >\n         {{power.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <mat-error *ngIf=\"(form_tobooksite.get('power').hasError('required') && form_tobooksite.get('power').touched)\">your answer is necessary </mat-error>      \n  </mat-form-field>\n  <br>\n\n\n<!--power end-->\n\n<!--water begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"There is water supply in the location?\" formControlName=\"water\" >   \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>   \n      <mat-option *ngFor=\"let water of waters\"  [value]=\"water.valor\" >\n       {{water.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('water').hasError('required') && form_tobooksite.get('water').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--water end-->\n\n<!--ensitio begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"Will you be present on the day and place of the service?\" formControlName=\"ensitio\" > \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>     \n      <mat-option *ngFor=\"let ensitio of ensitios\"  [value]=\"ensitio.valor\" >\n       {{ensitio.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('ensitio').hasError('required') && form_tobooksite.get('ensitio').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--ensitio end-->\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobooksite.get('diacita').hasError('required') && form_tobooksite.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobooksite.get('horacita').hasError('required') && form_tobooksite.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br>  \n  <button  mat-flat-button type=\"submit\" color =\"primary\" class=\"mobil-continuar\">Continue</button>\n    </form>\n    <br>\n    <button  mat-flat-button  class=\"mobil-cancel\" color= \"primary\" (click)='cancel()'>Cancel</button>\n </mat-card-content>\n\n</mat-card>\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n<mat-card class=\"mobil\">\n  <mat-card-header>\n    <mat-card-title>Mobile appointment</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n   <p><span style=\"color:#ffc409\">WARNING:</span>This request is for a type vehicle <span style=\"color:#2dd36f\">{{tipovehiculo}}</span>. Otherwise this could lead to additional costs.</p>\n  <p style=\"color:#2dd36f; font-size:small\">Select your vehicle type only {{tipovehiculo}}</p>\n  \n  \n    <form  [formGroup]=\"form_tobooksite\" (ngSubmit)=\"submit()\">\n    \n    \n    <mat-form-field>\n    <mat-select placeholder=\"Your vehicle\" [(ngModel)]=\"selectedOption2\" formControlName=\"vehicle\" (selectionChange)=\"cambiar2($event.value)\" >\n\n        \n        <mat-option   [value]=\"0\" >\n          Select\n           </mat-option>\n           <mat-option   [value]=\"valor2\" >\n            {{etiqueta2}}\n            </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n            Unit number: {{vehiculo.unit_number}} {{vehiculo.type_vehicle}}\n          </mat-option>\n        \n        </mat-select>\n        <mat-error *ngIf=\"(form_tobooksite.get('vehicle').hasError('required') && form_tobooksite.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n    <p style=\"color:#2dd36f; font-size:small\">There is a compensation fee charged in the event that the wash is not completed due to the client's absence.</p>\n     <mat-form-field>\n       <mat-select placeholder=\"Your location\" [(ngModel)]=\"selectedOption1\"  formControlName=\"location\" (selectionChange)=\"cambiar1($event.value)\" >\n        \n          <mat-option   [value]=\"0\" >\n            Select\n             </mat-option>\n            <mat-option   [value]=\"valor1\" >\n              {{etiqueta1}}\n              </mat-option>\n            <mat-option *ngFor=\"let site of sitioscliente\"  [value]=\"site.id\" >\n              {{site.address}} {{site.city}} {{site.zip}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_tobooksite.get('location').hasError('required') && form_tobooksite.get('location').touched)\">Location is required</mat-error>      \n      </mat-form-field>\n    <br>\n\n   \n\n<!--power begin-->\n\n<mat-form-field>\n    <mat-select placeholder=\"There is power supply in the location?\" formControlName=\"power\" > \n      <mat-option   [value]=\"\" >\n        Select\n         </mat-option>    \n        <mat-option *ngFor=\"let power of powers\"  [value]=\"power.valor\" >\n         {{power.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <mat-error *ngIf=\"(form_tobooksite.get('power').hasError('required') && form_tobooksite.get('power').touched)\">your answer is necessary </mat-error>      \n  </mat-form-field>\n  <br>\n\n\n<!--power end-->\n\n<!--water begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"There is water supply in the location?\" formControlName=\"water\" >   \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>   \n      <mat-option *ngFor=\"let water of waters\"  [value]=\"water.valor\" >\n       {{water.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('water').hasError('required') && form_tobooksite.get('water').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--water end-->\n\n<!--ensitio begin-->\n\n<mat-form-field>\n  <mat-select placeholder=\"Will you be present on the day and place of the service?\" formControlName=\"ensitio\" > \n    <mat-option   [value]=\"\" >\n      Select\n       </mat-option>     \n      <mat-option *ngFor=\"let ensitio of ensitios\"  [value]=\"ensitio.valor\" >\n       {{ensitio.etiqueta}}\n      </mat-option>\n    </mat-select>\n    <mat-error *ngIf=\"(form_tobooksite.get('ensitio').hasError('required') && form_tobooksite.get('ensitio').touched)\">your answer is necessary </mat-error>      \n</mat-form-field>\n<br>\n\n\n<!--ensitio end-->\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobooksite.get('diacita').hasError('required') && form_tobooksite.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobooksite.get('horacita').hasError('required') && form_tobooksite.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br>  \n  <button  mat-flat-button type=\"submit\" color =\"primary\" class=\"mobil-continuar\">Continue</button>\n    </form>\n    <br>\n    <button  mat-flat-button  class=\"mobil-cancel\" color= \"primary\" (click)='cancel()'>Cancel</button>\n </mat-card-content>\n\n</mat-card>\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -45071,7 +45280,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n<mat-card class=\"yarda\">\n  <mat-card-header>\n    <mat-card-title>Appointment in ours site</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n    <form  [formGroup]=\"form_tobookyarda\" (ngSubmit)=\"submit()\">\n\n    <mat-form-field>\n      <mat-select placeholder=\"Your vehicle\" [(ngModel)]=\"selectedOption\"  formControlName=\"vehicle\" (selectionChange)=\"cambiar($event.value)\" >\n        <mat-option   [value]=\"0\" >\n       Select\n        </mat-option>\n        <mat-option   [value]=\"valorx\" >\n         {{etiquetax}}\n         </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n          Unit number: {{vehiculo.unit_number}}\n          </mat-option>\n        </mat-select>\n        <mat-error *ngIf=\"(form_tobookyarda.get('vehicle').hasError('required') && form_tobookyarda.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <mat-select placeholder=\"Which of our yards?\" [(ngModel)]=\"selectedOption1\"  formControlName=\"yard\"  >\n       \n         <mat-option   [value]=\"0\" >\n           Select\n            </mat-option>\n  \n           <mat-option *ngFor=\"let site of sitiosyard\"  [value]=\"site.id\" >\n             {{site.nombre_yard}}\n           </mat-option>\n         </mat-select>\n         <mat-error *ngIf=\"(form_tobookyarda.get('yard').hasError('required') && form_tobookyarda.get('yard').touched)\">yard is required</mat-error>      \n     </mat-form-field><br>\n\n\n\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobookyarda.get('diacita').hasError('required') && form_tobookyarda.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobookyarda.get('horacita').hasError('required') && form_tobookyarda.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br> \n  \n\n\n\n\n\n\n  <button id=\"btnSubmit\" mat-flat-button type=\"submit\" color=\"primary\" class=\"yarda-continuar\">Continue</button>\n    </form><br>\n    <button  mat-flat-button  color=\"primary\" class=\"yarda-cancel\" (click)='cancel()'>Cancel</button>\n  </mat-card-content>\n</mat-card>\n\n</ion-content>\n\n\n\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n<mat-card class=\"yarda\">\n  <mat-card-header>\n    <mat-card-title>Appointment on our site</mat-card-title>\n  </mat-card-header>\n  <mat-card-content>\n  <p><span style=\"color:#ffc409\">WARNING:</span>This request is for a type vehicle <span style=\"color:#2dd36f\">{{tipovehiculo}}</span>. Otherwise this could lead to additional costs.</p>\n  <p style=\"color:#2dd36f; font-size:small\">Select your vehicle type only {{tipovehiculo}}</p>\n    <form  [formGroup]=\"form_tobookyarda\" (ngSubmit)=\"submit()\">\n\n    <mat-form-field>\n      <mat-select placeholder=\"Your vehicle type\" [(ngModel)]=\"selectedOption\"  formControlName=\"vehicle\" (selectionChange)=\"cambiar($event.value)\" >\n        <mat-option   [value]=\"0\" >\n       Select\n        </mat-option>\n        <mat-option   [value]=\"valorx\" >\n         {{etiquetax}}\n         </mat-option>\n          <mat-option *ngFor=\"let vehiculo of vehiculoscliente\"  [value]=\"vehiculo.id\" >\n          Unit number: {{vehiculo.unit_number}} {{vehiculo.type_vehicle}}\n          </mat-option>\n        </mat-select>\n        <mat-error *ngIf=\"(form_tobookyarda.get('vehicle').hasError('required') && form_tobookyarda.get('vehicle').touched)\">vehicle is required</mat-error>      \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <mat-select placeholder=\"Which of our yards?\" [(ngModel)]=\"selectedOption1\"  formControlName=\"yard\"  >\n       \n         <mat-option   [value]=\"0\" >\n           Select\n            </mat-option>\n  \n           <mat-option *ngFor=\"let site of sitiosyard\"  [value]=\"site.id\" >\n             {{site.nombre_yard}}\n           </mat-option>\n         </mat-select>\n         <mat-error *ngIf=\"(form_tobookyarda.get('yard').hasError('required') && form_tobookyarda.get('yard').touched)\">yard is required</mat-error>      \n     </mat-form-field><br>\n\n\n\n\n\n    <mat-form-field >\n      <mat-label>Choose a date</mat-label>\n      <input matInput [matDatepicker]=\"picker\" [min]=\"minDate\"  formControlName=\"diacita\">\n      <mat-error *ngIf=\"(form_tobookyarda.get('diacita').hasError('required') && form_tobookyarda.get('diacita').touched)\">Date is required</mat-error> \n      <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n      <mat-datepicker #picker></mat-datepicker>\n    </mat-form-field>\n\n    <br>\n    \n    <mat-form-field>\n             <mat-select placeholder=\"Hour\"  formControlName=\"horacita\"  >\n        <mat-option *ngFor=\"let hora of horario\"  [value]=\"hora.valor\" >\n          {{hora.etiqueta}}\n        </mat-option>\n      </mat-select>\n      <small>Business hours are 9:00 am to 6:00 pm</small>\n      <mat-error *ngIf=\"(form_tobookyarda.get('horacita').hasError('required') && form_tobookyarda.get('horacita').touched)\">Hour is required</mat-error>      \n  </mat-form-field>\n  <br> \n  \n\n\n\n\n\n\n  <button id=\"btnSubmit\" mat-flat-button type=\"submit\" color=\"primary\" class=\"yarda-continuar\">Continue</button>\n    </form><br>\n    <button  mat-flat-button  color=\"primary\" class=\"yarda-cancel\" (click)='cancel()'>Cancel</button>\n  </mat-card-content>\n</mat-card>\n\n</ion-content>\n\n\n\n\n\n");
 
 /***/ }),
 
@@ -45095,7 +45304,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{mensaje}}</h1>\n<mat-dialog-content [formGroup]=\"form_truck\" class=\"add-vehiculo\">    \n      <mat-form-field>\n        <mat-select placeholder=\"Vehicle type\"  formControlName=\"vehicletypes\"  >\n          <mat-option   [value]=\"\" >\n            Select\n          </mat-option>\n            <mat-option *ngFor=\"let vehicletype of vehicletypes\"  [value]=\"vehicletype.vehiculo\" >\n              {{vehicletype.vehiculo}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_truck.get('vehicletypes').hasError('required') && form_truck.get('vehicletypes').touched)\">Vehicle type is required</mat-error>      \n      </mat-form-field>\n    \n    <mat-form-field>\n      <input matInput placeholder=\"Model\" class=\"form-control\" type=\"text\"   formControlName=\"model\">\n      <mat-error *ngIf=\"(form_truck.get('model').hasError('required') && form_truck.get('model').touched)\">Model is required</mat-error>         \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <input matInput placeholder=\"Mark\" class=\"form-control\" type=\"text\"  formControlName=\"mark\">\n      <mat-error *ngIf=\"(form_truck.get('mark').hasError('required') && form_truck.get('mark').touched)\">Mark is required</mat-error> \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <input matInput placeholder=\"Color\" class=\"form-control\" type=\"text\" formControlName=\"color\">\n      <mat-error *ngIf=\"(form_truck.get('color').hasError('required') && form_truck.get('color').touched)\">Color is required</mat-error> \n    </mat-form-field>\n    <br>\n\n     <mat-form-field>\n      <input matInput placeholder=\"Vehicle license plate\" class=\"form-control\" type=\"text\" formControlName=\"licenseplate\">\n      <mat-error *ngIf=\"(form_truck.get('licenseplate').hasError('required') && form_truck.get('licenseplate').touched)\">Vehicle license plate is required</mat-error> \n    </mat-form-field>\n    <br> \n\n    <mat-form-field>\n      <input matInput placeholder=\"Unit number\" class=\"form-control\" type=\"text\" formControlName=\"unitnumber\">\n      <mat-error *ngIf=\"(form_truck.get('unitnumber').hasError('required') && form_truck.get('unitnumber').touched)\">Unit number is required</mat-error> \n    </mat-form-field>\n    \n    <mat-form-field>\n      <mat-select placeholder=\"Vehicle appearance\"  formControlName=\"detail\"  >\n        \n        <mat-option *ngFor=\"let tipodetalle of tipodetalles\"  [value]=\"tipodetalle.valor\" >\n          {{tipodetalle.etiqueta}}\n        </mat-option>\n          \n        </mat-select>\n        <mat-error *ngIf=\"(form_truck.get('detail').hasError('required') && form_truck.get('detail').touched)\">Vehicle appearance is required</mat-error> \n    </mat-form-field>   \n  \n    <div mat-dialog-actions1>\n      <button  mat-flat-button  class=\"add-continuar\" (click) = \"enviar()\">Add</button>\n    </div><br>\n    <div mat-dialog-actions2>\n      <button  mat-flat-button  class=\"add-cancel\" (click) = \"cancel()\" cdkFocusInitial>Cancel</button> \n    </div>        \n\n</mat-dialog-content>\n\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>Add a new vehicle to your fleet</h1>\n<mat-dialog-content [formGroup]=\"form_truck\" class=\"add-vehiculo\">    \n      <mat-form-field>\n        <mat-select placeholder=\"Vehicle type\"  formControlName=\"vehicletypes\"  >\n          <mat-option   [value]=\"\" >\n            Select\n          </mat-option>\n            <mat-option *ngFor=\"let vehicletype of vehicletypes\"  [value]=\"vehicletype.vehiculo\" >\n              {{vehicletype.vehiculo}}\n            </mat-option>\n          </mat-select>\n          <mat-error *ngIf=\"(form_truck.get('vehicletypes').hasError('required') && form_truck.get('vehicletypes').touched)\">Vehicle type is required</mat-error>      \n      </mat-form-field>\n    \n    <mat-form-field>\n      <input matInput placeholder=\"Model\" class=\"form-control\" type=\"text\"   formControlName=\"model\">\n      <mat-error *ngIf=\"(form_truck.get('model').hasError('required') && form_truck.get('model').touched)\">Model is required</mat-error>         \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <input matInput placeholder=\"Mark\" class=\"form-control\" type=\"text\"  formControlName=\"mark\">\n      <mat-error *ngIf=\"(form_truck.get('mark').hasError('required') && form_truck.get('mark').touched)\">Mark is required</mat-error> \n    </mat-form-field>\n    <br>\n\n    <mat-form-field>\n      <input matInput placeholder=\"Color\" class=\"form-control\" type=\"text\" formControlName=\"color\">\n      <mat-error *ngIf=\"(form_truck.get('color').hasError('required') && form_truck.get('color').touched)\">Color is required</mat-error> \n    </mat-form-field>\n    <br>\n\n     <mat-form-field>\n      <input matInput placeholder=\"Vehicle license plate\" class=\"form-control\" type=\"text\" formControlName=\"licenseplate\">\n      <mat-error *ngIf=\"(form_truck.get('licenseplate').hasError('required') && form_truck.get('licenseplate').touched)\">Vehicle license plate is required</mat-error> \n    </mat-form-field>\n    <br> \n\n    <mat-form-field>\n      <input matInput placeholder=\"Unit number\" class=\"form-control\" type=\"text\" formControlName=\"unitnumber\">\n      <mat-error *ngIf=\"(form_truck.get('unitnumber').hasError('required') && form_truck.get('unitnumber').touched)\">Unit number is required</mat-error> \n    </mat-form-field>\n    \n    <mat-form-field>\n      <mat-select placeholder=\"Vehicle appearance\"  formControlName=\"detail\"  >\n        \n        <mat-option *ngFor=\"let tipodetalle of tipodetalles\"  [value]=\"tipodetalle.valor\" >\n          {{tipodetalle.etiqueta}}\n        </mat-option>\n          \n        </mat-select>\n        <mat-error *ngIf=\"(form_truck.get('detail').hasError('required') && form_truck.get('detail').touched)\">Vehicle appearance is required</mat-error> \n    </mat-form-field>   \n  \n    <div mat-dialog-actions1>\n      <button  mat-flat-button  class=\"add-continuar\" (click) = \"enviar()\">Add</button>\n    </div><br>\n    <div mat-dialog-actions2>\n      <button  mat-flat-button  class=\"add-cancel\" (click) = \"cancel()\" cdkFocusInitial>Cancel</button> \n    </div>        \n\n</mat-dialog-content>\n\n\n\n");
 
 /***/ }),
 
@@ -45143,7 +45352,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{mensaje}}</h1>\n<!--<div mat-dialog-content>\n    <p>Do not forget to take a look at our offers of the week:</p>\n    <button mat-flat-button class= \"deals\" (click)=\"view()\" style=\"color:#000\" >Deals of de week</button>\n</div><br>-->\n<p class=\"precio\">{{precio_yarda}}</p>\n<div mat-dialog-actions1>    \n  \n<button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"yarda()\">Booking in our site</button>\n   \n</div><br>\n<p class=\"precio\">{{precio_mobil}}</p>\n<div mat-dialog-actions2>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"mobil()\" cdkFocusInitial >Mobil's bookings</button>\n</div>\n<br>\n<div mat-dialog-actions3>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"cancel()\" >Cancel</button>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{mensaje}}</h1>\n<!--<div mat-dialog-content>\n    <p>Do not forget to take a look at our offers of the week:</p>\n    <button mat-flat-button class= \"deals\" (click)=\"view()\" style=\"color:#000\" >Deals of de week</button>\n</div><br>-->\n<p class=\"precio1\"><span style=\"color:#fff;\">Price</span> {{precio_yarda}}</p>\n<div mat-dialog-actions1>    \n  \n<button mat-flat-button  class= \"tobook1\"  (click)=\"yarda()\">Booking in our site</button>\n   \n</div><br>\n<p class=\"precio2\"><span style=\"color:#fff;\">Price</span> {{precio_mobil}}</p>\n<div mat-dialog-actions2>\n \n  <button mat-flat-button class= \"tobook2\"  (click)=\"mobil()\" cdkFocusInitial >Mobil's bookings</button>\n</div>\n<br>\n<div mat-dialog-actions3>\n \n  <button mat-flat-button color=\"primary\" class= \"tobook\" (click)=\"cancel()\" >Cancel</button>\n</div>\n");
 
 /***/ }),
 
@@ -45155,7 +45364,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-title> Images of this Job</ion-title>\n    <!--<ion-buttons slot=\"end\">\n      <ion-button (click)=\"goPrev()\">\n        <ion-icon slot=\"icon-only\" name=\"arrow-back\"></ion-icon>\n      </ion-button>\n      <ion-button (click)=\"goNext()\">\n        <ion-icon slot=\"icon-only\" name=\"arrow-forward\"></ion-icon>\n      </ion-button>\n    </ion-buttons>-->\n  </ion-toolbar>\n</ion-header>\n<div style=\"background-color:#cb033c; color: #fff\">\n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>  \n  </ion-button>\n</div>\n\n\n\n\n\n<ion-content>\n\n\n<!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\" >\n  <ion-refresher-content></ion-refresher-content>\n</ion-refresher>-->\n\n\n  <!--<swiper-container\n  #swiper\n  (afterinit)=\"swiperReady()\"\n  (slidechange)=\"swiperSlideChanged($event)\"\n  [loop]=\"true\"\n  [pagination]=\"true\" [slidesPerView]=\"1\">  \n  <swiper-slide *ngFor=\"let imagen of imagenes\">\n    <div class=\"swiper-zoom-container\">\n      <img src=\"{{imagen}}\" />\n    </div>\n  </swiper-slide>    \n  </swiper-container>-->\n  \n\n\n    <ion-grid [fixed]=\"true\">\n      <ion-row *ngFor=\"let imagen of imagenes\">\n     \n        <ion-col > \n         <div><ion-icon name=\"enter\"></ion-icon>{{imagen.titulo}}</div>\n        <ion-img\n          src=\"{{imagen.url}}\"\n          \n        ></ion-img>\n        \n        </ion-col>\n        \n      </ion-row>\n    </ion-grid>\n\n\n\n\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n \n    <ion-title><ion-icon name=\"sparkles\"></ion-icon>  Images of Job</ion-title>\n   \n  </ion-toolbar>\n  <ion-toolbar  style =\"color:#f2f2f2;\" color=\"primary\"> \n \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">The images presented correspond to your vehicle after cleaning.</ion-title>\n   \n  </ion-toolbar>\n</ion-header>\n<ion-content [fullscreen]=\"true\">\n<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\" >\n  <ion-refresher-content></ion-refresher-content>\n</ion-refresher>\n <div style=\"background-color:#cb033c; color: #fff\" >\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\" >\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n\n</div>\n\n\n<ion-slides [options]=\"sliderOpt\" zoom  class=\"ion-margin-top\" >\n\n\n<ion-slide *ngFor=\"let imagen of imagenes\">\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \n<ion-card>\n<img src=\"{{imagen.url}}\" /> \n</ion-card>\n</ion-slide>\n\n</ion-slides >\n\n  \n\n\n   <!--<ion-grid [fixed]=\"true\">\n      <ion-row *ngFor=\"let imagen of imagenes\">\n     \n        <ion-col > \n         <div style=\"color: #fff;\n  font-size: 22px;\n  text-align: center;\"><ion-icon name=\"image\"></ion-icon> {{imagen.titulo}}</div>\n        <ion-img\n          src=\"{{imagen.url}}\"\n          \n        ></ion-img>\n        \n        </ion-col>\n        \n      </ion-row>\n    </ion-grid>-->\n    \n    \n    <!--<ion-slides [options]=\"sliderOpt\" zoom *ngFor=\"let imagen of imagenes\">\n  <ion-slide>\n    <div class=\"swiper-zoom-container\">\n       <img src=\"{{imagen.url}}\" /> \n    </div>\n  </ion-slide>\n</ion-slides>-->\n\n\n\n\n\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45203,7 +45412,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n    \n  </ion-toolbar>\n\n    \n\n\n\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div style=\"\n  background-color: #ca083f;\">\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n</div>\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"secondary\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">CLEANING IMAGES <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n    \n  </ion-toolbar>\n\n \n\n  <div *ngIf=\"n == 1\" style=\"font-weight: bolder;\n  padding: 3%; background-color: #ca083f; color:#fff; border-bottom: solid 1px #fff; text-align: center; border-top: solid 1px #fff;\">\n    ON WAITING\n    </div>\n     <div *ngIf=\"n == 2\" style=\"font-weight: bolder;\n  padding: 3%; background-color: #FFC409; color:#363637; border-bottom: solid 1px #fff; text-align: center; border-top: solid 1px #fff;\">\n    CONFIRMED\n    </div>\n    \n     <div *ngIf=\"n == 7\" style=\"font-weight: bolder;\n  padding: 3%; background-color: #2dd36f; color:#363637; border-bottom: solid 1px #fff; text-align: center; border-top: solid 1px #fff;\">\n    ATTENDED\n    </div>\n    \n    <div *ngIf=\"n == 9\" style=\"font-weight: bolder;\n  padding: 3%; background-color: #2e4f9c; color:#fff; border-bottom: solid 1px #fff; text-align: center; border-top: solid 1px #fff;\">\n    CANCELLED\n    </div>\n\n  <ion-toolbar *ngIf=\" 2 >= n\" style =\"color:#f2f2f2;\" color=\"primary\"> \n \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Appointments can be canceled with at least 24 hours notice</ion-title>\n   \n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n == 7\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">Payment for these successfully completed appointments must be made as soon as possible.</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"n >= 9\" style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">These appointments have no effect and can be deleted by you whenever you wish.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div style=\"background-color:#cb033c; color: #fff\" >\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\" >\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n\n</div>\n\n  <div  *ngIf = 'vermensaje' style=\"text-align: center;\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>At this time you do not have appointments awaiting confirmation</h4></div>  \n  <diV  *ngIf = 'vertabla'>\n  <!--Tabla de cart principal-->\n<table mat-table [dataSource]=\"itemOrderTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"Service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Appointment\">\n    <th mat-header-cell *matHeaderCellDef> Appointment</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Appointment}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Location\">\n    <th mat-header-cell *matHeaderCellDef> Type </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Location}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\"> Type:</p>\n      <p class=\"ticket\">{{element.Location}}</p>\n      <p class=\"tickets\"> Nº Order:</p>\n      <p class=\"ticket\">{{element.Order}}</p>\n      <p class=\"tickets\"> Hour:</p>\n      <p class=\"ticket\">{{element.citahora}}</p>       \n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n        <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>\n          <p class=\"tickets\">Total:</p>\n          <p class=\"ticket\">{{element.Total_item_string}}</p>\n\n\n        \n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <!--<div *ngIf=\"element.vercharge_item\" style=\"text-align: center; padding:5px; color: rgb(240, 69, 69)\" >Do you accept the Service charge?</div>\n\n            <ion-segment *ngIf=\"element.vercharge_item\" (ionChange)=\"segmentChanged($event)\" [(ngModel)]=\"respuesta\" value=\"NOT\" >\n              <ion-segment-button style=\"color: #142f5f \" value=\"NOT\"  >\n                <ion-label>NOT</ion-label>\n              </ion-segment-button>\n              <ion-segment-button  style=\"color: #9ad21e;\" value=\"YES\">\n                <ion-label>YES</ion-label>\n              </ion-segment-button>\n            </ion-segment>-->\n          \n\n\n\n\n         </div>\n         \n         <div *ngIf=\"n == 7\">\n          <hr>\n<div *ngIf=\"element.vercharge_item\">\n          <!--<a *ngIf=\"verenlace1\" mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\"><mat-icon>payment</mat-icon> TO PAY NOW </a> \n          <a *ngIf=\"verenlace2\" mat-button  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/0\"><mat-icon>payment</mat-icon> TO PAY NOW </a>--> \n          \n          <!--<a  mat-button  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW<mat-icon>payment</mat-icon> </a>-->\n          \n              <ion-button  expand=\"full\" color=\"warning\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\"> TO SEE PHOTOS <ion-icon name=\"sparkles\"></ion-icon>\n               </ion-button> \n          \n          \n         <ion-button  expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/squareconcargo/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/2\">TO PAY NOW  \n         <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button> \n          \n        </div>\n\n          <!--<a mat-button *ngIf=\"element.verenlace3_item\" routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW<mat-icon>payment</mat-icon></a>--> \n      \n       <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"warning\"  routerLink=\"/tabs-cliente/tobook/galeria/{{element.order_item_id}}\">TO SEE PHOTOS <ion-icon name=\"sparkles\"></ion-icon>\n        </ion-button> \n        \n      <ion-button *ngIf=\"element.verenlace3_item\" expand=\"full\" color=\"primary\"  routerLink=\"/tabs-cliente/tobook/square/{{element.Service}}/{{element.product_item_price}}/{{element.order_item_id}}/{{element.wash_id}}/{{element.discount}}/{{element.rp_monto}}/{{element.rp_concepto_item}}/1\">TO PAY NOW    <ion-icon name=\"card\"></ion-icon>\n           \n          </ion-button>   \n        \n        \n        \n        </div>\n\n\n        <div *ngIf=\" 2 >= n\" >\n          <!--<button mat-mini-fab aria-label=\"cancelar icon\" (click)=\"Cancelar(element.order_item_id)\">\n            <mat-icon>event_busy</mat-icon>\n          </button>-->\n\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Cancelar(element.order_item_id)\">Cancel\n            <ion-icon name=\"close-circle\"></ion-icon>\n          </ion-button>\n        </div>        \n        <div *ngIf=\"n >= 9\">\n          <!--<button mat-mini-fab aria-label=\"borrar icon\" (click)=\"Borrar(element.order_item_id)\">\n            <mat-icon>delete</mat-icon>\n          </button>-->\n          <ion-button expand=\"full\" color=\"primary\"  (click)=\"Borrar(element.order_item_id)\">Delete\n            <ion-icon name=\"trash\"></ion-icon>\n          </ion-button>\n        </div>\n              \n              \n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n</diV>\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45287,7 +45496,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>  \n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  \n\n  <ion-list style=\"margin-top: -8px;\">\n\n    <ion-item   color=\"primary\" routerLink=\"/tabs-cliente/tobook/mybooks/1\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n       IN HOLD              \n      </ion-label>\n      <IonBadge  >({{inhold}})</IonBadge>\n      \n    </ion-item>\n    \n    <ion-item color =\"warning\" routerLink=\"/tabs-cliente/tobook/mybooks/2\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        COMFIRMED     \n      </ion-label >\n      <IonBadge  >({{confirmed}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color =\"success\"  routerLink=\"/tabs-cliente/tobook/mybooks/7\">\n     \n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      COMPLETED     \n      </ion-label>\n      <IonBadge  >({{completed}})</IonBadge>\n    </ion-item>\n\n    <ion-item  routerLink=\"/tabs-cliente/tobook/mybooks/9\">\n   \n      <ion-label floating ion-left>\n        <ion-icon name=\"close-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      CANCELLED      \n      </ion-label>\n      <IonBadge  >({{cancelled}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Appointments</ion-title>\n  </ion-toolbar>\n   <ion-toolbar  style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">In case of changes made to the data in this table, refresh the table to view the changes.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>  \n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  \n\n  <ion-list style=\"margin-top: -8px;\">\n\n    <ion-item   color=\"primary\" routerLink=\"/tabs-cliente/tobook/mybooks/1\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n       ON WAITING              \n      </ion-label>\n      <IonBadge  >({{inhold}})</IonBadge>\n      \n    </ion-item>\n    \n    <ion-item color =\"warning\" routerLink=\"/tabs-cliente/tobook/mybooks/2\">\n\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        COMFIRMED     \n      </ion-label >\n      <IonBadge  >({{confirmed}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color =\"success\"  routerLink=\"/tabs-cliente/tobook/mybooks/7\">\n     \n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      ATTENDED     \n      </ion-label>\n      <IonBadge  >({{completed}})</IonBadge>\n    </ion-item>\n\n    <ion-item  routerLink=\"/tabs-cliente/tobook/mybooks/9\">\n   \n      <ion-label floating ion-left>\n        <ion-icon name=\"close-circle\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      CANCELLED      \n      </ion-label>\n      <IonBadge  >({{cancelled}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45299,7 +45508,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div style=\"background-color:#cb033c; color: #fff\"> \n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>  \n    Select cleaning of\n  </ion-button>\n  </div>\n\n<ion-list>\n\n  <ion-item *ngFor=\"let lavado of lavados\" routerLink=\"/tabs-cliente/tobook/tiposervicios/{{vehiculo}}/{{lavado.name}}/{{lavado.category_id}}\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"https://www.washtt.com/components/com_jshopping/files/img_categories/{{lavado.category_image}}\" />\n    </ion-thumbnail> \n    <ion-label>\n      {{lavado.name}}\n    </ion-label>\n    \n  </ion-item>\n\n</ion-list>\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div style=\"background-color:#cb033c; color: #fff\"> \n  <ion-button (click) = \"goBack()\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>  \n    Select cleaning for\n  </ion-button>\n  </div>\n\n<ion-list>\n\n  <ion-item *ngFor=\"let lavado of lavados\" routerLink=\"/tabs-cliente/tobook/tiposervicios/{{vehiculo}}/{{lavado.name}}/{{lavado.category_id}}\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"https://www.washtt.com/components/com_jshopping/files/img_categories/{{lavado.category_image}}\" />\n    </ion-thumbnail> \n    <ion-label>\n      {{lavado.name}}\n    </ion-label>\n    \n  </ion-item>\n\n</ion-list>\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -45311,7 +45520,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n \n  <ion-list style=\"margin-top: -10px;\">\n\n    <ion-item  color=\"primary\"  routerLink=\"/tabs-cliente/tobook/mypays/Verifying\">\n      <ion-label floating ion-left>\n       \n        <ion-icon name=\"checkmark\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        IN REVIEW      \n      </ion-label>\n      <IonBadge  >({{inview}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color=\"success\" routerLink=\"/tabs-cliente/tobook/mypays/Processed\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        ADMITTED\n      </ion-label>\n      <IonBadge  >({{admitted}})</IonBadge>\n  \n    </ion-item>\n    \n    <ion-item color=\"warning\" routerLink=\"/tabs-cliente/tobook/mypays/Denied\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      REJECT   \n      </ion-label>\n      <IonBadge  >({{reject}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments</ion-title>\n  </ion-toolbar>\n    <ion-toolbar  style =\"color:#f2f2f2;\" color=\"primary\"> \n    <ion-icon name=\"warning\" slot='start' style =\"color:#f2f2f2;\"></ion-icon>\n    <ion-title size=\"small\">In case of changes made to the data in this table, refresh the table to view the changes.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n \n  <ion-list style=\"margin-top: -10px;\">\n\n    <ion-item  color=\"primary\"  routerLink=\"/tabs-cliente/tobook/mypays/Verifying\">\n      <ion-label floating ion-left>\n       \n        <ion-icon name=\"checkmark\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        IN REVIEW      \n      </ion-label>\n      <IonBadge  >({{inview}})</IonBadge>\n  \n    </ion-item>\n\n    <ion-item color=\"success\" routerLink=\"/tabs-cliente/tobook/mypays/Processed\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"checkmark-done\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n        ADMITTED\n      </ion-label>\n      <IonBadge  >({{admitted}})</IonBadge>\n  \n    </ion-item>\n    \n    <ion-item color=\"warning\" routerLink=\"/tabs-cliente/tobook/mypays/Denied\">\n      <ion-label floating ion-left>\n        <ion-icon name=\"warning\" item-start class=\"text-primary\" class=\"figura\"></ion-icon> \n      REJECT   \n      </ion-label>\n      <IonBadge  >({{reject}})</IonBadge>\n    </ion-item>\n  \n   \n  \n  </ion-list> \n\n\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -45347,7 +45556,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>  \n<ion-card>\n  <ion-card-header>\n    <ion-card-subtitle>{{washlavado}}</ion-card-subtitle>\n    <ion-card-title>{{washname}}</ion-card-title>\n  </ion-card-header>\n\n  <ion-card-content >\n    <p style=\"text-align: justify; color:#f2f2f2;\">{{washdescripcion}}</p>\n  </ion-card-content>\n</ion-card>\n\n<ion-button expand=\"full\" (click) = \"reservarnow()\" color=\"primary\">Booking now</ion-button><br>\n\n<ion-button expand=\"full\" (click) = \"cancel()\" color=\"primary\">Cancel</ion-button>\n\n\n<ion-list>\n<ion-icon name=\"warning\" slot='start' color=\"danger\"></ion-icon>\n<ion-label>Waiting:</ion-label>\n<ion-item>\n  <ion-label class=\"ion-text-wrap\">\n    <p style=\"text-align: justify; color:#f2f2f2;\">The company will only place two solid waste bags and personal items for the disposal of these materials. We are NOT responsible for sorting or selecting items and we are not responsible FOR LOSS OF valuables. SO WE RECOMMEND TO REMOVE EVERYTHING BEFORE DOING THIS SERVICE.THE HANDLING OF WASTE AND ARTICLES HAS ADDITIONAL VALUE.</p>\n  </ion-label>\n</ion-item>\n</ion-list> \n\n\n  \n\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>  \n<ion-card>\n  <ion-card-header>\n    <ion-card-title color=\"success\">Service<br>{{washname}}</ion-card-title>\n    <ion-card-subtitle style=\"color:#fff\">Vehicule {{washlavado}}</ion-card-subtitle>\n  \n  </ion-card-header>\n\n  <ion-card-content >\n    <p style=\"text-align: justify; color:#f2f2f2;\">{{washdescripcion}}</p>\n  </ion-card-content>\n</ion-card>\n\n<ion-button expand=\"full\" (click) = \"reservarnow()\" color=\"primary\">Booking now</ion-button><br>\n\n<ion-button expand=\"full\" (click) = \"cancel()\" color=\"primary\">Cancel</ion-button>\n\n\n<ion-list>\n<ion-icon name=\"warning\" slot='start' color=\"danger\"></ion-icon>\n<ion-label color=\"warning\">warning:</ion-label>\n<ion-item>\n  <ion-label class=\"ion-text-wrap\">\n    <p style=\"text-align: justify; color:#f2f2f2;\">The company will only place two solid waste bags and personal items for the disposal of these materials. We are NOT responsible for sorting or selecting items and we are not responsible FOR LOSS OF valuables. <span style=\"font-weight:bolder\">SO WE RECOMMEND TO REMOVE EVERYTHING BEFORE DOING THIS SERVICE.THE HANDLING OF WASTE AND ARTICLES HAS ADDITIONAL VALUE</span>.</p>\n  </ion-label>\n</ion-item>\n</ion-list> \n\n\n  \n\n\n</ion-content>\n");
 
 /***/ })
 
