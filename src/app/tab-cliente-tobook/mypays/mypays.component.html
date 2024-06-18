@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Payments:<br>{{p}}</ion-title>
+    <ion-title>Payments:<br><span [style.color]=colorp>{{p}}</span></ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -55,30 +55,30 @@
   
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length" >
       <div class="example-element-detail"
-           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-    <div class="example-element-diagram">
-      <p class="tickets">Payment date:</p>
-      <p class="ticket">{{element.fechapago}}</p>
-      <p class="tickets">Price:</p>
-      <p class="ticket">{{element.Price_item_string}}</p>
-      <p class="tickets">Discount:</p>
-        <p class="ticket">{{element.Descuento_item_string}}</p>      
-          <p class="tickets">Tip:</p>
-            <p class="ticket">{{element.Propina_string}}</p>
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" >
+    <div class="example-element-diagram" [style.background-color]=colorp >
+      <p class="tickets" [style.color]=colorpx>Payment date:</p>
+      <p class="ticket" [style.color]=colorpx>{{element.fechapago}}</p>
+      <p class="tickets" [style.color]=colorpx>Price:</p>
+      <p class="ticket" [style.color]=colorpx>{{element.Price_item_string}}</p>
+      <p class="tickets" [style.color]=colorpx>Discount:</p>
+        <p class="ticket" [style.color]=colorpx>{{element.Descuento_item_string}}</p>      
+          <p class="tickets" [style.color]=colorpx>Tip:</p>
+            <p class="ticket" [style.color]=colorpx>{{element.Propina_string}}</p>
          
-           
-                <div style="text-align: center;" *ngIf="element.vercharge_item">Servicio charge</div>
-          <p *ngIf="element.vercharge_item" class="tickets">Monto:</p>
-          <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_monto_item_string}}</p>
-            <p *ngIf="element.vercharge_item" class="tickets">Concepto:</p>
-            <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_concepto_item}}</p>
+           <hr style="border: solid 1px #f2f2f2">
+                <div style="text-align: center;" *ngIf="element.vercharge_item" class="tickets" [style.color]=colorpx>Servicio charge</div>
+          <p *ngIf="element.vercharge_item" class="tickets" [style.color]=colorpx>Monto:</p>
+          <p *ngIf="element.vercharge_item" class="ticket" [style.color]=colorpx>{{element.rp_monto_item_string}}</p>
+            <p *ngIf="element.vercharge_item" class="tickets" [style.color]=colorpx>Concepto:</p>
+            <p *ngIf="element.vercharge_item" class="ticket" [style.color]=colorpx>{{element.rp_concepto_item}}</p>
             <!--<p *ngIf="element.vercharge_item" class="tickets">Status:</p>
             <p *ngIf="element.vercharge_item" class="ticket">{{element.rp_aprobacion_item}}</p>-->
 
-            <p class="tickets">Total:</p>
-            <p class="ticket">{{element.Amount_string}}</p>       
+            <p class="tickets" [style.color]=colorpx>Total:</p>
+            <p class="ticket" [style.color]=colorpx>{{element.Amount_string}}</p>       
             <!--<p class="tickets">Payment reference:</p>
               <p class="ticket">{{element.txn_id}}</p>-->  
 

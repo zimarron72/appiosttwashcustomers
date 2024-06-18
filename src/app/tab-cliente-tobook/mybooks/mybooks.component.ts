@@ -320,7 +320,7 @@ this.serviciotobook.getTipoAppointments(idtoken,autenticacion_tipo,user.email,th
 
       case 'TOKEN ERROR':
         this.router.navigate(['/login']);
-        this.snackBar.open("Invalid or expired token,please login again", "Close",
+        this.snackBar.open("Invalid or expired token,please login again1", "Close",
         {       
           horizontalPosition: "start",
           verticalPosition: "top",
@@ -333,7 +333,7 @@ this.serviciotobook.getTipoAppointments(idtoken,autenticacion_tipo,user.email,th
   this.localstorage.clearData()
   this.router.navigate(['/login']);
 
-  this.snackBar.open("Sorry, an error occurred,please login again6", "Close",
+  this.snackBar.open("Sorry, an error occurred,please login again2", "Close",
   {       
     horizontalPosition: "start",
     verticalPosition: "top",

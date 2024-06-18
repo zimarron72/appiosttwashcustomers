@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute,  Params } from '@angular/router';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import { LoadingService } from '../../shared/loading.services';
+import { HttpClient } from "@angular/common/http";
 
 declare var Square: any;
 @Component({
@@ -44,6 +45,7 @@ export class SquareConcargoComponent implements OnInit {
     private rutaActiva: ActivatedRoute,
     private snackBar: MatSnackBar,
     private loading : LoadingService,
+    private http: HttpClient
 
   ) { }
 
@@ -57,7 +59,9 @@ export class SquareConcargoComponent implements OnInit {
     async ionViewWillEnter() {
   
       this.loading.simpleLoader()
-      await this.dsls.loadScript('square')
+      //ojo square-sandbox or square segun las credenciales
+     await this.dsls.loadScript('square')
+     // await this.dsls.loadScript('square-sandbox')
   
     
       this.servicio = this.rutaActiva.snapshot.params.servicio;
@@ -97,106 +101,22 @@ this.total = parseFloat(this.precio) + parseFloat(this.charge) - parseFloat(this
   this.charge_string = formatter$.format(this.charge)   
      
   
-      //async function main() {
+    
   
-   //const appId = 'sandbox-sq0idb-RrvT24qkMyTSr91-Qy080w';
-   const appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
-        const locationId = 'JCQ7Q20HXQTZ8';
+//const appId = 'sandbox-sq0idb-RrvT24qkMyTSr91-Qy080w';
+const appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
+       const locationId = 'JCQ7Q20HXQTZ8';
+      
+        
+ 
   
       const payments = Square.payments(appId, locationId);    
     
-        this.card = await payments.card();     
+        this.card = await payments.card(); 
+      
   
-      //  const router = this.router.navigate(['/tipopagos']);
-  
-     await this.card.attach('#card-container')
-     this.loading.dismissLoader()
-  
-       /* async function eventHandler(event) {
-    
-          event.preventDefault();
-    
-        
-    
-          try {
-    
-            const result = await card.tokenize();
-    
-            if (result.status === 'OK') {
-    
-              console.log(`Payment token is ${result.token}`);
-  
-              var url = 'https://www.washtt.com/api_pago_square.php';
-            var data = {
-              uid : ((document.getElementById("uid") as HTMLInputElement).value),
-              uemail : ((document.getElementById("uemail") as HTMLInputElement).value),
-              concept: ((document.getElementById("concept") as HTMLInputElement).value), 
-              subtotal : ((document.getElementById("sub-total") as HTMLInputElement).value) , 
-              descuento : ((document.getElementById("descuento") as HTMLInputElement).value), 
-              total : ((document.getElementById("total") as HTMLInputElement).value) , 
-              tip : ((document.getElementById("tip") as HTMLInputElement).value) ,
-              nonce : result.token
-            };
-  
-              fetch(url, {
-                method: 'POST', // or 'PUT'
-                body: JSON.stringify(data), // data can be `string` or {object}!
-                headers:{
-                  'Content-Type': 'application/json'
-                }
-              }).then(res => res.json())
-              .catch(error => { 
-                
-  (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
-               
-                console.error('Error:', error); 
-                
-              
-           
-              } )
-              .then(async response => { 
-                const destroyed = await card.destroy();
-  
-               
-  
-  (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
-  
-                alert(destroyed);
-                
-                
-                console.log('Success:', response); 
-             
-                return router;
-              
-              });
-  
-  
-  
-    
-            }
-    
-          } catch (e) {
-    
-            console.error(e);
-    
-          }
-    
-        };*/
-    
-    
-    
-       /* const cardButton = document.getElementById('card-button');
-    
-        cardButton.addEventListener('click', eventHandler);*/
-  
-   
-    
-     // }
-    
-    
-     // main() 
-  
-  
+     await this.card.attach('#card-container')     
+     this.loading.dismissLoader()     
   
     }
    
@@ -223,6 +143,7 @@ this.total = parseFloat(this.precio) + parseFloat(this.charge) - parseFloat(this
           console.log(`Payment token is ${result.token}`);
   
           var url = 'https://www.washtt.com/v1_api_clientes_pagosquareconcargo.php';
+        //var url = 'https://www.washtt.com/v1_prueba.php';
         var data = {
           idtoken : idtoken,
           autenticacion_tipo : autenticacion_tipo,
@@ -240,8 +161,99 @@ this.total = parseFloat(this.precio) + parseFloat(this.charge) - parseFloat(this
           washid : this.wash_id,
           
         };
+        
+        
+      await this.http.post<any>(url, data).subscribe({
+      next: async data => {
+      console.log(data)          
+      const destroyed = await this.card.destroy()
+       this.loading.dismissLoader()
+      
+        switch(data.respuesta) {
+              case 'ERROR1':
+               /* this.snackBar.open(data.mensaje, "Close",
+                    {       
+                      horizontalPosition: "start",
+                      verticalPosition: "top",
+                    }
+                    );*/
+                    console.log(data.mensaje);
+              break;
+              case 'TOKEN ERROR':
+                this.localstorage.clearData()
+                this.router.navigate(['/login'])   
+              this.snackBar.open("Invalid or expired token,please login again", "Close",
+              {       
+                horizontalPosition: "start",
+                verticalPosition: "top",
+              }
+              );          
+            break; 
+            case 'ERROR2':
+              this.localstorage.clearData()
+              this.router.navigate(['/login'])        
+              this.snackBar.open("Sorry, an error occurred,please login again", "Close",
+              {       
+                horizontalPosition: "start",
+                verticalPosition: "top",
+              }
+              );   
+            break;
+            case 'YA PAGADO':
+                this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close",
+                    {       
+                      horizontalPosition: "start",
+                      verticalPosition: "top",
+                    }
+                    );
+                    this.router.navigate(['/tabs-cliente/tobook/tipopagos']);     
+              break;
+             
+              case 'TODO_OK':
+              // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
+            this.router.navigate(['/tabs-cliente/tobook/successpay']);
+          // console.log(data.mensaje);
+              
+              break;
+              
+              case 'PAGO CONDICIONADO':
+               
+               this.router.navigate(['/tabs-cliente/tobook/successpay']);
+               this.snackBar.open("A difficulty occurred with this transaction: Please give us some time to verify the same", "Close",
+               {       
+                 horizontalPosition: "start",
+                 verticalPosition: "top",
+               }
+               );
   
-          fetch(url, {
+              break;  
+              
+              case 'ok':
+              alert("OK");
+              break;
+              case 'error':
+              alert("error");
+              break;
+  
+            }     
+      
+      
+      },
+      error: async data => {
+      
+     (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
+           
+           
+            
+            this.loading.dismissLoader()  
+      
+      
+      }
+      })  
+        
+        
+  
+      /*    fetch(url, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
             headers:{
@@ -329,7 +341,7 @@ this.total = parseFloat(this.precio) + parseFloat(this.charge) - parseFloat(this
          
            
           
-          });
+          });*/
   
   
   

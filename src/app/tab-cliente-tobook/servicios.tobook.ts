@@ -180,7 +180,7 @@ export class ServiciosTobook {
   checkout(idtoken : string, autenticacion_tipo : string, x: [] , y: [] , subtotal : number, email: string) {
   
 
-return this.http.post<any>('https://washtt.com/v1_api_clientes_checkout.php',
+return this.http.post<any>('https://washtt.com/v2_api_clientes_checkout.php',
 
 { idtoken : idtoken, autenticacion_tipo : autenticacion_tipo , itemsOrder : x , descuentoOrder : y , subtotal: subtotal , email: email })
 

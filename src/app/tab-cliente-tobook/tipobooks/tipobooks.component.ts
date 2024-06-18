@@ -60,7 +60,7 @@ export class TipobooksComponent implements OnInit {
     
           case 'TOKEN ERROR':
             this.router.navigate(['/login']);
-            this.snackBar.open("Invalid or expired token,please login again", "Close",
+            this.snackBar.open("Invalid or expired token,please login again1", "Close",
             {       
               horizontalPosition: "start",
               verticalPosition: "top",
@@ -73,7 +73,7 @@ export class TipobooksComponent implements OnInit {
       this.localstorage.clearData()
       this.router.navigate(['/login']);
   
-      this.snackBar.open("Sorry, an error occurred,please login again6" + datos.mensaje, "Close",
+      this.snackBar.open("Sorry, an error occurred,please login again2" + datos.mensaje, "Close",
       {       
         horizontalPosition: "start",
         verticalPosition: "top",

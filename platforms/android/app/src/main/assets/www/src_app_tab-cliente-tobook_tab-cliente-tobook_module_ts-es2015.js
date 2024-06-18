@@ -42118,7 +42118,7 @@ let MybooksComponent = class MybooksComponent {
                 switch (datos.respuesta) {
                     case 'TOKEN ERROR':
                         this.router.navigate(['/login']);
-                        this.snackBar.open("Invalid or expired token,please login again", "Close", {
+                        this.snackBar.open("Invalid or expired token,please login again1", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top",
                         });
@@ -42127,7 +42127,7 @@ let MybooksComponent = class MybooksComponent {
                         // borramos la informacion local
                         this.localstorage.clearData();
                         this.router.navigate(['/login']);
-                        this.snackBar.open("Sorry, an error occurred,please login again6", "Close", {
+                        this.snackBar.open("Sorry, an error occurred,please login again2", "Close", {
                             horizontalPosition: "start",
                             verticalPosition: "top",
                         });
@@ -42331,6 +42331,20 @@ let MypaysComponent = class MypaysComponent {
             this.rutaActiva.params.subscribe((params) => {
                 this.p = params.p;
             });
+            switch (this.p) {
+                case 'Denied':
+                    this.colorp = "#ffc409";
+                    this.colorpx = "rgb(36, 42, 49)";
+                    break;
+                case 'Processed':
+                    this.colorp = "#42d77d";
+                    this.colorpx = "rgb(36, 42, 49)";
+                    break;
+                default:
+                    this.colorp = "";
+                    this.colorpx = "";
+                    break;
+            }
             var user = JSON.parse(yield this.localstorage.getData('usuario'));
             var idtoken = yield this.localstorage.getData('idtoken');
             var autenticacion_tipo = yield this.localstorage.getData('autenticacion_tipo');
@@ -42519,7 +42533,7 @@ let ServiciosTobook = class ServiciosTobook {
         return this.http.post('https://washtt.com/v1_api_clientes_aplicarcupon.php', { idtoken: idtoken, autenticacion_tipo: autenticacion_tipo, email: email, codigocupon: codigocupon });
     }
     checkout(idtoken, autenticacion_tipo, x, y, subtotal, email) {
-        return this.http.post('https://washtt.com/v1_api_clientes_checkout.php', { idtoken: idtoken, autenticacion_tipo: autenticacion_tipo, itemsOrder: x, descuentoOrder: y, subtotal: subtotal, email: email });
+        return this.http.post('https://washtt.com/v2_api_clientes_checkout.php', { idtoken: idtoken, autenticacion_tipo: autenticacion_tipo, itemsOrder: x, descuentoOrder: y, subtotal: subtotal, email: email });
     }
     getAppointments(idtoken, autenticacion_tipo, email) {
         return this.http.post('https://washtt.com/v2_api_clientes_getappointment.php', { idtoken: idtoken, autenticacion_tipo: autenticacion_tipo, email: email });
@@ -42583,12 +42597,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_square_concargo_component_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./square-concargo.component.html */ 99560);
 /* harmony import */ var _square_concargo_component_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./square-concargo.component.scss */ 18578);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _shared_square_servicio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/square.servicio */ 73258);
 /* harmony import */ var _shared_storage_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/storage.service */ 86945);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/snack-bar */ 77001);
 /* harmony import */ var _shared_loading_services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/loading.services */ 68369);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ 91841);
+
 
 
 
@@ -42600,13 +42616,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SquareConcargoComponent = class SquareConcargoComponent {
-    constructor(dsls, localstorage, router, rutaActiva, snackBar, loading) {
+    constructor(dsls, localstorage, router, rutaActiva, snackBar, loading, http) {
         this.dsls = dsls;
         this.localstorage = localstorage;
         this.router = router;
         this.rutaActiva = rutaActiva;
         this.snackBar = snackBar;
         this.loading = loading;
+        this.http = http;
     }
     ngOnInit() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
@@ -42615,7 +42632,9 @@ let SquareConcargoComponent = class SquareConcargoComponent {
     ionViewWillEnter() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             this.loading.simpleLoader();
+            //ojo square-sandbox or square segun las credenciales
             yield this.dsls.loadScript('square');
+            // await this.dsls.loadScript('square-sandbox')
             this.servicio = this.rutaActiva.snapshot.params.servicio;
             this.precio = this.rutaActiva.snapshot.params.precio;
             this.descuento = this.rutaActiva.snapshot.params.descuento;
@@ -42644,90 +42663,13 @@ let SquareConcargoComponent = class SquareConcargoComponent {
             this.descuento_string = formatter$.format(this.descuento);
             this.total_string = formatter$.format(this.total);
             this.charge_string = formatter$.format(this.charge);
-            //async function main() {
             //const appId = 'sandbox-sq0idb-RrvT24qkMyTSr91-Qy080w';
             const appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
             const locationId = 'JCQ7Q20HXQTZ8';
             const payments = Square.payments(appId, locationId);
             this.card = yield payments.card();
-            //  const router = this.router.navigate(['/tipopagos']);
             yield this.card.attach('#card-container');
             this.loading.dismissLoader();
-            /* async function eventHandler(event) {
-         
-               event.preventDefault();
-         
-             
-         
-               try {
-         
-                 const result = await card.tokenize();
-         
-                 if (result.status === 'OK') {
-         
-                   console.log(`Payment token is ${result.token}`);
-       
-                   var url = 'https://www.washtt.com/api_pago_square.php';
-                 var data = {
-                   uid : ((document.getElementById("uid") as HTMLInputElement).value),
-                   uemail : ((document.getElementById("uemail") as HTMLInputElement).value),
-                   concept: ((document.getElementById("concept") as HTMLInputElement).value),
-                   subtotal : ((document.getElementById("sub-total") as HTMLInputElement).value) ,
-                   descuento : ((document.getElementById("descuento") as HTMLInputElement).value),
-                   total : ((document.getElementById("total") as HTMLInputElement).value) ,
-                   tip : ((document.getElementById("tip") as HTMLInputElement).value) ,
-                   nonce : result.token
-                 };
-       
-                   fetch(url, {
-                     method: 'POST', // or 'PUT'
-                     body: JSON.stringify(data), // data can be `string` or {object}!
-                     headers:{
-                       'Content-Type': 'application/json'
-                     }
-                   }).then(res => res.json())
-                   .catch(error => {
-                     
-       (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
-                    
-                     console.error('Error:', error);
-                     
-                   
-                
-                   } )
-                   .then(async response => {
-                     const destroyed = await card.destroy();
-       
-                    
-       
-       (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
-       
-                     alert(destroyed);
-                     
-                     
-                     console.log('Success:', response);
-                  
-                     return router;
-                   
-                   });
-       
-       
-       
-         
-                 }
-         
-               } catch (e) {
-         
-                 console.error(e);
-         
-               }
-         
-             };*/
-            /* const cardButton = document.getElementById('card-button');
-         
-             cardButton.addEventListener('click', eventHandler);*/
-            // }
-            // main() 
         });
     }
     ionViewDidLeave() {
@@ -42749,6 +42691,7 @@ let SquareConcargoComponent = class SquareConcargoComponent {
             if (result.status === 'OK') {
                 console.log(`Payment token is ${result.token}`);
                 var url = 'https://www.washtt.com/v1_api_clientes_pagosquareconcargo.php';
+                //var url = 'https://www.washtt.com/v1_prueba.php';
                 var data = {
                     idtoken: idtoken,
                     autenticacion_tipo: autenticacion_tipo,
@@ -42765,64 +42708,158 @@ let SquareConcargoComponent = class SquareConcargoComponent {
                     itemid: this.itemid,
                     washid: this.wash_id,
                 };
-                fetch(url, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
+                yield this.http.post(url, data).subscribe({
+                    next: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                        console.log(data);
+                        const destroyed = yield this.card.destroy();
+                        this.loading.dismissLoader();
+                        switch (data.respuesta) {
+                            case 'ERROR1':
+                                /* this.snackBar.open(data.mensaje, "Close",
+                                     {
+                                       horizontalPosition: "start",
+                                       verticalPosition: "top",
+                                     }
+                                     );*/
+                                console.log(data.mensaje);
+                                break;
+                            case 'TOKEN ERROR':
+                                this.localstorage.clearData();
+                                this.router.navigate(['/login']);
+                                this.snackBar.open("Invalid or expired token,please login again", "Close", {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                });
+                                break;
+                            case 'ERROR2':
+                                this.localstorage.clearData();
+                                this.router.navigate(['/login']);
+                                this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                });
+                                break;
+                            case 'YA PAGADO':
+                                this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close", {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                });
+                                this.router.navigate(['/tabs-cliente/tobook/tipopagos']);
+                                break;
+                            case 'TODO_OK':
+                                // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
+                                this.router.navigate(['/tabs-cliente/tobook/successpay']);
+                                // console.log(data.mensaje);
+                                break;
+                            case 'PAGO CONDICIONADO':
+                                this.router.navigate(['/tabs-cliente/tobook/successpay']);
+                                this.snackBar.open("A difficulty occurred with this transaction: Please give us some time to verify the same", "Close", {
+                                    horizontalPosition: "start",
+                                    verticalPosition: "top",
+                                });
+                                break;
+                            case 'ok':
+                                alert("OK");
+                                break;
+                            case 'error':
+                                alert("error");
+                                break;
+                        }
+                    }),
+                    error: (data) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+                        document.getElementById('payment-status-container').innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
+                        this.loading.dismissLoader();
+                    })
+                });
+                /*    fetch(url, {
+                      method: 'POST', // or 'PUT'
+                      body: JSON.stringify(data), // data can be `string` or {object}!
+                      headers:{
                         'Content-Type': 'application/json'
-                    }
-                }).then(res => res.json())
+                      }
+                    }).then(res => res.json())
                     .catch(error => {
-                    document.getElementById('payment-status-container').innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
-                    console.error('Error:', error);
-                    this.loading.dismissLoader();
-                })
-                    .then((response) => (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
-                    console.log(response);
-                    const destroyed = yield this.card.destroy();
-                    this.loading.dismissLoader();
-                    switch (response.respuesta) {
+                  
+            (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'SORRY BUT THERE ARE TROUBLE PROCESSING PAYMENT';
+                     
+                      console.error('Error:', error);
+                      
+                      this.loading.dismissLoader()
+                 
+                    } )
+                    .then(async response => {
+            
+                      console.log(response)
+                      const destroyed = await this.card.destroy();
+            
+                      this.loading.dismissLoader()
+            
+                      switch(response.respuesta) {
                         case 'ERROR1':
-                            this.snackBar.open(response.mensaje, "Close", {
+                          this.snackBar.open(response.mensaje, "Close",
+                              {
                                 horizontalPosition: "start",
                                 verticalPosition: "top",
-                            });
-                            break;
+                              }
+                              );
+                        break;
                         case 'TOKEN ERROR':
-                            this.localstorage.clearData();
-                            this.router.navigate(['/login']);
-                            this.snackBar.open("Invalid or expired token,please login again", "Close", {
+                          this.localstorage.clearData()
+                          this.router.navigate(['/login'])
+                        this.snackBar.open("Invalid or expired token,please login again", "Close",
+                        {
+                          horizontalPosition: "start",
+                          verticalPosition: "top",
+                        }
+                        );
+                      break;
+                      case 'ERROR2':
+                        this.localstorage.clearData()
+                        this.router.navigate(['/login'])
+                        this.snackBar.open("Sorry, an error occurred,please login again", "Close",
+                        {
+                          horizontalPosition: "start",
+                          verticalPosition: "top",
+                        }
+                        );
+                      break;
+                      case 'YA PAGADO':
+                          this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close",
+                              {
                                 horizontalPosition: "start",
                                 verticalPosition: "top",
-                            });
-                            break;
-                        case 'ERROR2':
-                            this.localstorage.clearData();
-                            this.router.navigate(['/login']);
-                            this.snackBar.open("Sorry, an error occurred,please login again", "Close", {
-                                horizontalPosition: "start",
-                                verticalPosition: "top",
-                            });
-                            break;
-                        case 'YA PAGADO':
-                            this.snackBar.open("There is already a payment registered for this service. Still in verification", "Close", {
-                                horizontalPosition: "start",
-                                verticalPosition: "top",
-                            });
-                            break;
+                              }
+                              );
+                        break;
+                       
                         case 'TODO_OK':
-                            // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
-                            this.router.navigate(['/tabs-cliente/tobook/successpay']);
-                            break;
+                         // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
+                         this.router.navigate(['/tabs-cliente/tobook/successpay']);
+                        
+                        break;
+                        
                         case 'PAGO CONDICIONADO':
-                            this.router.navigate(['/tabs-cliente/tobook/successpay']);
-                            this.snackBar.open("A difficulty occurred with this transaction: Please give us some time to verify the same", "Close", {
-                                horizontalPosition: "start",
-                                verticalPosition: "top",
-                            });
-                            break;
-                    }
-                }));
+                         
+                         this.router.navigate(['/tabs-cliente/tobook/successpay']);
+                         this.snackBar.open("A difficulty occurred with this transaction: Please give us some time to verify the same", "Close",
+                         {
+                           horizontalPosition: "start",
+                           verticalPosition: "top",
+                         }
+                         );
+            
+                        break;
+            
+                      }
+            
+            
+               
+            
+                 
+                   
+                     
+                    
+                    });*/
             }
         });
     }
@@ -42836,10 +42873,11 @@ SquareConcargoComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.ActivatedRoute },
     { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_7__.MatSnackBar },
-    { type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_4__.LoadingService }
+    { type: _shared_loading_services__WEBPACK_IMPORTED_MODULE_4__.LoadingService },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__.HttpClient }
 ];
 SquareConcargoComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-square-concargo',
         template: _raw_loader_square_concargo_component_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_square_concargo_component_scss__WEBPACK_IMPORTED_MODULE_1__.default]
@@ -42896,6 +42934,8 @@ let SquareComponent = class SquareComponent {
     ionViewWillEnter() {
         return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
             this.loading.simpleLoader();
+            //ojo square-sandbox or square segun las credenciales
+            //  await this.dsls.loadScript('square-sandbox')
             yield this.dsls.loadScript('square');
             this.servicio = this.rutaActiva.snapshot.params.servicio;
             this.precio = this.rutaActiva.snapshot.params.precio;
@@ -43014,6 +43054,7 @@ let SquareComponent = class SquareComponent {
                                 horizontalPosition: "start",
                                 verticalPosition: "top",
                             });
+                            this.router.navigate(['/tabs-cliente/tobook/tipopagos']);
                             break;
                         case 'TODO_OK':
                             // (<HTMLInputElement>document.getElementById('payment-status-container')).innerText = 'COMPLETED PAYMENT';
@@ -43609,7 +43650,7 @@ let TipobooksComponent = class TipobooksComponent {
                     switch (datos.respuesta) {
                         case 'TOKEN ERROR':
                             this.router.navigate(['/login']);
-                            this.snackBar.open("Invalid or expired token,please login again", "Close", {
+                            this.snackBar.open("Invalid or expired token,please login again1", "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top",
                             });
@@ -43618,7 +43659,7 @@ let TipobooksComponent = class TipobooksComponent {
                             // borramos la informacion local
                             this.localstorage.clearData();
                             this.router.navigate(['/login']);
-                            this.snackBar.open("Sorry, an error occurred,please login again6" + datos.mensaje, "Close", {
+                            this.snackBar.open("Sorry, an error occurred,please login again2" + datos.mensaje, "Close", {
                                 horizontalPosition: "start",
                                 verticalPosition: "top",
                             });
@@ -45256,7 +45297,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <div *ngIf ='vermensaje' style=\"text-align: center; color:#f2f2f2\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>There are no bookings in your shopping cart</h4></div>\n <diV *ngIf ='vercart' > <!--Tabla de cart principal-->\n\n<table mat-table [dataSource]=\"itemOrderCart\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n\n\n  <ng-container matColumnDef=\"Unit\">\n    <th mat-header-cell *matHeaderCellDef>Vehicle number</th>\n    <td mat-cell *matCellDef=\"let element\">{{element.Unit}}</td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Date\">\n    <th mat-header-cell *matHeaderCellDef>Appointment</th>\n    <td mat-cell *matCellDef=\"let element\">{{element.Date}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Price\">\n    <th mat-header-cell *matHeaderCellDef>Price</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Cost}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef>Expand</th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n          <p class=\"tickets\">Vehicle:</p>\n          <p class=\"ticket\">{{element.Vehicle}}</p>\n          <p class=\"tickets\">Service:</p>\n          <p class=\"ticket\">{{element.Service}}</p>\n          <p class=\"tickets\">Type:</p>\n          <p class=\"ticket\">{{element.type}}</p>\n          <p class=\"tickets\">Hour's Appointment:</p>\n          <p class=\"ticket\">{{element.Hour}}</p>\n         \n        </div>\n\n        <button mat-flat-button class=\"delete\" (click) = \"add()\">Add new booking</button>\n        <button mat-flat-button class=\"delete\" (click) = \"delete(element.index)\">Delete booking</button>\n        \n    \n              \n      </div>\n      \n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\" >\n\n</tr>\n\n\n<tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n<!--Tabla de totales-->\n<div class=\"barra\"></div>\n<table mat-table [dataSource]=\"transactions\" class=\"mat-elevation-z9\">\n    <!-- Vacio Column -->\n    <ng-container matColumnDef=\"vacio\">\n     <th mat-header-cell *matHeaderCellDef> Vacio </th>\n      <td mat-cell *matCellDef=\"let transaction\"> {{transaction.vacio}} </td>\n      <td mat-footer-cell id=\"totalvacio\" *matFooterCellDef>xxxx</td>\n    </ng-container>\n  <!-- Concepto Column -->\n  <ng-container matColumnDef=\"concepto\">\n    <th mat-header-cell *matHeaderCellDef> Concepto </th>\n    <td mat-cell *matCellDef=\"let transaction\"> {{transaction.concepto}} </td>\n    <td mat-footer-cell *matFooterCellDef> Total </td>\n  </ng-container>\n\n  <!-- Cost Column -->\n  <ng-container matColumnDef=\"cost\">\n    <th mat-header-cell *matHeaderCellDef> Cost </th>\n    <td mat-cell *matCellDef=\"let transaction\"> {{transaction.cost | currency}} </td>\n    <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>\n  </ng-container>\n\n  <!--<tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>-->\n  <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  <tr mat-footer-row *matFooterRowDef=\"displayedColumns\"></tr>\n</table>\n<ion-grid>\n  <ion-row>\n    <ion-col>\n\n     \n      <ion-button expand=\"full\" color=\"primary\"  (click) = \"add()\">Add new booking\n        <ion-icon name=\"add-circle\" slot=\"end\"></ion-icon>\n      </ion-button>\n\n    </ion-col>\n  </ion-row> \n  <ion-row>\n    <ion-col>\n    \n      <ion-button expand=\"full\" color=\"primary\"  (click) = \"checkout()\">Ready\n        <ion-icon name=\"checkbox\" slot=\"end\"></ion-icon>\n      </ion-button>\n\n    </ion-col>\n  </ion-row>  \n  <ion-row>\n    <ion-col>\n     \n      <ion-button expand=\"full\" color=\"primary\"  (click) = \"cancelar()\">Cancel\n        <ion-icon name=\"close-circle\" slot=\"end\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>  \n  <ion-row>\n    <ion-col>\n     \n      <ion-button expand=\"full\" color=\"primary\" *ngIf = \"ocultarcupon\" (click) = \"Cupon()\">      \n        Cupon\n        <ion-icon name=\"gift\" slot=\"end\"></ion-icon>\n      </ion-button>\n\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n </diV>\n \n \n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>To Book</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <div *ngIf ='vermensaje' style=\"text-align: center; color:#f2f2f2\"> <img src=\"./assets/imgs/icono_exclamacion.png\" /><h4>There are no bookings in your shopping cart</h4></div>\n <diV *ngIf ='vercart' > <!--Tabla de cart principal-->\n\n<table mat-table [dataSource]=\"itemOrderCart\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n\n\n  <ng-container matColumnDef=\"Unit\">\n    <th mat-header-cell *matHeaderCellDef>Vehicle number</th>\n    <td mat-cell *matCellDef=\"let element\">{{element.Unit}}</td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"Date\">\n    <th mat-header-cell *matHeaderCellDef>Appointment</th>\n    <td mat-cell *matCellDef=\"let element\">{{element.Date}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Price\">\n    <th mat-header-cell *matHeaderCellDef>Price</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.Cost}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef>Expand</th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n          <p class=\"tickets\">Vehicle:</p>\n          <p class=\"ticket\">{{element.Vehicle}}</p>\n          <p class=\"tickets\">Service:</p>\n          <p class=\"ticket\">{{element.Service}}</p>\n          <p class=\"tickets\">Type:</p>\n          <p class=\"ticket\">{{element.type}}</p>\n          <p class=\"tickets\">Hour's Appointment:</p>\n          <p class=\"ticket\">{{element.Hour}}</p>\n         \n        </div>\n\n        <button mat-flat-button class=\"delete\" (click) = \"add()\">Add new booking</button>\n        <button mat-flat-button class=\"delete\" (click) = \"delete(element.index)\">Delete booking</button>\n        \n    \n              \n      </div>\n      \n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\" >\n\n</tr>\n\n\n<tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n<!--Tabla de totales-->\n<div class=\"barra\"></div>\n<table mat-table [dataSource]=\"transactions\" class=\"mat-elevation-z9\">\n    <!-- Vacio Column -->\n    <ng-container matColumnDef=\"vacio\">\n     <th mat-header-cell *matHeaderCellDef> Vacio </th>\n      <td mat-cell *matCellDef=\"let transaction\"> {{transaction.vacio}} </td>\n      <td mat-footer-cell id=\"totalvacio\" *matFooterCellDef>xxxx</td>\n    </ng-container>\n  <!-- Concepto Column -->\n  <ng-container matColumnDef=\"concepto\">\n    <th mat-header-cell *matHeaderCellDef> Concepto </th>\n    <td mat-cell *matCellDef=\"let transaction\"> {{transaction.concepto}} </td>\n    <td mat-footer-cell *matFooterCellDef> Total </td>\n  </ng-container>\n\n  <!-- Cost Column -->\n  <ng-container matColumnDef=\"cost\">\n    <th mat-header-cell *matHeaderCellDef> Cost </th>\n    <td mat-cell *matCellDef=\"let transaction\"> {{transaction.cost | currency}} </td>\n    <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>\n  </ng-container>\n\n  <!--<tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>-->\n  <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  <tr mat-footer-row *matFooterRowDef=\"displayedColumns\"></tr>\n</table>\n<ion-grid>\n  <ion-row>\n    <ion-col>\n\n     \n      <ion-button expand=\"full\" color=\"primary\"  (click) = \"add()\">Add new booking\n        <ion-icon name=\"add-circle\" slot=\"end\"></ion-icon>\n      </ion-button>\n\n    </ion-col>\n  </ion-row> \n  <ion-row>\n    <ion-col>\n    \n      <ion-button expand=\"full\" color=\"primary\"  (click) = \"checkout()\">Ready\n        <ion-icon name=\"checkbox\" slot=\"end\"></ion-icon>\n      </ion-button>\n\n    </ion-col>\n  </ion-row>  \n  <ion-row>\n    <ion-col>\n     \n      <ion-button expand=\"full\" color=\"primary\"  (click) = \"cancelar()\">Cancel\n        <ion-icon name=\"close-circle\" slot=\"end\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>  \n<ion-row>\n    <ion-col>\n     \n      <ion-button expand=\"full\" color=\"primary\" *ngIf = \"ocultarcupon\" (click) = \"Cupon()\">      \n        Cupon\n        <ion-icon name=\"gift\" slot=\"end\"></ion-icon>\n      </ion-button>\n\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n </diV>\n \n \n</ion-content>\n");
 
 /***/ }),
 
@@ -45424,7 +45465,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments:<br>{{p}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  <div style=\"\n  background-color: #ca083f;\">\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n</div>\n\n  <!--Tabla  principal-->\n<table mat-table [dataSource]=\"itemPagosTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\" style=\"font-size: 14px;\"> {{element.service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"order_number\">\n    <th mat-header-cell *matHeaderCellDef> Order</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.order_number}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n <!--<ng-container matColumnDef=\"status\">\n    <th mat-header-cell *matHeaderCellDef> Status </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.status}} </td>\n  </ng-container>-->\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\">\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\">\n    <div class=\"example-element-diagram\">\n      <p class=\"tickets\">Payment date:</p>\n      <p class=\"ticket\">{{element.fechapago}}</p>\n      <p class=\"tickets\">Price:</p>\n      <p class=\"ticket\">{{element.Price_item_string}}</p>\n      <p class=\"tickets\">Discount:</p>\n        <p class=\"ticket\">{{element.Descuento_item_string}}</p>      \n          <p class=\"tickets\">Tip:</p>\n            <p class=\"ticket\">{{element.Propina_string}}</p>\n         \n           \n                <div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\">Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_monto_item_string}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\">Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <p class=\"tickets\">Total:</p>\n            <p class=\"ticket\">{{element.Amount_string}}</p>       \n            <!--<p class=\"tickets\">Payment reference:</p>\n              <p class=\"ticket\">{{element.txn_id}}</p>-->  \n\n\n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payments:<br><span [style.color]=colorp>{{p}}</span></ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n  <div style=\"\n  background-color: #ca083f;\">\n  <ion-button (click) = \"goBack()\" fill=\"clear\" style=\"color: #fff;\">\n    <ion-icon slot=\"start\" name=\"chevron-back-outline\"></ion-icon>\n    back    \n  </ion-button> \n</div>\n\n  <!--Tabla  principal-->\n<table mat-table [dataSource]=\"itemPagosTabla\" multiTemplateDataRows\n       class=\"mat-elevation-z8\">\n         \n <!--<ng-container matColumnDef=\"{{column}}\" *ngFor=\"let column of columnsToDisplay\">\n    <th mat-header-cell *matHeaderCellDef> {{column}} </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element[column]}}  </td>\n\n  </ng-container>-->\n\n  <!-- Position Column -->\n  <ng-container matColumnDef=\"service\">\n    <th mat-header-cell *matHeaderCellDef> Service </th>\n    <td mat-cell *matCellDef=\"let element\" style=\"font-size: 14px;\"> {{element.service}} </td>\n  </ng-container>\n\n  <!-- Name Column -->\n  <ng-container matColumnDef=\"order_number\">\n    <th mat-header-cell *matHeaderCellDef> Order</th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.order_number}} </td>\n  </ng-container>\n\n  <!-- Weight Column -->\n <!--<ng-container matColumnDef=\"status\">\n    <th mat-header-cell *matHeaderCellDef> Status </th>\n    <td mat-cell *matCellDef=\"let element\"> {{element.status}} </td>\n  </ng-container>-->\n\n  <!-- Weight Column -->\n  <ng-container matColumnDef=\"Expand\">\n    <th mat-header-cell *matHeaderCellDef> Expand </th>\n    <td mat-cell *matCellDef=\"let element\"><mat-icon>unfold_more</mat-icon></td>\n  </ng-container>\n\n  \n  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->\n  <ng-container matColumnDef=\"expandedDetail\">\n    <td mat-cell *matCellDef=\"let element\" [attr.colspan]=\"columnsToDisplay.length\" >\n      <div class=\"example-element-detail\"\n           [@detailExpand]=\"element == expandedElement ? 'expanded' : 'collapsed'\" >\n    <div class=\"example-element-diagram\" [style.background-color]=colorp >\n      <p class=\"tickets\" [style.color]=colorpx>Payment date:</p>\n      <p class=\"ticket\" [style.color]=colorpx>{{element.fechapago}}</p>\n      <p class=\"tickets\" [style.color]=colorpx>Price:</p>\n      <p class=\"ticket\" [style.color]=colorpx>{{element.Price_item_string}}</p>\n      <p class=\"tickets\" [style.color]=colorpx>Discount:</p>\n        <p class=\"ticket\" [style.color]=colorpx>{{element.Descuento_item_string}}</p>      \n          <p class=\"tickets\" [style.color]=colorpx>Tip:</p>\n            <p class=\"ticket\" [style.color]=colorpx>{{element.Propina_string}}</p>\n         \n           <hr style=\"border: solid 1px #f2f2f2\">\n                <div style=\"text-align: center;\" *ngIf=\"element.vercharge_item\" class=\"tickets\" [style.color]=colorpx>Servicio charge</div>\n          <p *ngIf=\"element.vercharge_item\" class=\"tickets\" [style.color]=colorpx>Monto:</p>\n          <p *ngIf=\"element.vercharge_item\" class=\"ticket\" [style.color]=colorpx>{{element.rp_monto_item_string}}</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"tickets\" [style.color]=colorpx>Concepto:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\" [style.color]=colorpx>{{element.rp_concepto_item}}</p>\n            <!--<p *ngIf=\"element.vercharge_item\" class=\"tickets\">Status:</p>\n            <p *ngIf=\"element.vercharge_item\" class=\"ticket\">{{element.rp_aprobacion_item}}</p>-->\n\n            <p class=\"tickets\" [style.color]=colorpx>Total:</p>\n            <p class=\"ticket\" [style.color]=colorpx>{{element.Amount_string}}</p>       \n            <!--<p class=\"tickets\">Payment reference:</p>\n              <p class=\"ticket\">{{element.txn_id}}</p>-->  \n\n\n      </div>\n      </div>\n    </td>\n    \n  </ng-container>\n\n  <tr mat-header-row *matHeaderRowDef=\"columnsToDisplay\"></tr>\n  <tr mat-row *matRowDef=\"let element; columns: columnsToDisplay;\"\n      class=\"example-element-row\"\n      [class.example-expanded-row]=\"expandedElement === element\"\n      (click)=\"expandedElement = expandedElement === element ? null : element\">\n  </tr>\n  <tr mat-row *matRowDef=\"let row; columns: ['expandedDetail']\" class=\"example-detail-row\"></tr>\n  \n\n</table>\n\n\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45436,7 +45477,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content style=\"background-color: #f2f2f2;\">\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n   <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" >\n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n<div style=\"text-align: center; color:#f2f2f2\">Service charge</div>\n\n    <div class=\"label\">Monto</div> \n    <input type=\"text\" id=\"charge\" name=\"charge\" class=\"form-control\" value ='{{charge_string}}' readonly=\"\"> \n\n    <div class=\"label\">Concepto</div> \n    <input type=\"text\" id=\"concepto\" name=\"concepto\" class=\"form-control\" value ='{{concepto}}' readonly=\"\"> \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"Tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n   \n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content style=\"background-color: #f2f2f2;\">\n\n\n  \n\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n   <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" >\n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n<div style=\"text-align: center; color:#f2f2f2\">Service charge</div>\n\n    <div class=\"label\">Monto</div> \n    <input type=\"text\" id=\"charge\" name=\"charge\" class=\"form-control\" value ='{{charge_string}}' readonly=\"\"> \n\n    <div class=\"label\">Concepto</div> \n    <input type=\"text\" id=\"concepto\" name=\"concepto\" class=\"form-control\" value ='{{concepto}}' readonly=\"\"> \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"Tip?\"><br> \n    <!--<div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>-->\n   \n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div><br>\n\n <div style=\"text-align:center\">\n    <img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n    <div style=\"color:#f2f2f2\"> <small>Supported by Square</small> </div> \n   </div> \n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -45448,7 +45489,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content >\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n    <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n    \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"tip?\"><br> \n    <div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>\n\n\n\n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div>\n\n\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n\n\n\n<!--<form id=\"payment-form\">\n    \n    \n          \n  <div class=\"campo\"> \n<label for=\"concept\">Service</label> \n<input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n</div>\n\n<div class=\"campo\"> \n<label for=\"sub-total\">Price</label> \n<input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{subtotal}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"descuento\">Discount</label> \n<input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"total\">Total</label> \n<input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total}}' readonly=\"\"> \n</div>\n\n\n<div class=\"campo\"> \n<label for=\"tip\">Tip</label> \n<input type=\"text\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\"> \n</div>\n\n\n</div>\n<div class=\"campo\"> \n<img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n </div>     \n\n\n<div id=\"card-container\"></div>\n<button id=\"card-button\" type=\"button\">Pay</button>\n</form>-->\n\n\n\n\n\n   \n\n   <!--<form id=\"nonce-form\" novalidate action=\"\" method=\"post\">\n <div class=\"\" id=\"billing\">\n        <label for=\"concept\">Service</label>\n        <input type=\"text\" name=\"concept\" id=\"concept\" size=\"35\" value ='{{servicio}}' readonly=\"\" ><br>\n        <label for=\"sub-total\">Subtotal</label>\n        <input type=\"text\" name=\"sub-total\" id=\"sub-total\"  size=\"35\" value ='{{subtotal}}' readonly=\"\"><br>\n        <label for=\"descuento\">Discount</label>\n        <input type=\"text\" name=\"descuento\" id=\"descuento\"  size=\"35\" value ='{{descuento}}' readonly=\"\"><br>\n        <label for=\"total\">Total</label>\n        <input type=\"text\" name=\"total\" id=\"total\"  size=\"35\" value ='{{total}}' readonly=\"\"><br>\n        <label for=\"tip\">Tip</label>\n        <input type=\"text\" name=\"tip\" id=\"tip\"  size=\"35\" value ='{{tip}}' readonly=\"\" ><br>\n </div>\n\n\n      <label for=\"sq-card-number\">Card Number:</label>\n      <div id=\"sq-card-number\"></div>\n      <div id=\"error-card-number\"></div>\n      <label for=\"sq-cvv\">CVV:</label>\n      <div id=\"sq-cvv\"></div>\n      <div id=\"error-sq-cvv\"></div>\n      <label for=\"sq-expiration-date\">Expiration Date:</label>     \n      <div id=\"sq-expiration-date\"></div>\n      <div id=\"error-expiration-date\"></div>\n     <label for=\"sq-postal-code\">Postal Code:</label>\n      <div id=\"sq-postal-code\"></div>\n      <div id=\"error-postal-code\"></div>\n\n     \n\n      <button id=\"sq-creditcard\" class=\"btn-main button-credit-card\" (click)=\"this.requestCardNonce($event)\">To pay</button>\n    \n      <input type=\"hidden\" id=\"sq-id\" name=\"sq-id\">\n      <input type=\"hidden\" id=\"card-nonce\" name=\"nonce\">\n\n      <ion-button (click)=\"this.requestCardNonce($event)\">\n        <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n       To pay\n      </ion-button>\n\n\n    </form>-->\n \n\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button autoHide=\"false\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Payout</ion-title>\n  </ion-toolbar>\n  <ion-toolbar color=\"primary\"> \n    <ion-icon name=\"information-circle\" slot='start' style=\"color:#f2f2f2\"></ion-icon>\n    <ion-title size=\"small\" style=\"color:#f2f2f2\">All payments are subject to a review stage before their appropriate approval.</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content >\n<form id=\"payment-form\">\n  <div id=\"billing\">\n\n    <div class=\"label\">Service</div> \n    <input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n\n    \n\n    <div class=\"label\" >Price</div> \n    <input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{precio_string}}' readonly=\"\"> \n \n    \n\n    <div class=\"label\">Discount</div> \n    <input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento_string}}' readonly=\"\"> \n\n    \n\n    <div class=\"label\">Total</div> \n    <input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total_string}}' readonly=\"\"><br> \n\n    \n    \n    <div style=\"text-align: center; color:#f2f2f2\"> Would you like to add a tip?</div>\n    <div class=\"tip\">Tip</div> \n    <input type=\"tel\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\" placeholder=\"tip?\"><br> \n    <!--<div style=\"text-align: center; color:#f2f2f2\">Please fill in the payment information</div>-->\n \n\n\n\n   \n      <!--<input type=\"hidden\" id=\"uid\" name=\"uid\"  value='{{uid}}'> \n      <input type=\"hidden\" id=\"uemail\" name=\"uemail\"  value='{{uemail}}'> \n      <input type=\"hidden\" id=\"n\" name=\"n\" value=\"0\">-->\n  </div><br>\n\n <div style=\"text-align:center\">\n    <img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n    <div style=\"color:#f2f2f2\"> <small>Supported by Square</small> </div> \n   </div>\n\n  <div id=\"card-container\">\n  \n  </div>\n  \n<!--<ion-button id=\"card-button\" (click) = \"eventHandler()\">\n    <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n   To pay\n  </ion-button>-->\n  \n  \n \n  \n  \n  <ion-row>\n    <ion-col>\n      <ion-button   color=\"primary\" expand=\"block\" (click) = \"eventHandler()\" >To pay</ion-button>\n    </ion-col>\n  </ion-row>\n</form>\n<div id=\"payment-status-container\"></div>\n<ion-row>\n  <ion-col>\n    <ion-button   color=\"primary\" expand=\"block\" (click) = \"cancelar()\" >Cancel</ion-button>\n  </ion-col>\n</ion-row>\n\n</ion-content>\n\n\n\n<!--<form id=\"payment-form\">\n    \n    \n          \n  <div class=\"campo\"> \n<label for=\"concept\">Service</label> \n<input type=\"text\" id=\"concept\" name=\"concept\" class=\"form-control\" value ='{{servicio}}' readonly=\"\" > \n</div>\n\n<div class=\"campo\"> \n<label for=\"sub-total\">Price</label> \n<input type=\"text\" id=\"sub-total\" name=\"sub-total\" class=\"form-control\" value ='{{subtotal}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"descuento\">Discount</label> \n<input type=\"text\" id=\"descuento\" name=\"descuento\" class=\"form-control\" value ='{{descuento}}' readonly=\"\"> \n</div>\n\n<div class=\"campo\"> \n<label for=\"total\">Total</label> \n<input type=\"text\" id=\"total\" name=\"total\" class=\"form-control\" value ='{{total}}' readonly=\"\"> \n</div>\n\n\n<div class=\"campo\"> \n<label for=\"tip\">Tip</label> \n<input type=\"text\" id=\"tip\" name=\"tip\" class=\"form-control\" value=\"\"> \n</div>\n\n\n</div>\n<div class=\"campo\"> \n<img src=\"https://www.washtt.com/images/square-logo.png\" alt=\"logo square\">\n </div>     \n\n\n<div id=\"card-container\"></div>\n<button id=\"card-button\" type=\"button\">Pay</button>\n</form>-->\n\n\n\n\n\n   \n\n   <!--<form id=\"nonce-form\" novalidate action=\"\" method=\"post\">\n <div class=\"\" id=\"billing\">\n        <label for=\"concept\">Service</label>\n        <input type=\"text\" name=\"concept\" id=\"concept\" size=\"35\" value ='{{servicio}}' readonly=\"\" ><br>\n        <label for=\"sub-total\">Subtotal</label>\n        <input type=\"text\" name=\"sub-total\" id=\"sub-total\"  size=\"35\" value ='{{subtotal}}' readonly=\"\"><br>\n        <label for=\"descuento\">Discount</label>\n        <input type=\"text\" name=\"descuento\" id=\"descuento\"  size=\"35\" value ='{{descuento}}' readonly=\"\"><br>\n        <label for=\"total\">Total</label>\n        <input type=\"text\" name=\"total\" id=\"total\"  size=\"35\" value ='{{total}}' readonly=\"\"><br>\n        <label for=\"tip\">Tip</label>\n        <input type=\"text\" name=\"tip\" id=\"tip\"  size=\"35\" value ='{{tip}}' readonly=\"\" ><br>\n </div>\n\n\n      <label for=\"sq-card-number\">Card Number:</label>\n      <div id=\"sq-card-number\"></div>\n      <div id=\"error-card-number\"></div>\n      <label for=\"sq-cvv\">CVV:</label>\n      <div id=\"sq-cvv\"></div>\n      <div id=\"error-sq-cvv\"></div>\n      <label for=\"sq-expiration-date\">Expiration Date:</label>     \n      <div id=\"sq-expiration-date\"></div>\n      <div id=\"error-expiration-date\"></div>\n     <label for=\"sq-postal-code\">Postal Code:</label>\n      <div id=\"sq-postal-code\"></div>\n      <div id=\"error-postal-code\"></div>\n\n     \n\n      <button id=\"sq-creditcard\" class=\"btn-main button-credit-card\" (click)=\"this.requestCardNonce($event)\">To pay</button>\n    \n      <input type=\"hidden\" id=\"sq-id\" name=\"sq-id\">\n      <input type=\"hidden\" id=\"card-nonce\" name=\"nonce\">\n\n      <ion-button (click)=\"this.requestCardNonce($event)\">\n        <ion-icon slot=\"start\" name=\"star\"></ion-icon>\n       To pay\n      </ion-button>\n\n\n    </form>-->\n \n\n\n\n");
 
 /***/ }),
 

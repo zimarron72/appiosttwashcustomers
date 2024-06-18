@@ -29,6 +29,8 @@ export class MypaysComponent implements OnInit {
   
   p: string
 
+colorp: string
+colorpx: string
 
   constructor(
  
@@ -64,6 +66,24 @@ export class MypaysComponent implements OnInit {
         this.p = params.p;    
       }
     );
+  
+  switch(this.p) {  
+  case 'Denied':
+  this.colorp = "#ffc409"
+  this.colorpx = "rgb(36, 42, 49)"
+  break
+  case 'Processed':
+  this.colorp = "#42d77d"
+  this.colorpx = "rgb(36, 42, 49)"
+  break  
+  default:
+   this.colorp = ""
+   this.colorpx = ""
+  break
+  
+  }
+    
+    
 
     var user = JSON.parse(await this.localstorage.getData('usuario'))
 var idtoken = await this.localstorage.getData('idtoken')
@@ -182,9 +202,10 @@ var idtoken = await this.localstorage.getData('idtoken')
     )
 
 
-
-
-   }
+ } 
+ 
+ 
+  
 
 
 }

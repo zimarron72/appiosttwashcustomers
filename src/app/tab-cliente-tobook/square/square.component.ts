@@ -62,7 +62,10 @@ charge_status : number
   async ionViewWillEnter() {
 
     this.loading.simpleLoader()
-    await this.dsls.loadScript('square')
+     //ojo square-sandbox or square segun las credenciales
+     
+    //  await this.dsls.loadScript('square-sandbox')
+  await this.dsls.loadScript('square')
 
   
     this.servicio = this.rutaActiva.snapshot.params.servicio;
@@ -104,7 +107,7 @@ charge_status : number
 
     //async function main() {
 
- //const appId = 'sandbox-sq0idb-RrvT24qkMyTSr91-Qy080w';
+//const appId = 'sandbox-sq0idb-RrvT24qkMyTSr91-Qy080w';
  const appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
       const locationId = 'JCQ7Q20HXQTZ8';
 
@@ -222,6 +225,7 @@ charge_status : number
                     verticalPosition: "top",
                   }
                   );
+             this.router.navigate(['/tabs-cliente/tobook/tipopagos']);     
             break;
            
             case 'TODO_OK':
