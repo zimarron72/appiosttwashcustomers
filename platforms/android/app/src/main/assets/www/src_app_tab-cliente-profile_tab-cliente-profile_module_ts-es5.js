@@ -19,7 +19,7 @@
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  (self["webpackChunkttwashexpress"] = self["webpackChunkttwashexpress"] || []).push([["src_app_tab-cliente-profile_tab-cliente-profile_module_ts"], {
+  (self["webpackChunkttwashcustomers"] = self["webpackChunkttwashcustomers"] || []).push([["src_app_tab-cliente-profile_tab-cliente-profile_module_ts"], {
     /***/
     45396:
     /*!******************************************************************************!*\

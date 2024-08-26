@@ -104,14 +104,13 @@ this.total = parseFloat(this.precio) + parseFloat(this.charge) - parseFloat(this
     
   
 //const appId = 'sandbox-sq0idb-RrvT24qkMyTSr91-Qy080w';
-const appId = 'sq0idp-iQSk1vijOR8IOdPAZ1Ig8w';
-       const locationId = 'JCQ7Q20HXQTZ8';
+const appId = 'sq0idp-vuSagOWbgJlfqKv2PoID5A';
+      // const locationId = 'JCQ7Q20HXQTZ8';
+      const locationId = 'JCQ7Q20HXQTZ8';
       
-        
- 
-  
-      const payments = Square.payments(appId, locationId);    
-    
+      // const payments = Square.payments(appId, locationId).setLocale('en-US');
+    const payments = Square.payments(appId, locationId);
+     const paymentsx = payments.setLocale('en-US');
         this.card = await payments.card(); 
       
   
