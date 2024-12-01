@@ -26,7 +26,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     },
     {
       "id": "cordova-plugin-camera.CameraPopoverHandle",
-      "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
+      "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
       "pluginId": "cordova-plugin-camera",
       "clobbers": [
         "CameraPopoverHandle"
@@ -199,16 +199,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "runs": true
     },
     {
-      "id": "cordova-plugin-file.androidEntry",
-      "file": "plugins/cordova-plugin-file/www/android/Entry.js",
-      "pluginId": "cordova-plugin-file",
-      "merges": [
-        "Entry"
-      ]
-    },
-    {
-      "id": "cordova-plugin-file.androidFileSystem",
-      "file": "plugins/cordova-plugin-file/www/android/FileSystem.js",
+      "id": "cordova-plugin-file.iosFileSystem",
+      "file": "plugins/cordova-plugin-file/www/ios/FileSystem.js",
       "pluginId": "cordova-plugin-file",
       "merges": [
         "FileSystem"
@@ -230,18 +222,36 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "runs": true
     },
     {
-      "id": "cordova-plugin-geolocation.geolocation",
-      "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+      "id": "cordova-plugin-geolocation.Coordinates",
+      "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
       "pluginId": "cordova-plugin-geolocation",
       "clobbers": [
-        "navigator.geolocation"
+        "Coordinates"
       ]
     },
     {
       "id": "cordova-plugin-geolocation.PositionError",
       "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
       "pluginId": "cordova-plugin-geolocation",
-      "runs": true
+      "clobbers": [
+        "PositionError"
+      ]
+    },
+    {
+      "id": "cordova-plugin-geolocation.Position",
+      "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+      "pluginId": "cordova-plugin-geolocation",
+      "clobbers": [
+        "Position"
+      ]
+    },
+    {
+      "id": "cordova-plugin-geolocation.geolocation",
+      "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+      "pluginId": "cordova-plugin-geolocation",
+      "clobbers": [
+        "navigator.geolocation"
+      ]
     },
     {
       "id": "cordova-plugin-googleplus.GooglePlus",
@@ -260,6 +270,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-ionic-webview.ios-wkwebview-exec",
+      "file": "plugins/cordova-plugin-ionic-webview/src/www/ios/ios-wkwebview-exec.js",
+      "pluginId": "cordova-plugin-ionic-webview",
+      "clobbers": [
+        "cordova.exec"
+      ]
+    },
+    {
       "id": "cordova-plugin-ionic.common",
       "file": "plugins/cordova-plugin-ionic/dist/common.js",
       "pluginId": "cordova-plugin-ionic",
@@ -275,7 +293,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     },
     {
       "id": "cordova-plugin-ionic-keyboard.keyboard",
-      "file": "plugins/cordova-plugin-ionic-keyboard/www/android/keyboard.js",
+      "file": "plugins/cordova-plugin-ionic-keyboard/www/ios/keyboard.js",
       "pluginId": "cordova-plugin-ionic-keyboard",
       "clobbers": [
         "window.Keyboard"
@@ -318,6 +336,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
   ];
   module.exports.metadata = {
     "cordova-androidx-build": "1.0.4",
+    "cordova-plugin-add-swift-support": "2.0.2",
     "cordova-plugin-camera": "7.0.0",
     "cordova-plugin-chooser": "1.3.1",
     "cordova-plugin-device": "2.0.2",

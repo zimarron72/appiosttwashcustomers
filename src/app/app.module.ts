@@ -41,7 +41,7 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
 import { RouterModule} from '@angular/router';
 
 //import { UniqueDeviceID } from '@ionic-native/unique-device-id/ngx';
-import { GooglePlus } from '@awesome-cordova-plugins/google-plus/ngx';
+//import { GooglePlus } from '@awesome-cordova-plugins/google-plus/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
 
@@ -81,7 +81,7 @@ import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
       useClass: IonicRouteStrategy 
     },
     WonderPush,    
-       GooglePlus, 
+      // GooglePlus, 
        ServicioAutenticacion, 
        ServicioApi, 
        //DatabaseService,

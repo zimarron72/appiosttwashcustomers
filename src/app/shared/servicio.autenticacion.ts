@@ -4,7 +4,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import { HttpClient } from "@angular/common/http";
 import { AngularFireAuth } from  "@angular/fire/auth";
 import { Platform } from '@ionic/angular';
-import { GooglePlus } from '@awesome-cordova-plugins/google-plus/ngx';
+//import { GooglePlus } from '@awesome-cordova-plugins/google-plus/ngx';
 import { StorageService } from './storage.service';
 import { LoadingService } from '../shared/loading.services';
 import firebase from 'firebase/app';
@@ -29,7 +29,7 @@ import { WonderPush } from '@awesome-cordova-plugins/wonderpush/ngx';
       private snackBar : MatSnackBar, 
       private http : HttpClient, 
       private platform: Platform, 
-      private googlePlus: GooglePlus,
+      //private googlePlus: GooglePlus,
       private wonderPush: WonderPush,
       private localstorage: StorageService,
       private loading : LoadingService,
@@ -153,7 +153,7 @@ break;
   
   }
 
-  loginWithGoogle(){
+ /* loginWithGoogle(){
 
     if (this.platform.is('android')) {
       this.loginGoogleAndroid();
@@ -162,9 +162,9 @@ break;
     }
   
        
-   }
+   }*/
 
-  async loginGoogleAndroid() {
+ /* async loginGoogleAndroid() {
 
     this.platform.ready().then(async (readySource) => {
       console.log('Platform ready from', readySource);
@@ -259,7 +259,7 @@ break;
 
       });   
   
-}
+}*/
 
   async loginGoogleWeb() {
   
@@ -288,7 +288,7 @@ break;
     });
   }
 
-  logout_google() {
+  /*logout_google() {
     this.platform.ready().then(async (readySource) => {
       console.log('Platform ready from', readySource);
       // Platform now ready, execute any required native code
@@ -311,7 +311,7 @@ break;
 
     })
 
-  }
+  }*/
 
 
 

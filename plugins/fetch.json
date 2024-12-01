@@ -125,14 +125,12 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-googleplus": {
+  "cordova-plugin-add-swift-support": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-googleplus"
+      "id": "cordova-plugin-add-swift-support@*"
     },
-    "is_top_level": true,
-    "variables": {
-      "REVERSED_CLIENT_ID": "com.googleusercontent.apps.658811684880-1ifeco7pafvknenrf0kq6bimcae2na37"
-    }
+    "is_top_level": false,
+    "variables": {}
   }
 }

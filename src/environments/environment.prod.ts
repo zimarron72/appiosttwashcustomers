@@ -7,7 +7,8 @@ export const environment = {
     projectId: "ttwash-customers",  
     storageBucket: "ttwash-customers.appspot.com",  
     messagingSenderId: "658811684880",  
-    appId: "1:658811684880:web:0df6c7ed9f268f91882295"
+    appId: "1:658811684880:ios:aa8294aca55fafc9882295"
+  
   
   }
 };

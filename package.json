@@ -1,6 +1,6 @@
 {
   "name": "ttwashcustomers",
-  "version": "2.1.3",
+  "version": "1.0.0",
   "author": "TTwash Team",
   "homepage": "https://washtt.com/",
   "scripts": {
@@ -62,15 +62,15 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
-    "cordova-android": "^13.0.0",
     "cordova-androidx-build": "^1.0.4",
     "cordova-browser": "^6.0.0",
+    "cordova-ios": "^7.1.1",
+    "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-camera": "^7.0.0",
     "cordova-plugin-chooser": "^1.3.2",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-file": "^8.0.1",
     "cordova-plugin-geolocation": "^4.1.0",
-    "cordova-plugin-googleplus": "^8.5.2",
     "cordova-plugin-ionic": "^5.5.3",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
@@ -119,8 +119,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-androidx-build": {},
       "wonderpush-cordova-sdk": {
-        "CLIENT_ID": "213c8ea4ecb545a6aa4238c09a3289b760f47d69",
-        "CLIENT_SECRET": "324db2b9b38519ba4431324b78768785df86b74edd2750dc693346acfb0596bf",
+        "CLIENT_ID": "ad121054f6811d90793779669fb27016a5c7d0fe",
+        "CLIENT_SECRET": "4a697870751900421fb12276de18dcbe5387732deea6cb5a3912da7156c44ba4",
         "LOGGING": "false",
         "AUTO_INIT": "true",
         "REQUIRES_USER_CONSENT": "false"
@@ -134,14 +134,10 @@
       "cordova-plugin-file": {
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
       },
-      "cordova-plugin-chooser": {},
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.658811684880-1ifeco7pafvknenrf0kq6bimcae2na37",
-        "PLAY_SERVICES_VERSION": "15.0.1"
-      }
+      "cordova-plugin-chooser": {}
     },
     "platforms": [
-      "android"
+      "ios"
     ]
   }
 }

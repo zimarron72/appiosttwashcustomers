@@ -1,0 +1,24 @@
+PODS:
+  - WonderPush (4.1.6):
+    - WonderPush/Core (= 4.1.6)
+  - WonderPush/Core (4.1.6)
+  - WonderPushExtension (4.1.6):
+    - WonderPushExtension/Extension (= 4.1.6)
+  - WonderPushExtension/Extension (4.1.6)
+
+DEPENDENCIES:
+  - WonderPush (= 4.1.6)
+  - WonderPushExtension (= 4.1.6)
+
+SPEC REPOS:
+  trunk:
+    - WonderPush
+    - WonderPushExtension
+
+SPEC CHECKSUMS:
+  WonderPush: b2c44238c8ed34495a6e9e65afa48f1e595198ce
+  WonderPushExtension: 76704d7e0ea5b5b806e39a558e23471634ce74cd
+
+PODFILE CHECKSUM: 6862ab6b4dad8ffac207178d5e4b34fad6755fac
+
+COCOAPODS: 1.15.2
